@@ -1,0 +1,147 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Multi-Domain Landingpage 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-multi-domain\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-09T20:05:33+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-multi-domain\n"
+
+#. Plugin Name of the plugin
+#: baukasten-multi-domain.php
+msgid "Baukasten Addon: Multi-Domain Landingpage"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-multi-domain.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-multi-domain.php
+msgid "Assigns domains to pages, so one WordPress install serves a different front page under each domain."
+msgstr ""
+
+#. Author of the plugin
+#: baukasten-multi-domain.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-multi-domain.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/settings-tab.php:17
+msgid "A page can be the front page of a domain of its own. Assign the domain in the page list — as a column, in the quick edit, or in the page editor — and every visitor arriving on that domain sees that page instead of the usual front page."
+msgstr ""
+
+#: admin/views/settings-tab.php:24
+msgid "Domains in use"
+msgstr ""
+
+#: admin/views/settings-tab.php:29
+msgid "No domain is assigned yet."
+msgstr ""
+
+#: admin/views/settings-tab.php:31
+msgid "Open the page list"
+msgstr ""
+
+#: admin/views/settings-tab.php:37
+msgid "Domains and the pages they serve"
+msgstr ""
+
+#: admin/views/settings-tab.php:40
+#: includes/class-meta-box.php:101
+#: includes/class-page-list.php:140
+msgid "Domain"
+msgstr ""
+
+#: admin/views/settings-tab.php:41
+msgid "Front page"
+msgstr ""
+
+#: admin/views/settings-tab.php:42
+msgid "Status"
+msgstr ""
+
+#: admin/views/settings-tab.php:57
+msgid "This page no longer exists."
+msgstr ""
+
+#: admin/views/settings-tab.php:68
+msgid "Published"
+msgstr ""
+
+#: admin/views/settings-tab.php:69
+msgid "Not published — visitors will not see it"
+msgstr ""
+
+#: admin/views/settings-tab.php:79
+msgid "Maintenance"
+msgstr ""
+
+#: admin/views/settings-tab.php:83
+msgid "This table is a copy of what the pages say, kept as a single option so the front end can route without a database query. A database import or a plugin writing meta directly can put the two out of step; rebuilding reads every page again and starts over."
+msgstr ""
+
+#: admin/views/settings-tab.php:93
+msgid "Rebuild the map from the pages"
+msgstr ""
+
+#: includes/class-meta-box.php:79
+#: includes/class-page-list.php:51
+#: includes/class-page-list.php:58
+msgid "Front page for domain"
+msgstr ""
+
+#: includes/class-meta-box.php:110
+#: includes/class-page-list.php:147
+msgid "kunde.example"
+msgstr ""
+
+#: includes/class-meta-box.php:115
+msgid "Visitors arriving on this domain see this page as the front page. The scheme, a port and any path are stripped; www is covered automatically."
+msgstr ""
+
+#: includes/class-page-list.php:82
+msgid "No domain assigned"
+msgstr ""
+
+#. translators: %s: domain name.
+#: includes/class-page-list.php:117
+#, php-format
+msgid "Front page (%s)"
+msgstr ""
+
+#: includes/class-settings-tab.php:73
+msgid "Multi-Domain"
+msgstr ""
+
+#: includes/class-settings-tab.php:98
+msgid "Settings"
+msgstr ""
+
+#: includes/class-settings-tab.php:117
+msgid "Multi-Domain is routing, but its overview needs the Baukasten - Privacy Toolkit plugin. Domains can still be assigned in the page list."
+msgstr ""
+
+#: includes/class-settings-tab.php:142
+msgid "You are not allowed to change these settings."
+msgstr ""
+
+#. translators: %s: number of pages.
+#: includes/class-settings-tab.php:151
+#, php-format
+msgid "The map was rebuilt from %s page."
+msgid_plural "The map was rebuilt from %s pages."
+msgstr[0] ""
+msgstr[1] ""

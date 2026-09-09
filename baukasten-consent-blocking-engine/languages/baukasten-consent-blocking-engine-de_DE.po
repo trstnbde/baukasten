@@ -1,0 +1,467 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Consent Blocking Engine 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-consent-blocking-engine\n"
+"Last-Translator: Torsten B.\n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-09T19:51:23+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-consent-blocking-engine\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: baukasten-consent-blocking-engine.php
+msgid "Baukasten Addon: Consent Blocking Engine"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-consent-blocking-engine.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-consent-blocking-engine.php
+msgid "Blocks non-essential scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor has consented, and keeps an auditable consent log."
+msgstr "Blockiert nicht notwendige Skripte, Styles, Embeds, Resource Hints, Gravatar und Emoji, bis der Besucher zugestimmt hat, und führt ein nachweisbares Consent-Protokoll."
+
+#. Author of the plugin
+#: baukasten-consent-blocking-engine.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-consent-blocking-engine.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/settings-tab.php:44
+msgid "Everything below is blocked for every visitor, in every response, whether the page came from a cache or not. A small script in the browser reads the consent cookie afterwards and puts back what that visitor allowed."
+msgstr "Alles Folgende wird für jeden Besucher in jeder Antwort blockiert – egal, ob die Seite aus einem Cache kam oder nicht. Ein kleines Skript im Browser liest danach das Consent-Cookie und gibt frei, was dieser Besucher erlaubt hat."
+
+#: admin/views/settings-tab.php:54
+msgid "This plugin blocks and records. It does not display a consent banner — that is the job of a theme or a separate addon, which writes the visitor's decision through the REST endpoint below."
+msgstr "Dieses Plugin blockiert und protokolliert. Es zeigt kein Consent-Banner – das ist Aufgabe eines Themes oder eines weiteren Addons, das die Entscheidung über den REST-Endpunkt unten schreibt."
+
+#: admin/views/settings-tab.php:67
+msgid "What is blocked"
+msgstr "Was blockiert wird"
+
+#: admin/views/settings-tab.php:72
+msgid "Measures"
+msgstr "Maßnahmen"
+
+#: admin/views/settings-tab.php:75
+#: includes/class-hardening.php:250
+msgid "Blocking measures"
+msgstr "Blocking-Maßnahmen"
+
+#: admin/views/settings-tab.php:79
+msgid "Scripts that need consent"
+msgstr "Skripte, die eine Zustimmung brauchen"
+
+#: admin/views/settings-tab.php:80
+msgid "Stylesheets that need consent"
+msgstr "Stylesheets, die eine Zustimmung brauchen"
+
+#: admin/views/settings-tab.php:81
+msgid "ES modules, including Interactivity API blocks"
+msgstr "ES-Module, einschließlich Blöcken der Interactivity API"
+
+#: admin/views/settings-tab.php:82
+msgid "dns-prefetch and preconnect hints to other hosts"
+msgstr "dns-prefetch- und preconnect-Hinweise auf andere Hosts"
+
+#: admin/views/settings-tab.php:83
+msgid "Embedded content from other providers"
+msgstr "Eingebettete Inhalte anderer Anbieter"
+
+#: admin/views/settings-tab.php:84
+msgid "Avatars from gravatar.com"
+msgstr "Avatare von gravatar.com"
+
+#: admin/views/settings-tab.php:85
+msgid "The emoji script loaded from s.w.org"
+msgstr "Das Emoji-Skript von s.w.org"
+
+#: admin/views/settings-tab.php:89
+msgid "Storing the IP address of a commenter in the database"
+msgstr "Die IP-Adresse eines Kommentators in der Datenbank speichern"
+
+#: admin/views/settings-tab.php:90
+msgid "Speculative loading (prefetch and prerender rules)"
+msgstr "Speculative Loading (Prefetch- und Prerender-Regeln)"
+
+#: admin/views/settings-tab.php:91
+msgid "Dashboard requests to api.wordpress.org (news widget, browser check)"
+msgstr "Dashboard-Anfragen an api.wordpress.org (Nachrichten-Widget, Browser-Prüfung)"
+
+#: admin/views/settings-tab.php:92
+msgid "Warn in the dashboard when the site is not served over HTTPS"
+msgstr "Im Dashboard warnen, wenn die Website nicht über HTTPS läuft"
+
+#: admin/views/settings-tab.php:112
+msgid "Always off"
+msgstr "Immer aus"
+
+#: admin/views/settings-tab.php:115
+msgid "Measures that are not consent gated"
+msgstr "Maßnahmen ohne Zustimmungsabfrage"
+
+#: admin/views/settings-tab.php:132
+msgid "Nothing above is consent gated. A commenter cannot usefully be asked whether their IP address may be written to the database, and nobody visits a dashboard to read WordPress.org news — so these are simply switched off."
+msgstr "Nichts davon hängt an einer Zustimmung. Einen Kommentator sinnvoll zu fragen, ob seine IP-Adresse in die Datenbank darf, funktioniert nicht, und niemand ruft ein Dashboard auf, um WordPress.org-Nachrichten zu lesen — also bleibt das schlicht aus."
+
+#: admin/views/settings-tab.php:144
+msgid "Assets from other hosts"
+msgstr "Dateien von anderen Hosts"
+
+#: admin/views/settings-tab.php:163
+msgid "A script or stylesheet loaded from a host other than this one is put in this category unless it is listed below. Anything served from this site counts as necessary."
+msgstr "Ein Skript oder Stylesheet von einem anderen Host landet in dieser Kategorie, solange es unten nicht anders zugeordnet ist. Alles von dieser Website gilt als notwendig."
+
+#: admin/views/settings-tab.php:173
+msgid "Embeds"
+msgstr "Embeds"
+
+#: admin/views/settings-tab.php:187
+msgid "Avatars"
+msgstr "Avatare"
+
+#: admin/views/settings-tab.php:201
+msgid "Policy version"
+msgstr "Fassung der Texte"
+
+#: admin/views/settings-tab.php:213
+msgid "Written into every logged decision. Change it whenever the wording of your banner or privacy policy changes, so consent given before and after can be told apart."
+msgstr "Wird in jede protokollierte Entscheidung geschrieben. Ändere den Wert, sobald sich der Wortlaut von Banner oder Datenschutzerklärung ändert – dann lässt sich die Zustimmung davor und danach auseinanderhalten."
+
+#: admin/views/settings-tab.php:224
+msgid "Categories"
+msgstr "Kategorien"
+
+#: admin/views/settings-tab.php:229
+#: admin/views/settings-tab.php:283
+msgid "Category"
+msgstr "Kategorie"
+
+#: admin/views/settings-tab.php:230
+msgid "Slug"
+msgstr "Slug"
+
+#: admin/views/settings-tab.php:231
+msgid "Description"
+msgstr "Beschreibung"
+
+#: admin/views/settings-tab.php:241
+msgid "always allowed"
+msgstr "immer erlaubt"
+
+#: admin/views/settings-tab.php:255
+msgid "Add or rename categories with the <code>baukasten/consent/categories</code> filter."
+msgstr "Kategorien lassen sich über den Filter <code>baukasten/consent/categories</code> ergänzen oder umbenennen."
+
+#: admin/views/settings-tab.php:261
+msgid "Assets on this site"
+msgstr "Dateien dieser Website"
+
+#: admin/views/settings-tab.php:265
+msgid "Every front end page adds the scripts and stylesheets it printed to this list. Open the pages that matter — the home page, a post with an embed, the checkout — and the list fills itself."
+msgstr "Jede Seite im Frontend ergänzt diese Liste um die Skripte und Stylesheets, die sie ausgegeben hat. Ruf die Seiten auf, auf die es ankommt – Startseite, ein Beitrag mit Embed, die Kasse – und die Liste füllt sich von selbst."
+
+#: admin/views/settings-tab.php:274
+msgid "Nothing recorded yet. Open the front end once and come back."
+msgstr "Noch nichts erfasst. Ruf einmal das Frontend auf und komm zurück."
+
+#: admin/views/settings-tab.php:280
+msgid "Handle"
+msgstr "Handle"
+
+#: admin/views/settings-tab.php:281
+msgid "Type"
+msgstr "Typ"
+
+#: admin/views/settings-tab.php:282
+msgid "Loaded from"
+msgstr "Geladen von"
+
+#: admin/views/settings-tab.php:302
+msgid "Stylesheet"
+msgstr "Stylesheet"
+
+#: admin/views/settings-tab.php:303
+msgid "Script"
+msgstr "Skript"
+
+#: admin/views/settings-tab.php:309
+msgid "this site"
+msgstr "dieser Website"
+
+#. translators: %s: category label.
+#: admin/views/settings-tab.php:323
+#, php-format
+msgid "Default (%s)"
+msgstr "Standard (%s)"
+
+#: admin/views/settings-tab.php:341
+#: admin/views/settings-tab.php:356
+msgid "Cookie overview"
+msgstr "Cookie-Übersicht"
+
+#: admin/views/settings-tab.php:345
+msgid "A place to keep the cookie list your privacy policy needs. Nothing reads it automatically — no site can be scanned reliably from the inside, and a wrong list is worse than none."
+msgstr "Ein Platz für die Cookie-Liste, die deine Datenschutzerklärung braucht. Nichts liest sie automatisch aus – eine Website lässt sich von innen nicht zuverlässig scannen, und eine falsche Liste ist schlimmer als gar keine."
+
+#. translators: %s: cookie name.
+#: admin/views/settings-tab.php:363
+#, php-format
+msgid "This plugin sets exactly one cookie itself: %s, which holds the visitor's decision, an anonymous id and a timestamp for twelve months."
+msgstr "Dieses Plugin setzt selbst genau ein Cookie: %s. Es enthält die Entscheidung des Besuchers, eine anonyme Kennung und einen Zeitstempel und läuft nach zwölf Monaten ab."
+
+#: admin/views/settings-tab.php:369
+msgid "Save settings"
+msgstr "Einstellungen speichern"
+
+#: admin/views/settings-tab.php:372
+msgid "Privacy hardening"
+msgstr "DSGVO-Härtung"
+
+#: admin/views/settings-tab.php:376
+msgid "Puts the whole site into a defensible default state in one go: closes comments and pings on every entry, writes the privacy related WordPress settings, empties the credentials on Settings → Connectors, and switches on every measure above. Safe to run again — each step reports whether it changed anything."
+msgstr "Versetzt die gesamte Website in einem Zug in einen vertretbaren Ausgangszustand: schließt Kommentare und Pings bei jedem Eintrag, schreibt die datenschutzrelevanten WordPress-Einstellungen, leert die Zugangsdaten unter Einstellungen → Konnektoren und schaltet jede Maßnahme oben ein. Beliebig oft wiederholbar — jeder Schritt meldet, ob er etwas geändert hat."
+
+#: admin/views/settings-tab.php:385
+msgid "This changes the whole site, not just this plugin."
+msgstr "Das ändert die gesamte Website, nicht nur dieses Plugin."
+
+#: admin/views/settings-tab.php:387
+msgid "Comments are closed everywhere, registration is switched off, search engines are asked not to index the site, and every connector is disconnected. None of it is undone by deactivating this plugin."
+msgstr "Kommentare werden überall geschlossen, die Registrierung wird abgeschaltet, Suchmaschinen wird von der Indexierung abgeraten und jeder Konnektor wird getrennt. Nichts davon wird rückgängig gemacht, wenn du dieses Plugin deaktivierst."
+
+#: admin/views/settings-tab.php:397
+msgid "Result of the last hardening run"
+msgstr "Ergebnis des letzten Härtungslaufs"
+
+#: admin/views/settings-tab.php:400
+msgid "Step"
+msgstr "Schritt"
+
+#: admin/views/settings-tab.php:401
+msgid "Result"
+msgstr "Ergebnis"
+
+#: admin/views/settings-tab.php:402
+msgid "Detail"
+msgstr "Detail"
+
+#: admin/views/settings-tab.php:413
+msgid "changed"
+msgstr "geändert"
+
+#: admin/views/settings-tab.php:414
+msgid "no change"
+msgstr "unverändert"
+
+#: admin/views/settings-tab.php:428
+msgid "This closes comments on every entry, asks search engines not to index the site and empties all connector credentials. Continue?"
+msgstr "Das schließt Kommentare bei jedem Eintrag, rät Suchmaschinen von der Indexierung ab und leert alle Konnektor-Zugangsdaten. Fortfahren?"
+
+#: admin/views/settings-tab.php:432
+msgid "Apply privacy hardening and defaults"
+msgstr "DSGVO-Härtung & Standardwerte anwenden"
+
+#. translators: %s: WP-CLI command.
+#: admin/views/settings-tab.php:437
+#, php-format
+msgid "The same routine runs from the command line as %s."
+msgstr "Dieselbe Routine läuft auf der Kommandozeile als %s."
+
+#: admin/views/settings-tab.php:444
+msgid "Consent log"
+msgstr "Consent-Protokoll"
+
+#. translators: %s: number of rows.
+#: admin/views/settings-tab.php:450
+#, php-format
+msgid "The log holds %s decisions. Every change writes a new row; nothing is ever overwritten, so the history can be reconstructed. It contains no IP address, no user id and no other personal data."
+msgstr "Das Protokoll enthält %s Entscheidungen. Jede Änderung schreibt einen neuen Datensatz, überschrieben wird nichts – der Verlauf bleibt nachvollziehbar. Es enthält keine IP-Adresse, keine Benutzer-ID und keine anderen personenbezogenen Daten."
+
+#: admin/views/settings-tab.php:458
+msgid "Export before you delete this plugin."
+msgstr "Exportiere vor dem Löschen dieses Plugins."
+
+#: admin/views/settings-tab.php:460
+msgid "Deleting it drops the log table, and with it the record you would need to demonstrate that consent was given."
+msgstr "Beim Löschen wird die Protokolltabelle entfernt – und damit der Nachweis, dass eine Zustimmung vorlag."
+
+#: admin/views/settings-tab.php:471
+msgid "Export as CSV"
+msgstr "Als CSV exportieren"
+
+#: admin/views/settings-tab.php:472
+msgid "Export as JSON"
+msgstr "Als JSON exportieren"
+
+#: admin/views/settings-tab.php:475
+msgid "Maintenance"
+msgstr "Wartung"
+
+#: admin/views/settings-tab.php:480
+msgid "Clear the asset list"
+msgstr "Dateiliste leeren"
+
+#: admin/views/settings-tab.php:483
+msgid "Forgets every handle recorded so far. The categories you assigned are kept. Useful after removing a plugin whose handles are still listed."
+msgstr "Verwirft alle bisher erfassten Handles. Die von dir vergebenen Kategorien bleiben erhalten. Praktisch, nachdem ein Plugin entfernt wurde, dessen Handles noch aufgeführt sind."
+
+#. translators: 1: provider host name, 2: consent category label.
+#: includes/class-blocking-oembed.php:86
+#, php-format
+msgid "Content from %1$s is hidden until you allow the category “%2$s”."
+msgstr "Inhalte von %1$s bleiben verborgen, bis du die Kategorie „%2$s“ erlaubst."
+
+#: includes/class-blocking-oembed.php:125
+msgid "Load content"
+msgstr "Inhalt laden"
+
+#. translators: %s: consent category label.
+#: includes/class-blocking-oembed.php:129
+#, php-format
+msgid "Load and always allow “%s”"
+msgstr "Laden und „%s“ künftig immer erlauben"
+
+#: includes/class-categories.php:66
+msgid "Necessary"
+msgstr "Notwendig"
+
+#: includes/class-categories.php:67
+msgid "Required for the site to work. Cannot be refused."
+msgstr "Für den Betrieb der Website erforderlich. Kann nicht abgelehnt werden."
+
+#: includes/class-categories.php:71
+msgid "Functional"
+msgstr "Funktional"
+
+#: includes/class-categories.php:72
+msgid "Embedded content, maps, fonts and other conveniences loaded from other providers."
+msgstr "Eingebettete Inhalte, Karten, Schriften und andere Annehmlichkeiten, die von anderen Anbietern geladen werden."
+
+#: includes/class-categories.php:76
+msgid "Statistics"
+msgstr "Statistik"
+
+#: includes/class-categories.php:77
+msgid "Measures how the site is used."
+msgstr "Misst, wie die Website genutzt wird."
+
+#: includes/class-categories.php:81
+msgid "Marketing"
+msgstr "Marketing"
+
+#: includes/class-categories.php:82
+msgid "Tracks visitors across sites to build advertising profiles."
+msgstr "Verfolgt Besucher über Websites hinweg, um Werbeprofile zu bilden."
+
+#: includes/class-hardening.php:104
+msgid "Comments and pings on existing content"
+msgstr "Kommentare und Pings bei bestehenden Inhalten"
+
+#: includes/class-hardening.php:116
+msgid "Already closed everywhere."
+msgstr "Überall bereits geschlossen."
+
+#. translators: %s: number of entries.
+#: includes/class-hardening.php:135
+#, php-format
+msgid "%s entry closed."
+msgid_plural "%s entries closed."
+msgstr[0] "%s Eintrag geschlossen."
+msgstr[1] "%s Einträge geschlossen."
+
+#: includes/class-hardening.php:147
+msgid "WordPress settings"
+msgstr "WordPress-Einstellungen"
+
+#: includes/class-hardening.php:164
+msgid "All already set."
+msgstr "Alle bereits gesetzt."
+
+#: includes/class-hardening.php:185
+msgid "Connectors"
+msgstr "Konnektoren"
+
+#: includes/class-hardening.php:188
+msgid "This WordPress version has no connectors."
+msgstr "Diese WordPress-Version kennt keine Konnektoren."
+
+#: includes/class-hardening.php:227
+msgid "Nothing was connected."
+msgstr "Es war nichts verbunden."
+
+#. translators: %s: comma separated list of connector names.
+#: includes/class-hardening.php:233
+#, php-format
+msgid "still configured outside the database and untouched: %s"
+msgstr "weiterhin außerhalb der Datenbank hinterlegt und unangetastet: %s"
+
+#: includes/class-hardening.php:264
+msgid "All already active."
+msgstr "Alle bereits aktiv."
+
+#: includes/class-privacy-audit.php:131
+msgid "This site is not served over HTTPS."
+msgstr "Diese Website läuft nicht über HTTPS."
+
+#. translators: %s: comma separated list of option names.
+#: includes/class-privacy-audit.php:135
+#, php-format
+msgid "Consent decisions, logins and everything else travel unencrypted while %s still use http."
+msgstr "Zustimmungen, Anmeldungen und alles andere werden unverschlüsselt übertragen, solange %s auf http stehen."
+
+#: includes/class-privacy-audit.php:140
+msgid "Change the site address"
+msgstr "Website-Adresse ändern"
+
+#: includes/class-rest-controller.php:106
+msgid "Too many consent updates. Please try again in a few minutes."
+msgstr "Zu viele Consent-Änderungen. Bitte versuche es in ein paar Minuten erneut."
+
+#: includes/class-settings-tab.php:90
+msgid "Consent"
+msgstr "Consent"
+
+#: includes/class-settings-tab.php:115
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/class-settings-tab.php:134
+msgid "The Consent Blocking Engine is blocking with its default settings, but its settings screen needs the Baukasten - Privacy Toolkit plugin. Install it to categorise the assets this site loads."
+msgstr "Die Consent Blocking Engine blockiert mit ihren Standardeinstellungen, aber die Einstellungsseite braucht das Plugin Baukasten - Privacy Toolkit. Installiere es, um die Dateien dieser Website zu kategorisieren."
+
+#: includes/class-settings-tab.php:203
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: includes/class-settings-tab.php:219
+msgid "The list was cleared. Open a few pages on the front end to fill it again."
+msgstr "Die Liste wurde geleert. Ruf ein paar Seiten im Frontend auf, um sie neu zu füllen."
+
+#: includes/class-settings-tab.php:252
+msgid "Nothing to do — the site was already hardened."
+msgstr "Nichts zu tun — die Website war bereits gehärtet."
+
+#. translators: 1: number of changed steps, 2: total number of steps.
+#: includes/class-settings-tab.php:255
+#, php-format
+msgid "Hardening applied: %1$d of %2$d steps changed something."
+msgstr "Härtung angewendet: %1$d von %2$d Schritten haben etwas geändert."
+
+#: includes/class-settings-tab.php:313
+msgid "You are not allowed to change these settings."
+msgstr "Du hast keine Berechtigung, diese Einstellungen zu ändern."

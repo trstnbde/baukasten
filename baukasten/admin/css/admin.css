@@ -1,0 +1,46 @@
+/**
+ * Baukasten admin styles.
+ *
+ * The settings screen is a plain WordPress tabbed options page, so there is
+ * very little to style: a readable measure for the intro text, and a bit of
+ * air around the tab panel and the addon table.
+ */
+
+.baukasten-intro {
+	max-width: 60em;
+}
+
+.baukasten-tab-panel {
+	margin-top: 1.5em;
+}
+
+.baukasten-addons {
+	max-width: 60em;
+	margin-top: 1em;
+}
+
+.baukasten-addons th[scope="row"] {
+	width: 20em;
+}
+
+.baukasten-addons-hint {
+	margin-top: 1em;
+}
+
+/*
+ * Addon tabs render their own forms. These two rules keep a plain
+ * `form-table` inside a tab from sitting flush against the tab bar.
+ */
+.baukasten-tab-panel > h2:first-child {
+	margin-top: 0;
+}
+
+.baukasten-tab-panel .form-table {
+	max-width: 60em;
+}
+
+@media screen and ( max-width: 782px ) {
+	.baukasten-addons th[scope="row"] {
+		width: auto;
+	}
+}

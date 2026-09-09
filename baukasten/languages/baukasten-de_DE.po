@@ -1,0 +1,83 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten - Privacy Toolkit 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten\n"
+"Last-Translator: Torsten B.\n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-09T14:22:38+02:00\n"
+"PO-Revision-Date: 2026-09-09T14:30:00+02:00\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: baukasten\n"
+
+#. The plugin name is a proper noun and stays in English in every locale.
+#. Plugin Name of the plugin
+#: baukasten.php
+#: admin/views/settings-page.php:18
+#: includes/class-admin.php:63
+msgid "Baukasten - Privacy Toolkit"
+msgstr "Baukasten - Privacy Toolkit"
+
+#. Description of the plugin
+#: baukasten.php
+msgid "A settings hub for the Baukasten addons. Install the addons you need as separate plugins and configure them all in one place."
+msgstr "Eine gemeinsame Einstellungsseite für die Baukasten-Addons. Installiere die Addons, die du brauchst, als eigene Plugins und richte sie alle an einer Stelle ein."
+
+#: admin/views/overview.php:17
+msgid "Baukasten collects the settings of its addons on this screen. Each addon is a separate plugin: install it from the WordPress plugin directory, activate it, and it adds its own tab here."
+msgstr "Baukasten sammelt die Einstellungen seiner Addons auf dieser Seite. Jedes Addon ist ein eigenes Plugin: aus dem WordPress-Plugin-Verzeichnis installieren, aktivieren, und es ergänzt hier seinen eigenen Tab."
+
+#: admin/views/overview.php:27
+msgid "No addons are active yet."
+msgstr "Es ist noch kein Addon aktiv."
+
+#: admin/views/overview.php:30
+msgid "Browse Baukasten addons"
+msgstr "Baukasten-Addons durchsuchen"
+
+#: admin/views/overview.php:37
+msgid "Active Baukasten addons"
+msgstr "Aktive Baukasten-Addons"
+
+#: admin/views/overview.php:40
+msgid "Addon"
+msgstr "Addon"
+
+#: admin/views/overview.php:41
+msgid "Description"
+msgstr "Beschreibung"
+
+#: admin/views/overview.php:42
+msgid "Version"
+msgstr "Version"
+
+#. translators: %s: link to the installed plugins screen.
+#: admin/views/overview.php:67
+#, php-format
+msgid "Addons are managed like any other plugin, on the <a href=\"%s\">Plugins</a> screen."
+msgstr "Addons werden wie jedes andere Plugin auf der Seite <a href=\"%s\">Plugins</a> verwaltet."
+
+#: admin/views/settings-page.php:27
+msgid "Baukasten settings tabs"
+msgstr "Baukasten-Einstellungs-Tabs"
+
+#: includes/class-admin.php:64
+msgid "Baukasten"
+msgstr "Baukasten"
+
+#: includes/class-admin.php:91
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/class-admin.php:125
+msgid "You are not allowed to manage Baukasten."
+msgstr "Du hast keine Berechtigung, Baukasten zu verwalten."
+
+#: includes/class-admin.php:158
+msgid "Overview"
+msgstr "Übersicht"

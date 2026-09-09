@@ -1,0 +1,237 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Content Visibility 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-content-visibility\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-09T14:27:19+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-content-visibility\n"
+
+#. Plugin Name of the plugin
+#: baukasten-content-visibility.php
+msgid "Baukasten Addon: Content Visibility"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-content-visibility.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-content-visibility.php
+msgid "Adds a public/private switch to every post, page and public custom post type. Private content is readable by logged-in users only, regardless of their role."
+msgstr ""
+
+#. Author of the plugin
+#: baukasten-content-visibility.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-content-visibility.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/settings-tab.php:19
+msgid "Every entry carries a public or private flag. Private entries are readable by logged-in users only, no matter which role they have, and are kept out of archives, search, feeds, sitemaps and the REST API."
+msgstr ""
+
+#: admin/views/settings-tab.php:33
+msgid "Content types"
+msgstr ""
+
+#: admin/views/settings-tab.php:37
+msgid "Content types the visibility switch applies to"
+msgstr ""
+
+#: admin/views/settings-tab.php:64
+msgid "Tick none to cover every public content type, including ones registered later by a theme or another plugin."
+msgstr ""
+
+#: admin/views/settings-tab.php:74
+msgid "Logged-out visitors"
+msgstr ""
+
+#: admin/views/settings-tab.php:78
+msgid "What a logged-out visitor gets when they open private content"
+msgstr ""
+
+#: admin/views/settings-tab.php:88
+msgid "Send them to the login form and back afterwards"
+msgstr ""
+
+#: admin/views/settings-tab.php:98
+msgid "Answer with 403 Forbidden"
+msgstr ""
+
+#: admin/views/settings-tab.php:103
+msgid "Redirecting is friendlier for a members area. A 403 gives away less about what exists."
+msgstr ""
+
+#: admin/views/settings-tab.php:115
+msgid "Save settings"
+msgstr ""
+
+#: admin/views/settings-tab.php:118
+msgid "Existing content"
+msgstr ""
+
+#: admin/views/settings-tab.php:122
+msgid "Entries without a stored flag count as private. On activation every entry that existed was marked public, so switching the plugin on never takes a live site offline. Run it again after adding a content type that already has entries."
+msgstr ""
+
+#: admin/views/settings-tab.php:131
+msgid "Last run:"
+msgstr ""
+
+#. translators: 1: date and time, 2: number of entries.
+#: admin/views/settings-tab.php:135
+#, php-format
+msgid "%1$s, %2$s entries marked public."
+msgstr ""
+
+#: admin/views/settings-tab.php:151
+msgid "Mark existing content public"
+msgstr ""
+
+#: includes/class-admin-column.php:58
+#: includes/class-admin-column.php:63
+msgid "Visibility"
+msgstr ""
+
+#: includes/class-admin-column.php:99
+#: includes/class-admin-column.php:180
+#: includes/class-ajax.php:94
+#: includes/class-meta-box.php:84
+msgid "Public"
+msgstr ""
+
+#: includes/class-admin-column.php:100
+#: includes/class-admin-column.php:181
+#: includes/class-ajax.php:95
+#: includes/class-meta-box.php:88
+msgid "Private"
+msgstr ""
+
+#: includes/class-admin-column.php:124
+msgid "Make this content publicly visible"
+msgstr ""
+
+#: includes/class-admin-column.php:182
+msgid "Saving…"
+msgstr ""
+
+#: includes/class-admin-column.php:183
+#: includes/class-ajax.php:96
+msgid "Visibility saved."
+msgstr ""
+
+#: includes/class-admin-column.php:184
+msgid "The visibility could not be saved. Please reload the page and try again."
+msgstr ""
+
+#: includes/class-ajax.php:47
+msgid "Your session has expired. Please reload the page."
+msgstr ""
+
+#: includes/class-ajax.php:57
+msgid "This content could not be found."
+msgstr ""
+
+#: includes/class-ajax.php:64
+msgid "Visibility cannot be set for this content type."
+msgstr ""
+
+#: includes/class-ajax.php:71
+msgid "You are not allowed to edit this content."
+msgstr ""
+
+#: includes/class-ajax.php:82
+msgid "Unknown visibility value."
+msgstr ""
+
+#: includes/class-bulk-actions.php:68
+msgid "Set visibility to public"
+msgstr ""
+
+#: includes/class-bulk-actions.php:69
+msgid "Set visibility to private"
+msgstr ""
+
+#. translators: %s: number of updated items.
+#: includes/class-bulk-actions.php:146
+#, php-format
+msgid "Visibility updated for %s item."
+msgid_plural "Visibility updated for %s items."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of skipped items.
+#: includes/class-bulk-actions.php:158
+#, php-format
+msgid "%s item was skipped because you may not edit it."
+msgid_plural "%s items were skipped because you may not edit them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-frontend-guard.php:123
+#: includes/class-frontend-guard.php:261
+#: includes/class-frontend-guard.php:412
+msgid "This content is available to logged-in users only."
+msgstr ""
+
+#: includes/class-frontend-guard.php:124
+msgid "Login required"
+msgstr ""
+
+#: includes/class-frontend-guard.php:395
+msgid "Invalid post ID."
+msgstr ""
+
+#: includes/class-frontend-guard.php:414
+msgid "Log in"
+msgstr ""
+
+#: includes/class-meta-box.php:57
+#: includes/class-settings-tab.php:77
+msgid "Content Visibility"
+msgstr ""
+
+#: includes/class-meta-box.php:85
+msgid "Visible to everyone."
+msgstr ""
+
+#: includes/class-meta-box.php:89
+msgid "Visible to logged-in users only, regardless of role."
+msgstr ""
+
+#: includes/class-settings-tab.php:102
+msgid "Settings"
+msgstr ""
+
+#: includes/class-settings-tab.php:124
+msgid "Content Visibility is running, but its settings screen needs the Baukasten - Privacy Toolkit plugin. Install it to configure which post types the visibility switch applies to."
+msgstr ""
+
+#: includes/class-settings-tab.php:176
+msgid "Settings saved."
+msgstr ""
+
+#. translators: %s: number of entries.
+#: includes/class-settings-tab.php:206
+#, php-format
+msgid "%s entry was marked public."
+msgid_plural "%s entries were marked public."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-settings-tab.php:243
+msgid "You are not allowed to change these settings."
+msgstr ""

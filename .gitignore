@@ -1,0 +1,16 @@
+# Dependencies
+vendor/
+node_modules/
+composer.phar
+
+# Build output
+build/
+*.zip
+
+# Logs and reports
+*.log
+phpcs-report.xml
+
+# OS noise
+.DS_Store
+Thumbs.db

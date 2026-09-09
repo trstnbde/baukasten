@@ -1,0 +1,20 @@
+# Dependencies. composer.lock is committed on purpose: it pins the linting
+# tools so CI cannot break on an upstream release.
+vendor/
+node_modules/
+
+# Build output
+build/
+phpcs-report.xml
+
+# Local PHPCS overrides
+phpcs.xml
+.phpcs.xml
+.phpunit.result.cache
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

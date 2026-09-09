@@ -1,0 +1,127 @@
+/**
+ * Content Visibility - admin styles.
+ *
+ * A CSS switch rather than a styled native checkbox: the input stays in the
+ * markup for keyboard and screen reader users and is visually replaced.
+ */
+
+.baukasten-visibility {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	white-space: nowrap;
+}
+
+.baukasten-visibility__input {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect( 0 0 0 0 );
+	clip-path: inset( 50% );
+	border: 0;
+}
+
+.baukasten-visibility__switch {
+	position: relative;
+	display: inline-block;
+	flex: 0 0 auto;
+	width: 34px;
+	height: 18px;
+	border-radius: 9px;
+	background: #8c8f94;
+	cursor: pointer;
+	transition: background-color 0.15s ease-in-out;
+}
+
+.baukasten-visibility__switch::after {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: #fff;
+	transition: transform 0.15s ease-in-out;
+}
+
+.baukasten-visibility__input:checked + .baukasten-visibility__switch {
+	background: #007017;
+}
+
+.baukasten-visibility__input:checked + .baukasten-visibility__switch::after {
+	transform: translateX( 16px );
+}
+
+.baukasten-visibility__input:focus-visible + .baukasten-visibility__switch,
+.baukasten-visibility__input:focus + .baukasten-visibility__switch {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
+}
+
+.baukasten-visibility__input:disabled + .baukasten-visibility__switch {
+	opacity: 0.5;
+	cursor: default;
+}
+
+.baukasten-visibility__state {
+	font-size: 12px;
+	color: #50575e;
+}
+
+.baukasten-visibility.is-public .baukasten-visibility__state {
+	color: #007017;
+}
+
+.baukasten-visibility.is-busy {
+	opacity: 0.7;
+}
+
+.baukasten-visibility.has-error .baukasten-visibility__state {
+	color: #b32d2e;
+}
+
+.baukasten-visibility .spinner {
+	float: none;
+	margin: 0;
+}
+
+.baukasten-visibility .spinner.is-active {
+	visibility: visible;
+}
+
+.baukasten-visibility--readonly {
+	font-size: 12px;
+	color: #646970;
+}
+
+/* Column width in the list tables. */
+.column-baukasten_visibility {
+	width: 11em;
+}
+
+@media screen and ( max-width: 782px ) {
+	.column-baukasten_visibility {
+		width: auto;
+	}
+}
+
+/* Meta box in the editor. */
+.baukasten-visibility-box p {
+	margin: 0 0 12px;
+}
+
+.baukasten-visibility-box .description {
+	display: inline-block;
+	margin-left: 24px;
+}
+
+/* Front end notice, used when a theme renders outside the main loop. */
+.baukasten-visibility-notice {
+	padding: 1em;
+	border-left: 4px solid #b32d2e;
+	background: rgba( 179, 45, 46, 0.06 );
+}

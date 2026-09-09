@@ -1,0 +1,155 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Login Legal Pages 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-login-legal-pages\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-09T14:35:16+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-login-legal-pages\n"
+
+#. Plugin Name of the plugin
+#: baukasten-login-legal-pages.php
+msgid "Baukasten Addon: Login Legal Pages"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-login-legal-pages.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-login-legal-pages.php
+msgid "Puts the privacy policy, terms and imprint under the login form, strips the WordPress header off the login screen, and moves it to a tidy /login/ URL."
+msgstr ""
+
+#. Author of the plugin
+#: baukasten-login-legal-pages.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-login-legal-pages.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/settings-tab.php:22
+msgid "The login screen links to your privacy policy, terms and imprint, and is served from a readable address. Its WordPress header and the link back to the site are removed."
+msgstr ""
+
+#: admin/views/settings-tab.php:33
+msgid "Some selected pages are not reachable for logged-out visitors:"
+msgstr ""
+
+#: admin/views/settings-tab.php:43
+msgid "A visitor following one of those links from the login screen is sent straight back to the login form. Legal pages should normally be publicly visible."
+msgstr ""
+
+#: admin/views/settings-tab.php:56
+msgid "Legal pages"
+msgstr ""
+
+#: admin/views/settings-tab.php:60
+msgid "These pages are linked below the login form. A link only appears once a published page is selected."
+msgstr ""
+
+#: admin/views/settings-tab.php:68
+msgid "Privacy policy"
+msgstr ""
+
+#: admin/views/settings-tab.php:75
+msgid "No page selected."
+msgstr ""
+
+#. translators: %s: link to the privacy settings screen.
+#: admin/views/settings-tab.php:83
+#, php-format
+msgid "WordPress stores this one itself, on <a href=\"%s\">Settings &rsaquo; Privacy</a>. Shown as the first link."
+msgstr ""
+
+#: admin/views/settings-tab.php:95
+msgid "Terms of service"
+msgstr ""
+
+#: admin/views/settings-tab.php:107
+#: admin/views/settings-tab.php:131
+msgid "&mdash; Select &mdash;"
+msgstr ""
+
+#: admin/views/settings-tab.php:115
+msgid "Shown as the second link."
+msgstr ""
+
+#: admin/views/settings-tab.php:121
+#: includes/class-legal-pages.php:135
+msgid "Imprint"
+msgstr ""
+
+#: admin/views/settings-tab.php:139
+msgid "Shown as the third link."
+msgstr ""
+
+#: admin/views/settings-tab.php:145
+#: admin/views/settings-tab.php:186
+msgid "Login address"
+msgstr ""
+
+#. translators: %s: link to the permalink settings screen.
+#: admin/views/settings-tab.php:154
+#, php-format
+msgid "The login address needs pretty permalinks. Until they are switched on under <a href=\"%s\">Settings &rsaquo; Permalinks</a>, the login screen stays on <code>wp-login.php</code>."
+msgstr ""
+
+#. translators: %s: post title.
+#: admin/views/settings-tab.php:173
+#, php-format
+msgid "The content “%s” uses the same address and cannot be opened while the login screen answers there. Pick a different login address, or change that content's permalink."
+msgstr ""
+
+#. translators: %s: the login URL.
+#: admin/views/settings-tab.php:204
+#, php-format
+msgid "Every login link and form now points at %s. Opening wp-login.php redirects there; it is not blocked, so nobody can be locked out."
+msgstr ""
+
+#: admin/views/settings-tab.php:214
+msgid "Save settings"
+msgstr ""
+
+#: includes/class-legal-pages.php:127
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/class-legal-pages.php:131
+msgid "Terms of Service"
+msgstr ""
+
+#: includes/class-login-footer.php:83
+msgid "Legal"
+msgstr ""
+
+#: includes/class-settings-tab.php:75
+msgid "Login & Legal"
+msgstr ""
+
+#: includes/class-settings-tab.php:100
+msgid "Settings"
+msgstr ""
+
+#: includes/class-settings-tab.php:119
+msgid "Login Legal Pages is running, but its settings screen needs the Baukasten - Privacy Toolkit plugin. Install it to pick the terms and imprint pages."
+msgstr ""
+
+#: includes/class-settings-tab.php:150
+msgid "You are not allowed to change these settings."
+msgstr ""
+
+#: includes/class-settings-tab.php:181
+msgid "Settings saved."
+msgstr ""

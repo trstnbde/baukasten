@@ -1,0 +1,62 @@
+/**
+ * Baukasten Consent Blocking Engine - placeholders on the front end.
+ *
+ * Only the placeholder that stands in for a blocked embed is styled. Nothing
+ * else on the page is touched: a blocked script or stylesheet is invisible
+ * either way, and a plugin that blocks things has no business restyling the
+ * site around them.
+ */
+
+.baukasten-consent-embed {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 8rem;
+	padding: 1.5rem;
+	border: 1px dashed currentColor;
+	border-radius: 4px;
+	opacity: 0.85;
+	text-align: center;
+}
+
+.baukasten-consent-embed__notice {
+	margin: 0;
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+.baukasten-consent-embed__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 8px 16px;
+	margin: 0.75rem 0 0;
+}
+
+.baukasten-consent-embed__button {
+	padding: 0.5em 1.1em;
+	border: 1px solid currentColor;
+	border-radius: 3px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-size: 0.9em;
+	cursor: pointer;
+}
+
+/*
+ * The second button stores a decision, so it is deliberately quieter than the
+ * one that only affects this embed.
+ */
+.baukasten-consent-embed__button--link {
+	padding: 0;
+	border: 0;
+	font-size: 0.85em;
+	text-decoration: underline;
+}
+
+.baukasten-consent-embed__button[disabled] {
+	opacity: 0.6;
+	cursor: default;
+}

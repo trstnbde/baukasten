@@ -1,0 +1,167 @@
+/**
+ * Login Legal Pages - wp-login.php.
+ *
+ * Turns the login screen into one card: the form on top, a slightly recessed
+ * footer under it holding the four links. Core prints those as three separate
+ * siblings inside the 320px #login column — `<form id="loginform">`,
+ * `<p id="nav">` and the `.privacy-policy-page-link` wrapper from
+ * login_footer() — so no DOM surgery and no JavaScript is needed: three
+ * stacked blocks with the right borders read as a single card.
+ *
+ * Also removes the two elements core offers no filter for.
+ */
+
+/*
+ * The header: `<h1 role="presentation" class="wp-login-logo">` with the
+ * WordPress logo, printed by login_header().
+ *
+ * Scoped to #login on purpose. `.login h1` would also match the
+ * `<h1 class="screen-reader-text">Log In</h1>` core prints just above #login,
+ * which is the page's only real heading and the first thing a screen reader
+ * announces. That one stays.
+ */
+#login .wp-login-logo {
+	display: none;
+}
+
+/*
+ * The "&larr; Go to <site>" link, printed by login_footer() as
+ * `<p id="backtoblog">`.
+ */
+#backtoblog {
+	display: none;
+}
+
+/*
+ * Core reserves space above the form for the removed logo, so the card can
+ * move up. The width is core's own 320px, untouched.
+ */
+#login {
+	padding-top: 5%;
+}
+
+/*
+ * The top of the card.
+ *
+ * Rounded on all four corners would be wrong for every screen that has a
+ * footer, and every screen that matters does. The exception is the interim
+ * login, where core prints neither #nav nor the privacy wrapper; that modal
+ * gets square bottom corners. Solving it with :has() would make the common
+ * case depend on a selector that, when unsupported, degrades to the old
+ * two-separate-boxes layout — worse than two square corners in a modal.
+ */
+.login form {
+	margin-bottom: 0;
+	border-radius: 12px 12px 0 0;
+}
+
+/*
+ * The card footer, in the two pieces core hands us.
+ *
+ * Each is pulled up by one pixel so its own opaque background covers the
+ * bottom border of the block above; CSS has no selector for "an element
+ * followed by another" short of :has(), and stacking two 1px borders would
+ * draw a double line through the card.
+ *
+ * Width is deliberately not set. Like the form, these are block children of
+ * the 320px column, so `width: auto` makes their border box exactly as wide
+ * as the form's. Core's `width: 100%` on the privacy wrapper has to be undone
+ * for that, or its padding would push it 50px wider.
+ */
+.login #nav,
+.login .privacy-policy-page-link {
+	width: auto;
+	margin: -1px 0 0;
+	padding: 0 24px;
+	background: #f6f7f7;
+	border: 1px solid #c3c4c7;
+	border-top: 1px solid #e2e4e7;
+	font-size: 13px;
+	line-height: 1.8;
+	text-align: center;
+}
+
+/* Row one: the login navigation core prints, "Lost your password?". */
+.login #nav {
+	padding-top: 18px;
+	padding-bottom: 6px;
+}
+
+/* Row two: the legal links. */
+.login .privacy-policy-page-link {
+	padding-bottom: 18px;
+	border-radius: 0 0 12px 12px;
+}
+
+/*
+ * Only the first piece of the footer carries the divider; the second one
+ * continues it.
+ */
+.login #nav ~ .privacy-policy-page-link {
+	padding-top: 0;
+	border-top: 0;
+}
+
+/*
+ * A screen with a navigation row but no legal links has to close the card
+ * itself. Progressive enhancement on purpose: where :has() is missing the
+ * card simply ends with square corners, which is the state this rule
+ * improves on rather than one it repairs.
+ */
+.login #nav:not(:has( ~ .privacy-policy-page-link )) {
+	padding-bottom: 18px;
+	border-radius: 0 0 12px 12px;
+}
+
+.baukasten-login-legal {
+	margin: 0;
+	padding: 0;
+}
+
+.baukasten-login-legal__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.baukasten-login-legal__item {
+	margin: 0;
+	padding: 0;
+}
+
+/*
+ * Pipe separators as generated content, so they stay out of the markup and
+ * out of the accessibility tree — a screen reader announces three links, not
+ * three links and two pipes.
+ *
+ * On the trailing item rather than the leading one: three localised labels do
+ * not fit on one line in a 320px column, and a wrapped line that begins with
+ * a pipe reads as a mistake, while one that ends with a pipe reads as a
+ * continuation.
+ */
+.baukasten-login-legal__item:not(:last-child)::after {
+	content: "|";
+	margin: 0 8px;
+	color: #c3c4c7;
+}
+
+/*
+ * All four links in the footer look alike: core's own treatment for
+ * "Lost your password?", applied to the legal links as well rather than
+ * giving the two rows different colours and sizes.
+ */
+.login #nav a,
+.baukasten-login-legal__link {
+	color: #50575e;
+}
+
+.login #nav a:hover,
+.login #nav a:focus,
+.baukasten-login-legal__link:hover,
+.baukasten-login-legal__link:focus {
+	color: var( --wp-admin-theme-color-darker-20, #135e96 );
+}
