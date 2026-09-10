@@ -1,0 +1,636 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Business Cards 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-business-cards\n"
+"Last-Translator: Torsten B.\n"
+"Language-Team: Deutsch\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-10T17:18:17+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-business-cards\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: baukasten-business-cards.php
+msgid "Baukasten Addon: Business Cards"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-business-cards.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-business-cards.php
+msgid "Digital business cards as a custom post type, served on their own short URL and detached from the active theme."
+msgstr "Digitale Visitenkarten als eigener Inhaltstyp, ausgeliefert unter einer eigenen kurzen URL und vom aktiven Theme abgekoppelt."
+
+#. Author of the plugin
+#: baukasten-business-cards.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-business-cards.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/meta-box.php:51
+msgid "Classic"
+msgstr "Klassisch"
+
+#: admin/views/meta-box.php:52
+msgid "Modern"
+msgstr "Modern"
+
+#: admin/views/meta-box.php:53
+msgid "Bio"
+msgstr "Bio"
+
+#: admin/views/meta-box.php:110
+msgid "Choose image"
+msgstr "Bild wählen"
+
+#: admin/views/meta-box.php:110
+msgid "Choose file"
+msgstr "Datei wählen"
+
+#: admin/views/meta-box.php:113
+msgid "Remove"
+msgstr "Entfernen"
+
+#: admin/views/meta-box.php:121
+msgid "— No form —"
+msgstr "— Kein Formular —"
+
+#: admin/views/meta-box.php:129
+msgid "The form must contain an acceptance checkbox for the email consent, otherwise it cannot be submitted."
+msgstr "Das Formular muss eine Einwilligungs-Checkbox für die E-Mail-Verarbeitung enthalten, sonst lässt es sich nicht absenden."
+
+#: admin/views/meta-box.php:134
+msgid "Contact Form 7 is not active. Any form already chosen is kept and will come back when the plugin does."
+msgstr "Contact Form 7 ist nicht aktiv. Ein bereits gewähltes Formular bleibt gespeichert und ist wieder da, sobald das Plugin es ist."
+
+#: admin/views/settings-tab.php:20
+msgid "A business card is a post. It has no content, only fields, and it is served on its own short URL with none of the theme attached."
+msgstr "Eine Visitenkarte ist ein Beitrag. Sie hat keinen Inhalt, nur Felder, und wird unter einer eigenen kurzen URL ohne jeden Teil des Themes ausgeliefert."
+
+#: admin/views/settings-tab.php:23
+msgid "Where cards live"
+msgstr "Wo die Visitenkarten liegen"
+
+#: admin/views/settings-tab.php:26
+msgid "Business card overview"
+msgstr "Übersicht der Visitenkarten"
+
+#: admin/views/settings-tab.php:29
+msgid "Card address"
+msgstr "Adresse der Karten"
+
+#: admin/views/settings-tab.php:37
+msgid "Change the base"
+msgstr "Basis ändern"
+
+#. translators: %s: link to the Permalinks screen.
+#: admin/views/settings-tab.php:46
+#, php-format
+msgid "This site uses plain permalinks, so cards have no short address. Choose a permalink structure on %s to give them one."
+msgstr "Diese Website nutzt einfache Permalinks, deshalb haben Visitenkarten keine kurze Adresse. Wähle unter %s eine Permalink-Struktur, um ihnen eine zu geben."
+
+#: admin/views/settings-tab.php:50
+msgid "Settings, Permalinks"
+msgstr "Einstellungen › Permalinks"
+
+#: admin/views/settings-tab.php:59
+#: includes/class-settings-tab.php:84
+msgid "Cards"
+msgstr "Visitenkarten"
+
+#. translators: 1: number of published cards. 2: number of drafts.
+#: admin/views/settings-tab.php:64
+#, php-format
+msgid "%1$s published, %2$s draft."
+msgstr "%1$s veröffentlicht, %2$s im Entwurf."
+
+#: admin/views/settings-tab.php:73
+msgid "All cards"
+msgstr "Alle Visitenkarten"
+
+#: admin/views/settings-tab.php:79
+#: includes/class-meta-boxes.php:295
+msgid "Contact form"
+msgstr "Kontaktformular"
+
+#: admin/views/settings-tab.php:82
+msgid "Contact Form 7 is active. A card can embed one of its forms, and the form must carry an acceptance checkbox for the email consent."
+msgstr "Contact Form 7 ist aktiv. Eine Visitenkarte kann eines seiner Formulare einbinden, und das Formular muss eine Einwilligungs-Checkbox für die E-Mail-Verarbeitung enthalten."
+
+#: admin/views/settings-tab.php:84
+msgid "Contact Form 7 is not active. Every other part of a card works without it; only the contact form field is hidden."
+msgstr "Contact Form 7 ist nicht aktiv. Alles andere an einer Visitenkarte funktioniert auch ohne; nur das Formularfeld ist ausgeblendet."
+
+#: admin/views/settings-tab.php:91
+msgid "What a card address looks like"
+msgstr "Wie die Adresse einer Karte aussieht"
+
+#: admin/views/settings-tab.php:94
+msgid "Each card gets eight random characters instead of a readable slug, assigned once and never changed, so a card cannot be found by guessing a name and a printed QR code keeps working."
+msgstr "Jede Karte bekommt acht zufällige Zeichen statt eines lesbaren Slugs — einmal vergeben und nie wieder geändert. So lässt sich keine Karte durch Raten eines Namens finden, und ein gedruckter QR-Code funktioniert weiter."
+
+#: admin/views/settings-tab.php:98
+msgid "Cards are deliberately outside the Content Visibility addon: a card is a link you hand to someone who is not logged in."
+msgstr "Visitenkarten liegen bewusst außerhalb des Addons Content Visibility: Eine Karte ist ein Link, den du jemandem gibst, der nicht eingeloggt ist."
+
+#. translators: %d: form ID.
+#: includes/class-forms.php:105
+#, php-format
+msgid "Form %d"
+msgstr "Formular %d"
+
+#: includes/class-forms.php:214
+msgid "This form is missing its consent checkbox and cannot be submitted. Please use one of the other ways to get in touch."
+msgstr "Diesem Formular fehlt die Einwilligungs-Checkbox, es lässt sich deshalb nicht absenden. Bitte nutze einen der anderen Kontaktwege."
+
+#: includes/class-forms.php:233
+msgid "Consent to processing your email address is required."
+msgstr "Die Einwilligung zur E-Mail-Verarbeitung ist erforderlich."
+
+#: includes/class-meta-boxes.php:197
+msgid "Choose an image"
+msgstr "Ein Bild wählen"
+
+#: includes/class-meta-boxes.php:198
+msgid "Choose a file"
+msgstr "Eine Datei wählen"
+
+#: includes/class-meta-boxes.php:199
+msgid "Use this"
+msgstr "Übernehmen"
+
+#: includes/class-meta-boxes.php:222
+#: includes/class-meta-boxes.php:376
+#: templates/partials/contact.php:71
+msgid "Address"
+msgstr "Adresse"
+
+#: includes/class-meta-boxes.php:285
+msgid "Design and mode"
+msgstr "Design und Modus"
+
+#: includes/class-meta-boxes.php:290
+msgid "Wallet and vCard"
+msgstr "Wallet und vCard"
+
+#: includes/class-meta-boxes.php:300
+msgid "Name and biography"
+msgstr "Name und Biografie"
+
+#: includes/class-meta-boxes.php:305
+msgid "Images"
+msgstr "Bilder"
+
+#: includes/class-meta-boxes.php:310
+#: templates/partials/quick-actions.php:62
+msgid "Quick actions"
+msgstr "Schnellaktionen"
+
+#: includes/class-meta-boxes.php:315
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
+#: includes/class-meta-boxes.php:320
+msgid "Networks"
+msgstr "Netzwerke"
+
+#: includes/class-meta-boxes.php:325
+msgid "Custom links"
+msgstr "Eigene Links"
+
+#: includes/class-meta-boxes.php:330
+#: templates/partials/downloads.php:45
+msgid "Downloads"
+msgstr "Downloads"
+
+#: includes/class-meta-boxes.php:335
+msgid "Footer links"
+msgstr "Links im Fußbereich"
+
+#: includes/class-meta-boxes.php:349
+msgid "Layout"
+msgstr "Layout"
+
+#: includes/class-meta-boxes.php:350
+msgid "Show a QR code button"
+msgstr "Schaltfläche für den QR-Code zeigen"
+
+#: includes/class-meta-boxes.php:351
+msgid "Show a light and dark switch"
+msgstr "Umschalter für Hell und Dunkel zeigen"
+
+#: includes/class-meta-boxes.php:353
+msgid "Banner"
+msgstr "Banner"
+
+#: includes/class-meta-boxes.php:354
+msgid "Profile picture"
+msgstr "Profilbild"
+
+#: includes/class-meta-boxes.php:356
+msgid "Salutation"
+msgstr "Anrede"
+
+#: includes/class-meta-boxes.php:357
+msgid "Academic title"
+msgstr "Akademischer Titel"
+
+#: includes/class-meta-boxes.php:358
+msgid "First name"
+msgstr "Vorname"
+
+#: includes/class-meta-boxes.php:359
+msgid "Last name"
+msgstr "Nachname"
+
+#: includes/class-meta-boxes.php:360
+msgid "Position"
+msgstr "Position"
+
+#: includes/class-meta-boxes.php:361
+msgid "Company"
+msgstr "Unternehmen"
+
+#: includes/class-meta-boxes.php:362
+msgid "Biography"
+msgstr "Biografie"
+
+#: includes/class-meta-boxes.php:364
+#: templates/partials/quick-actions.php:21
+msgid "Call"
+msgstr "Anrufen"
+
+#: includes/class-meta-boxes.php:365
+#: templates/partials/quick-actions.php:29
+msgid "Email"
+msgstr "E-Mail"
+
+#: includes/class-meta-boxes.php:366
+#: templates/partials/quick-actions.php:37
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: includes/class-meta-boxes.php:367
+#: includes/class-meta-boxes.php:375
+#: templates/partials/contact.php:21
+#: templates/partials/quick-actions.php:45
+msgid "Website"
+msgstr "Website"
+
+#: includes/class-meta-boxes.php:369
+#: templates/partials/contact.php:15
+msgid "Email, work"
+msgstr "E-Mail, geschäftlich"
+
+#: includes/class-meta-boxes.php:370
+#: templates/partials/contact.php:16
+msgid "Email, private"
+msgstr "E-Mail, privat"
+
+#: includes/class-meta-boxes.php:371
+#: templates/partials/contact.php:17
+msgid "Phone, work"
+msgstr "Telefon, geschäftlich"
+
+#: includes/class-meta-boxes.php:372
+#: templates/partials/contact.php:18
+msgid "Phone, private"
+msgstr "Telefon, privat"
+
+#: includes/class-meta-boxes.php:373
+#: templates/partials/contact.php:19
+msgid "Mobile, work"
+msgstr "Mobil, geschäftlich"
+
+#: includes/class-meta-boxes.php:374
+#: templates/partials/contact.php:20
+msgid "Mobile, private"
+msgstr "Mobil, privat"
+
+#: includes/class-meta-boxes.php:377
+msgid "what3words link"
+msgstr "what3words-Link"
+
+#: includes/class-meta-boxes.php:379
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: includes/class-meta-boxes.php:380
+msgid "Xing"
+msgstr "Xing"
+
+#: includes/class-meta-boxes.php:381
+msgid "GitHub"
+msgstr "GitHub"
+
+#: includes/class-meta-boxes.php:382
+msgid "Mastodon"
+msgstr "Mastodon"
+
+#: includes/class-meta-boxes.php:383
+msgid "Facebook"
+msgstr "Facebook"
+
+#: includes/class-meta-boxes.php:384
+msgid "Instagram"
+msgstr "Instagram"
+
+#: includes/class-meta-boxes.php:385
+msgid "Threads"
+msgstr "Threads"
+
+#: includes/class-meta-boxes.php:386
+msgid "Discord"
+msgstr "Discord"
+
+#: includes/class-meta-boxes.php:387
+msgid "Signal"
+msgstr "Signal"
+
+#: includes/class-meta-boxes.php:389
+msgid "Link 1 label"
+msgstr "Link 1, Beschriftung"
+
+#: includes/class-meta-boxes.php:390
+msgid "Link 1 address"
+msgstr "Link 1, Adresse"
+
+#: includes/class-meta-boxes.php:391
+msgid "Link 2 label"
+msgstr "Link 2, Beschriftung"
+
+#: includes/class-meta-boxes.php:392
+msgid "Link 2 address"
+msgstr "Link 2, Adresse"
+
+#: includes/class-meta-boxes.php:393
+msgid "Link 3 label"
+msgstr "Link 3, Beschriftung"
+
+#: includes/class-meta-boxes.php:394
+msgid "Link 3 address"
+msgstr "Link 3, Adresse"
+
+#: includes/class-meta-boxes.php:396
+msgid "Download 1 label"
+msgstr "Download 1, Beschriftung"
+
+#: includes/class-meta-boxes.php:397
+msgid "Download 1 file"
+msgstr "Download 1, Datei"
+
+#: includes/class-meta-boxes.php:398
+msgid "Download 2 label"
+msgstr "Download 2, Beschriftung"
+
+#: includes/class-meta-boxes.php:399
+msgid "Download 2 file"
+msgstr "Download 2, Datei"
+
+#: includes/class-meta-boxes.php:400
+msgid "Download 3 label"
+msgstr "Download 3, Beschriftung"
+
+#: includes/class-meta-boxes.php:401
+msgid "Download 3 file"
+msgstr "Download 3, Datei"
+
+#: includes/class-meta-boxes.php:403
+msgid "Offer a vCard download"
+msgstr "vCard zum Download anbieten"
+
+#: includes/class-meta-boxes.php:404
+msgid "Apple Wallet address"
+msgstr "Apple-Wallet-Adresse"
+
+#: includes/class-meta-boxes.php:405
+msgid "Google Wallet address"
+msgstr "Google-Wallet-Adresse"
+
+#: includes/class-meta-boxes.php:407
+msgid "Form"
+msgstr "Formular"
+
+#: includes/class-meta-boxes.php:409
+#: templates/partials/footer.php:27
+msgid "Imprint"
+msgstr "Impressum"
+
+#: includes/class-meta-boxes.php:410
+#: templates/partials/footer.php:34
+msgid "Privacy policy"
+msgstr "Datenschutzerklärung"
+
+#: includes/class-meta-boxes.php:411
+#: templates/partials/footer.php:41
+msgid "Terms"
+msgstr "Nutzungsbedingungen"
+
+#: includes/class-meta-boxes.php:422
+msgid "Digits and a leading plus only. Everything else is stripped when saved."
+msgstr "Nur Ziffern und ein führendes Plus. Alles andere wird beim Speichern entfernt."
+
+#: includes/class-meta-boxes.php:423
+msgid "Basic formatting is kept. Used as the note on the vCard as well."
+msgstr "Einfache Formatierung bleibt erhalten. Wird auch als Notiz in der vCard verwendet."
+
+#: includes/class-meta-boxes.php:424
+msgid "Written to the vCard as one block. Line breaks are kept."
+msgstr "Wird als ein Block in die vCard geschrieben. Zeilenumbrüche bleiben erhalten."
+
+#: includes/class-meta-boxes.php:425
+msgid "A signed pass needs an Apple certificate, so this is a link to wherever your pass is hosted. Leave it empty to hide the badge."
+msgstr "Ein signierter Pass braucht ein Apple-Zertifikat, deshalb ist das hier ein Link auf den Ort, an dem dein Pass liegt. Leer lassen, um die Schaltfläche auszublenden."
+
+#: includes/class-meta-boxes.php:426
+msgid "Leave empty to use the privacy policy page set under Settings, Privacy."
+msgstr "Leer lassen, um die unter Einstellungen › Datenschutz hinterlegte Seite zu verwenden."
+
+#: includes/class-meta-boxes.php:427
+msgid "Classic has a banner, Modern is borderless, Bio is a stack of link buttons."
+msgstr "Klassisch hat einen Banner, Modern kommt ohne Rahmen aus, Bio ist ein Stapel aus Link-Schaltflächen."
+
+#: includes/class-permalink-field.php:60
+msgid "Business card base"
+msgstr "Basis für Visitenkarten"
+
+#: includes/class-permalink-field.php:88
+msgid "With plain permalinks a card has no base. Cards stay reachable at ?baukasten_card=… until a permalink structure is chosen above."
+msgstr "Mit einfachen Permalinks hat eine Visitenkarte keine Basis. Karten bleiben unter ?baukasten_card=… erreichbar, bis oben eine Permalink-Struktur gewählt ist."
+
+#. translators: %s: an example card URL.
+#: includes/class-permalink-field.php:99
+#, php-format
+msgid "Cards are served from %s. Reserved segments and segments already used by a page or another post type are rejected; a rule added by another plugin cannot be detected, so check the base still works after changing it."
+msgstr "Visitenkarten werden unter %s ausgeliefert. Reservierte Segmente und Segmente, die bereits von einer Seite oder einem anderen Inhaltstyp belegt sind, werden abgelehnt; eine Regel, die ein anderes Plugin hinzugefügt hat, lässt sich nicht erkennen — prüfe nach einer Änderung also, ob die Basis noch funktioniert."
+
+#: includes/class-permalink-field.php:117
+msgid "You are not allowed to change these settings."
+msgstr "Du darfst diese Einstellungen nicht ändern."
+
+#: includes/class-permalink-field.php:130
+msgid "That business card base is reserved or already in use. The previous one was kept."
+msgstr "Diese Basis für Visitenkarten ist reserviert oder bereits belegt. Die vorherige wurde beibehalten."
+
+#: includes/class-post-type.php:182
+msgctxt "post type general name"
+msgid "Business Cards"
+msgstr "Visitenkarten"
+
+#: includes/class-post-type.php:183
+msgctxt "post type singular name"
+msgid "Business Card"
+msgstr "Visitenkarte"
+
+#: includes/class-post-type.php:184
+msgctxt "admin menu"
+msgid "Business Cards"
+msgstr "Visitenkarten"
+
+#: includes/class-post-type.php:185
+msgid "Add Card"
+msgstr "Karte erstellen"
+
+#: includes/class-post-type.php:186
+msgid "Add New Card"
+msgstr "Neue Karte erstellen"
+
+#: includes/class-post-type.php:187
+msgid "Edit Card"
+msgstr "Karte bearbeiten"
+
+#: includes/class-post-type.php:188
+msgid "New Card"
+msgstr "Neue Karte"
+
+#: includes/class-post-type.php:189
+msgid "View Card"
+msgstr "Karte ansehen"
+
+#: includes/class-post-type.php:190
+msgid "View Cards"
+msgstr "Karten ansehen"
+
+#: includes/class-post-type.php:191
+msgid "Search Cards"
+msgstr "Karten durchsuchen"
+
+#: includes/class-post-type.php:192
+msgid "No cards yet."
+msgstr "Noch keine Karten vorhanden."
+
+#: includes/class-post-type.php:193
+msgid "No cards in the trash."
+msgstr "Keine Karten im Papierkorb."
+
+#: includes/class-post-type.php:194
+msgid "All Cards"
+msgstr "Alle Karten"
+
+#: includes/class-post-type.php:195
+msgid "Card Archives"
+msgstr "Karten-Archive"
+
+#: includes/class-post-type.php:196
+msgid "Insert into card"
+msgstr "In die Karte einfügen"
+
+#: includes/class-post-type.php:197
+msgid "Uploaded to this card"
+msgstr "Zu dieser Karte hochgeladen"
+
+#: includes/class-post-type.php:198
+msgid "Card published."
+msgstr "Karte veröffentlicht."
+
+#: includes/class-post-type.php:199
+msgid "Card updated."
+msgstr "Karte aktualisiert."
+
+#: includes/class-post-type.php:200
+msgctxt "navigation link block title"
+msgid "Card Link"
+msgstr "Karten-Link"
+
+#: includes/class-post-type.php:201
+msgctxt "navigation link block description"
+msgid "A link to a card."
+msgstr "Ein Link auf eine Visitenkarte."
+
+#: includes/class-settings-tab.php:61
+msgid "Business Cards"
+msgstr "Visitenkarten"
+
+#: includes/class-settings-tab.php:105
+msgid "Business Cards is serving cards, but its overview needs the Baukasten - Privacy Toolkit plugin. Cards can still be edited under Business Cards."
+msgstr "Business Cards liefert Visitenkarten aus, aber die Übersicht braucht das Plugin Baukasten - Privacy Toolkit. Karten lassen sich weiterhin unter Visitenkarten bearbeiten."
+
+#: templates/partials/contact.php:22
+msgid "what3words"
+msgstr "what3words"
+
+#: templates/partials/contact.php:31
+msgid "Contact"
+msgstr "Kontakt"
+
+#: templates/partials/footer.php:51
+msgid "Legal"
+msgstr "Rechtliches"
+
+#: templates/partials/form.php:26
+msgid "Get in touch"
+msgstr "Kontakt aufnehmen"
+
+#: templates/partials/links.php:39
+msgid "Links"
+msgstr "Links"
+
+#: templates/partials/networks.php:35
+msgid "Elsewhere"
+msgstr "Anderswo"
+
+#: templates/partials/qr-modal.php:20
+msgid "This card as a QR code"
+msgstr "Diese Karte als QR-Code"
+
+#: templates/partials/qr-modal.php:27
+msgid "Close"
+msgstr "Schließen"
+
+#: templates/partials/quick-actions.php:53
+msgid "Save contact"
+msgstr "Kontakt speichern"
+
+#: templates/partials/toolbar.php:31
+msgid "Switch between light and dark"
+msgstr "Zwischen Hell und Dunkel wechseln"
+
+#: templates/partials/toolbar.php:45
+msgid "Show this card as a QR code"
+msgstr "Diese Karte als QR-Code anzeigen"
+
+#: templates/partials/wallet.php:24
+msgid "Wallet"
+msgstr "Wallet"
+
+#: templates/partials/wallet.php:34
+msgid "Add to Apple Wallet"
+msgstr "Zu Apple Wallet hinzufügen"
+
+#: templates/partials/wallet.php:46
+msgid "Add to Google Wallet"
+msgstr "Zu Google Wallet hinzufügen"

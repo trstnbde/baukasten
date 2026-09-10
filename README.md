@@ -2,7 +2,7 @@
 
 A family of small, focused WordPress plugins — one core that gives them a shared settings screen, and one plugin per feature. Most of them are about privacy.
 
-Five plugins live in this repository. Each is published separately to the WordPress plugin directory; they are developed together because they share conventions, tooling and a release cadence.
+Six plugins live in this repository. Each is published separately to the WordPress plugin directory; they are developed together because they share conventions, tooling and a release cadence.
 
 | Directory | Plugin | What it does |
 |---|---|---|
@@ -11,6 +11,7 @@ Five plugins live in this repository. Each is published separately to the WordPr
 | [`baukasten-login-legal-pages`](baukasten-login-legal-pages) | Baukasten Addon: Login Legal Pages | Privacy policy, terms and imprint in the login card; no WordPress header on the screen; a `/login/` URL. |
 | [`baukasten-consent-blocking-engine`](baukasten-consent-blocking-engine) | Baukasten Addon: Consent Blocking Engine | Blocks third-party scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, with an auditable log and a site-wide hardening routine. |
 | [`baukasten-multi-domain`](baukasten-multi-domain) | Baukasten Addon: Multi-Domain Landingpage | Gives a page its own domain, so one install serves a different front page under each domain. |
+| [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | A digital business card on its own short link, built for a phone and detached from the theme, with a vCard download and a QR code. |
 
 ## Why it is split up
 

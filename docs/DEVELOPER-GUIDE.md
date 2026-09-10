@@ -8,7 +8,7 @@ Everything here describes v1.0.0.
 
 ## 1. What this is
 
-Five WordPress plugins in one repository, published separately to the plugin directory:
+Six WordPress plugins in one repository, published separately to the plugin directory:
 
 | Slug | Role |
 |---|---|
@@ -17,6 +17,7 @@ Five WordPress plugins in one repository, published separately to the plugin dir
 | `baukasten-login-legal-pages` | Legal links on the login screen, `/login/` URL. |
 | `baukasten-consent-blocking-engine` | Blocks third parties until consent; site hardening. |
 | `baukasten-multi-domain` | A domain per page. |
+| `baukasten-business-cards` | A digital business card on its own short link. |
 
 They are separate plugins because the features are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a release.
 
@@ -43,11 +44,13 @@ add_action( 'baukasten/register_addons', static function (): void {
 		'title'       => __( 'My Addon', 'my-addon' ),  // tab label
 		'plugin_file' => MY_ADDON_FILE,                 // version and description on the overview
 		'capability'  => 'manage_options',              // optional, can only narrow access
-		'position'    => 50,                            // optional, sort order
+		'position'    => 60,                            // optional, sort order
 		'render'      => 'my_addon_render_tab',         // prints the tab
 	) );
 } );
 ```
+
+Tab positions in use: 10 Content Visibility, 20 Login Legal Pages, 30 Consent Blocking Engine, 40 Multi-Domain, 50 Business Cards.
 
 Nothing is inherited and nothing is implemented. Guard the call with `class_exists( 'Baukasten\Addons' )` and the addon still runs without the core — it just has nowhere to put its settings, which is what the "core plugin missing" notices in each addon are for.
 
@@ -125,7 +128,7 @@ Only `baukasten/` has a `vendor/`; the other four are linted with `../baukasten/
 
 ### The local test setup
 
-XAMPP at `D:\xampp\htdocs`, WordPress 7.1, all five plugins linked in as **directory junctions** so edits are live:
+XAMPP at `D:\xampp\htdocs`, WordPress 7.1, all six plugins linked in as **directory junctions** so edits are live:
 
 ```powershell
 New-Item -ItemType Junction -Path "D:\xampp\htdocs\wp-content\plugins\<slug>" -Target "D:\Code\Baukasten\<slug>"
@@ -154,6 +157,14 @@ Every one of these cost time. They are listed so they cost it once.
 
 **`#nav` and `.privacy-policy-page-link` are siblings on the login screen**, not a shared container, and core offers no filter to remove the logo `<h1>` or the "Go to site" link. The login card is three stacked blocks with matching borders and a one pixel overlap. There is no selector for "an element followed by another" short of `:has()`.
 
+**A post slug is looked up lowercased.** `WP_Query::parse_query()` runs the requested name through `sanitize_title_for_query()`, which calls `strtolower()` unconditionally. A generated slug with capitals in it is stored as typed and searched for in lower case, so the post 404s while the admin list shows a permalink pointing straight at it. Base36, not base62. See `Slug::assign()`.
+
+**`wp_unique_post_slug()` runs before `wp_insert_post_data`, not after.** Which is what makes generating a slug in that filter work at all: nothing downstream can append a `-2`, and because the filter always returns a non-empty `post_name` the title-derived fallback later in `wp_insert_post()` never fires either.
+
+**Only the post type's own `rewrite` argument gives you working permalinks.** `get_permalink()` reads `WP_Rewrite::get_extra_permastruct()`, and only `WP_Post_Type::add_rewrite_rules()` ever fills that in. `'rewrite' => false` plus a hand-written `add_rewrite_rule()` serves the pretty URL and then has `redirect_canonical()` bounce it back to the ugly one, because that is what `get_permalink()` still returns.
+
+**Removing `wp_enqueue_global_styles` leaves the Customizer CSS behind.** On a block theme that function unhooks `wp_custom_css_cb` itself, as a side effect. Take the function out to detach a theme and nothing unhooks it any more, so the Customizer CSS prints onto a page that has nothing else of the theme left on it. See `Renderer::strip_head()`.
+
 **Translating before `init` trips a 6.7 notice.** Anything that produces a translated string — including a tab title — has to run on `init` or later.
 
 **PHPCS's PrefixAllGlobals sniff treats view locals as globals.** Prefix them, or the build fails on a file that looks perfectly ordinary.
@@ -163,7 +174,7 @@ Every one of these cost time. They are listed so they cost it once.
 ## 6. Where things are
 
 ```
-baukasten*/                 the five plugins
+baukasten*/                 the six plugins
 bin/build.php               packaging, one plugin or --all
 bin/make-assets.php         directory icon and banner
 docs/DEVELOPER-GUIDE.md     this file
@@ -177,7 +188,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-Nothing has been published yet; all five are at 1.0.0 and the repository is tagged `v1.0.0`.
+Nothing has been published yet; all six are at 1.0.0.
 
 For a release:
 

@@ -22,6 +22,8 @@ jobs:
           - baukasten-content-visibility
           - baukasten-login-legal-pages
           - baukasten-consent-blocking-engine
+          - baukasten-multi-domain
+          - baukasten-business-cards
 
     steps:
       - name: Check out the repository
