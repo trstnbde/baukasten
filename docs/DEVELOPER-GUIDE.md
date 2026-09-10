@@ -167,6 +167,8 @@ Every one of these cost time. They are listed so they cost it once.
 
 **Translating before `init` trips a 6.7 notice.** Anything that produces a translated string — including a tab title — has to run on `init` or later.
 
+**`.distignore` matches path segments, not just paths.** `bin/build.php`'s `is_ignored()` tests every pattern against the full relative path *and* against each segment of it, so the `vendor` line meant for Composer also excludes `assets/js/vendor/anything`. The file vanishes from the release archive and from nowhere else — the plugin keeps working locally, and the ZIP ships a button that does nothing. Business Cards keeps its bundled QR encoder in `assets/js/lib/` for exactly this reason.
+
 **PHPCS's PrefixAllGlobals sniff treats view locals as globals.** Prefix them, or the build fails on a file that looks perfectly ordinary.
 
 ---
