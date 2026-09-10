@@ -1,0 +1,45 @@
+/**
+ * The card editing screen.
+ *
+ * Only what the meta box view cannot express with core admin classes.
+ */
+
+.baukasten-bc-media__preview img {
+	max-width: 240px;
+	height: auto;
+	display: block;
+	margin-bottom: 8px;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.baukasten-bc-media__preview:empty {
+	display: none;
+}
+
+.baukasten-bc-media p {
+	margin: 0;
+}
+
+.baukasten-bc-radio {
+	display: inline-block;
+	margin-right: 12px;
+}
+
+/* The three boxes in the sidebar are too narrow for a two-column table. */
+.baukasten-bc-fields--design th,
+.baukasten-bc-fields--design td,
+.baukasten-bc-fields--wallet th,
+.baukasten-bc-fields--wallet td,
+.baukasten-bc-fields--form th,
+.baukasten-bc-fields--form td {
+	display: block;
+	width: auto;
+	padding: 4px 0;
+}
+
+.baukasten-bc-fields--design .regular-text,
+.baukasten-bc-fields--wallet .regular-text,
+.baukasten-bc-fields--form select {
+	width: 100%;
+}

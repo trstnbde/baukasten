@@ -1,0 +1,672 @@
+/**
+ * A digital business card.
+ *
+ * Written for a phone first: everything below the first media query is what a
+ * 360px screen gets, and the single `min-width` block that follows only turns
+ * the full-bleed page into a centred card once there is room for one.
+ *
+ * Colours are all custom properties defined on :root, redefined twice — once
+ * under prefers-color-scheme for visitors who never touch the switch, once
+ * under [data-theme] so that the switch wins in both directions.
+ */
+
+:root {
+	--bkbc-bg: #eef0f4;
+	--bkbc-backdrop: #e3e6ec;
+	--bkbc-surface: #ffffff;
+	--bkbc-surface-2: #f4f5f8;
+	--bkbc-text: #14161b;
+	--bkbc-text-muted: #5a6070;
+	--bkbc-border: #e2e5ec;
+	--bkbc-accent: #2f55d4;
+	--bkbc-accent-soft: #eaeefb;
+	--bkbc-on-accent: #ffffff;
+	--bkbc-shadow: 0 1px 2px rgba(16, 20, 28, 0.06), 0 16px 40px rgba(16, 20, 28, 0.12);
+	--bkbc-radius: 18px;
+	--bkbc-radius-sm: 12px;
+	--bkbc-gap: 18px;
+	--bkbc-pad: 20px;
+	--bkbc-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+
+	:root:not([data-theme="light"]) {
+		--bkbc-bg: #0c0e13;
+		--bkbc-backdrop: #090a0e;
+		--bkbc-surface: #16191f;
+		--bkbc-surface-2: #1e222a;
+		--bkbc-text: #eef0f4;
+		--bkbc-text-muted: #a2a9b8;
+		--bkbc-border: #272c35;
+		--bkbc-accent: #7d9bff;
+		--bkbc-accent-soft: #1d2436;
+		--bkbc-on-accent: #0c0e13;
+		--bkbc-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.55);
+	}
+}
+
+:root[data-theme="dark"] {
+	--bkbc-bg: #0c0e13;
+	--bkbc-backdrop: #090a0e;
+	--bkbc-surface: #16191f;
+	--bkbc-surface-2: #1e222a;
+	--bkbc-text: #eef0f4;
+	--bkbc-text-muted: #a2a9b8;
+	--bkbc-border: #272c35;
+	--bkbc-accent: #7d9bff;
+	--bkbc-accent-soft: #1d2436;
+	--bkbc-on-accent: #0c0e13;
+	--bkbc-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* -------------------------------------------------------------- shell */
+
+/*
+ * A note on the `.bkbc ` prefixes further down: `.bkbc a` is one class plus
+ * one element, which outranks a bare component class, so an unprefixed
+ * `.bkbc-quick__link { color: … }` loses to it and every action button comes
+ * out accent-on-accent — that is, invisible.
+ */
+
+body.bkbc {
+	margin: 0;
+	background: var(--bkbc-bg);
+	color: var(--bkbc-text);
+	font-family: var(--bkbc-font);
+	font-size: 16px;
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%;
+}
+
+.bkbc *,
+.bkbc *::before,
+.bkbc *::after {
+	box-sizing: border-box;
+}
+
+.bkbc img {
+	max-width: 100%;
+	height: auto;
+}
+
+.bkbc a {
+	color: var(--bkbc-accent);
+	text-decoration: none;
+}
+
+.bkbc a:hover,
+.bkbc a:focus-visible {
+	text-decoration: underline;
+}
+
+.bkbc :focus-visible {
+	outline: 2px solid var(--bkbc-accent);
+	outline-offset: 2px;
+}
+
+/* The theme is gone, and with it core's version of this. */
+.bkbc .screen-reader-text {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.bkbc-stage {
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+}
+
+@supports (min-height: 100dvh) {
+
+	.bkbc-stage {
+		min-height: 100dvh;
+	}
+}
+
+.bkbc-card {
+	position: relative;
+	width: 100%;
+	max-width: 640px;
+	background: var(--bkbc-surface);
+	overflow: hidden;
+}
+
+.bkbc-body {
+	padding: var(--bkbc-pad);
+	display: flex;
+	flex-direction: column;
+	gap: var(--bkbc-gap);
+}
+
+.bkbc-section {
+	margin: 0;
+}
+
+.bkbc-section__title {
+	margin: 0 0 10px;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--bkbc-text-muted);
+}
+
+.bkbc-icon {
+	width: 20px;
+	height: 20px;
+	flex: 0 0 auto;
+}
+
+/* ------------------------------------------------------------ toolbar */
+
+.bkbc-toolbar {
+	position: absolute;
+	inset: 12px 12px auto auto;
+	z-index: 2;
+	display: flex;
+	gap: 8px;
+}
+
+.bkbc-toolbar__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	padding: 0;
+	border: 1px solid var(--bkbc-border);
+	border-radius: 50%;
+	background: var(--bkbc-surface);
+	color: var(--bkbc-text);
+	cursor: pointer;
+	box-shadow: 0 1px 2px rgba(16, 20, 28, 0.12);
+}
+
+.bkbc-toolbar__button:hover {
+	background: var(--bkbc-surface-2);
+}
+
+/* ------------------------------------------------------------- banner */
+
+.bkbc-banner {
+	margin: 0;
+	line-height: 0;
+	background: var(--bkbc-surface-2);
+}
+
+.bkbc-banner__image {
+	width: 100%;
+	aspect-ratio: 3 / 1;
+	object-fit: cover;
+}
+
+/* ----------------------------------------------------------- identity */
+
+.bkbc-identity {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.bkbc-avatar {
+	margin-bottom: 10px;
+}
+
+.bkbc-avatar__image {
+	width: 96px;
+	height: 96px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 3px solid var(--bkbc-surface);
+	background: var(--bkbc-surface-2);
+}
+
+.bkbc-identity__salutation,
+.bkbc-identity__position,
+.bkbc-identity__company {
+	margin: 0;
+	color: var(--bkbc-text-muted);
+	font-size: 0.95rem;
+}
+
+.bkbc-identity__name {
+	margin: 0;
+	font-size: 1.6rem;
+	line-height: 1.2;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+
+.bkbc-identity__company {
+	font-weight: 500;
+	color: var(--bkbc-text);
+}
+
+/* ------------------------------------------------------ quick actions */
+
+.bkbc-quick__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.bkbc .bkbc-quick__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	min-height: 44px;
+	border-radius: 999px;
+	background: var(--bkbc-accent);
+	color: var(--bkbc-on-accent);
+	font-size: 0.95rem;
+	font-weight: 550;
+}
+
+.bkbc .bkbc-quick__link:hover,
+.bkbc .bkbc-quick__link:focus-visible {
+	text-decoration: none;
+	filter: brightness(1.08);
+}
+
+/* ------------------------------------------------------------ contact */
+
+.bkbc-contact__list {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.bkbc-contact__row {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 10px 0;
+	border-bottom: 1px solid var(--bkbc-border);
+}
+
+.bkbc-contact__row:last-child {
+	border-bottom: 0;
+}
+
+.bkbc-contact__label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--bkbc-text-muted);
+}
+
+.bkbc .bkbc-contact__value {
+	margin: 0 0 0 28px;
+	overflow-wrap: anywhere;
+}
+
+.bkbc-contact__value address {
+	font-style: normal;
+}
+
+/* ----------------------------------------------------------- networks */
+
+.bkbc-networks__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.bkbc .bkbc-networks__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 44px;
+	padding: 8px 14px 8px 8px;
+	border: 1px solid var(--bkbc-border);
+	border-radius: 999px;
+	background: var(--bkbc-surface-2);
+	color: var(--bkbc-text);
+	font-size: 0.9rem;
+}
+
+.bkbc .bkbc-networks__link:hover,
+.bkbc .bkbc-networks__link:focus-visible {
+	text-decoration: none;
+	border-color: var(--bkbc-accent);
+}
+
+.bkbc-networks__initial {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: var(--bkbc-accent-soft);
+	color: var(--bkbc-accent);
+	font-size: 0.8rem;
+	font-weight: 700;
+}
+
+/* ------------------------------------------- links, downloads, wallet */
+
+.bkbc-links__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.bkbc .bkbc-stack-button {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	min-height: 52px;
+	padding: 12px 16px;
+	border: 1px solid var(--bkbc-border);
+	border-radius: var(--bkbc-radius-sm);
+	background: var(--bkbc-surface-2);
+	color: var(--bkbc-text);
+	font-weight: 550;
+}
+
+.bkbc .bkbc-stack-button:hover,
+.bkbc .bkbc-stack-button:focus-visible {
+	text-decoration: none;
+	border-color: var(--bkbc-accent);
+	background: var(--bkbc-accent-soft);
+}
+
+/* ---------------------------------------------------------------- bio */
+
+.bkbc-bio p {
+	margin: 0 0 0.8em;
+	color: var(--bkbc-text);
+}
+
+.bkbc-bio p:last-child {
+	margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------- form */
+
+.bkbc-form input[type="text"],
+.bkbc-form input[type="email"],
+.bkbc-form input[type="tel"],
+.bkbc-form input[type="url"],
+.bkbc-form textarea,
+.bkbc-form select {
+	width: 100%;
+	padding: 10px 12px;
+	border: 1px solid var(--bkbc-border);
+	border-radius: var(--bkbc-radius-sm);
+	background: var(--bkbc-surface);
+	color: var(--bkbc-text);
+	font: inherit;
+}
+
+.bkbc-form input[type="submit"],
+.bkbc-form button[type="submit"] {
+	min-height: 46px;
+	padding: 12px 20px;
+	border: 0;
+	border-radius: 999px;
+	background: var(--bkbc-accent);
+	color: var(--bkbc-on-accent);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.bkbc-form label {
+	display: block;
+	margin-bottom: 10px;
+	font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------- footer */
+
+.bkbc-footer {
+	padding: 16px var(--bkbc-pad) 24px;
+	border-top: 1px solid var(--bkbc-border);
+	background: var(--bkbc-surface);
+}
+
+.bkbc-footer__list {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 6px 16px;
+	margin: 0;
+	padding: 0;
+	font-size: 0.8rem;
+}
+
+.bkbc-footer__list a {
+	color: var(--bkbc-text-muted);
+}
+
+/* ----------------------------------------------------------------- qr */
+
+.bkbc-qr {
+	width: min(92vw, 380px);
+	padding: 0;
+	border: 0;
+	border-radius: var(--bkbc-radius);
+	background: var(--bkbc-surface);
+	color: var(--bkbc-text);
+	box-shadow: var(--bkbc-shadow);
+}
+
+.bkbc-qr::backdrop {
+	background: rgba(10, 12, 16, 0.6);
+}
+
+.bkbc-qr__inner {
+	position: relative;
+	padding: 24px;
+	text-align: center;
+}
+
+.bkbc-qr__close {
+	position: absolute;
+	inset: 10px 10px auto auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--bkbc-text-muted);
+	cursor: pointer;
+}
+
+/* The code stays black on white in both themes: a QR reader needs the
+   contrast the way it was printed, not the way the page is dressed. */
+.bkbc-qr__code {
+	margin: 8px auto 12px;
+	max-width: 280px;
+	border-radius: var(--bkbc-radius-sm);
+	overflow: hidden;
+	background: #ffffff;
+}
+
+.bkbc-qr__code svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.bkbc-qr__url {
+	margin: 0;
+	font-size: 0.8rem;
+	color: var(--bkbc-text-muted);
+	overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------ classic */
+
+.bkbc--classic .bkbc-avatar {
+	margin-top: -58px;
+}
+
+.bkbc--classic .bkbc-identity__name {
+	margin-top: 2px;
+}
+
+/* ------------------------------------------------------------- modern */
+
+.bkbc--modern .bkbc-card,
+.bkbc--modern .bkbc-body {
+	--bkbc-pad: 24px;
+}
+
+.bkbc--modern .bkbc-identity {
+	align-items: center;
+	text-align: center;
+	padding-top: 22px;
+}
+
+.bkbc--modern .bkbc-avatar__image {
+	width: 116px;
+	height: 116px;
+	border: 0;
+	box-shadow: 0 0 0 3px var(--bkbc-surface), 0 0 0 6px var(--bkbc-accent);
+}
+
+.bkbc--modern .bkbc-identity__name {
+	font-size: 1.75rem;
+}
+
+.bkbc--modern .bkbc-quick__list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+}
+
+/* `display: flex` and a full width, or an inline-flex link shrinks to its
+   label and the grid cells come out ragged. */
+.bkbc--modern .bkbc-quick__link {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	gap: 6px;
+	min-height: 84px;
+	border-radius: var(--bkbc-radius-sm);
+	text-align: center;
+	font-size: 0.85rem;
+}
+
+.bkbc--modern .bkbc-networks__list,
+.bkbc--modern .bkbc-quick__list {
+	justify-content: center;
+}
+
+/* ---------------------------------------------------------------- bio */
+
+.bkbc--bio .bkbc-identity {
+	align-items: center;
+	text-align: center;
+	padding-top: 26px;
+	gap: 0;
+}
+
+.bkbc--bio .bkbc-avatar__image {
+	width: 84px;
+	height: 84px;
+}
+
+.bkbc--bio .bkbc-identity__name {
+	font-size: 1.35rem;
+}
+
+.bkbc--bio .bkbc-bio {
+	text-align: center;
+	color: var(--bkbc-text-muted);
+	font-size: 0.95rem;
+}
+
+.bkbc--bio .bkbc-quick__list {
+	flex-direction: column;
+}
+
+.bkbc--bio .bkbc-quick__link {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	min-height: 52px;
+	border-radius: var(--bkbc-radius-sm);
+	font-size: 1rem;
+}
+
+.bkbc--bio .bkbc-networks__list {
+	flex-direction: column;
+}
+
+.bkbc--bio .bkbc-networks__link {
+	display: flex;
+	width: 100%;
+	min-height: 52px;
+	border-radius: var(--bkbc-radius-sm);
+	padding: 12px 16px;
+}
+
+.bkbc--bio .bkbc-section__title {
+	text-align: center;
+}
+
+/* ------------------------------------------- one card, one breakpoint */
+
+@media (min-width: 641px) {
+
+	.bkbc-stage {
+		padding: 40px 20px;
+		background: var(--bkbc-backdrop);
+	}
+
+	.bkbc-card {
+		border-radius: var(--bkbc-radius);
+		box-shadow: var(--bkbc-shadow);
+	}
+
+	.bkbc--classic .bkbc-contact__list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 24px;
+	}
+
+	.bkbc--modern .bkbc-quick__list {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.bkbc * {
+		animation: none !important;
+		transition: none !important;
+	}
+}
