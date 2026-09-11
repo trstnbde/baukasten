@@ -1,81 +1,169 @@
 /**
- * A digital business card.
+ * A digital business card — the skeleton.
  *
- * Written for a phone first: everything below the first media query is what a
- * 360px screen gets, and the single `min-width` block that follows only turns
- * the full-bleed page into a centred card once there is room for one.
+ * Structure and components only. Every colour, typeface, radius and step of
+ * spacing comes from a token, and the tokens come from one of the three skin
+ * files. This file is byte-identical for every card on a site, so a visitor who
+ * opens two cards of different designs downloads it once.
  *
- * Colours are all custom properties defined on :root, redefined twice — once
- * under prefers-color-scheme for visitors who never touch the switch, once
- * under [data-theme] so that the switch wins in both directions.
+ * Written for a phone first: everything above the single `min-width` block is
+ * what a 360px screen gets, and that block only turns the full-bleed page into a
+ * centred card once there is room for one.
+ *
+ * A note on the `.bkbc ` prefixes further down: `.bkbc a` is one class plus one
+ * element, which outranks a bare component class, so an unprefixed
+ * `.bkbc-button { color: … }` loses to it and every button comes out
+ * accent-on-accent — that is, invisible.
+ */
+
+/* ══════════════════════════════════════════════════ tokens and the two grounds
+ *
+ * A skin owns a light ground and a dark ground and says which of the two it
+ * starts from; the document carries the design under [data-bkbc-skin] and that
+ * starting point under [data-bkbc-default]. What follows picks one of the two
+ * pairs, in four rules whose order is the whole design:
+ *
+ *   1  light, for everyone
+ *   2  the design's own starting point, when that is dark
+ *   3  the card, when it is pinned to light or dark
+ *   4  the reader's system setting, when the card follows them and they have
+ *      never touched the switch
+ *   5  the switch, which wins in both directions
+ *
+ * Rules 2, 3 and 5 are all one attribute selector and equal on purpose: source
+ * order decides, which is exactly the priority wanted, so no `!important` and no
+ * selector padding is needed. Rule 4 is one higher because of its `:not()`, and
+ * that is harmless — the `:not()` excludes the only case rule 5 would have had
+ * to win, and its `[data-bkbc-scheme="system"]` excludes rule 3's.
+ *
+ * The values below are a safety net, not the design — they are what a card falls
+ * back to if its skin file failed to load, so it is still legible rather than
+ * unstyled text.
  */
 
 :root {
-	--bkbc-bg: #eef0f4;
-	--bkbc-backdrop: #e3e6ec;
-	--bkbc-surface: #ffffff;
-	--bkbc-surface-2: #f4f5f8;
-	--bkbc-text: #14161b;
-	--bkbc-text-muted: #5a6070;
-	--bkbc-border: #e2e5ec;
+	--bkbc-edge: clamp(20px, 6vw, 48px);
+
+	--bkbc-light-bg: #f3f2f2;
+	--bkbc-light-surface: #eae9e9;
+	--bkbc-light-text: #201e1d;
+	--bkbc-light-divider: rgba(32, 30, 29, 0.4);
+
+	--bkbc-dark-bg: #2d2b2b;
+	--bkbc-dark-surface: #444141;
+	--bkbc-dark-text: #f8f4f4;
+	--bkbc-dark-divider: rgba(248, 244, 244, 0.4);
+
 	--bkbc-accent: #2f55d4;
-	--bkbc-accent-soft: #eaeefb;
+	--bkbc-accent-strong: #23409f;
+	--bkbc-accent-soft: rgba(47, 85, 212, 0.12);
 	--bkbc-on-accent: #ffffff;
+
+	--bkbc-font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+	--bkbc-font-heading: system-ui, -apple-system, "Segoe UI", sans-serif;
+	--bkbc-font-heading-weight: 700;
+
+	--bkbc-space-1: 4px;
+	--bkbc-space-2: 8px;
+	--bkbc-space-3: 12px;
+	--bkbc-space-4: 16px;
+	--bkbc-space-6: 24px;
+	--bkbc-space-8: 32px;
+
+	--bkbc-radius-sm: 0px;
+	--bkbc-radius-md: 0px;
+	--bkbc-radius-lg: 0px;
+	--bkbc-avatar-radius: 0px;
+
 	--bkbc-shadow: 0 1px 2px rgba(16, 20, 28, 0.06), 0 16px 40px rgba(16, 20, 28, 0.12);
-	--bkbc-radius: 18px;
-	--bkbc-radius-sm: 12px;
-	--bkbc-gap: 18px;
-	--bkbc-pad: 20px;
-	--bkbc-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+	color-scheme: light;
+
+	--bkbc-bg: var(--bkbc-light-bg);
+	--bkbc-surface: var(--bkbc-light-surface);
+	--bkbc-text: var(--bkbc-light-text);
+	--bkbc-divider: var(--bkbc-light-divider);
 }
 
+/* 2 — a design that starts dark. */
+:root[data-bkbc-default="dark"] {
+	color-scheme: dark;
+
+	--bkbc-bg: var(--bkbc-dark-bg);
+	--bkbc-surface: var(--bkbc-dark-surface);
+	--bkbc-text: var(--bkbc-dark-text);
+	--bkbc-divider: var(--bkbc-dark-divider);
+}
+
+/* 3 — a card pinned to one of the two.
+
+   These exist so the pin holds without JavaScript. With it, the snippet in the
+   head has already written `data-theme` and rule 5 says the same thing; without
+   it, this is the only thing that honours the setting, and a card pinned to dark
+   would otherwise come out light on a light phone. */
+:root[data-bkbc-scheme="light"] {
+	color-scheme: light;
+
+	--bkbc-bg: var(--bkbc-light-bg);
+	--bkbc-surface: var(--bkbc-light-surface);
+	--bkbc-text: var(--bkbc-light-text);
+	--bkbc-divider: var(--bkbc-light-divider);
+}
+
+:root[data-bkbc-scheme="dark"] {
+	color-scheme: dark;
+
+	--bkbc-bg: var(--bkbc-dark-bg);
+	--bkbc-surface: var(--bkbc-dark-surface);
+	--bkbc-text: var(--bkbc-dark-text);
+	--bkbc-divider: var(--bkbc-dark-divider);
+}
+
+/* 4 — the reader's own setting, for a card that was left on "follow the reader"
+   and a visitor who has not touched the switch. Only one direction is written:
+   a design that starts light follows the system into dark, and one that starts
+   dark does not follow it back out. Nocturne being dark is a property of the
+   design, like a poster's ink, and the switch is there for anyone who disagrees. */
 @media (prefers-color-scheme: dark) {
 
-	:root:not([data-theme="light"]) {
-		--bkbc-bg: #0c0e13;
-		--bkbc-backdrop: #090a0e;
-		--bkbc-surface: #16191f;
-		--bkbc-surface-2: #1e222a;
-		--bkbc-text: #eef0f4;
-		--bkbc-text-muted: #a2a9b8;
-		--bkbc-border: #272c35;
-		--bkbc-accent: #7d9bff;
-		--bkbc-accent-soft: #1d2436;
-		--bkbc-on-accent: #0c0e13;
-		--bkbc-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.55);
+	:root[data-bkbc-scheme="system"]:not([data-theme="light"]) {
+		color-scheme: dark;
+
+		--bkbc-bg: var(--bkbc-dark-bg);
+		--bkbc-surface: var(--bkbc-dark-surface);
+		--bkbc-text: var(--bkbc-dark-text);
+		--bkbc-divider: var(--bkbc-dark-divider);
 	}
 }
 
-:root[data-theme="dark"] {
-	--bkbc-bg: #0c0e13;
-	--bkbc-backdrop: #090a0e;
-	--bkbc-surface: #16191f;
-	--bkbc-surface-2: #1e222a;
-	--bkbc-text: #eef0f4;
-	--bkbc-text-muted: #a2a9b8;
-	--bkbc-border: #272c35;
-	--bkbc-accent: #7d9bff;
-	--bkbc-accent-soft: #1d2436;
-	--bkbc-on-accent: #0c0e13;
-	--bkbc-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.55);
+/* 5 — the switch. It wins in both directions, over everything above. */
+:root[data-theme="light"] {
+	color-scheme: light;
+
+	--bkbc-bg: var(--bkbc-light-bg);
+	--bkbc-surface: var(--bkbc-light-surface);
+	--bkbc-text: var(--bkbc-light-text);
+	--bkbc-divider: var(--bkbc-light-divider);
 }
 
-/* -------------------------------------------------------------- shell */
+:root[data-theme="dark"] {
+	color-scheme: dark;
 
-/*
- * A note on the `.bkbc ` prefixes further down: `.bkbc a` is one class plus
- * one element, which outranks a bare component class, so an unprefixed
- * `.bkbc-quick__link { color: … }` loses to it and every action button comes
- * out accent-on-accent — that is, invisible.
- */
+	--bkbc-bg: var(--bkbc-dark-bg);
+	--bkbc-surface: var(--bkbc-dark-surface);
+	--bkbc-text: var(--bkbc-dark-text);
+	--bkbc-divider: var(--bkbc-dark-divider);
+}
+
+/* ══════════════════════════════════════════════════════════════════════ shell */
 
 body.bkbc {
 	margin: 0;
 	background: var(--bkbc-bg);
 	color: var(--bkbc-text);
-	font-family: var(--bkbc-font);
-	font-size: 16px;
-	line-height: 1.5;
+	font-family: var(--bkbc-font-body);
+	font-size: 15px;
+	line-height: 1.55;
 	-webkit-text-size-adjust: 100%;
 }
 
@@ -86,6 +174,7 @@ body.bkbc {
 }
 
 .bkbc img {
+	display: block;
 	max-width: 100%;
 	height: auto;
 }
@@ -93,6 +182,7 @@ body.bkbc {
 .bkbc a {
 	color: var(--bkbc-accent);
 	text-decoration: none;
+	text-underline-offset: 3px;
 }
 
 .bkbc a:hover,
@@ -100,9 +190,22 @@ body.bkbc {
 	text-decoration: underline;
 }
 
+.bkbc :focus {
+	outline: none;
+}
+
 .bkbc :focus-visible {
 	outline: 2px solid var(--bkbc-accent);
 	outline-offset: 2px;
+}
+
+.bkbc h1,
+.bkbc h2 {
+	font-family: var(--bkbc-font-heading);
+	font-weight: var(--bkbc-font-heading-weight);
+	line-height: 1.12;
+	letter-spacing: -0.015em;
+	margin: 0;
 }
 
 /* The theme is gone, and with it core's version of this. */
@@ -136,166 +239,243 @@ body.bkbc {
 	position: relative;
 	width: 100%;
 	max-width: 640px;
-	background: var(--bkbc-surface);
-	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	background: var(--bkbc-bg);
+	padding-bottom: var(--bkbc-space-8);
 }
 
 .bkbc-body {
-	padding: var(--bkbc-pad);
 	display: flex;
 	flex-direction: column;
-	gap: var(--bkbc-gap);
+	padding: 0 var(--bkbc-edge);
 }
 
 .bkbc-section {
 	margin: 0;
+	padding: 0;
 }
 
 .bkbc-section__title {
-	margin: 0 0 10px;
-	font-size: 0.75rem;
-	font-weight: 600;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: var(--bkbc-text-muted);
+	font-size: 20px;
+	margin: 0 0 var(--bkbc-space-2);
 }
 
 .bkbc-icon {
-	width: 20px;
-	height: 20px;
+	width: 18px;
+	height: 18px;
 	flex: 0 0 auto;
 }
 
-/* ------------------------------------------------------------ toolbar */
-
-.bkbc-toolbar {
-	position: absolute;
-	inset: 12px 12px auto auto;
-	z-index: 2;
-	display: flex;
-	gap: 8px;
-}
-
-.bkbc-toolbar__button {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 38px;
-	height: 38px;
-	padding: 0;
-	border: 1px solid var(--bkbc-border);
-	border-radius: 50%;
-	background: var(--bkbc-surface);
-	color: var(--bkbc-text);
-	cursor: pointer;
-	box-shadow: 0 1px 2px rgba(16, 20, 28, 0.12);
-}
-
-.bkbc-toolbar__button:hover {
-	background: var(--bkbc-surface-2);
-}
-
-/* ------------------------------------------------------------- banner */
+/* ═════════════════════════════════════════════════════════ banner and tools */
 
 .bkbc-banner {
-	margin: 0;
-	line-height: 0;
-	background: var(--bkbc-surface-2);
+	position: relative;
+	width: 100%;
+	height: clamp(160px, 28vw, 240px);
 }
 
-.bkbc-banner__image {
+.bkbc-banner--empty {
+	height: auto;
+	min-height: 56px;
+}
+
+.bkbc-banner__media,
+.bkbc-banner__media img {
 	width: 100%;
-	aspect-ratio: 3 / 1;
+	height: 100%;
 	object-fit: cover;
 }
 
-/* ----------------------------------------------------------- identity */
-
-.bkbc-identity {
+.bkbc-tools {
+	position: absolute;
+	inset: var(--bkbc-space-3) var(--bkbc-edge) auto auto;
+	z-index: 3;
 	display: flex;
-	flex-direction: column;
-	gap: 2px;
+	gap: var(--bkbc-space-2);
 }
 
+/*
+ * Hard-coded on purpose, and not a token: these sit on an arbitrary photograph,
+ * and a themed pair would disappear against a light banner in light mode.
+ */
+.bkbc-tools__button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: none;
+	border-radius: var(--bkbc-radius-md);
+	background: rgba(0, 0, 0, 0.55);
+	color: #ffffff;
+	cursor: pointer;
+}
+
+.bkbc-tools__button:hover {
+	background: rgba(0, 0, 0, 0.72);
+}
+
+/* ══════════════════════════════════════════════════════ avatar and identity */
+
 .bkbc-avatar {
-	margin-bottom: 10px;
+	position: relative;
+	z-index: 2;
+	width: 112px;
+	height: 112px;
+	margin: -56px 0 0 var(--bkbc-edge);
+	border: 4px solid var(--bkbc-bg);
+	border-radius: var(--bkbc-avatar-radius);
+	overflow: hidden;
+	background: var(--bkbc-surface);
 }
 
 .bkbc-avatar__image {
-	width: 96px;
-	height: 96px;
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
-	border-radius: 50%;
-	border: 3px solid var(--bkbc-surface);
-	background: var(--bkbc-surface-2);
 }
 
-.bkbc-identity__salutation,
-.bkbc-identity__position,
-.bkbc-identity__company {
-	margin: 0;
-	color: var(--bkbc-text-muted);
-	font-size: 0.95rem;
+.bkbc-banner--empty + .bkbc-body .bkbc-avatar,
+.bkbc-card > .bkbc-body:first-child .bkbc-avatar {
+	margin-top: var(--bkbc-space-4);
+}
+
+.bkbc-identity {
+	padding-top: var(--bkbc-space-3);
 }
 
 .bkbc-identity__name {
-	margin: 0;
-	font-size: 1.6rem;
-	line-height: 1.2;
-	font-weight: 650;
-	letter-spacing: -0.01em;
+	font-size: clamp(28px, 5.5vw, 38px);
+}
+
+.bkbc-identity__position {
+	margin: 6px 0 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: var(--bkbc-accent-strong);
 }
 
 .bkbc-identity__company {
-	font-weight: 500;
-	color: var(--bkbc-text);
+	margin: 2px 0 0;
+	font-size: 15px;
+	opacity: 0.75;
 }
 
-/* ------------------------------------------------------ quick actions */
+/* ═════════════════════════════════════════════════════════════════ buttons */
+
+.bkbc .bkbc-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-height: 40px;
+	padding: var(--bkbc-space-2) calc(var(--bkbc-space-3) * 1.2);
+	border: 1px solid transparent;
+	border-radius: var(--bkbc-radius-md);
+	font-family: var(--bkbc-font-heading);
+	font-weight: var(--bkbc-font-heading-weight);
+	font-size: 14px;
+	line-height: 1.2;
+	color: var(--bkbc-text);
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.bkbc .bkbc-button:hover,
+.bkbc .bkbc-button:focus-visible {
+	text-decoration: none;
+}
+
+.bkbc .bkbc-button--primary {
+	background: var(--bkbc-accent);
+	color: var(--bkbc-on-accent);
+}
+
+.bkbc .bkbc-button--primary:hover {
+	background: var(--bkbc-accent-strong);
+}
+
+.bkbc .bkbc-button--secondary {
+	border-color: var(--bkbc-divider);
+}
+
+.bkbc .bkbc-button--secondary:hover {
+	background: var(--bkbc-accent-soft);
+}
+
+.bkbc .bkbc-button--block {
+	width: 100%;
+	justify-content: flex-start;
+	text-align: left;
+}
+
+.bkbc .bkbc-button--spread {
+	justify-content: space-between;
+	gap: var(--bkbc-space-3);
+}
+
+/* ═════════════════════════════════════════════════════════════════ actions */
+
+.bkbc-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--bkbc-space-2);
+	padding-top: var(--bkbc-space-4);
+}
+
+/* ═══════════════════════════════════════════════════════════ quick actions */
+
+.bkbc-quick {
+	padding-top: var(--bkbc-space-6);
+}
 
 .bkbc-quick__list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: var(--bkbc-space-2);
 }
 
 .bkbc .bkbc-quick__link {
-	display: inline-flex;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
-	gap: 8px;
-	padding: 10px 14px;
-	min-height: 44px;
-	border-radius: 999px;
-	background: var(--bkbc-accent);
-	color: var(--bkbc-on-accent);
-	font-size: 0.95rem;
-	font-weight: 550;
+	justify-content: center;
+	gap: 6px;
+	width: 100%;
+	min-height: 68px;
+	padding: var(--bkbc-space-3) 4px;
+	border: 1px solid var(--bkbc-divider);
+	border-radius: var(--bkbc-radius-md);
+	color: var(--bkbc-text);
+	font-size: 12px;
+	text-align: center;
+	text-decoration: none;
 }
 
 .bkbc .bkbc-quick__link:hover,
 .bkbc .bkbc-quick__link:focus-visible {
 	text-decoration: none;
-	filter: brightness(1.08);
+	background: var(--bkbc-accent-soft);
 }
 
-/* ------------------------------------------------------------ contact */
+/* ═════════════════════════════════════════════════════════════════ contact */
 
 .bkbc-contact__list {
 	margin: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 2px;
 }
 
 .bkbc-contact__row {
 	display: flex;
-	flex-direction: column;
-	gap: 2px;
-	padding: 10px 0;
-	border-bottom: 1px solid var(--bkbc-border);
+	justify-content: space-between;
+	align-items: baseline;
+	gap: var(--bkbc-space-3);
+	padding: var(--bkbc-space-2) 0;
+	border-bottom: 1px solid var(--bkbc-divider);
 }
 
 .bkbc-contact__row:last-child {
@@ -303,110 +483,91 @@ body.bkbc {
 }
 
 .bkbc-contact__label {
-	display: flex;
-	align-items: center;
-	gap: 8px;
+	flex: none;
 	margin: 0;
-	font-size: 0.8rem;
-	color: var(--bkbc-text-muted);
+	font-size: 11px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	opacity: 0.6;
 }
 
 .bkbc .bkbc-contact__value {
-	margin: 0 0 0 28px;
+	margin: 0;
+	font-size: 14px;
+	text-align: right;
 	overflow-wrap: anywhere;
+}
+
+.bkbc .bkbc-contact__value a {
+	color: var(--bkbc-text);
 }
 
 .bkbc-contact__value address {
 	font-style: normal;
 }
 
-/* ----------------------------------------------------------- networks */
+/* ════════════════════════════════════════════ networks, links, downloads */
 
 .bkbc-networks__list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px;
-}
-
-.bkbc .bkbc-networks__link {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	min-height: 44px;
-	padding: 8px 14px 8px 8px;
-	border: 1px solid var(--bkbc-border);
-	border-radius: 999px;
-	background: var(--bkbc-surface-2);
-	color: var(--bkbc-text);
-	font-size: 0.9rem;
-}
-
-.bkbc .bkbc-networks__link:hover,
-.bkbc .bkbc-networks__link:focus-visible {
-	text-decoration: none;
-	border-color: var(--bkbc-accent);
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: var(--bkbc-space-2);
 }
 
 .bkbc-networks__initial {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 26px;
-	height: 26px;
-	border-radius: 50%;
-	background: var(--bkbc-accent-soft);
-	color: var(--bkbc-accent);
-	font-size: 0.8rem;
+	width: 18px;
+	flex: none;
 	font-weight: 700;
+	font-size: 15px;
+	text-align: center;
 }
 
-/* ------------------------------------------- links, downloads, wallet */
-
-.bkbc-links__list {
+.bkbc-downloads__list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: var(--bkbc-space-2);
 }
 
-.bkbc .bkbc-stack-button {
+.bkbc-downloads__name {
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	width: 100%;
-	min-height: 52px;
-	padding: 12px 16px;
-	border: 1px solid var(--bkbc-border);
+	gap: var(--bkbc-space-2);
+	min-width: 0;
+}
+
+.bkbc-tag {
+	flex: none;
+	padding: 2px 8px;
 	border-radius: var(--bkbc-radius-sm);
-	background: var(--bkbc-surface-2);
-	color: var(--bkbc-text);
-	font-weight: 550;
+	background: var(--bkbc-surface);
+	font-size: 11px;
+	font-weight: 400;
+	opacity: 0.8;
 }
 
-.bkbc .bkbc-stack-button:hover,
-.bkbc .bkbc-stack-button:focus-visible {
-	text-decoration: none;
-	border-color: var(--bkbc-accent);
-	background: var(--bkbc-accent-soft);
-}
-
-/* ---------------------------------------------------------------- bio */
+/* ═════════════════════════════════════════════════════════════════════ bio */
 
 .bkbc-bio p {
-	margin: 0 0 0.8em;
-	color: var(--bkbc-text);
+	margin: 0 0 var(--bkbc-space-3);
+	font-size: 15px;
+	line-height: 1.6;
+	opacity: 0.85;
 }
 
 .bkbc-bio p:last-child {
 	margin-bottom: 0;
 }
 
-/* --------------------------------------------------------------- form */
+/* ════════════════════════════════════════════════════════════════════ form */
 
 .bkbc-form input[type="text"],
 .bkbc-form input[type="email"],
@@ -415,39 +576,74 @@ body.bkbc {
 .bkbc-form textarea,
 .bkbc-form select {
 	width: 100%;
-	padding: 10px 12px;
-	border: 1px solid var(--bkbc-border);
-	border-radius: var(--bkbc-radius-sm);
+	min-height: 36px;
+	padding: 6px 10px;
+	border: 1px solid var(--bkbc-divider);
+	border-radius: var(--bkbc-radius-md);
 	background: var(--bkbc-surface);
 	color: var(--bkbc-text);
+	caret-color: var(--bkbc-accent);
 	font: inherit;
+	font-size: 14px;
 }
 
-.bkbc-form input[type="submit"],
-.bkbc-form button[type="submit"] {
-	min-height: 46px;
-	padding: 12px 20px;
-	border: 0;
-	border-radius: 999px;
-	background: var(--bkbc-accent);
-	color: var(--bkbc-on-accent);
-	font: inherit;
-	font-weight: 600;
-	cursor: pointer;
+.bkbc-form textarea {
+	min-height: 90px;
+	resize: vertical;
 }
 
 .bkbc-form label {
 	display: block;
-	margin-bottom: 10px;
-	font-size: 0.9rem;
+	margin-bottom: var(--bkbc-space-3);
+	font-size: 12px;
 }
 
-/* ------------------------------------------------------------- footer */
+.bkbc-form input[type="submit"],
+.bkbc-form button[type="submit"] {
+	width: auto;
+	min-height: 40px;
+	padding: var(--bkbc-space-2) calc(var(--bkbc-space-3) * 1.2);
+	border: 0;
+	border-radius: var(--bkbc-radius-md);
+	background: var(--bkbc-accent);
+	color: var(--bkbc-on-accent);
+	font-family: var(--bkbc-font-heading);
+	font-weight: var(--bkbc-font-heading-weight);
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.bkbc-form .wpcf7-acceptance label {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--bkbc-space-2);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.bkbc-form .wpcf7-list-item {
+	margin: 0;
+}
+
+.bkbc-form .wpcf7-not-valid-tip {
+	color: var(--bkbc-accent-strong);
+	font-size: 12px;
+}
+
+.bkbc-form .wpcf7-response-output {
+	margin: var(--bkbc-space-3) 0 0;
+	padding: var(--bkbc-space-2) var(--bkbc-space-3);
+	border: 1px solid var(--bkbc-divider);
+	border-radius: var(--bkbc-radius-md);
+	font-size: 13px;
+}
+
+/* ══════════════════════════════════════════════════════════════════ footer */
 
 .bkbc-footer {
-	padding: 16px var(--bkbc-pad) 24px;
-	border-top: 1px solid var(--bkbc-border);
-	background: var(--bkbc-surface);
+	padding-top: var(--bkbc-space-6);
+	margin-top: var(--bkbc-space-6);
+	border-top: 1px solid var(--bkbc-divider);
 }
 
 .bkbc-footer__list {
@@ -455,24 +651,27 @@ body.bkbc {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 6px 16px;
+	align-items: center;
+	gap: var(--bkbc-space-1) var(--bkbc-space-3);
 	margin: 0;
 	padding: 0;
-	font-size: 0.8rem;
+	font-size: 13px;
+	text-align: center;
 }
 
-.bkbc-footer__list a {
-	color: var(--bkbc-text-muted);
+.bkbc .bkbc-footer__list a {
+	color: var(--bkbc-text);
+	opacity: 0.7;
 }
 
-/* ----------------------------------------------------------------- qr */
+/* ══════════════════════════════════════════════════════════════════════ qr */
 
 .bkbc-qr {
 	width: min(92vw, 380px);
 	padding: 0;
 	border: 0;
-	border-radius: var(--bkbc-radius);
-	background: var(--bkbc-surface);
+	border-radius: var(--bkbc-radius-lg);
+	background: var(--bkbc-bg);
 	color: var(--bkbc-text);
 	box-shadow: var(--bkbc-shadow);
 }
@@ -483,13 +682,13 @@ body.bkbc {
 
 .bkbc-qr__inner {
 	position: relative;
-	padding: 24px;
+	padding: var(--bkbc-space-6);
 	text-align: center;
 }
 
 .bkbc-qr__close {
 	position: absolute;
-	inset: 10px 10px auto auto;
+	inset: var(--bkbc-space-2) var(--bkbc-space-2) auto auto;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -497,19 +696,19 @@ body.bkbc {
 	height: 36px;
 	padding: 0;
 	border: 0;
-	border-radius: 50%;
+	border-radius: var(--bkbc-radius-md);
 	background: transparent;
-	color: var(--bkbc-text-muted);
+	color: var(--bkbc-text);
 	cursor: pointer;
 }
 
-/* The code stays black on white in both themes: a QR reader needs the
-   contrast the way it was printed, not the way the page is dressed. */
+/* The code stays black on white in both palettes: a reader needs the contrast
+   the way it was printed, not the way the page is dressed. */
 .bkbc-qr__code {
-	margin: 8px auto 12px;
+	margin: var(--bkbc-space-2) auto var(--bkbc-space-3);
 	max-width: 280px;
+	padding: 8px;
 	border-radius: var(--bkbc-radius-sm);
-	overflow: hidden;
 	background: #ffffff;
 }
 
@@ -521,145 +720,59 @@ body.bkbc {
 
 .bkbc-qr__url {
 	margin: 0;
-	font-size: 0.8rem;
-	color: var(--bkbc-text-muted);
+	font-size: 13px;
+	opacity: 0.7;
 	overflow-wrap: anywhere;
 }
 
-/* ------------------------------------------------------------ classic */
+/* ═════════════════════════════════════════ the frame a design may ask for */
 
-.bkbc--classic .bkbc-avatar {
-	margin-top: -58px;
+.bkbc-corner {
+	position: absolute;
+	width: 11px;
+	height: 11px;
+	color: var(--bkbc-divider);
+	display: none;
 }
 
-.bkbc--classic .bkbc-identity__name {
-	margin-top: 2px;
+.bkbc-corner::before,
+.bkbc-corner::after {
+	content: "";
+	position: absolute;
+	background: currentColor;
 }
 
-/* ------------------------------------------------------------- modern */
-
-.bkbc--modern .bkbc-card,
-.bkbc--modern .bkbc-body {
-	--bkbc-pad: 24px;
+.bkbc-corner::before {
+	left: 5px;
+	top: 0;
+	width: 1px;
+	height: 100%;
 }
 
-.bkbc--modern .bkbc-identity {
-	align-items: center;
-	text-align: center;
-	padding-top: 22px;
-}
-
-.bkbc--modern .bkbc-avatar__image {
-	width: 116px;
-	height: 116px;
-	border: 0;
-	box-shadow: 0 0 0 3px var(--bkbc-surface), 0 0 0 6px var(--bkbc-accent);
-}
-
-.bkbc--modern .bkbc-identity__name {
-	font-size: 1.75rem;
-}
-
-.bkbc--modern .bkbc-quick__list {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 10px;
-}
-
-/* `display: flex` and a full width, or an inline-flex link shrinks to its
-   label and the grid cells come out ragged. */
-.bkbc--modern .bkbc-quick__link {
-	display: flex;
+.bkbc-corner::after {
+	top: 5px;
+	left: 0;
 	width: 100%;
-	flex-direction: column;
-	justify-content: center;
-	gap: 6px;
-	min-height: 84px;
-	border-radius: var(--bkbc-radius-sm);
-	text-align: center;
-	font-size: 0.85rem;
+	height: 1px;
 }
 
-.bkbc--modern .bkbc-networks__list,
-.bkbc--modern .bkbc-quick__list {
-	justify-content: center;
-}
+.bkbc-corner--tl { top: -6px; left: -6px; }
+.bkbc-corner--tr { top: -6px; right: -6px; }
+.bkbc-corner--bl { bottom: -6px; left: -6px; }
+.bkbc-corner--br { bottom: -6px; right: -6px; }
 
-/* ---------------------------------------------------------------- bio */
-
-.bkbc--bio .bkbc-identity {
-	align-items: center;
-	text-align: center;
-	padding-top: 26px;
-	gap: 0;
-}
-
-.bkbc--bio .bkbc-avatar__image {
-	width: 84px;
-	height: 84px;
-}
-
-.bkbc--bio .bkbc-identity__name {
-	font-size: 1.35rem;
-}
-
-.bkbc--bio .bkbc-bio {
-	text-align: center;
-	color: var(--bkbc-text-muted);
-	font-size: 0.95rem;
-}
-
-.bkbc--bio .bkbc-quick__list {
-	flex-direction: column;
-}
-
-.bkbc--bio .bkbc-quick__link {
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	min-height: 52px;
-	border-radius: var(--bkbc-radius-sm);
-	font-size: 1rem;
-}
-
-.bkbc--bio .bkbc-networks__list {
-	flex-direction: column;
-}
-
-.bkbc--bio .bkbc-networks__link {
-	display: flex;
-	width: 100%;
-	min-height: 52px;
-	border-radius: var(--bkbc-radius-sm);
-	padding: 12px 16px;
-}
-
-.bkbc--bio .bkbc-section__title {
-	text-align: center;
-}
-
-/* ------------------------------------------- one card, one breakpoint */
+/* ═════════════════════════════════════════════ one card, one breakpoint */
 
 @media (min-width: 641px) {
 
 	.bkbc-stage {
 		padding: 40px 20px;
-		background: var(--bkbc-backdrop);
 	}
 
 	.bkbc-card {
-		border-radius: var(--bkbc-radius);
+		border-radius: var(--bkbc-radius-lg);
 		box-shadow: var(--bkbc-shadow);
-	}
-
-	.bkbc--classic .bkbc-contact__list {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		column-gap: 24px;
-	}
-
-	.bkbc--modern .bkbc-quick__list {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+		overflow: hidden;
 	}
 }
 

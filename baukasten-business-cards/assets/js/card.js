@@ -11,22 +11,6 @@
 	var STORAGE_KEY = 'baukasten-card-theme';
 
 	/**
-	 * Reads the visitor's stored preference.
-	 *
-	 * Storage throws outright in some privacy modes, so every access is
-	 * wrapped and an unreadable store simply means "no preference".
-	 *
-	 * @return {string} 'light', 'dark' or an empty string.
-	 */
-	function stored() {
-		try {
-			return window.localStorage.getItem( STORAGE_KEY ) || '';
-		} catch ( error ) {
-			return '';
-		}
-	}
-
-	/**
 	 * Stores the visitor's preference.
 	 *
 	 * @param {string} theme 'light' or 'dark'.
@@ -59,18 +43,14 @@
 	/**
 	 * The theme in effect right now.
 	 *
+	 * A plain attribute read: the blocking snippet in the head has already
+	 * settled it, before the first paint, and writes it unconditionally — so
+	 * there is nothing here to guess.
+	 *
 	 * @return {string} 'light' or 'dark'.
 	 */
 	function current() {
-		var attribute = document.documentElement.getAttribute( 'data-theme' );
-
-		if ( 'light' === attribute || 'dark' === attribute ) {
-			return attribute;
-		}
-
-		return window.matchMedia && window.matchMedia( '(prefers-color-scheme: dark)' ).matches
-			? 'dark'
-			: 'light';
+		return 'dark' === document.documentElement.getAttribute( 'data-theme' ) ? 'dark' : 'light';
 	}
 
 	/**
@@ -138,14 +118,9 @@
 		dialog.removeAttribute( 'open' );
 	}
 
+	// The palette is already correct; only the buttons need telling.
 	document.addEventListener( 'DOMContentLoaded', function () {
-		var preference = stored();
-
-		if ( 'light' === preference || 'dark' === preference ) {
-			apply( preference );
-		} else {
-			apply( current() );
-		}
+		apply( current() );
 	} );
 
 	document.addEventListener( 'click', function ( event ) {

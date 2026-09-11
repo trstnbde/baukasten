@@ -1,11 +1,11 @@
 === Baukasten Addon: Business Cards ===
 Contributors: trstnbde
-Tags: business card, vcard, qr code, contact, profile
+Tags: business card, vcard, qr code, contact, wallet
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: baukasten
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,21 +27,29 @@ Cards are kept out of the sitemap and ask search engines not to index them, for 
 
 The `/b/` part is yours to change, under Settings, Permalinks.
 
-= Three layouts =
+= Three designs =
 
-* **Classic** — a banner, a portrait overlapping it, and the contact details in full.
-* **Modern** — no banner, a round portrait, the actions as a grid.
-* **Bio** — a short header and then a column of full width buttons, for a card that is mostly links.
+One layout, three complete looks. The design is chosen per card.
+
+* **Modernist** — Archivo, square corners, a hot orange-red, a hairline between sections.
+* **Industry** — Barlow Condensed, a steel blue, and every section drawn as a plate with register marks at its corners.
+* **Nocturne** — Inter, soft corners, a blurple accent, dark to begin with.
+
+Each design carries a light and a dark palette. A card either follows the reader's own setting or is pinned to one of the two.
 
 Every field is optional, and an empty field renders nothing at all: no empty heading, no stray separator, no gap where something used to be.
 
 = What fits on a card =
 
-Name, salutation, academic title, position and company. A biography. Call, email, WhatsApp and website as one row of primary buttons. Work and private email, phone and mobile, a website, a postal address and a what3words link. LinkedIn, Xing, GitHub, Mastodon, Facebook, Instagram, Threads, Discord and Signal, plus three links of your own. Three file downloads. Apple and Google Wallet badges. A contact form. Imprint, privacy policy and terms in the footer.
+Name, salutation, academic title, position and company. A biography. Call, email, WhatsApp and website as a row of four tiles. Work and private email, phone and mobile, a website, a postal address and a what3words link. LinkedIn, Xing, GitHub, Mastodon, Facebook, Instagram, Threads, Discord and Signal, plus three links of your own. Three file downloads. An Apple Wallet pass and a Google Wallet token. A contact form. Imprint, privacy policy and terms in the footer.
 
 = Save contact =
 
 A card can offer itself as a vCard 3.0 file, which is what every phone means by "add to contacts". Name, organisation, title, every phone number and address you filled in, the postal address and the biography as a note.
+
+= Wallet =
+
+Upload the `.pkpass` and this site serves it itself, with the media type that makes a phone open Wallet rather than offer a download it cannot use. For Google, paste the signed token — or the whole save address, the token is taken out of it — and the card builds the button. Nothing reaches Apple or Google until somebody taps.
 
 = The QR code =
 
@@ -53,7 +61,13 @@ A card follows the visitor's system setting on its own. Switch on the toggle and
 
 = Contact form =
 
-If Contact Form 7 is installed, a card can embed one of its forms. The form has to carry an acceptance checkbox for the email consent — if it does not, or if the visitor does not tick it, the submission is refused on the server. Without Contact Form 7 everything else on a card works exactly the same.
+If Contact Form 7 is installed, a card can embed one of its forms, and there is a button under *Settings, Baukasten, Business Cards* that builds a suitable one: name, email, message, and a consent checkbox that links the card's own privacy policy and terms.
+
+The form has to carry an acceptance checkbox for the email consent — if it does not, or if the visitor does not tick it, the submission is refused on the server. Without Contact Form 7 everything else on a card works exactly the same.
+
+= Legal links =
+
+If the **Baukasten Addon: Login Legal Pages** is installed, the imprint, privacy policy and terms come from there and are the same on every card. Without it, each card picks its own three pages from a dropdown of the site's pages.
 
 == Installation ==
 
@@ -85,7 +99,15 @@ Yes. The contact form is the only part that needs it, and its field is simply hi
 
 = Can it make an Apple Wallet pass? =
 
-No. Signing a `.pkpass` needs an Apple developer certificate, which a WordPress plugin has no way to hold for you. The two wallet fields take the address of a pass you host elsewhere, and the card shows a badge that links to it.
+No. Signing a `.pkpass` needs an Apple developer certificate, which a WordPress plugin has no way to hold for you. Build the pass elsewhere, upload the file here, and this site serves it with the media type that opens Wallet — which is the part a plain link gets wrong.
+
+= Does it check the Google Wallet token? =
+
+Only its shape: three base64url segments with a readable header. The signature was made with a key this site has never held, so nothing here can tell you the pass is genuine, still valid, or issued for your account. A check that cannot fail would be worse than none, because it reads like one that can.
+
+= Where do the imprint and privacy links come from? =
+
+From the Login Legal Pages addon if you have it — one answer for the whole site, which is what an imprint is. Without it, each card picks its three pages from a dropdown. Either way a page that is unpublished stops being linked instead of linking at a 404.
 
 = Why does my card have no trailing slash? =
 
@@ -101,15 +123,31 @@ No. The QR code is drawn locally, there are no icon fonts and no brand logos, an
 
 == Third-party code ==
 
-`assets/js/lib/qrcode.js` is the QR Code Generator for JavaScript by Kazuhiko Arase, version 1.4.4, used unmodified under the MIT licence. Its source is <https://github.com/kazuhikoarase/qrcode-generator>. It is the only third-party code in this plugin, it is not minified, and it runs entirely in the browser.
+`assets/js/lib/qrcode.js` is the QR Code Generator for JavaScript by Kazuhiko Arase, version 1.4.4, used unmodified under the MIT licence. Its source is <https://github.com/kazuhikoarase/qrcode-generator>. It is not minified and it runs entirely in the browser.
+
+`assets/fonts/` holds nine woff2 files under the SIL Open Font Licence 1.1, subset to Latin: Archivo, Barlow, Barlow Condensed and Inter. Each licence text sits beside them as `OFL-<family>.txt`. They are served from this site, never from a font service, and a card loads only the two faces its design uses.
 
 == Changelog ==
+
+= 1.1.0 =
+
+* Three designs — Modernist, Industry and Nocturne — replace the Classic, Modern and Bio layouts. They share one layout and differ in typeface, palette, spacing and decoration. Existing cards move to Modernist and keep their old setting.
+* Each card chooses whether it follows the reader's light or dark setting, or is pinned to one of the two.
+* Typefaces ship with the plugin under the Open Font Licence. No font service is contacted.
+* Apple Wallet: upload the `.pkpass` and the site serves it with the right media type, instead of linking somewhere else.
+* Google Wallet: the card holds the signed token and builds the save button itself.
+* Imprint, privacy policy and terms come from the Login Legal Pages addon when it is installed; otherwise each card picks them from the site's pages, rather than having their addresses typed in.
+* A button that builds a Contact Form 7 form with the consent checkbox already in it.
+* Wallet and footer values that could not be carried over are kept on the card and shown beside the field that replaced them. Nothing is deleted.
 
 = 1.0.0 =
 
 * First release.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+The three layouts are replaced by three designs and every card moves to Modernist; the old setting is kept so nothing is lost. Wallet and footer fields changed shape — anything that could not be converted is shown on the card it belonged to.
 
 = 1.0.0 =
 First release.

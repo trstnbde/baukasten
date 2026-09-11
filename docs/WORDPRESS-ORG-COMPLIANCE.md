@@ -1,6 +1,6 @@
 # WordPress.org readiness
 
-Checked on 9 September 2026, and again for Business Cards on 10 September 2026, against the [detailed plugin guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/), the [header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) and the [readme standard](https://wordpress.org/plugins/readme.txt), for all six plugins in this repository.
+Checked on 9 September 2026, and again for Business Cards on 10 September 2026 and 11 September 2026, against the [detailed plugin guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/), the [header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) and the [readme standard](https://wordpress.org/plugins/readme.txt), for all six plugins in this repository.
 
 | | Slug | Version | Requires WP | Requires PHP |
 |---|---|---|---|---|
@@ -9,7 +9,7 @@ Checked on 9 September 2026, and again for Business Cards on 10 September 2026, 
 | Baukasten Addon: Login Legal Pages | `baukasten-login-legal-pages` | 1.0.0 | 6.5 | 8.0 |
 | Baukasten Addon: Consent Blocking Engine | `baukasten-consent-blocking-engine` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Multi-Domain Landingpage | `baukasten-multi-domain` | 1.0.0 | 6.5 | 8.0 |
-| Baukasten Addon: Business Cards | `baukasten-business-cards` | 1.0.0 | 6.5 | 8.1 |
+| Baukasten Addon: Business Cards | `baukasten-business-cards` | 1.1.0 | 6.5 | 8.1 |
 
 Nothing below is outstanding except the two items under **Before submitting**.
 
@@ -19,21 +19,21 @@ Nothing below is outstanding except the two items under **Before submitting**.
 
 | # | Guideline | Status |
 |---|---|---|
-| 1 | GPL compatible | ✅ GPLv2-or-later declared in every plugin header, `readme.txt` and `LICENSE`. One bundled third-party file, and it is GPL-compatible: `baukasten-business-cards/assets/js/lib/qrcode.js` is QR Code Generator for JavaScript 1.4.4 by Kazuhiko Arase, MIT, unmodified and unminified, credited in that plugin's `readme.txt`. Nothing else — no other libraries, no fonts, no images from elsewhere. |
+| 1 | GPL compatible | ✅ GPLv2-or-later declared in every plugin header, `readme.txt` and `LICENSE`. Two bundled third-party sets, both GPL-compatible and both in Business Cards: `assets/js/lib/qrcode.js` is QR Code Generator for JavaScript 1.4.4 by Kazuhiko Arase, MIT, unmodified and unminified; `assets/fonts/` holds nine Latin-subset woff2 files of Archivo, Barlow, Barlow Condensed and Inter under the SIL Open Font Licence 1.1, each licence text shipped beside them. Both are credited in that plugin's `readme.txt`. Nothing else — no other libraries, no images from elsewhere. |
 | 2 | Developer is responsible for the plugin | ✅ Single author, no third-party licensing to reconcile. |
 | 3 | Stable version distributed from the directory | ⬜ Applies at release. `bin/build.php` produces the archive that goes into SVN trunk; it refuses to build when the plugin header version and the `readme.txt` stable tag disagree. |
 | 4 | Human readable code | ✅ No minification, no obfuscation, no build step. The files shipped are the files written. |
 | 5 | No trialware | ✅ No licence checks, no locked features, no expiry. |
 | 6 | Software as a service | ✅ Not applicable. Nothing talks to a service. |
 | 7 | No tracking without consent | ✅ None of the five plugins makes an outgoing HTTP request of its own. The one request any of their code triggers is the browser posting to this site's own REST endpoint, after a visitor clicks "load and always allow" on a blocked embed. The Consent Blocking Engine exists to *stop* third-party requests, and switches off the ones WordPress core makes to api.wordpress.org from the dashboard. |
-| 8 | No executable code from third parties | ✅ Every script, stylesheet, font and image is served from the plugin folder, the bundled QR encoder included — it runs in the browser and makes no request of its own. `assets/img/avatar.svg` is local by design — it replaces a request to gravatar.com. |
+| 8 | No executable code from third parties | ✅ Every script, stylesheet, font and image is served from the plugin folder, the bundled QR encoder and the four typefaces included — the encoder runs in the browser and makes no request of its own, and a card's fonts come from the site rather than a font service. `assets/img/avatar.svg` is local by design — it replaces a request to gravatar.com. |
 | 9 | Nothing illegal, dishonest or offensive | ✅ |
 | 10 | No "powered by" credits | ✅ None. |
 | 11 | Do not hijack the admin | ✅ One submenu under Settings. No dashboard notices, no upsells, no advertising. **Fixed in 1.0.0:** Login Legal Pages used to inject a settings block into `options-privacy.php` through `admin_notices` and move it with JavaScript; it now has its own tab. The three "core plugin is missing" notices are dismissible, capability-gated, and only ever appear on a broken install. |
 | 12 | No readme spam | ✅ Five tags each, no affiliate links, no competitor names, no keyword stuffing. Short descriptions are 113–134 characters, under the 150 limit. |
-| 13 | Use the bundled libraries | ✅ Nothing WordPress ships is duplicated; no jQuery, no polyfills. WordPress bundles no QR encoder, which is why Business Cards carries one. `assets/js/consent-bootstrap.js` is dependency-free on purpose — it must run before anything it unblocks. |
+| 13 | Use the bundled libraries | ✅ Nothing WordPress ships is duplicated; no jQuery, no polyfills. WordPress bundles neither a QR encoder nor a typeface, which is why Business Cards carries both. `assets/js/consent-bootstrap.js` is dependency-free on purpose — it must run before anything it unblocks. |
 | 14 | SVN is a release repository | ⬜ Applies at release. |
-| 15 | Version numbers increment | ✅ All six start at 1.0.0. The pre-release core was 1.1.0 and is reset to 1.0.0 for the first directory release, which is allowed because nothing has been published yet. |
+| 15 | Version numbers increment | ✅ Five are at 1.0.0 and Business Cards is at 1.1.0, having been released once on GitHub. The pre-release core was 1.1.0 and is reset to 1.0.0 for the first directory release, which is allowed because nothing has been published to the directory yet. |
 | 16 | Complete, functional plugin at submission | ✅ All six work standalone; the five addons declare `Requires Plugins: baukasten`. |
 | 17 | Respect trademarks | ✅ "Baukasten" is the author's own name. No third-party project name is used as, or at the start of, a slug. The addon slugs begin with the author's own plugin name, which is the pattern the guideline asks for. |
 | 18 | WordPress may change the guidelines | — |

@@ -42,6 +42,21 @@ final class Forms {
 	);
 
 	/**
+	 * Option holding the id of the form this plugin created.
+	 */
+	const OPTION_FORM_ID = 'baukasten_business_cards_form_id';
+
+	/**
+	 * Stand-in address for the privacy policy inside the consent sentence.
+	 */
+	const PLACEHOLDER_PRIVACY = 'https://baukasten.invalid/privacy';
+
+	/**
+	 * Stand-in address for the terms inside the consent sentence.
+	 */
+	const PLACEHOLDER_TERMS = 'https://baukasten.invalid/terms';
+
+	/**
 	 * Registers the hooks the form needs.
 	 *
 	 * The filters are added unconditionally: a filter on a hook that never
@@ -53,6 +68,137 @@ final class Forms {
 	public static function register(): void {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'match_assets_to_card' ), 20 );
 		add_filter( 'wpcf7_validate', array( __CLASS__, 'require_consent' ), 20, 2 );
+		add_filter( 'wpcf7_form_elements', array( __CLASS__, 'localise_consent_links' ) );
+	}
+
+	/**
+	 * The form this plugin created, if it is still there.
+	 *
+	 * The stored id alone is not enough — a form can be trashed or deleted, and
+	 * an option pointing at a hole would make the button say "already exists"
+	 * for ever with nothing to edit. Matching on the title is not used at all: a
+	 * title is editable, and renaming the form is a reasonable thing to do.
+	 *
+	 * @return int Form id, or 0.
+	 */
+	public static function plugin_form_id(): int {
+		$form_id = absint( get_option( self::OPTION_FORM_ID, 0 ) );
+
+		if ( 0 >= $form_id ) {
+			return 0;
+		}
+
+		$post = get_post( $form_id );
+
+		if ( ! $post instanceof \WP_Post || self::CF7_POST_TYPE !== $post->post_type || 'trash' === $post->post_status ) {
+			delete_option( self::OPTION_FORM_ID );
+
+			return 0;
+		}
+
+		return $form_id;
+	}
+
+	/**
+	 * Builds the contact form a card can embed.
+	 *
+	 * Contact Form 7's own template is the starting point, so the messages and
+	 * the second mail block come from it rather than from a copy here that would
+	 * drift out of step with it.
+	 *
+	 * The form's text is stored, not translated at render time — a form body is
+	 * content. It is written once, in the admin's language, and can be edited
+	 * afterwards like any other form.
+	 *
+	 * @return int The new form's id, or 0 when it could not be made.
+	 */
+	public static function create(): int {
+		if ( ! self::is_available() ) {
+			return 0;
+		}
+
+		$form = \WPCF7_ContactForm::get_template(
+			array( 'title' => __( 'Baukasten Addon: Business Cards', 'baukasten-business-cards' ) )
+		);
+
+		if ( ! $form instanceof \WPCF7_ContactForm ) {
+			return 0;
+		}
+
+		$form->set_properties(
+			array(
+				'form'                => self::form_body(),
+				'mail'                => self::mail(),
+				'mail_2'              => array( 'active' => false ),
+
+				/*
+				 * Without this Contact Form 7 disables the submit button until
+				 * the box is ticked and says nothing about why. With it the
+				 * refusal is a message beside the checkbox — which is where
+				 * `require_consent()` puts its own, so the two agree.
+				 */
+				'additional_settings' => "acceptance_as_validation: on\n",
+			)
+		);
+
+		$form_id = absint( $form->save() );
+
+		if ( 0 < $form_id ) {
+			update_option( self::OPTION_FORM_ID, $form_id, true );
+		}
+
+		return $form_id;
+	}
+
+	/**
+	 * Points the consent sentence at this card's own legal pages.
+	 *
+	 * The form is one post shared by every card; the pages it names may not be.
+	 * So it carries two stand-in anchors, resolved here over the rendered HTML,
+	 * once per view.
+	 *
+	 * A stand-in with no page behind it is unwrapped rather than left as a dead
+	 * anchor: a link to nowhere in a consent sentence is worse than no link,
+	 * because it looks like the visitor was given something to read.
+	 *
+	 * @param mixed $elements Rendered form HTML.
+	 * @return string Form HTML.
+	 */
+	public static function localise_consent_links( $elements ): string {
+		$elements = (string) $elements;
+
+		if ( ! Renderer::is_card_route() ) {
+			return $elements;
+		}
+
+		$card = Fields::load( get_queried_object_id() );
+
+		$pairs = array(
+			self::PLACEHOLDER_PRIVACY => 'privacy',
+			self::PLACEHOLDER_TERMS   => 'terms',
+		);
+
+		foreach ( $pairs as $placeholder => $name ) {
+			$url = Legal_Links::url( $card, $name );
+
+			if ( '' !== $url ) {
+				$elements = str_replace(
+					'href="' . $placeholder . '"',
+					'href="' . esc_url( $url ) . '" target="_self"',
+					$elements
+				);
+
+				continue;
+			}
+
+			$elements = (string) preg_replace(
+				'#<a href="' . preg_quote( $placeholder, '#' ) . '">(.*?)</a>#s',
+				'$1',
+				$elements
+			);
+		}
+
+		return $elements;
 	}
 
 	/**
@@ -168,6 +314,102 @@ final class Forms {
 		}
 
 		return do_shortcode( sprintf( '[contact-form-7 id="%d"]', $form_id ) );
+	}
+
+	/**
+	 * The created form's tags.
+	 *
+	 * The two addresses in the consent sentence are stand-ins, rewritten per
+	 * card by `localise_consent_links()`. They cannot be shortcodes: Contact
+	 * Form 7 scans a tag's content with `(?:([^[]*?)\[\/\2\])?`, so a single `[`
+	 * inside would end the `[acceptance]` early. Plain anchors survive, and its
+	 * acceptance module prints the content unescaped.
+	 *
+	 * @return string Form body.
+	 */
+	private static function form_body(): string {
+		$consent = sprintf(
+			/* translators: 1: opening link tag to the privacy policy. 2: closing link tag. 3: opening link tag to the terms. 4: closing link tag. */
+			__( 'I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to my email address being processed so that my message can be answered.', 'baukasten-business-cards' ),
+			'<a href="' . self::PLACEHOLDER_PRIVACY . '">',
+			'</a>',
+			'<a href="' . self::PLACEHOLDER_TERMS . '">',
+			'</a>'
+		);
+
+		$lines = array(
+			'<label>' . __( 'Name', 'baukasten-business-cards' ),
+			'    [text* your-name autocomplete:name]</label>',
+			'',
+			'<label>' . __( 'Email', 'baukasten-business-cards' ),
+			'    [email* your-email autocomplete:email]</label>',
+			'',
+			'<label>' . __( 'Message', 'baukasten-business-cards' ),
+			'    [textarea* your-message]</label>',
+			'',
+			'[acceptance email-consent] ' . $consent . ' [/acceptance]',
+			'',
+			'[submit "' . __( 'Send message', 'baukasten-business-cards' ) . '"]',
+		);
+
+		return implode( "\n", $lines );
+	}
+
+	/**
+	 * The created form's mail configuration.
+	 *
+	 * Contact Form 7's default references `[your-subject]`, which this form does
+	 * not have — it would arrive as an empty pair of quotes in every subject
+	 * line — so the lines that use it are replaced.
+	 *
+	 * `[email-consent]` in the body is the acceptance tag's own mail tag, which
+	 * Contact Form 7 replaces with the consent sentence that was actually shown.
+	 * For a consent that is the whole point of the checkbox, that is the record
+	 * worth keeping.
+	 *
+	 * @return array<string, mixed> Mail properties.
+	 */
+	private static function mail(): array {
+		$body = array(
+			'[your-name] <[your-email]>',
+			'',
+			'[your-message]',
+			'',
+			'-- ',
+			__( 'Sent from a business card at [_url]', 'baukasten-business-cards' ),
+			__( 'Consent given: [email-consent]', 'baukasten-business-cards' ),
+		);
+
+		return array(
+			'active'             => true,
+			'subject'            => sprintf(
+				/* translators: %s: the site title mail tag. */
+				__( 'Business card enquiry via %s', 'baukasten-business-cards' ),
+				'[_site_title]'
+			),
+			'sender'             => '[_site_title] <wordpress@' . self::mail_host() . '>',
+			'recipient'          => '[_site_admin_email]',
+			'body'               => implode( "\n", $body ),
+			'additional_headers' => 'Reply-To: [your-email]',
+			'attachments'        => '',
+			'use_html'           => 0,
+			'exclude_blank'      => 0,
+		);
+	}
+
+	/**
+	 * The host to send the created form's mail from.
+	 *
+	 * The same rule `wp_mail()` uses for its own default sender: the site's host
+	 * without a leading `www.`, so the address stands a chance of passing the
+	 * checks the admin's own address would not.
+	 *
+	 * @return string Host name.
+	 */
+	private static function mail_host(): string {
+		$host = strtolower( (string) wp_parse_url( network_home_url(), PHP_URL_HOST ) );
+
+		return str_starts_with( $host, 'www.' ) ? substr( $host, 4 ) : $host;
 	}
 
 	/**

@@ -3,7 +3,7 @@
  * Plugin Name:       Baukasten Addon: Business Cards
  * Plugin URI:        https://github.com/trstnbde/baukasten
  * Description:       Digital business cards as a custom post type, served on their own short URL and detached from the active theme.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      8.1
@@ -22,7 +22,7 @@ namespace Baukasten\BusinessCards;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION    = '1.0.0';
+const VERSION    = '1.1.0';
 const TEXTDOMAIN = 'baukasten-business-cards';
 
 /**
@@ -43,12 +43,16 @@ define( 'Baukasten\BusinessCards\PLUGIN_FILE', __FILE__ );
 require_once __DIR__ . '/includes/class-settings.php';
 require_once __DIR__ . '/includes/class-fields.php';
 require_once __DIR__ . '/includes/class-icons.php';
+require_once __DIR__ . '/includes/class-skins.php';
+require_once __DIR__ . '/includes/class-legal-links.php';
 require_once __DIR__ . '/includes/class-post-type.php';
 require_once __DIR__ . '/includes/class-slug.php';
 require_once __DIR__ . '/includes/class-permalink-field.php';
 require_once __DIR__ . '/includes/class-meta-boxes.php';
 require_once __DIR__ . '/includes/class-renderer.php';
 require_once __DIR__ . '/includes/class-vcard.php';
+require_once __DIR__ . '/includes/class-pass.php';
+require_once __DIR__ . '/includes/class-upgrade.php';
 require_once __DIR__ . '/includes/class-forms.php';
 require_once __DIR__ . '/includes/class-settings-tab.php';
 
@@ -64,9 +68,11 @@ function boot(): void {
 	Slug::register();
 	Renderer::register();
 	VCard::register();
+	Pass::register();
 	Forms::register();
 
 	if ( is_admin() ) {
+		Upgrade::register();
 		Meta_Boxes::register();
 		Permalink_Field::register();
 		Settings_Tab::register();
@@ -97,6 +103,12 @@ function load_textdomain(): void {
  */
 function activate(): void {
 	add_option( Settings::OPTION_BASE, Settings::DEFAULT_BASE, '', true );
+
+	// A fresh install has no 1.0 cards, so there is nothing to move; saying so
+	// here saves every later admin request a pointless query.
+	if ( 0 === absint( get_option( Upgrade::OPTION_VERSION, 0 ) ) && 0 === array_sum( (array) wp_count_posts( Post_Type::POST_TYPE ) ) ) {
+		Upgrade::mark_current();
+	}
 
 	Post_Type::register_post_type();
 

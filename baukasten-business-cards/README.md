@@ -15,7 +15,31 @@ An addon for [Baukasten - Privacy Toolkit](../baukasten).
 
 A `baukasten_card` post with about fifty optional meta fields, no content, no editor, and a template of its own. It is served at `/{base}/{slug}`, where the base defaults to `b` and the slug is eight random characters.
 
-Three layouts — Classic, Modern, Bio — share the same partials and differ in composition and CSS.
+## The three designs
+
+Modernist, Industry and Nocturne are **one layout in three skins**, not three layouts. They differ in typeface, palette, spacing, radii, how a photograph is treated, whether a section is drawn as a framed plate, and whether the design starts light or dark. None of that is structure, so there is one `templates/layouts/card.php` and a table in `Skins`, rather than three near-identical template files that would have drifted apart.
+
+A skin is `assets/css/skins/<id>.css`: `@font-face` blocks, its two palettes, its tokens, and the handful of rules that are its own. `assets/css/card.css` is the skeleton and is byte-identical for every card on a site, so a visitor who opens two cards of different designs downloads it once. Two stylesheets, and a skin file is the unit a site forks.
+
+**The `src` in a skin's `@font-face` is relative to the stylesheet**, so it is `url("../../fonts/…")` — two levels up, not one.
+
+## Light and dark
+
+Two independent axes — which design, and which of its two grounds — plus a third input, what the design's own starting point is. CSS cannot branch on a custom property's value, so the starting point is an attribute the server writes.
+
+Each skin declares a light ground and a dark ground as **named pairs** (`--bkbc-light-*`, `--bkbc-dark-*`) and never assigns them. `card.css` owns the single assignment layer, five rules whose order is the whole design:
+
+1. light, for everyone
+2. the design's own starting point, when that is dark
+3. the card, when it is pinned to light or dark
+4. the reader's system setting, when the card follows them and they have not touched the switch
+5. the switch
+
+Only four tokens ever flip — background, surface, text, divider — which is what keeps it to five short rules. Rules 3 and 5 exist separately on purpose: 5 is what the blocking head snippet writes, and **3 is what makes a pinned card still work with JavaScript off**. Without rule 3 a card pinned to dark comes out light on a light phone, and the only symptom is that it looks wrong.
+
+A design that starts dark does **not** follow the system back out into light. Nocturne being dark is a property of the design, like a poster's ink; the switch is there for anyone who disagrees, and it wins in both directions.
+
+All 54 combinations — three designs × three card settings × three switch states × two system settings — are asserted by reading the computed background, not by eye.
 
 ## The address
 
@@ -46,6 +70,16 @@ Removing the theme takes two passes, because neither is sufficient alone:
 
 Known limit: `wp_enqueue_block_support_styles()` attaches an anonymous closure to `wp_head` that neither `remove_action` nor a dequeue can reach. It only fires from block render callbacks, and the card template never calls `the_content()` or `do_blocks()` — and must not start.
 
+## Wallet
+
+**Apple.** The card names an attachment; the plugin serves it. `upload_mimes` lets a `.pkpass` through — and nothing else is needed, because core sniffs one as `application/zip`, which is in its own `$nonspecific_types`, and that branch only requires the declared type's major part to be `application`. The route reads the attachment id from the card being viewed and from nowhere else, so a caller can name a card but never a file; it then checks the stored media type and that the file really sits inside the uploads tree.
+
+It is served rather than linked because the media type is the whole thing: iOS opens Wallet from `application/vnd.apple.pkpass` and from nothing else, and a web server that has never heard of the extension sends `application/octet-stream`. The file is still reachable at its uploads URL by anyone who guesses it — the plugin cannot fix that without leaving the media library — but the card never prints that address.
+
+**Google.** There is no pass file to serve: a Google Wallet pass exists only as a signed JWT behind `pay.google.com/gp/v/save/…`. So the card stores the token and builds the address itself. The sanitiser accepts a whole save URL and takes the token out of it, and checks the shape — three base64url segments with a readable header. **The signature is not checked**, because verifying it needs the issuer's public key, and a check that cannot fail is worse than no check.
+
+The button is the plugin's own, not Google's asset: a brand mark is a trademark with its own rules, which is the same position `Icons` takes on network logos.
+
 ## The vCard
 
 `template_redirect`, at `/{base}/{slug}?action=vcf`, gated on the card's own `enable_vcf` field. `action` is not a registered query var, so it is read from `$_GET` directly — `get_query_var( 'action' )` returns an empty string here however the URL was built. `?bkcard=vcf` is accepted as a less generic alias.
@@ -56,11 +90,16 @@ The salutation is deliberately kept out of `N` and `FN`: contact apps render it 
 
 ## What this plugin cannot do
 
-- **Sign an Apple Wallet pass.** That needs an Apple certificate. The wallet fields are links to a pass hosted elsewhere.
+- **Sign an Apple Wallet pass.** That needs an Apple certificate, which a plugin has no way to hold. Build the pass elsewhere and upload it.
 - **Split a postal address into a proper `ADR`.** The field is free text, and no heuristic for splitting it into seven components is right for Germany, Austria, Switzerland, the UK and the US at once. The whole address goes into the street component with escaped line breaks, plus a matching `LABEL`, which is where RFC 2426 puts an unparsed presentation address. Five separate address fields would fix this and would be a better data model.
+- **Sign a Google Wallet token, or tell you whether one is any good.** See above.
 - **Guarantee a free base.** `Settings::sanitize_base()` checks core query vars, rewrite bases, every post type and taxonomy slug, and top-level pages and posts. It cannot check a literal rule another plugin added through `add_rewrite_rule()` — those are regexes, not slugs. The field says so.
 
 ## Living with the other addons
+
+**Login Legal Pages**, when it is installed, is the only source of the imprint, privacy policy and terms — the per-card fields are not offered at all, because a field that saves a value nothing reads is a trap. `Legal_Links` reads its three individual getters rather than its `get_links()`: that one applies `baukasten/login_legal_pages/links`, whose own docblock says it filters the links *in the login footer*, and somebody who adds one there has not asked for it on every business card.
+
+`Meta_Boxes::save()` skips the three page fields while that box is hidden. Without it, a save of any unrelated field would read "posted nothing" as "was cleared" and throw the site's legal pages away.
 
 **Content Visibility** defaults every new post of a supported type to private, which for a business card is exactly backwards: the whole point is a link you hand to someone who is not logged in. Cards are removed from its list through its documented `baukasten/content_visibility/post_types` filter. Put them back with `baukasten/business_cards/respect_content_visibility`.
 
@@ -75,10 +114,16 @@ The salutation is deliberately kept out of `N` and `FN`: contact apps render it 
 | `baukasten/business_cards/template` | The template a card is rendered with. |
 | `baukasten/business_cards/discourage_indexing` | `false` to let cards into the sitemap and search results. |
 | `baukasten/business_cards/respect_content_visibility` | `true` to let the Content Visibility addon manage cards. |
+| `baukasten/business_cards/skins` | The designs a card can be rendered in. |
+| `baukasten/business_cards/legal_links` | The three links at the foot of a card. |
 
 ## Third-party code
 
-`assets/js/lib/qrcode.js` is [QR Code Generator for JavaScript](https://github.com/kazuhikoarase/qrcode-generator) 1.4.4 by Kazuhiko Arase, MIT, used unmodified and unminified. It is the only third-party file in this plugin and the only one in the whole repository; `docs/WORDPRESS-ORG-COMPLIANCE.md` records the exception.
+`assets/js/lib/qrcode.js` is [QR Code Generator for JavaScript](https://github.com/kazuhikoarase/qrcode-generator) 1.4.4 by Kazuhiko Arase, MIT, unmodified and unminified.
+
+`assets/fonts/` holds nine woff2 files under the SIL Open Font Licence 1.1, subset to Latin — Archivo, Barlow, Barlow Condensed and Inter — with each licence text beside them. They are served from the site and never from a font service, and a card loads only the two faces its design paints with.
+
+`docs/WORDPRESS-ORG-COMPLIANCE.md` records both.
 
 ## Development
 

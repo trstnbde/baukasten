@@ -17,6 +17,7 @@ $baukasten_bc_name = trim(
 		' ',
 		array_filter(
 			array(
+				(string) ( $baukasten_bc_card['salutation'] ?? '' ),
 				(string) ( $baukasten_bc_card['academic_title'] ?? '' ),
 				(string) ( $baukasten_bc_card['first_name'] ?? '' ),
 				(string) ( $baukasten_bc_card['last_name'] ?? '' ),
@@ -40,20 +41,16 @@ $baukasten_bc_avatar = isset( $baukasten_bc_card['avatar_image_id'] )
 	: '';
 
 ?>
+<?php if ( '' !== $baukasten_bc_avatar ) : ?>
+	<div class="bkbc-avatar bkbc-media">
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() escapes its own output.
+		echo $baukasten_bc_avatar;
+		?>
+	</div>
+<?php endif; ?>
+
 <header class="bkbc-identity">
-	<?php if ( '' !== $baukasten_bc_avatar ) : ?>
-		<div class="bkbc-avatar">
-			<?php
-			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image() escapes its own output.
-			echo $baukasten_bc_avatar;
-			?>
-		</div>
-	<?php endif; ?>
-
-	<?php if ( isset( $baukasten_bc_card['salutation'] ) ) : ?>
-		<p class="bkbc-identity__salutation"><?php echo esc_html( (string) $baukasten_bc_card['salutation'] ); ?></p>
-	<?php endif; ?>
-
 	<h1 class="bkbc-identity__name">
 		<?php echo esc_html( '' !== $baukasten_bc_name ? $baukasten_bc_name : (string) get_the_title( $baukasten_bc_post ) ); ?>
 	</h1>

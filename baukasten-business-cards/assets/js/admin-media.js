@@ -23,11 +23,23 @@
 		}
 
 		var isImage = 'image' === wrapper.getAttribute( 'data-kind' );
+		var mime = wrapper.getAttribute( 'data-mime' );
+
+		// A field that names a media type gets a library filtered to it: an
+		// Apple Wallet pass field offering every PDF on the site is a mistake
+		// waiting to be made.
+		var library = {};
+
+		if ( mime ) {
+			library.type = mime;
+		} else if ( isImage ) {
+			library.type = 'image';
+		}
 
 		var frame = window.wp.media( {
 			title: isImage ? strings.chooseImage : strings.chooseFile,
 			button: { text: strings.use },
-			library: isImage ? { type: 'image' } : {},
+			library: library,
 			multiple: false
 		} );
 

@@ -1,0 +1,121 @@
+/**
+ * Nocturne — Inter, soft corners, a blurple accent, dark to begin with.
+ *
+ * The only one of the three that starts dark. Its light palette is drawn from
+ * its own neutral ramp, so the switch has somewhere sensible to go; which of the
+ * two a reader gets is decided in card.css, not here.
+ */
+
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../../fonts/inter-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../../fonts/inter-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../../fonts/inter-latin-700.woff2") format("woff2");
+}
+
+:root[data-bkbc-skin="nocturne"] {
+	--bkbc-light-bg: #f3f5fe;
+	--bkbc-light-surface: #e4e7f5;
+	--bkbc-light-text: #292b31;
+	--bkbc-light-divider: rgba(41, 43, 49, 0.16);
+
+	--bkbc-dark-bg: #161826;
+	--bkbc-dark-surface: #232532;
+	--bkbc-dark-text: #e9e9ed;
+	--bkbc-dark-divider: rgba(233, 233, 237, 0.16);
+
+	--bkbc-accent: #9184d9;
+	--bkbc-accent-strong: #796cbf;
+	--bkbc-accent-soft: rgba(145, 132, 217, 0.14);
+	--bkbc-on-accent: #161826;
+
+	--bkbc-font-body: "Inter", system-ui, -apple-system, sans-serif;
+	--bkbc-font-heading: "Inter", system-ui, -apple-system, sans-serif;
+	--bkbc-font-heading-weight: 600;
+
+	--bkbc-space-1: 4px;
+	--bkbc-space-2: 8px;
+	--bkbc-space-3: 12px;
+	--bkbc-space-4: 16px;
+	--bkbc-space-6: 24px;
+	--bkbc-space-8: 32px;
+
+	--bkbc-radius-sm: 4px;
+	--bkbc-radius-md: 8px;
+	--bkbc-radius-lg: 14px;
+	--bkbc-avatar-radius: 14px;
+
+	--bkbc-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* Rules fade out at both ends instead of stopping cleanly — a Nocturne
+   signature, painted from the same divider token. */
+.bkbc--nocturne .bkbc-section,
+.bkbc--nocturne .bkbc-quick,
+.bkbc--nocturne .bkbc-footer {
+	margin-top: var(--bkbc-space-6);
+	padding-top: var(--bkbc-space-6);
+	border-top: 0;
+	background-image: linear-gradient(
+		to right,
+		transparent,
+		var(--bkbc-divider) 48px,
+		var(--bkbc-divider) calc(100% - 48px),
+		transparent
+	);
+	background-repeat: no-repeat;
+	background-size: 100% 1px;
+	background-position: top left;
+}
+
+/* An outline rather than a fill: on the dark ground a solid blurple block is
+   louder than anything else on the card. */
+.bkbc .bkbc--nocturne .bkbc-button--primary,
+.bkbc--nocturne .bkbc-button--primary {
+	background: transparent;
+	color: var(--bkbc-accent);
+	border-color: var(--bkbc-accent);
+}
+
+.bkbc--nocturne .bkbc-button--primary:hover {
+	background: var(--bkbc-accent-soft);
+	color: var(--bkbc-accent);
+}
+
+.bkbc--nocturne .bkbc-form input[type="submit"],
+.bkbc--nocturne .bkbc-form button[type="submit"] {
+	background: transparent;
+	color: var(--bkbc-accent);
+	border: 1px solid var(--bkbc-accent);
+}
+
+/*
+ * `lighten` is authored against the dark ground: it drops the photograph's own
+ * shadows into the page. Against the light ground the same blend erases most of
+ * the image, so it is switched off there rather than tuned into something else.
+ */
+.bkbc--nocturne .bkbc-media {
+	mix-blend-mode: lighten;
+	background-color: transparent;
+}
+
+:root[data-theme="light"] .bkbc--nocturne .bkbc-media {
+	mix-blend-mode: normal;
+}

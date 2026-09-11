@@ -32,14 +32,14 @@ final class Fields {
 	const PREFIX = '_baukasten_card_';
 
 	/**
-	 * The layouts a card can be rendered in.
+	 * How a card decides between its light and its dark palette.
 	 */
-	const LAYOUTS = array( 'classic', 'modern', 'bio' );
+	const SCHEMES = array( 'system', 'light', 'dark' );
 
 	/**
-	 * The layout a card falls back to.
+	 * The colour scheme a card falls back to.
 	 */
-	const DEFAULT_LAYOUT = 'classic';
+	const DEFAULT_SCHEME = 'system';
 
 	/**
 	 * Every field, as unprefixed key to type.
@@ -48,69 +48,70 @@ final class Fields {
 	 */
 	public static function types(): array {
 		return array(
-			'card_layout'         => 'layout',
-			'show_qr_modal'       => 'bool',
-			'show_theme_toggle'   => 'bool',
+			'card_layout'          => 'layout',
+			'card_color_scheme'    => 'scheme',
+			'show_qr_modal'        => 'bool',
+			'show_theme_toggle'    => 'bool',
 
-			'banner_image_id'     => 'image',
-			'avatar_image_id'     => 'image',
+			'banner_image_id'      => 'image',
+			'avatar_image_id'      => 'image',
 
-			'salutation'          => 'text',
-			'academic_title'      => 'text',
-			'first_name'          => 'text',
-			'last_name'           => 'text',
-			'position'            => 'text',
-			'company'             => 'text',
-			'bio_text'            => 'html',
+			'salutation'           => 'text',
+			'academic_title'       => 'text',
+			'first_name'           => 'text',
+			'last_name'            => 'text',
+			'position'             => 'text',
+			'company'              => 'text',
+			'bio_text'             => 'html',
 
-			'quick_tel'           => 'tel',
-			'quick_email'         => 'email',
-			'quick_whatsapp'      => 'tel_digits',
-			'quick_website'       => 'url',
+			'quick_tel'            => 'tel',
+			'quick_email'          => 'email',
+			'quick_whatsapp'       => 'tel_digits',
+			'quick_website'        => 'url',
 
-			'email_work'          => 'email',
-			'email_priv'          => 'email',
-			'phone_work'          => 'tel',
-			'phone_priv'          => 'tel',
-			'mobile_work'         => 'tel',
-			'mobile_priv'         => 'tel',
-			'contact_website'     => 'url',
-			'contact_address'     => 'textarea',
-			'what3words_link'     => 'url',
+			'email_work'           => 'email',
+			'email_priv'           => 'email',
+			'phone_work'           => 'tel',
+			'phone_priv'           => 'tel',
+			'mobile_work'          => 'tel',
+			'mobile_priv'          => 'tel',
+			'contact_website'      => 'url',
+			'contact_address'      => 'textarea',
+			'what3words_link'      => 'url',
 
-			'network_linkedin'    => 'url',
-			'network_xing'        => 'url',
-			'network_github'      => 'url',
-			'network_mastodon'    => 'url',
-			'network_facebook'    => 'url',
-			'network_instagram'   => 'url',
-			'network_threads'     => 'url',
-			'network_discord'     => 'url',
-			'network_signal'      => 'url',
+			'network_linkedin'     => 'url',
+			'network_xing'         => 'url',
+			'network_github'       => 'url',
+			'network_mastodon'     => 'url',
+			'network_facebook'     => 'url',
+			'network_instagram'    => 'url',
+			'network_threads'      => 'url',
+			'network_discord'      => 'url',
+			'network_signal'       => 'url',
 
-			'custom_link_1_label' => 'text',
-			'custom_link_1_url'   => 'url',
-			'custom_link_2_label' => 'text',
-			'custom_link_2_url'   => 'url',
-			'custom_link_3_label' => 'text',
-			'custom_link_3_url'   => 'url',
+			'custom_link_1_label'  => 'text',
+			'custom_link_1_url'    => 'url',
+			'custom_link_2_label'  => 'text',
+			'custom_link_2_url'    => 'url',
+			'custom_link_3_label'  => 'text',
+			'custom_link_3_url'    => 'url',
 
-			'download_1_label'    => 'text',
-			'download_1_file_id'  => 'file',
-			'download_2_label'    => 'text',
-			'download_2_file_id'  => 'file',
-			'download_3_label'    => 'text',
-			'download_3_file_id'  => 'file',
+			'download_1_label'     => 'text',
+			'download_1_file_id'   => 'file',
+			'download_2_label'     => 'text',
+			'download_2_file_id'   => 'file',
+			'download_3_label'     => 'text',
+			'download_3_file_id'   => 'file',
 
-			'enable_vcf'          => 'bool',
-			'wallet_apple_url'    => 'url',
-			'wallet_google_url'   => 'url',
+			'enable_vcf'           => 'bool',
+			'wallet_apple_pass_id' => 'file',
+			'wallet_google_jwt'    => 'jwt',
 
-			'cf7_form_id'         => 'form',
+			'cf7_form_id'          => 'form',
 
-			'footer_imprint_url'  => 'url',
-			'footer_privacy_url'  => 'url',
-			'footer_terms_url'    => 'url',
+			'footer_privacy_page'  => 'page',
+			'footer_terms_page'    => 'page',
+			'footer_imprint_page'  => 'page',
 		);
 	}
 
@@ -125,7 +126,7 @@ final class Fields {
 	 */
 	public static function groups(): array {
 		return array(
-			'design'    => array( 'card_layout', 'show_qr_modal', 'show_theme_toggle' ),
+			'design'    => array( 'card_layout', 'card_color_scheme', 'show_qr_modal', 'show_theme_toggle' ),
 			'images'    => array( 'banner_image_id', 'avatar_image_id' ),
 			'basics'    => array( 'salutation', 'academic_title', 'first_name', 'last_name', 'position', 'company', 'bio_text' ),
 			'quick'     => array( 'quick_tel', 'quick_email', 'quick_whatsapp', 'quick_website' ),
@@ -133,9 +134,9 @@ final class Fields {
 			'social'    => array( 'network_linkedin', 'network_xing', 'network_github', 'network_mastodon', 'network_facebook', 'network_instagram', 'network_threads', 'network_discord', 'network_signal' ),
 			'links'     => array( 'custom_link_1_label', 'custom_link_1_url', 'custom_link_2_label', 'custom_link_2_url', 'custom_link_3_label', 'custom_link_3_url' ),
 			'downloads' => array( 'download_1_label', 'download_1_file_id', 'download_2_label', 'download_2_file_id', 'download_3_label', 'download_3_file_id' ),
-			'wallet'    => array( 'enable_vcf', 'wallet_apple_url', 'wallet_google_url' ),
+			'wallet'    => array( 'enable_vcf', 'wallet_apple_pass_id', 'wallet_google_jwt' ),
 			'form'      => array( 'cf7_form_id' ),
-			'legal'     => array( 'footer_imprint_url', 'footer_privacy_url', 'footer_terms_url' ),
+			'legal'     => array( 'footer_privacy_page', 'footer_terms_page', 'footer_imprint_page' ),
 		);
 	}
 
@@ -206,7 +207,11 @@ final class Fields {
 		}
 
 		if ( ! isset( $card['card_layout'] ) ) {
-			$card['card_layout'] = self::DEFAULT_LAYOUT;
+			$card['card_layout'] = Skins::DEFAULT_SKIN;
+		}
+
+		if ( ! isset( $card['card_color_scheme'] ) ) {
+			$card['card_color_scheme'] = self::DEFAULT_SCHEME;
 		}
 
 		/**
@@ -232,6 +237,57 @@ final class Fields {
 	 */
 	public static function has_any( array $card, array $keys ): bool {
 		return array() !== array_intersect_key( $card, array_flip( $keys ) );
+	}
+
+	/**
+	 * Pulls the token out of whatever was pasted into the field.
+	 *
+	 * What people actually have in the clipboard is the whole
+	 * `https://pay.google.com/gp/v/save/<token>` address, and refusing that
+	 * teaches nobody anything. A token copied out of a terminal arrives with
+	 * line breaks in it, which is the other common shape.
+	 *
+	 * @param string $value Raw field value.
+	 * @return string The token, as far as it can be recovered.
+	 */
+	private static function extract_jwt( string $value ): string {
+		$value = (string) preg_replace( '/\s+/', '', trim( $value ) );
+
+		if ( str_starts_with( $value, 'http' ) ) {
+			$path  = (string) wp_parse_url( $value, PHP_URL_PATH );
+			$value = (string) substr( (string) strrchr( '/' . $path, '/' ), 1 );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Whether a string has the shape of a JSON Web Token.
+	 *
+	 * Shape only. The signature is deliberately not checked: verifying it needs
+	 * the issuer's public key, which this plugin has no way to hold, and a check
+	 * that cannot fail is worse than no check because it reads like one that can.
+	 * All this rules out is a pasted save-URL or a stray sentence.
+	 *
+	 * @param string $jwt Candidate token.
+	 * @return bool True when it is three base64url segments with a readable header.
+	 */
+	private static function looks_like_a_jwt( string $jwt ): bool {
+		if ( ! preg_match( '#^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$#', $jwt ) ) {
+			return false;
+		}
+
+		$segments = explode( '.', $jwt );
+		// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode -- a JWT header is base64url by definition; this reads it, it does not hide anything.
+		$header = base64_decode( strtr( $segments[0], '-_', '+/' ), true );
+
+		if ( ! is_string( $header ) ) {
+			return false;
+		}
+
+		$decoded = json_decode( $header, true );
+
+		return is_array( $decoded ) && isset( $decoded['alg'] );
 	}
 
 	/**
@@ -262,8 +318,31 @@ final class Fields {
 			case 'layout':
 				$layout = (string) $value;
 
-				// Never dropped: the template must always have a layout.
-				return in_array( $layout, self::LAYOUTS, true ) ? $layout : self::DEFAULT_LAYOUT;
+				// Never dropped: the template must always have a design. The
+				// list lives in Skins, which is also what renders one.
+				return in_array( $layout, Skins::ids(), true ) ? $layout : Skins::DEFAULT_SKIN;
+
+			case 'scheme':
+				$scheme = (string) $value;
+
+				// Never dropped either, for the same reason.
+				return in_array( $scheme, self::SCHEMES, true ) ? $scheme : self::DEFAULT_SCHEME;
+
+			case 'page':
+				$page_id = absint( $value );
+
+				/*
+				 * Only the id is checked here. Whether the page is published is
+				 * asked at render time, in Legal_Links: a page put back into
+				 * draft for an afternoon should not have the editor's choice
+				 * quietly disappear from the card.
+				 */
+				return 0 < $page_id ? $page_id : null;
+
+			case 'jwt':
+				$jwt = trim( (string) $value );
+
+				return self::looks_like_a_jwt( $jwt ) ? $jwt : null;
 
 			case 'email':
 				$email = sanitize_email( (string) $value );
@@ -325,7 +404,25 @@ final class Fields {
 			case 'layout':
 				$layout = sanitize_key( (string) $value );
 
-				return in_array( $layout, self::LAYOUTS, true ) ? $layout : self::DEFAULT_LAYOUT;
+				return in_array( $layout, Skins::ids(), true ) ? $layout : Skins::DEFAULT_SKIN;
+
+			case 'scheme':
+				$scheme = sanitize_key( (string) $value );
+
+				return in_array( $scheme, self::SCHEMES, true ) ? $scheme : self::DEFAULT_SCHEME;
+
+			case 'page':
+				$page_id = absint( $value );
+
+				// Only a real page may be stored; anything else clears the field.
+				// The same rule the Login Legal Pages addon applies to its own
+				// two page pickers.
+				return 0 < $page_id && 'page' === get_post_type( $page_id ) ? (string) $page_id : '';
+
+			case 'jwt':
+				$jwt = self::extract_jwt( (string) $value );
+
+				return self::looks_like_a_jwt( $jwt ) ? $jwt : '';
 
 			case 'email':
 				return sanitize_email( (string) $value );

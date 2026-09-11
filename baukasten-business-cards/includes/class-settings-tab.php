@@ -30,11 +30,23 @@ final class Settings_Tab {
 	const CAPABILITY = 'manage_options';
 
 	/**
+	 * `admin-post` action that creates the card contact form.
+	 */
+	const ACTION_CREATE_FORM = 'baukasten_business_cards_create_form';
+
+	/**
+	 * Nonce action for the tab's own forms.
+	 */
+	const NONCE = 'baukasten_business_cards_tab';
+
+	/**
 	 * Registers the hooks the tab needs.
 	 *
 	 * @return void
 	 */
 	public static function register(): void {
+		add_action( 'admin_post_' . self::ACTION_CREATE_FORM, array( __CLASS__, 'create_form' ) );
+
 		add_filter(
 			'plugin_action_links_' . plugin_basename( PLUGIN_FILE ),
 			array( __CLASS__, 'plugin_action_links' )
@@ -110,17 +122,87 @@ final class Settings_Tab {
 	}
 
 	/**
+	 * Creates the contact form a card can embed.
+	 *
+	 * Not on activation. A form is content: it appears in the Contact Form 7
+	 * list, it carries a mail configuration pointing at the site's admin
+	 * address, and it sends email. Making one behind somebody's back the moment
+	 * a plugin is switched on is not a favour. This is a button, pressed once,
+	 * by somebody who read what it does.
+	 *
+	 * @return void
+	 */
+	public static function create_form(): void {
+		if ( ! current_user_can( self::CAPABILITY ) ) {
+			wp_die( esc_html__( 'You are not allowed to change these settings.', 'baukasten-business-cards' ), 403 );
+		}
+
+		check_admin_referer( self::NONCE );
+
+		if ( ! Forms::is_available() ) {
+			self::go_back(
+				'error',
+				__( 'Contact Form 7 is not active, so there is nothing to build the form with.', 'baukasten-business-cards' )
+			);
+		}
+
+		$existing = Forms::plugin_form_id();
+
+		if ( 0 < $existing ) {
+			self::go_back(
+				'success',
+				__( 'The card contact form already exists — it is listed under Contact.', 'baukasten-business-cards' )
+			);
+		}
+
+		$form_id = Forms::create();
+
+		if ( 0 >= $form_id ) {
+			self::go_back(
+				'error',
+				__( 'The form could not be created. Contact Form 7 refused to save it.', 'baukasten-business-cards' )
+			);
+		}
+
+		self::go_back(
+			'success',
+			__( 'Contact form created. Choose it on a card under Contact form.', 'baukasten-business-cards' )
+		);
+	}
+
+	/**
+	 * Returns to the tab with a notice, and ends the request.
+	 *
+	 * @param string $type    Either `success` or `error`.
+	 * @param string $message Notice text.
+	 * @return void
+	 */
+	private static function go_back( string $type, string $message ): void {
+		if ( class_exists( '\Baukasten\Admin' ) ) {
+			\Baukasten\Admin::redirect_to_tab( self::TAB, $type, $message );
+		}
+
+		wp_safe_redirect( admin_url( 'edit.php?post_type=' . Post_Type::POST_TYPE ) );
+
+		exit;
+	}
+
+	/**
 	 * Prints the tab.
 	 *
 	 * @return void
 	 */
 	public static function render(): void {
-		$base      = Settings::base();
-		$pretty    = Settings::pretty_permalinks();
-		$counts    = wp_count_posts( Post_Type::POST_TYPE );
-		$published = isset( $counts->publish ) ? (int) $counts->publish : 0;
-		$drafts    = isset( $counts->draft ) ? (int) $counts->draft : 0;
-		$has_cf7   = class_exists( '\WPCF7_ContactForm' );
+		$base       = Settings::base();
+		$pretty     = Settings::pretty_permalinks();
+		$counts     = wp_count_posts( Post_Type::POST_TYPE );
+		$published  = isset( $counts->publish ) ? (int) $counts->publish : 0;
+		$drafts     = isset( $counts->draft ) ? (int) $counts->draft : 0;
+		$has_cf7    = Forms::is_available();
+		$form_id    = Forms::plugin_form_id();
+		$site_legal = Legal_Links::has_site_source();
+		$report     = Upgrade::report();
+		$skins      = Skins::choices();
 
 		require PLUGIN_DIR . 'admin/views/settings-tab.php';
 	}

@@ -56,6 +56,21 @@ final class Meta_Boxes {
 	 */
 	public static function add(): void {
 		foreach ( self::boxes() as $group => $box ) {
+			if ( 'legal' === $group && Legal_Links::has_site_source() ) {
+				// The site has one answer for all cards. A box that saves values
+				// nothing reads is a trap, so it is not offered at all.
+				add_meta_box(
+					'baukasten-card-legal',
+					$box['title'],
+					array( __CLASS__, 'render_inherited_legal' ),
+					Post_Type::POST_TYPE,
+					$box['context'],
+					$box['priority']
+				);
+
+				continue;
+			}
+
 			add_meta_box(
 				'baukasten-card-' . $group,
 				$box['title'],
@@ -104,6 +119,7 @@ final class Meta_Boxes {
 		$notes  = self::notes();
 		$types  = Fields::types();
 		$values = self::stored( $post->ID );
+		$legacy = self::legacy( $post->ID );
 
 		require PLUGIN_DIR . 'admin/views/meta-box.php';
 	}
@@ -145,6 +161,17 @@ final class Meta_Boxes {
 		}
 
 		foreach ( Fields::types() as $key => $type ) {
+			/*
+			 * A field whose box was never rendered posts nothing, and "posted
+			 * nothing" is indistinguishable from "was cleared". For an unticked
+			 * checkbox those mean the same thing; for a whole box that is not on
+			 * the screen they do not, and the stored page would be thrown away
+			 * on the next save of some unrelated field.
+			 */
+			if ( 'page' === $type && Legal_Links::has_site_source() ) {
+				continue;
+			}
+
 			$meta_key = Fields::meta_key( $key );
 
 			// An unticked checkbox posts nothing at all, which is the only way
@@ -252,6 +279,86 @@ final class Meta_Boxes {
 	}
 
 	/**
+	 * Prints the legal box when the links come from elsewhere.
+	 *
+	 * Showing what a card will actually display, rather than three disabled
+	 * dropdowns: the question "where does this link go" is answered on the
+	 * screen where it is asked.
+	 *
+	 * @param mixed $post The post being edited.
+	 * @return void
+	 */
+	public static function render_inherited_legal( $post ): void {
+		if ( ! $post instanceof \WP_Post ) {
+			return;
+		}
+
+		$links = Legal_Links::all( Fields::load( $post->ID ) );
+
+		echo '<p class="description">';
+		esc_html_e( 'These come from the Login Legal Pages addon and are the same on every card.', 'baukasten-business-cards' );
+		echo '</p>';
+
+		if ( array() === $links ) {
+			echo '<p>';
+			esc_html_e( 'No legal pages are set yet, so the footer stays empty.', 'baukasten-business-cards' );
+			echo '</p>';
+		} else {
+			echo '<ul>';
+
+			foreach ( $links as $link ) {
+				printf(
+					'<li><a href="%1$s" target="_blank" rel="noopener">%2$s</a></li>',
+					esc_url( (string) $link['url'] ),
+					esc_html( (string) $link['label'] )
+				);
+			}
+
+			echo '</ul>';
+		}
+
+		if ( class_exists( '\Baukasten\Admin' ) ) {
+			printf(
+				'<p><a href="%1$s">%2$s</a></p>',
+				esc_url( \Baukasten\Admin::page_url( 'login-legal-pages' ) ),
+				esc_html__( 'Change them', 'baukasten-business-cards' )
+			);
+		}
+	}
+
+	/**
+	 * Values from the previous version that had no new home.
+	 *
+	 * Shown read-only beside the field that replaced them, so an address
+	 * somebody typed is never lost without trace.
+	 *
+	 * @param int $post_id Card post ID.
+	 * @return array<string, string> Field key to the old value.
+	 */
+	private static function legacy( int $post_id ): array {
+		$keys = array(
+			'card_layout'          => 'card_layout_legacy',
+			'wallet_apple_pass_id' => 'wallet_apple_legacy',
+			'wallet_google_jwt'    => 'wallet_google_legacy',
+			'footer_privacy_page'  => 'footer_privacy_url_legacy',
+			'footer_terms_page'    => 'footer_terms_url_legacy',
+			'footer_imprint_page'  => 'footer_imprint_url_legacy',
+		);
+
+		$legacy = array();
+
+		foreach ( $keys as $field => $meta ) {
+			$value = (string) get_post_meta( $post_id, Fields::meta_key( $meta ), true );
+
+			if ( '' !== $value ) {
+				$legacy[ $field ] = $value;
+			}
+		}
+
+		return $legacy;
+	}
+
+	/**
 	 * Every stored value, raw, keyed by unprefixed field key.
 	 *
 	 * The editing screen needs what is stored, not what `Fields::load()` would
@@ -346,69 +453,70 @@ final class Meta_Boxes {
 	 */
 	private static function labels(): array {
 		return array(
-			'card_layout'         => __( 'Layout', 'baukasten-business-cards' ),
-			'show_qr_modal'       => __( 'Show a QR code button', 'baukasten-business-cards' ),
-			'show_theme_toggle'   => __( 'Show a light and dark switch', 'baukasten-business-cards' ),
+			'card_layout'          => __( 'Design', 'baukasten-business-cards' ),
+			'card_color_scheme'    => __( 'Light or dark', 'baukasten-business-cards' ),
+			'show_qr_modal'        => __( 'Show a QR code button', 'baukasten-business-cards' ),
+			'show_theme_toggle'    => __( 'Show a light and dark switch', 'baukasten-business-cards' ),
 
-			'banner_image_id'     => __( 'Banner', 'baukasten-business-cards' ),
-			'avatar_image_id'     => __( 'Profile picture', 'baukasten-business-cards' ),
+			'banner_image_id'      => __( 'Banner', 'baukasten-business-cards' ),
+			'avatar_image_id'      => __( 'Profile picture', 'baukasten-business-cards' ),
 
-			'salutation'          => __( 'Salutation', 'baukasten-business-cards' ),
-			'academic_title'      => __( 'Academic title', 'baukasten-business-cards' ),
-			'first_name'          => __( 'First name', 'baukasten-business-cards' ),
-			'last_name'           => __( 'Last name', 'baukasten-business-cards' ),
-			'position'            => __( 'Position', 'baukasten-business-cards' ),
-			'company'             => __( 'Company', 'baukasten-business-cards' ),
-			'bio_text'            => __( 'Biography', 'baukasten-business-cards' ),
+			'salutation'           => __( 'Salutation', 'baukasten-business-cards' ),
+			'academic_title'       => __( 'Academic title', 'baukasten-business-cards' ),
+			'first_name'           => __( 'First name', 'baukasten-business-cards' ),
+			'last_name'            => __( 'Last name', 'baukasten-business-cards' ),
+			'position'             => __( 'Position', 'baukasten-business-cards' ),
+			'company'              => __( 'Company', 'baukasten-business-cards' ),
+			'bio_text'             => __( 'Biography', 'baukasten-business-cards' ),
 
-			'quick_tel'           => __( 'Call', 'baukasten-business-cards' ),
-			'quick_email'         => __( 'Email', 'baukasten-business-cards' ),
-			'quick_whatsapp'      => __( 'WhatsApp', 'baukasten-business-cards' ),
-			'quick_website'       => __( 'Website', 'baukasten-business-cards' ),
+			'quick_tel'            => __( 'Call', 'baukasten-business-cards' ),
+			'quick_email'          => __( 'Email', 'baukasten-business-cards' ),
+			'quick_whatsapp'       => __( 'WhatsApp', 'baukasten-business-cards' ),
+			'quick_website'        => __( 'Website', 'baukasten-business-cards' ),
 
-			'email_work'          => __( 'Email, work', 'baukasten-business-cards' ),
-			'email_priv'          => __( 'Email, private', 'baukasten-business-cards' ),
-			'phone_work'          => __( 'Phone, work', 'baukasten-business-cards' ),
-			'phone_priv'          => __( 'Phone, private', 'baukasten-business-cards' ),
-			'mobile_work'         => __( 'Mobile, work', 'baukasten-business-cards' ),
-			'mobile_priv'         => __( 'Mobile, private', 'baukasten-business-cards' ),
-			'contact_website'     => __( 'Website', 'baukasten-business-cards' ),
-			'contact_address'     => __( 'Address', 'baukasten-business-cards' ),
-			'what3words_link'     => __( 'what3words link', 'baukasten-business-cards' ),
+			'email_work'           => __( 'Email, work', 'baukasten-business-cards' ),
+			'email_priv'           => __( 'Email, private', 'baukasten-business-cards' ),
+			'phone_work'           => __( 'Phone, work', 'baukasten-business-cards' ),
+			'phone_priv'           => __( 'Phone, private', 'baukasten-business-cards' ),
+			'mobile_work'          => __( 'Mobile, work', 'baukasten-business-cards' ),
+			'mobile_priv'          => __( 'Mobile, private', 'baukasten-business-cards' ),
+			'contact_website'      => __( 'Website', 'baukasten-business-cards' ),
+			'contact_address'      => __( 'Address', 'baukasten-business-cards' ),
+			'what3words_link'      => __( 'what3words link', 'baukasten-business-cards' ),
 
-			'network_linkedin'    => __( 'LinkedIn', 'baukasten-business-cards' ),
-			'network_xing'        => __( 'Xing', 'baukasten-business-cards' ),
-			'network_github'      => __( 'GitHub', 'baukasten-business-cards' ),
-			'network_mastodon'    => __( 'Mastodon', 'baukasten-business-cards' ),
-			'network_facebook'    => __( 'Facebook', 'baukasten-business-cards' ),
-			'network_instagram'   => __( 'Instagram', 'baukasten-business-cards' ),
-			'network_threads'     => __( 'Threads', 'baukasten-business-cards' ),
-			'network_discord'     => __( 'Discord', 'baukasten-business-cards' ),
-			'network_signal'      => __( 'Signal', 'baukasten-business-cards' ),
+			'network_linkedin'     => __( 'LinkedIn', 'baukasten-business-cards' ),
+			'network_xing'         => __( 'Xing', 'baukasten-business-cards' ),
+			'network_github'       => __( 'GitHub', 'baukasten-business-cards' ),
+			'network_mastodon'     => __( 'Mastodon', 'baukasten-business-cards' ),
+			'network_facebook'     => __( 'Facebook', 'baukasten-business-cards' ),
+			'network_instagram'    => __( 'Instagram', 'baukasten-business-cards' ),
+			'network_threads'      => __( 'Threads', 'baukasten-business-cards' ),
+			'network_discord'      => __( 'Discord', 'baukasten-business-cards' ),
+			'network_signal'       => __( 'Signal', 'baukasten-business-cards' ),
 
-			'custom_link_1_label' => __( 'Link 1 label', 'baukasten-business-cards' ),
-			'custom_link_1_url'   => __( 'Link 1 address', 'baukasten-business-cards' ),
-			'custom_link_2_label' => __( 'Link 2 label', 'baukasten-business-cards' ),
-			'custom_link_2_url'   => __( 'Link 2 address', 'baukasten-business-cards' ),
-			'custom_link_3_label' => __( 'Link 3 label', 'baukasten-business-cards' ),
-			'custom_link_3_url'   => __( 'Link 3 address', 'baukasten-business-cards' ),
+			'custom_link_1_label'  => __( 'Link 1 label', 'baukasten-business-cards' ),
+			'custom_link_1_url'    => __( 'Link 1 address', 'baukasten-business-cards' ),
+			'custom_link_2_label'  => __( 'Link 2 label', 'baukasten-business-cards' ),
+			'custom_link_2_url'    => __( 'Link 2 address', 'baukasten-business-cards' ),
+			'custom_link_3_label'  => __( 'Link 3 label', 'baukasten-business-cards' ),
+			'custom_link_3_url'    => __( 'Link 3 address', 'baukasten-business-cards' ),
 
-			'download_1_label'    => __( 'Download 1 label', 'baukasten-business-cards' ),
-			'download_1_file_id'  => __( 'Download 1 file', 'baukasten-business-cards' ),
-			'download_2_label'    => __( 'Download 2 label', 'baukasten-business-cards' ),
-			'download_2_file_id'  => __( 'Download 2 file', 'baukasten-business-cards' ),
-			'download_3_label'    => __( 'Download 3 label', 'baukasten-business-cards' ),
-			'download_3_file_id'  => __( 'Download 3 file', 'baukasten-business-cards' ),
+			'download_1_label'     => __( 'Download 1 label', 'baukasten-business-cards' ),
+			'download_1_file_id'   => __( 'Download 1 file', 'baukasten-business-cards' ),
+			'download_2_label'     => __( 'Download 2 label', 'baukasten-business-cards' ),
+			'download_2_file_id'   => __( 'Download 2 file', 'baukasten-business-cards' ),
+			'download_3_label'     => __( 'Download 3 label', 'baukasten-business-cards' ),
+			'download_3_file_id'   => __( 'Download 3 file', 'baukasten-business-cards' ),
 
-			'enable_vcf'          => __( 'Offer a vCard download', 'baukasten-business-cards' ),
-			'wallet_apple_url'    => __( 'Apple Wallet address', 'baukasten-business-cards' ),
-			'wallet_google_url'   => __( 'Google Wallet address', 'baukasten-business-cards' ),
+			'enable_vcf'           => __( 'Offer a vCard download', 'baukasten-business-cards' ),
+			'wallet_apple_pass_id' => __( 'Apple Wallet pass', 'baukasten-business-cards' ),
+			'wallet_google_jwt'    => __( 'Google Wallet token', 'baukasten-business-cards' ),
 
-			'cf7_form_id'         => __( 'Form', 'baukasten-business-cards' ),
+			'cf7_form_id'          => __( 'Form', 'baukasten-business-cards' ),
 
-			'footer_imprint_url'  => __( 'Imprint', 'baukasten-business-cards' ),
-			'footer_privacy_url'  => __( 'Privacy policy', 'baukasten-business-cards' ),
-			'footer_terms_url'    => __( 'Terms', 'baukasten-business-cards' ),
+			'footer_privacy_page'  => __( 'Privacy policy', 'baukasten-business-cards' ),
+			'footer_terms_page'    => __( 'Terms', 'baukasten-business-cards' ),
+			'footer_imprint_page'  => __( 'Imprint', 'baukasten-business-cards' ),
 		);
 	}
 
@@ -419,12 +527,14 @@ final class Meta_Boxes {
 	 */
 	private static function notes(): array {
 		return array(
-			'quick_whatsapp'     => __( 'Digits and a leading plus only. Everything else is stripped when saved.', 'baukasten-business-cards' ),
-			'bio_text'           => __( 'Basic formatting is kept. Used as the note on the vCard as well.', 'baukasten-business-cards' ),
-			'contact_address'    => __( 'Written to the vCard as one block. Line breaks are kept.', 'baukasten-business-cards' ),
-			'wallet_apple_url'   => __( 'A signed pass needs an Apple certificate, so this is a link to wherever your pass is hosted. Leave it empty to hide the badge.', 'baukasten-business-cards' ),
-			'footer_privacy_url' => __( 'Leave empty to use the privacy policy page set under Settings, Privacy.', 'baukasten-business-cards' ),
-			'card_layout'        => __( 'Classic has a banner, Modern is borderless, Bio is a stack of link buttons.', 'baukasten-business-cards' ),
+			'quick_whatsapp'       => __( 'Digits and a leading plus only. Everything else is stripped when saved.', 'baukasten-business-cards' ),
+			'bio_text'             => __( 'Basic formatting is kept. Used as the note on the vCard as well.', 'baukasten-business-cards' ),
+			'contact_address'      => __( 'Written to the vCard as one block. Line breaks are kept.', 'baukasten-business-cards' ),
+			'wallet_apple_pass_id' => __( 'The .pkpass file itself, uploaded here and served by this site with the media type that opens Wallet. Signing a pass needs an Apple certificate, so it has to be built elsewhere.', 'baukasten-business-cards' ),
+			'wallet_google_jwt'    => __( 'The signed token for the pass, or the whole pay.google.com/gp/v/save/… address — the token is taken out of it. Only its shape is checked: the signature was made with a key this site does not hold.', 'baukasten-business-cards' ),
+			'footer_privacy_page'  => __( 'Leave empty to use the page set under Settings, Privacy.', 'baukasten-business-cards' ),
+			'card_layout'          => __( 'One layout in three looks. Modernist is sharp-edged and typographic, Industry frames each section like a technical drawing, Nocturne is dark with soft corners.', 'baukasten-business-cards' ),
+			'card_color_scheme'    => __( 'Each design has a light and a dark palette. Follow the reader\'s own setting, or pin one of the two.', 'baukasten-business-cards' ),
 		);
 	}
 }

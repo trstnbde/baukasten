@@ -17,7 +17,7 @@ Six WordPress plugins in one repository, published separately to the plugin dire
 | `baukasten-login-legal-pages` | Legal links on the login screen, `/login/` URL. |
 | `baukasten-consent-blocking-engine` | Blocks third parties until consent; site hardening. |
 | `baukasten-multi-domain` | A domain per page. |
-| `baukasten-business-cards` | A digital business card on its own short link. |
+| `baukasten-business-cards` | A digital business card on its own short link, in one of three designs. |
 
 They are separate plugins because the features are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a release.
 
@@ -168,6 +168,10 @@ Every one of these cost time. They are listed so they cost it once.
 **Translating before `init` trips a 6.7 notice.** Anything that produces a translated string — including a tab title — has to run on `init` or later.
 
 **`.distignore` matches path segments, not just paths.** `bin/build.php`'s `is_ignored()` tests every pattern against the full relative path *and* against each segment of it, so the `vendor` line meant for Composer also excludes `assets/js/vendor/anything`. The file vanishes from the release archive and from nowhere else — the plugin keeps working locally, and the ZIP ships a button that does nothing. Business Cards keeps its bundled QR encoder in `assets/js/lib/` for exactly this reason.
+
+**A meta box that is not rendered still runs through the save loop.** A save posts nothing for a box that was hidden, and "posted nothing" is indistinguishable from "was cleared" — which for an unticked checkbox is true and for a whole hidden box is not. Business Cards hides its legal box when the Login Legal Pages addon supplies the links, and has to skip those fields in `Meta_Boxes::save()` or the next save of any unrelated field throws them away.
+
+**A `.pkpass` needs `upload_mimes` and nothing else.** It is a ZIP, `finfo` reports `application/zip`, and that is in core's `$nonspecific_types` (`wp-includes/functions.php:3234`) — the branch it takes only requires the *declared* type's major part to be `application`. A `wp_check_filetype_and_ext` filter on top would only widen what gets past core's check.
 
 **PHPCS's PrefixAllGlobals sniff treats view locals as globals.** Prefix them, or the build fails on a file that looks perfectly ordinary.
 

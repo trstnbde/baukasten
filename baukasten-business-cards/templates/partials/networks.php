@@ -1,13 +1,18 @@
 <?php
 /**
- * Profiles on other networks.
+ * Profiles elsewhere, and the card's own links.
  *
- * Labelled by name rather than by logo: a brand mark is a trademark with its
- * own usage rules, and a GPL plugin has no business shipping a set of them.
+ * One grid, not two: the designs put the named networks and the three free links
+ * in the same run of buttons, and splitting them into two headed sections would
+ * be inventing a distinction the reader does not care about.
+ *
+ * Labelled by name rather than by logo. A brand mark is a trademark with its own
+ * usage rules, and a GPL plugin has no business shipping a set of them.
  *
  * @package Baukasten\BusinessCards
  *
  * @var array<string, mixed> $baukasten_bc_card Loaded card fields.
+ * @var array<string, mixed> $baukasten_bc_skin The design being rendered.
  */
 
 namespace Baukasten\BusinessCards;
@@ -26,24 +31,62 @@ $baukasten_bc_networks = array(
 	'network_signal'    => 'Signal',
 );
 
-if ( ! Fields::has_any( $baukasten_bc_card, array_keys( $baukasten_bc_networks ) ) ) {
+$baukasten_bc_links = array();
+
+foreach ( $baukasten_bc_networks as $baukasten_bc_key => $baukasten_bc_name ) {
+	if ( isset( $baukasten_bc_card[ $baukasten_bc_key ] ) ) {
+		$baukasten_bc_links[] = array(
+			'url'     => (string) $baukasten_bc_card[ $baukasten_bc_key ],
+			'label'   => $baukasten_bc_name,
+			'initial' => Icons::initial( $baukasten_bc_key ),
+		);
+	}
+}
+
+foreach ( array( 1, 2, 3 ) as $baukasten_bc_index ) {
+	$baukasten_bc_url = (string) ( $baukasten_bc_card[ 'custom_link_' . $baukasten_bc_index . '_url' ] ?? '' );
+
+	if ( '' === $baukasten_bc_url ) {
+		continue;
+	}
+
+	$baukasten_bc_label = (string) ( $baukasten_bc_card[ 'custom_link_' . $baukasten_bc_index . '_label' ] ?? '' );
+
+	if ( '' === $baukasten_bc_label ) {
+		$baukasten_bc_label = (string) wp_parse_url( $baukasten_bc_url, PHP_URL_HOST );
+	}
+
+	$baukasten_bc_links[] = array(
+		'url'     => $baukasten_bc_url,
+		'label'   => $baukasten_bc_label,
+		'initial' => '',
+	);
+}
+
+if ( array() === $baukasten_bc_links ) {
 	return;
 }
 
-?>
-<section class="bkbc-section bkbc-networks">
-	<h2 class="bkbc-section__title"><?php esc_html_e( 'Elsewhere', 'baukasten-business-cards' ); ?></h2>
+Skins::open_section( $baukasten_bc_skin, 'networks', __( 'Elsewhere', 'baukasten-business-cards' ) );
 
-	<ul class="bkbc-networks__list">
-		<?php foreach ( $baukasten_bc_networks as $baukasten_bc_key => $baukasten_bc_name ) : ?>
-			<?php if ( isset( $baukasten_bc_card[ $baukasten_bc_key ] ) ) : ?>
-				<li class="bkbc-networks__item">
-					<a class="bkbc-networks__link" href="<?php echo esc_url( (string) $baukasten_bc_card[ $baukasten_bc_key ] ); ?>" rel="me noopener">
-						<span class="bkbc-networks__initial" aria-hidden="true"><?php echo esc_html( Icons::initial( $baukasten_bc_key ) ); ?></span>
-						<span><?php echo esc_html( $baukasten_bc_name ); ?></span>
-					</a>
-				</li>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</ul>
-</section>
+?>
+<ul class="bkbc-networks__list">
+	<?php foreach ( $baukasten_bc_links as $baukasten_bc_link ) : ?>
+		<li>
+			<a class="bkbc-button bkbc-button--secondary bkbc-button--block" href="<?php echo esc_url( (string) $baukasten_bc_link['url'] ); ?>" rel="me noopener">
+				<?php if ( '' !== $baukasten_bc_link['initial'] ) : ?>
+					<span class="bkbc-networks__initial" aria-hidden="true"><?php echo esc_html( (string) $baukasten_bc_link['initial'] ); ?></span>
+				<?php else : ?>
+					<?php
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- inline SVG built from a fixed table in Icons.
+					echo Icons::get( 'link' );
+					?>
+				<?php endif; ?>
+				<span><?php echo esc_html( (string) $baukasten_bc_link['label'] ); ?></span>
+			</a>
+		</li>
+	<?php endforeach; ?>
+</ul>
+<?php
+
+Skins::close_section();

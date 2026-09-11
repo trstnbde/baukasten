@@ -32,6 +32,11 @@ final class Renderer {
 	const HANDLE = 'baukasten-business-cards';
 
 	/**
+	 * Handle of the skin stylesheet.
+	 */
+	const SKIN_HANDLE = 'baukasten-business-cards-skin';
+
+	/**
 	 * Handle of the bundled QR encoder.
 	 */
 	const QR_HANDLE = 'baukasten-business-cards-qr';
@@ -115,6 +120,10 @@ final class Renderer {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'strip_queue' ), PHP_INT_MAX );
 
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue' ), 5 );
+
+		// Before the stylesheets, so neither costs the other a round trip.
+		add_action( 'wp_head', array( __CLASS__, 'preload_fonts' ), 2 );
+		add_action( 'wp_head', array( __CLASS__, 'print_theme_script' ), 3 );
 	}
 
 	/**
@@ -166,8 +175,22 @@ final class Renderer {
 	 */
 	public static function enqueue(): void {
 		$card = Fields::load( get_queried_object_id() );
+		$skin = Skins::get( (string) $card['card_layout'] );
 
 		wp_enqueue_style( self::HANDLE, PLUGIN_URL . 'assets/css/card.css', array(), VERSION );
+
+		/*
+		 * Two files rather than one on purpose. The skeleton is byte-identical
+		 * for every card on the site, so a visitor who opens two cards of
+		 * different designs downloads it once; and a skin file is the unit a
+		 * site forks when it wants a fourth design.
+		 */
+		wp_enqueue_style(
+			self::SKIN_HANDLE,
+			(string) $skin['stylesheet'],
+			array( self::HANDLE ),
+			VERSION
+		);
 
 		$needs_script = isset( $card['show_qr_modal'] ) || isset( $card['show_theme_toggle'] );
 
@@ -184,6 +207,63 @@ final class Renderer {
 		}
 
 		wp_enqueue_script( self::HANDLE, PLUGIN_URL . 'assets/js/card.js', $dependencies, VERSION, true );
+	}
+
+	/**
+	 * Preloads the two faces the card paints with.
+	 *
+	 * `crossorigin` is not optional and is not about the origin: a font is
+	 * fetched in CORS mode wherever it comes from, and a preload without it
+	 * fetches the file a second time instead of matching the one already on
+	 * its way.
+	 *
+	 * @return void
+	 */
+	public static function preload_fonts(): void {
+		if ( ! self::is_card_route() ) {
+			return;
+		}
+
+		$card = Fields::load( get_queried_object_id() );
+		$skin = Skins::get( (string) $card['card_layout'] );
+
+		foreach ( (array) $skin['fonts'] as $font ) {
+			printf(
+				'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin />',
+				esc_url( PLUGIN_URL . 'assets/fonts/' . (string) $font )
+			);
+		}
+	}
+
+	/**
+	 * Settles light or dark before the first paint.
+	 *
+	 * Deliberately blocking and deliberately in the head. The stylesheet can
+	 * express "the reader's setting, unless the switch says otherwise"; it
+	 * cannot read `localStorage`, so a stored choice would arrive one paint
+	 * late — and on a design that is dark by default, that paint is a white
+	 * flash in someone's face.
+	 *
+	 * It writes `data-theme` unconditionally, which is also what makes the
+	 * toggle honest: with the attribute always present, `card.js` never has to
+	 * guess what the cascade decided.
+	 *
+	 * @return void
+	 */
+	public static function print_theme_script(): void {
+		if ( ! self::is_card_route() ) {
+			return;
+		}
+
+		$script = '(function(d){var r=d.documentElement,'
+			. 'p=r.getAttribute("data-bkbc-scheme")||"system",'
+			. 'f=r.getAttribute("data-bkbc-default")||"light",t="";'
+			. 'if("light"===p||"dark"===p){t=p;}'
+			. 'else{try{t=window.localStorage.getItem("baukasten-card-theme")||"";}catch(e){}'
+			. 'if("light"!==t&&"dark"!==t){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":f;}}'
+			. 'r.setAttribute("data-theme",t);}(document));';
+
+		wp_print_inline_script_tag( $script, array( 'id' => self::HANDLE . '-theme' ) );
 	}
 
 	/**

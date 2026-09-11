@@ -13,6 +13,7 @@
  * @var array<string, string>               $notes  Field key to description.
  * @var array<string, string>               $types  Field key to schema type.
  * @var array<string, string>               $values Stored values, keyed by field key.
+ * @var array<string, string>               $legacy Values from 1.0 that had no new home.
  */
 
 namespace Baukasten\BusinessCards;
@@ -29,6 +30,7 @@ defined( 'ABSPATH' ) || exit;
 		$baukasten_bc_value = isset( $values[ $baukasten_bc_key ] ) ? $values[ $baukasten_bc_key ] : '';
 		$baukasten_bc_label = isset( $labels[ $baukasten_bc_key ] ) ? $labels[ $baukasten_bc_key ] : $baukasten_bc_key;
 		$baukasten_bc_note  = isset( $notes[ $baukasten_bc_key ] ) ? $notes[ $baukasten_bc_key ] : '';
+		$baukasten_bc_old   = isset( $legacy[ $baukasten_bc_key ] ) ? $legacy[ $baukasten_bc_key ] : '';
 		?>
 		<tr>
 			<th scope="row">
@@ -43,15 +45,10 @@ defined( 'ABSPATH' ) || exit;
 			<td>
 				<?php if ( 'layout' === $baukasten_bc_type ) : ?>
 					<?php
-					$baukasten_bc_current = in_array( $baukasten_bc_value, Fields::LAYOUTS, true )
+					$baukasten_bc_choices = Skins::choices();
+					$baukasten_bc_current = isset( $baukasten_bc_choices[ $baukasten_bc_value ] )
 						? $baukasten_bc_value
-						: Fields::DEFAULT_LAYOUT;
-
-					$baukasten_bc_choices = array(
-						'classic' => __( 'Classic', 'baukasten-business-cards' ),
-						'modern'  => __( 'Modern', 'baukasten-business-cards' ),
-						'bio'     => __( 'Bio', 'baukasten-business-cards' ),
-					);
+						: Skins::DEFAULT_SKIN;
 					?>
 					<fieldset>
 						<legend class="screen-reader-text"><?php echo esc_html( $baukasten_bc_label ); ?></legend>
@@ -67,6 +64,48 @@ defined( 'ABSPATH' ) || exit;
 							</label><br />
 						<?php endforeach; ?>
 					</fieldset>
+
+				<?php elseif ( 'scheme' === $baukasten_bc_type ) : ?>
+					<?php
+					$baukasten_bc_schemes = array(
+						'system' => __( 'Follow the reader', 'baukasten-business-cards' ),
+						'light'  => __( 'Always light', 'baukasten-business-cards' ),
+						'dark'   => __( 'Always dark', 'baukasten-business-cards' ),
+					);
+
+					$baukasten_bc_current = isset( $baukasten_bc_schemes[ $baukasten_bc_value ] )
+						? $baukasten_bc_value
+						: Fields::DEFAULT_SCHEME;
+					?>
+					<select id="<?php echo esc_attr( $baukasten_bc_name ); ?>" name="<?php echo esc_attr( $baukasten_bc_name ); ?>">
+						<?php foreach ( $baukasten_bc_schemes as $baukasten_bc_scheme => $baukasten_bc_scheme_label ) : ?>
+							<option value="<?php echo esc_attr( $baukasten_bc_scheme ); ?>" <?php selected( $baukasten_bc_current, $baukasten_bc_scheme ); ?>>
+								<?php echo esc_html( $baukasten_bc_scheme_label ); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+
+				<?php elseif ( 'page' === $baukasten_bc_type ) : ?>
+					<?php
+					// wp_dropdown_pages() prints an escaped <select>; core calls it
+					// the same way for the privacy policy picker, and so does the
+					// Login Legal Pages addon.
+					// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+					wp_dropdown_pages(
+						array(
+							'name'              => $baukasten_bc_name,
+							'id'                => $baukasten_bc_name,
+							'selected'          => absint( $baukasten_bc_value ),
+							'show_option_none'  => __( '— No page —', 'baukasten-business-cards' ),
+							'option_none_value' => '0',
+							// Drafts are offered so a card can point at a page that
+							// is not live yet; the footer will not print it until
+							// it is.
+							'post_status'       => array( 'publish', 'draft' ),
+						)
+					);
+					// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+					?>
 
 				<?php elseif ( 'bool' === $baukasten_bc_type ) : ?>
 					<label>
@@ -91,7 +130,17 @@ defined( 'ABSPATH' ) || exit;
 							: esc_html( (string) get_the_title( $baukasten_bc_id ) );
 					}
 					?>
-					<div class="baukasten-bc-media" data-kind="<?php echo esc_attr( $baukasten_bc_type ); ?>">
+					<?php
+					// The Apple pass field takes exactly one media type, so the
+					// library is filtered to it rather than offering every file
+					// on the site and failing later.
+					$baukasten_bc_mime = 'wallet_apple_pass_id' === $baukasten_bc_key ? Pass::MIME : '';
+					?>
+					<div
+						class="baukasten-bc-media"
+						data-kind="<?php echo esc_attr( $baukasten_bc_type ); ?>"
+						<?php echo '' !== $baukasten_bc_mime ? 'data-mime="' . esc_attr( $baukasten_bc_mime ) . '"' : ''; ?>
+					>
 						<input
 							type="hidden"
 							id="<?php echo esc_attr( $baukasten_bc_name ); ?>"
@@ -166,6 +215,18 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php if ( '' !== $baukasten_bc_note ) : ?>
 					<p class="description"><?php echo esc_html( $baukasten_bc_note ); ?></p>
+				<?php endif; ?>
+
+				<?php if ( '' !== $baukasten_bc_old ) : ?>
+					<p class="description baukasten-bc-legacy">
+						<?php
+						printf(
+							/* translators: %s: the value this field held in the previous version. */
+							esc_html__( 'Previously: %s — this is no longer used, and is shown so it is not lost.', 'baukasten-business-cards' ),
+							'<code>' . esc_html( $baukasten_bc_old ) . '</code>'
+						);
+						?>
+					</p>
 				<?php endif; ?>
 			</td>
 		</tr>

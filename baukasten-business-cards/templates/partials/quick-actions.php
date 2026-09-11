@@ -1,11 +1,10 @@
 <?php
 /**
- * The row of primary actions.
+ * The four primary actions, as a grid of tiles.
  *
  * @package Baukasten\BusinessCards
  *
  * @var array<string, mixed> $baukasten_bc_card Loaded card fields.
- * @var \WP_Post             $baukasten_bc_post The card post.
  */
 
 namespace Baukasten\BusinessCards;
@@ -46,20 +45,12 @@ if ( isset( $baukasten_bc_card['quick_website'] ) ) {
 	);
 }
 
-if ( isset( $baukasten_bc_card['enable_vcf'] ) ) {
-	$baukasten_bc_actions[] = array(
-		'href'  => VCard::url( $baukasten_bc_post->ID ),
-		'icon'  => 'contact',
-		'label' => __( 'Save contact', 'baukasten-business-cards' ),
-	);
-}
-
 if ( array() === $baukasten_bc_actions ) {
 	return;
 }
 
 ?>
-<nav class="bkbc-section bkbc-quick" aria-label="<?php esc_attr_e( 'Quick actions', 'baukasten-business-cards' ); ?>">
+<nav class="bkbc-quick" aria-label="<?php esc_attr_e( 'Quick actions', 'baukasten-business-cards' ); ?>">
 	<ul class="bkbc-quick__list">
 		<?php foreach ( $baukasten_bc_actions as $baukasten_bc_action ) : ?>
 			<li class="bkbc-quick__item">

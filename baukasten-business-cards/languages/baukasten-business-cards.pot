@@ -2,20 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten Addon: Business Cards 1.0.0\n"
+"Project-Id-Version: Baukasten Addon: Business Cards 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-business-cards\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-10T17:18:17+02:00\n"
+"POT-Creation-Date: 2026-09-11T08:06:14+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten-business-cards\n"
 
 #. Plugin Name of the plugin
 #: baukasten-business-cards.php
+#: includes/class-forms.php:121
 msgid "Baukasten Addon: Business Cards"
 msgstr ""
 
@@ -39,427 +40,550 @@ msgstr ""
 msgid "https://github.com/trstnbde"
 msgstr ""
 
-#: admin/views/meta-box.php:51
-msgid "Classic"
+#: admin/views/meta-box.php:71
+msgid "Follow the reader"
 msgstr ""
 
-#: admin/views/meta-box.php:52
-msgid "Modern"
+#: admin/views/meta-box.php:72
+msgid "Always light"
 msgstr ""
 
-#: admin/views/meta-box.php:53
-msgid "Bio"
+#: admin/views/meta-box.php:73
+msgid "Always dark"
 msgstr ""
 
-#: admin/views/meta-box.php:110
+#: admin/views/meta-box.php:99
+msgid "— No page —"
+msgstr ""
+
+#: admin/views/meta-box.php:159
 msgid "Choose image"
 msgstr ""
 
-#: admin/views/meta-box.php:110
+#: admin/views/meta-box.php:159
 msgid "Choose file"
 msgstr ""
 
-#: admin/views/meta-box.php:113
+#: admin/views/meta-box.php:162
 msgid "Remove"
 msgstr ""
 
-#: admin/views/meta-box.php:121
+#: admin/views/meta-box.php:170
 msgid "— No form —"
 msgstr ""
 
-#: admin/views/meta-box.php:129
+#: admin/views/meta-box.php:178
 msgid "The form must contain an acceptance checkbox for the email consent, otherwise it cannot be submitted."
 msgstr ""
 
-#: admin/views/meta-box.php:134
+#: admin/views/meta-box.php:183
 msgid "Contact Form 7 is not active. Any form already chosen is kept and will come back when the plugin does."
 msgstr ""
 
-#: admin/views/settings-tab.php:20
+#. translators: %s: the value this field held in the previous version.
+#: admin/views/meta-box.php:225
+#, php-format
+msgid "Previously: %s — this is no longer used, and is shown so it is not lost."
+msgstr ""
+
+#: admin/views/settings-tab.php:24
 msgid "A business card is a post. It has no content, only fields, and it is served on its own short URL with none of the theme attached."
 msgstr ""
 
-#: admin/views/settings-tab.php:23
+#. translators: 1: number of cards. 2: name of the design they now use.
+#: admin/views/settings-tab.php:34
+#, php-format
+msgid "%1$s card used one of the old layouts. Those have been replaced by three designs, and it now uses %2$s. The old setting is kept on the card."
+msgid_plural "%1$s cards used one of the old layouts. Those have been replaced by three designs, and they now use %2$s. The old settings are kept on the cards."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/views/settings-tab.php:46
+msgid "Review them"
+msgstr ""
+
+#: admin/views/settings-tab.php:55
+msgid "Some values from the previous version could not be moved to the new fields. Nothing was deleted — each is kept on its card and shown beside the field that replaced it:"
+msgstr ""
+
+#: admin/views/settings-tab.php:59
+msgid "Apple Wallet addresses pointing somewhere other than this media library. A pass is now a file this site serves, so it has to be uploaded."
+msgstr ""
+
+#: admin/views/settings-tab.php:62
+msgid "Google Wallet addresses that held no readable token."
+msgstr ""
+
+#: admin/views/settings-tab.php:65
+msgid "Footer addresses that do not point at a page on this site."
+msgstr ""
+
+#: admin/views/settings-tab.php:71
 msgid "Where cards live"
 msgstr ""
 
-#: admin/views/settings-tab.php:26
+#: admin/views/settings-tab.php:74
 msgid "Business card overview"
 msgstr ""
 
-#: admin/views/settings-tab.php:29
+#: admin/views/settings-tab.php:77
 msgid "Card address"
 msgstr ""
 
-#: admin/views/settings-tab.php:37
+#: admin/views/settings-tab.php:85
 msgid "Change the base"
 msgstr ""
 
 #. translators: %s: link to the Permalinks screen.
-#: admin/views/settings-tab.php:46
+#: admin/views/settings-tab.php:94
 #, php-format
 msgid "This site uses plain permalinks, so cards have no short address. Choose a permalink structure on %s to give them one."
 msgstr ""
 
-#: admin/views/settings-tab.php:50
+#: admin/views/settings-tab.php:98
 msgid "Settings, Permalinks"
 msgstr ""
 
-#: admin/views/settings-tab.php:59
-#: includes/class-settings-tab.php:84
+#: admin/views/settings-tab.php:107
+#: includes/class-settings-tab.php:96
 msgid "Cards"
 msgstr ""
 
 #. translators: 1: number of published cards. 2: number of drafts.
-#: admin/views/settings-tab.php:64
+#: admin/views/settings-tab.php:112
 #, php-format
 msgid "%1$s published, %2$s draft."
 msgstr ""
 
-#: admin/views/settings-tab.php:73
+#: admin/views/settings-tab.php:121
 msgid "All cards"
 msgstr ""
 
-#: admin/views/settings-tab.php:79
-#: includes/class-meta-boxes.php:295
+#: admin/views/settings-tab.php:127
+msgid "Designs"
+msgstr ""
+
+#: admin/views/settings-tab.php:131
+msgid "One layout in three looks. The design is chosen per card, together with whether it follows the visitor's light or dark setting."
+msgstr ""
+
+#: admin/views/settings-tab.php:136
+msgid "Legal links"
+msgstr ""
+
+#: admin/views/settings-tab.php:139
+msgid "Taken from the Login Legal Pages addon, so every card shows the same imprint, privacy policy and terms."
+msgstr ""
+
+#: admin/views/settings-tab.php:145
+#: includes/class-meta-boxes.php:324
+msgid "Change them"
+msgstr ""
+
+#: admin/views/settings-tab.php:150
+msgid "Chosen per card, from the site's pages. Install the Login Legal Pages addon to set them once for the whole site instead."
+msgstr ""
+
+#: admin/views/settings-tab.php:157
+#: includes/class-meta-boxes.php:402
 msgid "Contact form"
 msgstr ""
 
-#: admin/views/settings-tab.php:82
-msgid "Contact Form 7 is active. A card can embed one of its forms, and the form must carry an acceptance checkbox for the email consent."
-msgstr ""
-
-#: admin/views/settings-tab.php:84
+#: admin/views/settings-tab.php:160
 msgid "Contact Form 7 is not active. Every other part of a card works without it; only the contact form field is hidden."
 msgstr ""
 
-#: admin/views/settings-tab.php:91
+#: admin/views/settings-tab.php:163
+msgid "The card contact form exists."
+msgstr ""
+
+#: admin/views/settings-tab.php:165
+msgid "Edit it"
+msgstr ""
+
+#: admin/views/settings-tab.php:170
+msgid "A form with a name, an email address, a message and a consent checkbox that links the card's own privacy policy and terms. It is created once and can be edited afterwards like any other form."
+msgstr ""
+
+#: admin/views/settings-tab.php:176
+msgid "Create the contact form"
+msgstr ""
+
+#: admin/views/settings-tab.php:180
 msgid "What a card address looks like"
 msgstr ""
 
-#: admin/views/settings-tab.php:94
+#: admin/views/settings-tab.php:183
 msgid "Each card gets eight random characters instead of a readable slug, assigned once and never changed, so a card cannot be found by guessing a name and a printed QR code keeps working."
 msgstr ""
 
-#: admin/views/settings-tab.php:98
+#: admin/views/settings-tab.php:187
 msgid "Cards are deliberately outside the Content Visibility addon: a card is a link you hand to someone who is not logged in."
 msgstr ""
 
 #. translators: %d: form ID.
-#: includes/class-forms.php:105
+#: includes/class-forms.php:251
 #, php-format
 msgid "Form %d"
 msgstr ""
 
-#: includes/class-forms.php:214
-msgid "This form is missing its consent checkbox and cannot be submitted. Please use one of the other ways to get in touch."
+#. translators: 1: opening link tag to the privacy policy. 2: closing link tag. 3: opening link tag to the terms. 4: closing link tag.
+#: includes/class-forms.php:333
+#, php-format
+msgid "I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to my email address being processed so that my message can be answered."
 msgstr ""
 
-#: includes/class-forms.php:233
-msgid "Consent to processing your email address is required."
+#: includes/class-forms.php:341
+msgid "Name"
 msgstr ""
 
-#: includes/class-meta-boxes.php:197
-msgid "Choose an image"
-msgstr ""
-
-#: includes/class-meta-boxes.php:198
-msgid "Choose a file"
-msgstr ""
-
-#: includes/class-meta-boxes.php:199
-msgid "Use this"
-msgstr ""
-
-#: includes/class-meta-boxes.php:222
-#: includes/class-meta-boxes.php:376
-#: templates/partials/contact.php:71
-msgid "Address"
-msgstr ""
-
-#: includes/class-meta-boxes.php:285
-msgid "Design and mode"
-msgstr ""
-
-#: includes/class-meta-boxes.php:290
-msgid "Wallet and vCard"
-msgstr ""
-
-#: includes/class-meta-boxes.php:300
-msgid "Name and biography"
-msgstr ""
-
-#: includes/class-meta-boxes.php:305
-msgid "Images"
-msgstr ""
-
-#: includes/class-meta-boxes.php:310
-#: templates/partials/quick-actions.php:62
-msgid "Quick actions"
-msgstr ""
-
-#: includes/class-meta-boxes.php:315
-msgid "Contact details"
-msgstr ""
-
-#: includes/class-meta-boxes.php:320
-msgid "Networks"
-msgstr ""
-
-#: includes/class-meta-boxes.php:325
-msgid "Custom links"
-msgstr ""
-
-#: includes/class-meta-boxes.php:330
-#: templates/partials/downloads.php:45
-msgid "Downloads"
-msgstr ""
-
-#: includes/class-meta-boxes.php:335
-msgid "Footer links"
-msgstr ""
-
-#: includes/class-meta-boxes.php:349
-msgid "Layout"
-msgstr ""
-
-#: includes/class-meta-boxes.php:350
-msgid "Show a QR code button"
-msgstr ""
-
-#: includes/class-meta-boxes.php:351
-msgid "Show a light and dark switch"
-msgstr ""
-
-#: includes/class-meta-boxes.php:353
-msgid "Banner"
-msgstr ""
-
-#: includes/class-meta-boxes.php:354
-msgid "Profile picture"
-msgstr ""
-
-#: includes/class-meta-boxes.php:356
-msgid "Salutation"
-msgstr ""
-
-#: includes/class-meta-boxes.php:357
-msgid "Academic title"
-msgstr ""
-
-#: includes/class-meta-boxes.php:358
-msgid "First name"
-msgstr ""
-
-#: includes/class-meta-boxes.php:359
-msgid "Last name"
-msgstr ""
-
-#: includes/class-meta-boxes.php:360
-msgid "Position"
-msgstr ""
-
-#: includes/class-meta-boxes.php:361
-msgid "Company"
-msgstr ""
-
-#: includes/class-meta-boxes.php:362
-msgid "Biography"
-msgstr ""
-
-#: includes/class-meta-boxes.php:364
-#: templates/partials/quick-actions.php:21
-msgid "Call"
-msgstr ""
-
-#: includes/class-meta-boxes.php:365
-#: templates/partials/quick-actions.php:29
+#: includes/class-forms.php:344
+#: includes/class-meta-boxes.php:473
+#: templates/partials/quick-actions.php:28
 msgid "Email"
 msgstr ""
 
-#: includes/class-meta-boxes.php:366
-#: templates/partials/quick-actions.php:37
-msgid "WhatsApp"
+#: includes/class-forms.php:347
+msgid "Message"
 msgstr ""
 
-#: includes/class-meta-boxes.php:367
-#: includes/class-meta-boxes.php:375
-#: templates/partials/contact.php:21
-#: templates/partials/quick-actions.php:45
-msgid "Website"
+#: includes/class-forms.php:352
+msgid "Send message"
 msgstr ""
 
-#: includes/class-meta-boxes.php:369
-#: templates/partials/contact.php:15
-msgid "Email, work"
+#: includes/class-forms.php:379
+msgid "Sent from a business card at [_url]"
 msgstr ""
 
-#: includes/class-meta-boxes.php:370
-#: templates/partials/contact.php:16
-msgid "Email, private"
+#: includes/class-forms.php:380
+msgid "Consent given: [email-consent]"
 msgstr ""
 
-#: includes/class-meta-boxes.php:371
-#: templates/partials/contact.php:17
-msgid "Phone, work"
+#. translators: %s: the site title mail tag.
+#: includes/class-forms.php:387
+#, php-format
+msgid "Business card enquiry via %s"
 msgstr ""
 
-#: includes/class-meta-boxes.php:372
-#: templates/partials/contact.php:18
-msgid "Phone, private"
+#: includes/class-forms.php:456
+msgid "This form is missing its consent checkbox and cannot be submitted. Please use one of the other ways to get in touch."
 msgstr ""
 
-#: includes/class-meta-boxes.php:373
-#: templates/partials/contact.php:19
-msgid "Mobile, work"
+#: includes/class-forms.php:475
+msgid "Consent to processing your email address is required."
 msgstr ""
 
-#: includes/class-meta-boxes.php:374
-#: templates/partials/contact.php:20
-msgid "Mobile, private"
-msgstr ""
-
-#: includes/class-meta-boxes.php:377
-msgid "what3words link"
-msgstr ""
-
-#: includes/class-meta-boxes.php:379
-msgid "LinkedIn"
-msgstr ""
-
-#: includes/class-meta-boxes.php:380
-msgid "Xing"
-msgstr ""
-
-#: includes/class-meta-boxes.php:381
-msgid "GitHub"
-msgstr ""
-
-#: includes/class-meta-boxes.php:382
-msgid "Mastodon"
-msgstr ""
-
-#: includes/class-meta-boxes.php:383
-msgid "Facebook"
-msgstr ""
-
-#: includes/class-meta-boxes.php:384
-msgid "Instagram"
-msgstr ""
-
-#: includes/class-meta-boxes.php:385
-msgid "Threads"
-msgstr ""
-
-#: includes/class-meta-boxes.php:386
-msgid "Discord"
-msgstr ""
-
-#: includes/class-meta-boxes.php:387
-msgid "Signal"
-msgstr ""
-
-#: includes/class-meta-boxes.php:389
-msgid "Link 1 label"
-msgstr ""
-
-#: includes/class-meta-boxes.php:390
-msgid "Link 1 address"
-msgstr ""
-
-#: includes/class-meta-boxes.php:391
-msgid "Link 2 label"
-msgstr ""
-
-#: includes/class-meta-boxes.php:392
-msgid "Link 2 address"
-msgstr ""
-
-#: includes/class-meta-boxes.php:393
-msgid "Link 3 label"
-msgstr ""
-
-#: includes/class-meta-boxes.php:394
-msgid "Link 3 address"
-msgstr ""
-
-#: includes/class-meta-boxes.php:396
-msgid "Download 1 label"
-msgstr ""
-
-#: includes/class-meta-boxes.php:397
-msgid "Download 1 file"
-msgstr ""
-
-#: includes/class-meta-boxes.php:398
-msgid "Download 2 label"
-msgstr ""
-
-#: includes/class-meta-boxes.php:399
-msgid "Download 2 file"
-msgstr ""
-
-#: includes/class-meta-boxes.php:400
-msgid "Download 3 label"
-msgstr ""
-
-#: includes/class-meta-boxes.php:401
-msgid "Download 3 file"
-msgstr ""
-
-#: includes/class-meta-boxes.php:403
-msgid "Offer a vCard download"
-msgstr ""
-
-#: includes/class-meta-boxes.php:404
-msgid "Apple Wallet address"
-msgstr ""
-
-#: includes/class-meta-boxes.php:405
-msgid "Google Wallet address"
-msgstr ""
-
-#: includes/class-meta-boxes.php:407
-msgid "Form"
-msgstr ""
-
-#: includes/class-meta-boxes.php:409
-#: templates/partials/footer.php:27
-msgid "Imprint"
-msgstr ""
-
-#: includes/class-meta-boxes.php:410
-#: templates/partials/footer.php:34
+#: includes/class-legal-links.php:64
+#: includes/class-meta-boxes.php:517
 msgid "Privacy policy"
 msgstr ""
 
-#: includes/class-meta-boxes.php:411
-#: templates/partials/footer.php:41
+#: includes/class-legal-links.php:68
+#: includes/class-meta-boxes.php:518
 msgid "Terms"
 msgstr ""
 
+#: includes/class-legal-links.php:72
+#: includes/class-meta-boxes.php:519
+msgid "Imprint"
+msgstr ""
+
+#: includes/class-meta-boxes.php:224
+msgid "Choose an image"
+msgstr ""
+
+#: includes/class-meta-boxes.php:225
+msgid "Choose a file"
+msgstr ""
+
+#: includes/class-meta-boxes.php:226
+msgid "Use this"
+msgstr ""
+
+#: includes/class-meta-boxes.php:249
+#: includes/class-meta-boxes.php:484
+#: templates/partials/contact.php:63
+msgid "Address"
+msgstr ""
+
+#: includes/class-meta-boxes.php:299
+msgid "These come from the Login Legal Pages addon and are the same on every card."
+msgstr ""
+
+#: includes/class-meta-boxes.php:304
+msgid "No legal pages are set yet, so the footer stays empty."
+msgstr ""
+
+#: includes/class-meta-boxes.php:392
+msgid "Design and mode"
+msgstr ""
+
+#: includes/class-meta-boxes.php:397
+msgid "Wallet and vCard"
+msgstr ""
+
+#: includes/class-meta-boxes.php:407
+msgid "Name and biography"
+msgstr ""
+
+#: includes/class-meta-boxes.php:412
+msgid "Images"
+msgstr ""
+
+#: includes/class-meta-boxes.php:417
+#: templates/partials/quick-actions.php:53
+msgid "Quick actions"
+msgstr ""
+
 #: includes/class-meta-boxes.php:422
-msgid "Digits and a leading plus only. Everything else is stripped when saved."
-msgstr ""
-
-#: includes/class-meta-boxes.php:423
-msgid "Basic formatting is kept. Used as the note on the vCard as well."
-msgstr ""
-
-#: includes/class-meta-boxes.php:424
-msgid "Written to the vCard as one block. Line breaks are kept."
-msgstr ""
-
-#: includes/class-meta-boxes.php:425
-msgid "A signed pass needs an Apple certificate, so this is a link to wherever your pass is hosted. Leave it empty to hide the badge."
-msgstr ""
-
-#: includes/class-meta-boxes.php:426
-msgid "Leave empty to use the privacy policy page set under Settings, Privacy."
+#: templates/partials/contact.php:33
+msgid "Contact details"
 msgstr ""
 
 #: includes/class-meta-boxes.php:427
-msgid "Classic has a banner, Modern is borderless, Bio is a stack of link buttons."
+msgid "Networks"
+msgstr ""
+
+#: includes/class-meta-boxes.php:432
+msgid "Custom links"
+msgstr ""
+
+#: includes/class-meta-boxes.php:437
+#: templates/partials/downloads.php:55
+msgid "Downloads"
+msgstr ""
+
+#: includes/class-meta-boxes.php:442
+msgid "Footer links"
+msgstr ""
+
+#: includes/class-meta-boxes.php:456
+msgid "Design"
+msgstr ""
+
+#: includes/class-meta-boxes.php:457
+msgid "Light or dark"
+msgstr ""
+
+#: includes/class-meta-boxes.php:458
+msgid "Show a QR code button"
+msgstr ""
+
+#: includes/class-meta-boxes.php:459
+msgid "Show a light and dark switch"
+msgstr ""
+
+#: includes/class-meta-boxes.php:461
+msgid "Banner"
+msgstr ""
+
+#: includes/class-meta-boxes.php:462
+msgid "Profile picture"
+msgstr ""
+
+#: includes/class-meta-boxes.php:464
+msgid "Salutation"
+msgstr ""
+
+#: includes/class-meta-boxes.php:465
+msgid "Academic title"
+msgstr ""
+
+#: includes/class-meta-boxes.php:466
+msgid "First name"
+msgstr ""
+
+#: includes/class-meta-boxes.php:467
+msgid "Last name"
+msgstr ""
+
+#: includes/class-meta-boxes.php:468
+msgid "Position"
+msgstr ""
+
+#: includes/class-meta-boxes.php:469
+msgid "Company"
+msgstr ""
+
+#: includes/class-meta-boxes.php:470
+msgid "Biography"
+msgstr ""
+
+#: includes/class-meta-boxes.php:472
+#: templates/partials/quick-actions.php:20
+msgid "Call"
+msgstr ""
+
+#: includes/class-meta-boxes.php:474
+#: templates/partials/quick-actions.php:36
+msgid "WhatsApp"
+msgstr ""
+
+#: includes/class-meta-boxes.php:475
+#: includes/class-meta-boxes.php:483
+#: templates/partials/contact.php:22
+#: templates/partials/quick-actions.php:44
+msgid "Website"
+msgstr ""
+
+#: includes/class-meta-boxes.php:477
+msgid "Email, work"
+msgstr ""
+
+#: includes/class-meta-boxes.php:478
+msgid "Email, private"
+msgstr ""
+
+#: includes/class-meta-boxes.php:479
+msgid "Phone, work"
+msgstr ""
+
+#: includes/class-meta-boxes.php:480
+msgid "Phone, private"
+msgstr ""
+
+#: includes/class-meta-boxes.php:481
+msgid "Mobile, work"
+msgstr ""
+
+#: includes/class-meta-boxes.php:482
+msgid "Mobile, private"
+msgstr ""
+
+#: includes/class-meta-boxes.php:485
+msgid "what3words link"
+msgstr ""
+
+#: includes/class-meta-boxes.php:487
+msgid "LinkedIn"
+msgstr ""
+
+#: includes/class-meta-boxes.php:488
+msgid "Xing"
+msgstr ""
+
+#: includes/class-meta-boxes.php:489
+msgid "GitHub"
+msgstr ""
+
+#: includes/class-meta-boxes.php:490
+msgid "Mastodon"
+msgstr ""
+
+#: includes/class-meta-boxes.php:491
+msgid "Facebook"
+msgstr ""
+
+#: includes/class-meta-boxes.php:492
+msgid "Instagram"
+msgstr ""
+
+#: includes/class-meta-boxes.php:493
+msgid "Threads"
+msgstr ""
+
+#: includes/class-meta-boxes.php:494
+msgid "Discord"
+msgstr ""
+
+#: includes/class-meta-boxes.php:495
+msgid "Signal"
+msgstr ""
+
+#: includes/class-meta-boxes.php:497
+msgid "Link 1 label"
+msgstr ""
+
+#: includes/class-meta-boxes.php:498
+msgid "Link 1 address"
+msgstr ""
+
+#: includes/class-meta-boxes.php:499
+msgid "Link 2 label"
+msgstr ""
+
+#: includes/class-meta-boxes.php:500
+msgid "Link 2 address"
+msgstr ""
+
+#: includes/class-meta-boxes.php:501
+msgid "Link 3 label"
+msgstr ""
+
+#: includes/class-meta-boxes.php:502
+msgid "Link 3 address"
+msgstr ""
+
+#: includes/class-meta-boxes.php:504
+msgid "Download 1 label"
+msgstr ""
+
+#: includes/class-meta-boxes.php:505
+msgid "Download 1 file"
+msgstr ""
+
+#: includes/class-meta-boxes.php:506
+msgid "Download 2 label"
+msgstr ""
+
+#: includes/class-meta-boxes.php:507
+msgid "Download 2 file"
+msgstr ""
+
+#: includes/class-meta-boxes.php:508
+msgid "Download 3 label"
+msgstr ""
+
+#: includes/class-meta-boxes.php:509
+msgid "Download 3 file"
+msgstr ""
+
+#: includes/class-meta-boxes.php:511
+msgid "Offer a vCard download"
+msgstr ""
+
+#: includes/class-meta-boxes.php:512
+msgid "Apple Wallet pass"
+msgstr ""
+
+#: includes/class-meta-boxes.php:513
+msgid "Google Wallet token"
+msgstr ""
+
+#: includes/class-meta-boxes.php:515
+msgid "Form"
+msgstr ""
+
+#: includes/class-meta-boxes.php:530
+msgid "Digits and a leading plus only. Everything else is stripped when saved."
+msgstr ""
+
+#: includes/class-meta-boxes.php:531
+msgid "Basic formatting is kept. Used as the note on the vCard as well."
+msgstr ""
+
+#: includes/class-meta-boxes.php:532
+msgid "Written to the vCard as one block. Line breaks are kept."
+msgstr ""
+
+#: includes/class-meta-boxes.php:533
+msgid "The .pkpass file itself, uploaded here and served by this site with the media type that opens Wallet. Signing a pass needs an Apple certificate, so it has to be built elsewhere."
+msgstr ""
+
+#: includes/class-meta-boxes.php:534
+msgid "The signed token for the pass, or the whole pay.google.com/gp/v/save/… address — the token is taken out of it. Only its shape is checked: the signature was made with a key this site does not hold."
+msgstr ""
+
+#: includes/class-meta-boxes.php:535
+msgid "Leave empty to use the page set under Settings, Privacy."
+msgstr ""
+
+#: includes/class-meta-boxes.php:536
+msgid "One layout in three looks. Modernist is sharp-edged and typographic, Industry frames each section like a technical drawing, Nocturne is dark with soft corners."
+msgstr ""
+
+#: includes/class-meta-boxes.php:537
+msgid "Each design has a light and a dark palette. Follow the reader's own setting, or pin one of the two."
 msgstr ""
 
 #: includes/class-permalink-field.php:60
@@ -477,6 +601,7 @@ msgid "Cards are served from %s. Reserved segments and segments already used by 
 msgstr ""
 
 #: includes/class-permalink-field.php:117
+#: includes/class-settings-tab.php:137
 msgid "You are not allowed to change these settings."
 msgstr ""
 
@@ -569,35 +694,103 @@ msgctxt "navigation link block description"
 msgid "A link to a card."
 msgstr ""
 
-#: includes/class-settings-tab.php:61
+#: includes/class-settings-tab.php:73
 msgid "Business Cards"
 msgstr ""
 
-#: includes/class-settings-tab.php:105
+#: includes/class-settings-tab.php:117
 msgid "Business Cards is serving cards, but its overview needs the Baukasten - Privacy Toolkit plugin. Cards can still be edited under Business Cards."
 msgstr ""
 
-#: templates/partials/contact.php:22
+#: includes/class-settings-tab.php:145
+msgid "Contact Form 7 is not active, so there is nothing to build the form with."
+msgstr ""
+
+#: includes/class-settings-tab.php:154
+msgid "The card contact form already exists — it is listed under Contact."
+msgstr ""
+
+#: includes/class-settings-tab.php:163
+msgid "The form could not be created. Contact Form 7 refused to save it."
+msgstr ""
+
+#: includes/class-settings-tab.php:169
+msgid "Contact form created. Choose it on a card under Contact form."
+msgstr ""
+
+#: includes/class-skins.php:41
+msgid "Modernist"
+msgstr ""
+
+#: includes/class-skins.php:47
+msgid "Industry"
+msgstr ""
+
+#: includes/class-skins.php:53
+msgid "Nocturne"
+msgstr ""
+
+#: templates/partials/actions.php:33
+msgid "Save contact (.vcf)"
+msgstr ""
+
+#: templates/partials/actions.php:43
+msgid "Apple Wallet"
+msgstr ""
+
+#: templates/partials/actions.php:61
+msgid "Google Wallet"
+msgstr ""
+
+#: templates/partials/banner.php:59
+msgid "Show this card as a QR code"
+msgstr ""
+
+#: templates/partials/banner.php:69
+msgid "Switch between light and dark"
+msgstr ""
+
+#: templates/partials/bio.php:19
+msgid "About"
+msgstr ""
+
+#: templates/partials/contact.php:16
+msgid "Email (work)"
+msgstr ""
+
+#: templates/partials/contact.php:17
+msgid "Email (private)"
+msgstr ""
+
+#: templates/partials/contact.php:18
+msgid "Phone (work)"
+msgstr ""
+
+#: templates/partials/contact.php:19
+msgid "Phone (private)"
+msgstr ""
+
+#: templates/partials/contact.php:20
+msgid "Mobile (work)"
+msgstr ""
+
+#: templates/partials/contact.php:21
+msgid "Mobile (private)"
+msgstr ""
+
+#: templates/partials/contact.php:23
 msgid "what3words"
 msgstr ""
 
-#: templates/partials/contact.php:31
-msgid "Contact"
-msgstr ""
-
-#: templates/partials/footer.php:51
+#: templates/partials/footer.php:25
 msgid "Legal"
 msgstr ""
 
-#: templates/partials/form.php:26
+#: templates/partials/form.php:25
 msgid "Get in touch"
 msgstr ""
 
-#: templates/partials/links.php:39
-msgid "Links"
-msgstr ""
-
-#: templates/partials/networks.php:35
+#: templates/partials/networks.php:70
 msgid "Elsewhere"
 msgstr ""
 
@@ -607,28 +800,4 @@ msgstr ""
 
 #: templates/partials/qr-modal.php:27
 msgid "Close"
-msgstr ""
-
-#: templates/partials/quick-actions.php:53
-msgid "Save contact"
-msgstr ""
-
-#: templates/partials/toolbar.php:31
-msgid "Switch between light and dark"
-msgstr ""
-
-#: templates/partials/toolbar.php:45
-msgid "Show this card as a QR code"
-msgstr ""
-
-#: templates/partials/wallet.php:24
-msgid "Wallet"
-msgstr ""
-
-#: templates/partials/wallet.php:34
-msgid "Add to Apple Wallet"
-msgstr ""
-
-#: templates/partials/wallet.php:46
-msgid "Add to Google Wallet"
 msgstr ""

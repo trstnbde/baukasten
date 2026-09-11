@@ -5,6 +5,7 @@
  * @package Baukasten\BusinessCards
  *
  * @var array<string, mixed> $baukasten_bc_card Loaded card fields.
+ * @var array<string, mixed> $baukasten_bc_skin The design being rendered.
  */
 
 namespace Baukasten\BusinessCards;
@@ -21,12 +22,9 @@ if ( '' === $baukasten_bc_form ) {
 	return;
 }
 
-?>
-<section class="bkbc-section bkbc-form">
-	<h2 class="bkbc-section__title"><?php esc_html_e( 'Get in touch', 'baukasten-business-cards' ); ?></h2>
+Skins::open_section( $baukasten_bc_skin, 'form', __( 'Get in touch', 'baukasten-business-cards' ) );
 
-	<?php
-	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- shortcode output, escaped by the form plugin.
-	echo $baukasten_bc_form;
-	?>
-</section>
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- shortcode output, escaped by the form plugin.
+echo $baukasten_bc_form;
+
+Skins::close_section();
