@@ -1,0 +1,88 @@
+/**
+ * Modernist — Archivo, square corners, a hot orange-red.
+ *
+ * Typography carries this one: an 800-weight display face, a hard 0px radius
+ * everywhere, and a two-pixel rule between sections instead of a drawn box.
+ *
+ * Photographs are left alone. The prototype desaturated them, but a portrait on
+ * a business card is a photograph of a person, and deciding it should be grey is
+ * not the design system's call to make.
+ *
+ * The font files are OFL and ship with the plugin; the paths are relative to
+ * this stylesheet, which is two levels below assets/.
+ */
+
+@font-face {
+	font-family: "Archivo";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../../fonts/archivo-latin-400.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Archivo";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("../../fonts/archivo-latin-600.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Archivo";
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url("../../fonts/archivo-latin-800.woff2") format("woff2");
+}
+
+:root[data-bkbc-skin="modernist"] {
+
+	/* The two grounds. Nothing reads these directly; card.css picks one. */
+	--bkbc-light-bg: #f3f2f2;
+	--bkbc-light-surface: #eae9e9;
+	--bkbc-light-text: #201e1d;
+	--bkbc-light-divider: rgba(32, 30, 29, 0.4);
+
+	--bkbc-dark-bg: #2d2b2b;
+	--bkbc-dark-surface: #444141;
+	--bkbc-dark-text: #f8f4f4;
+	--bkbc-dark-divider: rgba(248, 244, 244, 0.4);
+
+	/* Ground-independent. */
+	--bkbc-accent: #ec3013;
+	--bkbc-accent-strong: #ae1800;
+	--bkbc-accent-soft: rgba(236, 48, 19, 0.1);
+	--bkbc-on-accent: #f3f2f2;
+
+	--bkbc-font-body: "Archivo", system-ui, -apple-system, sans-serif;
+	--bkbc-font-heading: "Archivo", system-ui, -apple-system, sans-serif;
+	--bkbc-font-heading-weight: 800;
+
+	--bkbc-space-1: 4px;
+	--bkbc-space-2: 8px;
+	--bkbc-space-3: 12px;
+	--bkbc-space-4: 16px;
+	--bkbc-space-6: 24px;
+	--bkbc-space-8: 32px;
+
+	--bkbc-radius-sm: 0px;
+	--bkbc-radius-md: 0px;
+	--bkbc-radius-lg: 0px;
+	--bkbc-avatar-radius: 0px;
+
+	--bkbc-shadow: 0 1px 2px rgba(45, 43, 43, 0.14), 0 12px 32px rgba(45, 43, 43, 0.22);
+}
+
+/* A hairline between sections rather than a drawn plate, inset with the text. */
+.bkbc--modernist .bkbc-section,
+.bkbc--modernist .bkbc-quick,
+.bkbc--modernist .bkbc-footer {
+	margin-top: var(--bkbc-space-6);
+	padding-top: var(--bkbc-space-6);
+	border-top: 2px solid var(--bkbc-divider);
+}
+
+.bkbc--modernist .bkbc-footer {
+	border-top-width: 2px;
+}
