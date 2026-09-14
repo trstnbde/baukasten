@@ -14,3 +14,8 @@ phpcs-report.xml
 # OS noise
 .DS_Store
 Thumbs.db
+
+# A local checkout of a third-party dependency, kept beside the plugins so the
+# site can run them. Not our code, so it never enters this repository; see
+# baukasten-2fa, which requires it.
+two-factor/

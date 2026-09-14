@@ -27,8 +27,23 @@ if ( array() === $args ) {
 if ( array( '--all' ) === $args ) {
 	$args = array();
 
+	/*
+	 * Discovery is by convention -- a directory `x` holding `x/x.php` is a
+	 * plugin -- so it also matches any third-party plugin checked out beside
+	 * ours for local testing, `two-factor/` being the one that is. Such a copy
+	 * carries no .distignore, so dist_patterns() would return nothing and the
+	 * whole foreign directory, dotfiles and all, would be repackaged as
+	 * build/two-factor-<version>.zip. Redistributing someone else's plugin out
+	 * of our own build directory is not something a forgotten `--all` should be
+	 * able to do, so the prefix is required. A single plugin is still buildable
+	 * by name, which keeps the guard out of the way of anyone who means it.
+	 */
 	foreach ( (array) scandir( $repo ) as $entry ) {
-		if ( is_string( $entry ) && is_file( $repo . '/' . $entry . '/' . $entry . '.php' ) ) {
+		if ( ! is_string( $entry ) || ! str_starts_with( $entry, 'baukasten' ) ) {
+			continue;
+		}
+
+		if ( is_file( $repo . '/' . $entry . '/' . $entry . '.php' ) ) {
 			$args[] = $entry;
 		}
 	}
