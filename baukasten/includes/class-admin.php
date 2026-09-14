@@ -135,10 +135,35 @@ final class Admin {
 	/**
 	 * Renders the overview tab.
 	 *
+	 * The catalog is the spine of the list, because it is the only thing that
+	 * knows about an addon this site has not installed. Anything registered on
+	 * top of it is appended: a third-party addon is as entitled to a row as
+	 * ours, and the catalog will never hear about one.
+	 *
 	 * @return void
 	 */
 	public static function render_overview(): void {
-		$addons = Addons::all();
+		$addons = Catalog::all();
+
+		foreach ( Addons::all() as $baukasten_id => $baukasten_addon ) {
+			if ( isset( $addons[ $baukasten_id ] ) ) {
+				continue;
+			}
+
+			$baukasten_data = Addons::plugin_data( $baukasten_addon );
+
+			$addons[ $baukasten_id ] = array(
+				'id'          => $baukasten_id,
+				'slug'        => '',
+				'file'        => '',
+				'title'       => (string) $baukasten_addon['title'],
+				'description' => $baukasten_data['description'],
+				'position'    => (int) $baukasten_addon['position'],
+				'status'      => Catalog::ACTIVE,
+				'version'     => $baukasten_data['version'],
+				'has_tab'     => true,
+			);
+		}
 
 		require PLUGIN_DIR . 'admin/views/overview.php';
 	}

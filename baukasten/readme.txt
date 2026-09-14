@@ -22,11 +22,13 @@ Every feature is a separate plugin. You install only what you need, each addon u
 * **Baukasten Addon: Login Legal Pages** — page pickers for your terms and imprint, links to all three legal pages on the login screen, and a tidy `/login/` URL.
 * **Baukasten Addon: Consent Blocking Engine** — blocks non-essential scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor has consented, and keeps an auditable consent log.
 * **Baukasten Addon: Multi-Domain Landingpage** — gives a page its own domain, so one install serves a different front page under each domain you point at it.
+* **Baukasten Addon: Business Cards** — a digital business card on its own short link, built for a phone and detached from your theme, with vCard download and a QR code.
+* **Baukasten Addon: Two-Factor Approval** — a two-factor method that asks a second, already signed-in browser session to approve the login from the admin bar.
 
 = What the core does =
 
 * **One settings screen.** Each active addon gets its own tab under Settings → Baukasten. Deactivate the addon and the tab disappears with it.
-* **An overview of what is installed.** Name, description and version of every active addon, and a link to the Plugins screen for the rest.
+* **An overview of every addon.** Name, description and version of each one, whether it is active, installed but switched off, or not installed at all — with a link straight to installing or activating it. The list is built into the plugin; nothing is fetched from anywhere.
 * **A real capability.** Reaching the screen requires `manage_baukasten`, granted to administrators on activation. It is not tied to `manage_options`, so it can be delegated. Addons may require an additional capability of their own for their tab.
 * **Nothing else.** No tracking, no external requests, no dashboard advertising, no upsells.
 
@@ -78,7 +80,7 @@ No. Neither the core nor any of the addons contacts an external server, loads as
 == Screenshots ==
 
 1. The Baukasten settings screen with one tab per active addon.
-2. The overview tab, listing the installed addons and their versions.
+2. The overview tab, listing every addon with its version and whether it is installed.
 
 == Changelog ==
 

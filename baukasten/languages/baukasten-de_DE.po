@@ -10,8 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-09T14:22:38+02:00\n"
-"PO-Revision-Date: 2026-09-09T14:30:00+02:00\n"
+"POT-Creation-Date: 2026-09-14T20:00:00+02:00\n"
+"PO-Revision-Date: 2026-09-14T20:00:00+02:00\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: baukasten\n"
 
@@ -28,36 +28,40 @@ msgstr "Baukasten - Privacy Toolkit"
 msgid "A settings hub for the Baukasten addons. Install the addons you need as separate plugins and configure them all in one place."
 msgstr "Eine gemeinsame Einstellungsseite für die Baukasten-Addons. Installiere die Addons, die du brauchst, als eigene Plugins und richte sie alle an einer Stelle ein."
 
-#: admin/views/overview.php:17
-msgid "Baukasten collects the settings of its addons on this screen. Each addon is a separate plugin: install it from the WordPress plugin directory, activate it, and it adds its own tab here."
-msgstr "Baukasten sammelt die Einstellungen seiner Addons auf dieser Seite. Jedes Addon ist ein eigenes Plugin: aus dem WordPress-Plugin-Verzeichnis installieren, aktivieren, und es ergänzt hier seinen eigenen Tab."
+#: admin/views/overview.php:20
+msgid "Baukasten collects the settings of its addons on this screen. Each addon is a separate plugin: install the ones you need, activate them, and each adds its own tab here."
+msgstr "Baukasten sammelt die Einstellungen seiner Addons auf dieser Seite. Jedes Addon ist ein eigenes Plugin: installiere die, die du brauchst, aktiviere sie, und jedes ergänzt hier seinen eigenen Tab."
 
-#: admin/views/overview.php:27
-msgid "No addons are active yet."
-msgstr "Es ist noch kein Addon aktiv."
+#: admin/views/overview.php:28
+msgid "Baukasten addons"
+msgstr "Baukasten-Addons"
 
-#: admin/views/overview.php:30
-msgid "Browse Baukasten addons"
-msgstr "Baukasten-Addons durchsuchen"
-
-#: admin/views/overview.php:37
-msgid "Active Baukasten addons"
-msgstr "Aktive Baukasten-Addons"
-
-#: admin/views/overview.php:40
+#: admin/views/overview.php:31
 msgid "Addon"
 msgstr "Addon"
 
-#: admin/views/overview.php:41
+#: admin/views/overview.php:32
 msgid "Description"
 msgstr "Beschreibung"
 
-#: admin/views/overview.php:42
+#: admin/views/overview.php:33
 msgid "Version"
 msgstr "Version"
 
+#: admin/views/overview.php:34
+msgid "Status"
+msgstr "Status"
+
+#: admin/views/overview.php:58
+msgid "Install"
+msgstr "Installieren"
+
+#: admin/views/overview.php:65
+msgid "Activate"
+msgstr "Aktivieren"
+
 #. translators: %s: link to the installed plugins screen.
-#: admin/views/overview.php:67
+#: admin/views/overview.php:82
 #, php-format
 msgid "Addons are managed like any other plugin, on the <a href=\"%s\">Plugins</a> screen."
 msgstr "Addons werden wie jedes andere Plugin auf der Seite <a href=\"%s\">Plugins</a> verwaltet."
@@ -81,3 +85,39 @@ msgstr "Du hast keine Berechtigung, Baukasten zu verwalten."
 #: includes/class-admin.php:158
 msgid "Overview"
 msgstr "Übersicht"
+
+#: includes/class-catalog.php:60
+msgid "A public/private switch on every post and page. Private content is readable by logged-in users only, whatever their role."
+msgstr "Ein Schalter öffentlich/privat auf jedem Beitrag und jeder Seite. Private Inhalte sind nur für angemeldete Benutzer lesbar, unabhängig von ihrer Rolle."
+
+#: includes/class-catalog.php:66
+msgid "Privacy policy, terms and imprint under the login form, no WordPress header on the screen, and a login address people can read."
+msgstr "Datenschutzerklärung, Nutzungsbedingungen und Impressum unter dem Login-Formular, kein WordPress-Header auf der Seite und eine Login-Adresse, die man sich merken kann."
+
+#: includes/class-catalog.php:72
+msgid "Blocks third-party scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, and keeps an auditable log."
+msgstr "Blockiert fremde Skripte, Styles, Embeds, Resource Hints, Gravatar und Emoji, bis der Besucher zustimmt, und führt ein nachweisbares Protokoll."
+
+#: includes/class-catalog.php:78
+msgid "Give a page its own domain. One WordPress install serves a different front page under each domain you point at it."
+msgstr "Gib einer Seite ihre eigene Domain. Eine WordPress-Installation liefert unter jeder Domain, die du darauf richtest, eine andere Startseite aus."
+
+#: includes/class-catalog.php:84
+msgid "A digital business card on its own short link, built for a phone and detached from your theme. With vCard download and a QR code."
+msgstr "Eine digitale Visitenkarte unter einem eigenen kurzen Link, für das Handy gebaut und vom Theme abgekoppelt. Mit vCard-Download und QR-Code."
+
+#: includes/class-catalog.php:90
+msgid "Adds a two-factor method that asks a second, already signed-in browser session to approve the login from the WordPress admin bar."
+msgstr "Ergänzt eine Zwei-Faktor-Methode, die eine zweite, bereits angemeldete Browser-Sitzung über die WordPress-Adminleiste um Bestätigung der Anmeldung bittet."
+
+#: includes/class-catalog.php:200
+msgid "Active"
+msgstr "Aktiv"
+
+#: includes/class-catalog.php:203
+msgid "Installed, not active"
+msgstr "Installiert, nicht aktiv"
+
+#: includes/class-catalog.php:206
+msgid "Not installed"
+msgstr "Nicht installiert"
