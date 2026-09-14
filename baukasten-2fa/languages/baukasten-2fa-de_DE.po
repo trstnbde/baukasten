@@ -1,0 +1,323 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Two-Factor Approval 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-2fa\n"
+"Last-Translator: Torsten B.\n"
+"Language-Team: Deutsch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-14T19:04:38+02:00\n"
+"PO-Revision-Date: 2026-09-14 19:00+0200\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-2fa\n"
+
+#. Plugin Name of the plugin
+#: baukasten-2fa.php
+msgid "Baukasten Addon: Two-Factor Approval"
+msgstr "Baukasten Addon: Two-Factor Approval"
+
+#. Plugin URI of the plugin
+#: baukasten-2fa.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr "https://github.com/trstnbde/baukasten"
+
+#. Description of the plugin
+#: baukasten-2fa.php
+msgid "Adds a two-factor method that asks a second, already signed-in browser session to approve the login from the WordPress admin bar."
+msgstr "Ergänzt eine Zwei-Faktor-Methode, die eine zweite, bereits angemeldete Browser-Sitzung über die WordPress-Adminleiste um Bestätigung der Anmeldung bittet."
+
+#. Author of the plugin
+#: baukasten-2fa.php
+msgid "Torsten B."
+msgstr "Torsten B."
+
+#. Author URI of the plugin
+#: baukasten-2fa.php
+msgid "https://github.com/trstnbde"
+msgstr "https://github.com/trstnbde"
+
+#: admin/views/settings-tab.php:17
+msgid "Adds a second factor that asks another browser instead of asking for a code: when someone signs in, every other session that is already signed in shows a confirmation in its admin bar."
+msgstr "Ergänzt einen zweiten Faktor, der einen anderen Browser fragt statt nach einem Code: Meldet sich jemand an, zeigt jede andere, bereits angemeldete Sitzung eine Bestätigung in ihrer Adminleiste."
+
+#: admin/views/settings-tab.php:22
+msgid "The Two Factor plugin is not active, so this method is not being offered to anyone."
+msgstr "Das Plugin Two Factor ist nicht aktiv, deshalb wird diese Methode niemandem angeboten."
+
+#: admin/views/settings-tab.php:26
+msgid "The Two Factor settings list which methods this site allows, and this one is not on it. Until it is, nobody can select it on their profile."
+msgstr "In den Einstellungen von Two Factor steht, welche Methoden diese Website erlaubt — diese steht nicht darauf. Solange das so bleibt, kann sie niemand im Profil auswählen."
+
+#: admin/views/settings-tab.php:29
+#: includes/class-notices.php:88
+msgid "Allow this method site-wide"
+msgstr "Diese Methode website-weit erlauben"
+
+#: admin/views/settings-tab.php:35
+msgid "Timing"
+msgstr "Zeiten"
+
+#: admin/views/settings-tab.php:45
+msgid "How long a request waits"
+msgstr "Wie lange eine Anfrage wartet"
+
+#: admin/views/settings-tab.php:58
+#: admin/views/settings-tab.php:83
+#: admin/views/settings-tab.php:114
+msgid "seconds"
+msgstr "Sekunden"
+
+#: admin/views/settings-tab.php:61
+msgid "The other browser learns about the request through the WordPress heartbeat, which ticks about once a minute and slows down further in a tab that has been idle for a while. Allow for up to a minute before the confirmation appears — if people report that requests expire before they see them, raise this."
+msgstr "Der andere Browser erfährt von der Anfrage über den WordPress-Heartbeat. Der schlägt etwa einmal pro Minute an und wird in einem länger unbenutzten Tab noch langsamer. Rechne mit bis zu einer Minute, bis die Bestätigung erscheint — wenn Anfragen ablaufen, bevor sie jemand sieht, erhöhe diesen Wert."
+
+#: admin/views/settings-tab.php:71
+msgid "Check every"
+msgstr "Nachfragen alle"
+
+#: admin/views/settings-tab.php:85
+msgid "Only while a request is actually open. The rest of the time nothing is polled beyond the heartbeat that runs anyway."
+msgstr "Nur solange tatsächlich eine Anfrage offen ist. Sonst wird nichts abgefragt außer dem Heartbeat, der ohnehin läuft."
+
+#: admin/views/settings-tab.php:90
+msgid "Requests per user"
+msgstr "Anfragen pro Benutzer"
+
+#: admin/views/settings-tab.php:101
+msgid "requests"
+msgstr "Anfragen"
+
+#: admin/views/settings-tab.php:104
+msgid "within"
+msgstr "innerhalb von"
+
+#: admin/views/settings-tab.php:117
+msgid "Stops repeated sign-in attempts from filling somebody's admin bar with confirmations."
+msgstr "Verhindert, dass wiederholte Anmeldeversuche jemandem die Adminleiste mit Bestätigungen füllen."
+
+#: admin/views/settings-tab.php:124
+msgid "What the prompt shows"
+msgstr "Was die Abfrage zeigt"
+
+#: admin/views/settings-tab.php:129
+msgid "Context"
+msgstr "Zusammenhang"
+
+#: admin/views/settings-tab.php:138
+msgid "Show where the sign-in came from"
+msgstr "Anzeigen, woher die Anmeldung kommt"
+
+#: admin/views/settings-tab.php:142
+msgid "A shortened address and a rough browser name, so the question \"was that you?\" can actually be answered. The full address and the full browser string are never stored."
+msgstr "Eine gekürzte Adresse und ein grober Browsername, damit die Frage „warst du das?“ überhaupt zu beantworten ist. Die vollständige Adresse und die vollständige Browserkennung werden nie gespeichert."
+
+#: admin/views/settings-tab.php:151
+msgid "Idle tabs"
+msgstr "Unbenutzte Tabs"
+
+#: admin/views/settings-tab.php:160
+msgid "Keep checking in an idle wp-admin tab"
+msgstr "Auch in einem unbenutzten Admin-Tab weiter nachfragen"
+
+#: admin/views/settings-tab.php:164
+msgid "WordPress stops its heartbeat in a tab nobody has touched for a few minutes — which is usually exactly the tab that should be showing the confirmation. This keeps it going in the dashboard only, never on the public site."
+msgstr "WordPress hält seinen Heartbeat in einem Tab an, den ein paar Minuten lang niemand angefasst hat — also meist genau in dem Tab, der die Bestätigung zeigen soll. Das hier hält ihn am Laufen, aber nur im Adminbereich, nie auf der öffentlichen Website."
+
+#: admin/views/settings-tab.php:174
+msgid "Keep records for"
+msgstr "Einträge aufbewahren für"
+
+#: admin/views/settings-tab.php:186
+msgid "hours"
+msgstr "Stunden"
+
+#: admin/views/settings-tab.php:188
+msgid "Answered and expired requests are deleted after this. They are kept at all only so repeated requests can be counted."
+msgstr "Beantwortete und abgelaufene Anfragen werden danach gelöscht. Sie bleiben überhaupt nur erhalten, damit wiederholte Anfragen gezählt werden können."
+
+#: admin/views/settings-tab.php:198
+msgid "Turning it on"
+msgstr "Einschalten"
+
+#. translators: %s: link to the current user's profile screen.
+#: admin/views/settings-tab.php:204
+#, php-format
+msgid "Each person switches this on for themselves under Two-Factor Options on their %s."
+msgstr "Jede Person schaltet das für sich selbst unter „Zwei-Faktor-Optionen“ im %s ein."
+
+#: admin/views/settings-tab.php:208
+msgid "profile"
+msgstr "Profil"
+
+#: admin/views/settings-tab.php:216
+msgid "Worth keeping a second method switched on as well. If no other session is open when a request goes out, this one simply waits until it expires — the sign-in page then offers the other methods."
+msgstr "Es lohnt sich, zusätzlich eine zweite Methode aktiviert zu lassen. Ist beim Absenden einer Anfrage keine andere Sitzung offen, wartet diese hier einfach bis zum Ablauf — die Anmeldeseite bietet dann die anderen Methoden an."
+
+#: includes/class-admin-bar.php:105
+msgid "Confirm sign-in"
+msgstr "Anmeldung bestätigen"
+
+#: includes/class-admin-bar.php:112
+msgid "A sign-in is waiting for your confirmation"
+msgstr "Eine Anmeldung wartet auf deine Bestätigung"
+
+#: includes/class-admin-bar.php:146
+msgid "Someone is signing in to your account. Was that you?"
+msgstr "Jemand meldet sich bei deinem Konto an. Warst du das?"
+
+#: includes/class-admin-bar.php:147
+msgid "Yes, it was me"
+msgstr "Ja, ich war das"
+
+#: includes/class-admin-bar.php:148
+msgid "No"
+msgstr "Nein"
+
+#: includes/class-admin-bar.php:182
+msgid "Confirmed."
+msgstr "Bestätigt."
+
+#: includes/class-admin-bar.php:183
+msgid "Declined. The sign-in will not continue."
+msgstr "Abgelehnt. Die Anmeldung wird nicht fortgesetzt."
+
+#: includes/class-admin-bar.php:184
+msgid "This was already answered."
+msgstr "Das wurde bereits beantwortet."
+
+#: includes/class-admin-bar.php:185
+msgid "This sign-in request is no longer valid."
+msgstr "Diese Anmeldeanfrage ist nicht mehr gültig."
+
+#: includes/class-admin-bar.php:186
+msgid "That did not work. Please try again."
+msgstr "Das hat nicht geklappt. Bitte versuche es noch einmal."
+
+#. translators: %s: coarse description of where the sign-in came from.
+#: includes/class-admin-bar.php:188
+#, php-format
+msgid "From %s"
+msgstr "Von %s"
+
+#: includes/class-baukasten-two-factor-approve.php:64
+msgctxt "Provider Label"
+msgid "Confirmation in another session"
+msgstr "Bestätigung in einer anderen Sitzung"
+
+#: includes/class-baukasten-two-factor-approve.php:73
+msgid "Confirm in another signed-in session"
+msgstr "In einer anderen angemeldeten Sitzung bestätigen"
+
+#: includes/class-baukasten-two-factor-approve.php:146
+msgid "When you sign in, any other browser where you are already signed in shows a confirmation in the admin bar. Approving it there completes the sign-in."
+msgstr "Wenn du dich anmeldest, zeigt jeder andere Browser, in dem du bereits angemeldet bist, eine Bestätigung in der Adminleiste. Bestätigst du sie dort, ist die Anmeldung abgeschlossen."
+
+#: includes/class-login-screen.php:86
+msgid "Open one of your other signed-in browsers. A confirmation is waiting in its admin bar."
+msgstr "Öffne einen deiner anderen angemeldeten Browser. Dort wartet eine Bestätigung in der Adminleiste."
+
+#: includes/class-login-screen.php:99
+msgid "Too many confirmation requests were sent recently. Please wait a few minutes, or use one of the other methods below."
+msgstr "Es wurden zuletzt zu viele Bestätigungsanfragen gesendet. Warte bitte ein paar Minuten oder nutze unten eine der anderen Methoden."
+
+#: includes/class-login-screen.php:117
+#: includes/class-login-screen.php:139
+msgid "Waiting for confirmation…"
+msgstr "Warte auf Bestätigung …"
+
+#: includes/class-login-screen.php:121
+msgid "JavaScript is switched off, so this page cannot notice the confirmation on its own. Approve the request in your other browser, then press the button below."
+msgstr "JavaScript ist ausgeschaltet, deshalb kann diese Seite die Bestätigung nicht selbst bemerken. Bestätige die Anfrage im anderen Browser und drücke dann den Button unten."
+
+#: includes/class-login-screen.php:140
+msgid "Confirmed. Signing you in…"
+msgstr "Bestätigt. Du wirst angemeldet …"
+
+#: includes/class-login-screen.php:141
+msgid "The request was declined. This sign-in will not continue."
+msgstr "Die Anfrage wurde abgelehnt. Diese Anmeldung wird nicht fortgesetzt."
+
+#: includes/class-login-screen.php:142
+msgid "The request expired. Send a new one, or use another method below."
+msgstr "Die Anfrage ist abgelaufen. Sende eine neue oder nutze unten eine andere Methode."
+
+#: includes/class-login-screen.php:143
+msgid "Cannot reach the site right now. Still trying…"
+msgstr "Die Website ist gerade nicht erreichbar. Versuche es weiter …"
+
+#: includes/class-login-screen.php:169
+msgid "I have confirmed"
+msgstr "Ich habe bestätigt"
+
+#: includes/class-login-screen.php:170
+msgid "Send again"
+msgstr "Erneut senden"
+
+#: includes/class-login-screen.php:171
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: includes/class-notices.php:59
+msgid "Baukasten Two-Factor Approval needs the Two Factor plugin. Install and activate it to offer confirmation from a second session."
+msgstr "Baukasten Two-Factor Approval benötigt das Plugin Two Factor. Installiere und aktiviere es, um die Bestätigung aus einer zweiten Sitzung anzubieten."
+
+#: includes/class-notices.php:83
+msgid "Confirmation in another session is switched off site-wide: the Two Factor settings list which methods this site allows, and this one is not on it. Nobody can select it until it is."
+msgstr "Die Bestätigung in einer anderen Sitzung ist website-weit ausgeschaltet: In den Einstellungen von Two Factor steht, welche Methoden diese Website erlaubt, und diese steht nicht darauf. Bis dahin kann sie niemand auswählen."
+
+#: includes/class-notices.php:90
+msgid "Dismiss"
+msgstr "Ausblenden"
+
+#: includes/class-notices.php:119
+msgid "You are not allowed to do this."
+msgstr "Das darfst du nicht."
+
+#: includes/class-rest-controller.php:127
+msgid "Too many requests."
+msgstr "Zu viele Anfragen."
+
+#: includes/class-rest-controller.php:137
+msgid "Unknown request."
+msgstr "Unbekannte Anfrage."
+
+#: includes/class-rest-controller.php:209
+#: includes/class-rest-controller.php:217
+msgid "This request is no longer waiting for an answer."
+msgstr "Diese Anfrage wartet nicht mehr auf eine Antwort."
+
+#: includes/class-rest-controller.php:229
+msgid "This sign-in request is no longer valid. Start the sign-in again."
+msgstr "Diese Anmeldeanfrage ist nicht mehr gültig. Starte die Anmeldung noch einmal."
+
+#: includes/class-settings-tab.php:73
+msgid "Two-Factor"
+msgstr "Zwei-Faktor"
+
+#: includes/class-settings-tab.php:98
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/class-settings-tab.php:117
+msgid "Confirmation in another session is working with its default settings, but its settings screen needs the Baukasten - Privacy Toolkit plugin."
+msgstr "Die Bestätigung in einer anderen Sitzung arbeitet mit ihren Standardeinstellungen, ihre Einstellungsseite benötigt aber das Plugin Baukasten - Privacy Toolkit."
+
+#: includes/class-settings-tab.php:164
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: includes/class-settings-tab.php:177
+#: includes/class-settings-tab.php:225
+msgid "You are not allowed to change these settings."
+msgstr "Du darfst diese Einstellungen nicht ändern."
+
+#: includes/class-settings-tab.php:187
+msgid "All two-factor methods were already allowed."
+msgstr "Es waren bereits alle Zwei-Faktor-Methoden erlaubt."
+
+#: includes/class-settings-tab.php:197
+msgid "This method is now allowed site-wide. Users can select it on their profile."
+msgstr "Diese Methode ist jetzt website-weit erlaubt. Benutzer können sie in ihrem Profil auswählen."

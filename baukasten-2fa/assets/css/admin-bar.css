@@ -1,0 +1,139 @@
+/**
+ * The confirmation prompt in the admin bar.
+ *
+ * Hidden by default and revealed either by the server, when it already knows a
+ * request is waiting, or by script once one arrives. Hiding it in CSS rather
+ * than in JavaScript means it never flashes on a page load.
+ *
+ * Everything here is self-contained. The admin bar also renders on the front
+ * end, where WordPress's `.button` styles do not exist, so the buttons are
+ * styled from scratch rather than borrowing admin classes.
+ */
+
+#wpadminbar li#wp-admin-bar-baukasten-2fa {
+	display: none;
+}
+
+#wpadminbar li#wp-admin-bar-baukasten-2fa.baukasten-2fa-visible {
+	display: block;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa > .ab-item {
+	background: #d63638;
+	color: #fff;
+	cursor: default;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa > .ab-item .ab-icon::before {
+	color: #fff;
+	content: "\f334";
+	top: 2px;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa > .ab-item .ab-label {
+	color: #fff;
+}
+
+/* The submenu is built for single-line links: 26px tall and never wrapping.
+   A panel has to opt out of both, or it spills outside its own background. */
+#wpadminbar #wp-admin-bar-baukasten-2fa .ab-sub-wrapper {
+	min-width: 288px;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .ab-submenu {
+	padding: 0;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa-panel .ab-item {
+	height: auto;
+	padding: 0;
+	white-space: normal;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-panel {
+	padding: 14px;
+	width: 260px;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-panel p {
+	color: #f0f0f1;
+	font-size: 13px;
+	line-height: 1.5;
+	margin: 0 0 12px;
+	white-space: normal;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-panel p:last-child {
+	margin-bottom: 0;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-question {
+	font-weight: 600;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-context {
+	color: #a7aaad;
+	font-size: 12px;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-context:empty {
+	display: none;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons {
+	display: flex;
+	gap: 8px;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons[hidden] {
+	display: none;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons button {
+	background: transparent;
+	border: 1px solid #8c8f94;
+	border-radius: 3px;
+	color: #f0f0f1;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 13px;
+	height: auto;
+	line-height: 1.4;
+	margin: 0;
+	padding: 6px 12px;
+	text-shadow: none;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons button:hover,
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons button:focus {
+	border-color: #f0f0f1;
+	color: #fff;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons .button-primary {
+	background: #2271b1;
+	border-color: #2271b1;
+	color: #fff;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons .button-primary:hover,
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-buttons .button-primary:focus {
+	background: #135e96;
+	border-color: #135e96;
+}
+
+#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-result:empty {
+	display: none;
+}
+
+/* The bar collapses to icons on small screens; the panel still needs room. */
+@media screen and (max-width: 782px) {
+	#wpadminbar #wp-admin-bar-baukasten-2fa .ab-sub-wrapper {
+		min-width: 0;
+	}
+
+	#wpadminbar #wp-admin-bar-baukasten-2fa .baukasten-2fa-panel {
+		max-width: 88vw;
+		width: auto;
+	}
+}
