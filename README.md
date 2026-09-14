@@ -2,7 +2,7 @@
 
 A family of small, focused WordPress plugins — one core that gives them a shared settings screen, and one plugin per feature. Most of them are about privacy.
 
-Six plugins live in this repository. Each is published separately to the WordPress plugin directory; they are developed together because they share conventions, tooling and a release cadence.
+Seven plugins live in this repository. Each is published separately to the WordPress plugin directory; they are developed together because they share conventions, tooling and a release cadence.
 
 | Directory | Plugin | What it does |
 |---|---|---|
@@ -12,6 +12,7 @@ Six plugins live in this repository. Each is published separately to the WordPre
 | [`baukasten-consent-blocking-engine`](baukasten-consent-blocking-engine) | Baukasten Addon: Consent Blocking Engine | Blocks third-party scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, with an auditable log and a site-wide hardening routine. |
 | [`baukasten-multi-domain`](baukasten-multi-domain) | Baukasten Addon: Multi-Domain Landingpage | Gives a page its own domain, so one install serves a different front page under each domain. |
 | [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | A digital business card on its own short link, built for a phone and detached from the theme, with a vCard download and a QR code. |
+| [`baukasten-2fa`](baukasten-2fa) | Baukasten Addon: Two-Factor Approval | A second factor that asks another already signed-in session to confirm the login from its admin bar. Needs the Two Factor plugin as well as the core. |
 
 ## Why it is split up
 
@@ -19,7 +20,9 @@ Features arrive one at a time and are wanted in different combinations. As separ
 
 An addon is an ordinary plugin. It declares `Requires Plugins: baukasten` and calls `Baukasten\Addons::register()` on the `baukasten/register_addons` action. Nothing is inherited, nothing is implemented, and an addon that guards the call with `class_exists()` keeps working without the core.
 
-New here? Start with [`docs/DEVELOPER-GUIDE.md`](docs/DEVELOPER-GUIDE.md).
+An addon may name other plugins in that header too, and hook into them independently: Business Cards requires Contact Form 7, Two-Factor Approval requires the Two Factor plugin. The Baukasten tab and the foreign integration stay separate.
+
+New here? Start with [`docs/DEVELOPER-GUIDE.md`](docs/DEVELOPER-GUIDE.md). Shipping something? [`docs/RELEASING.md`](docs/RELEASING.md).
 
 ## Development
 

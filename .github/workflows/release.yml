@@ -1,0 +1,83 @@
+name: Release
+
+# Builds the plugin archives for a tag and attaches them to its GitHub release.
+#
+# Tags are `<slug>-<version>`. `baukasten-1.0.0` is the bundled release and
+# carries four ZIPs; the other three slugs carry one each. See docs/RELEASING.md.
+#
+# This workflow does not touch WordPress.org. SVN is still done by hand, because
+# the first submission of every plugin needs a slug correction no script can make.
+
+on:
+  push:
+    tags:
+      - 'baukasten-*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and attach archives
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: zip
+          coverage: none
+
+      - name: Work out which plugins this tag ships
+        id: plugins
+        run: |
+          tag="${GITHUB_REF_NAME}"
+
+          # The tag is <slug>-<version>; strip the trailing version to get the slug.
+          slug="${tag%-*}"
+
+          case "$slug" in
+            baukasten)
+              # The core and the addons that are pointless without it move together.
+              plugins="baukasten baukasten-consent-blocking-engine baukasten-content-visibility baukasten-login-legal-pages"
+              ;;
+            baukasten-multi-domain|baukasten-business-cards|baukasten-2fa)
+              plugins="$slug"
+              ;;
+            *)
+              echo "::error::Tag '$tag' does not name a release. Expected <slug>-<version>."
+              exit 1
+              ;;
+          esac
+
+          echo "Tag $tag ships: $plugins"
+          echo "plugins=$plugins" >> "$GITHUB_OUTPUT"
+
+      - name: Build the archives
+        run: |
+          # The tag's version has to be the version that was actually built, or
+          # the release would carry archives nobody asked for. build.php already
+          # refuses to build when the plugin header and the readme stable tag
+          # disagree; this is the third side of that triangle.
+          version="${GITHUB_REF_NAME##*-}"
+
+          for plugin in ${{ steps.plugins.outputs.plugins }}; do
+            php bin/build.php "$plugin"
+
+            if [ ! -f "build/$plugin-$version.zip" ]; then
+              echo "::error::$plugin did not build as $version. Check its header and readme stable tag."
+              exit 1
+            fi
+          done
+
+          ls -l build/*.zip
+
+      - name: Create or update the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/*.zip
+          generate_release_notes: true

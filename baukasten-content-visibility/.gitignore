@@ -1,5 +1,7 @@
-# Dependencies. composer.lock is committed on purpose: it pins the linting
-# tools so CI cannot break on an upstream release.
+# Dependencies. composer.lock is deliberately not ignored: where one exists it
+# is committed, because it pins the linting tools so CI cannot break on an
+# upstream release. Only baukasten/ has one so far; the addons resolve their
+# dev dependencies fresh on every CI run.
 vendor/
 node_modules/
 
