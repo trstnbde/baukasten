@@ -59,9 +59,12 @@ final class Forms {
 	/**
 	 * Registers the hooks the form needs.
 	 *
-	 * The filters are added unconditionally: a filter on a hook that never
-	 * fires costs nothing, and Contact Form 7 can be activated at any time.
-	 * Only the function calls are guarded.
+	 * The filters are added unconditionally and the function calls stay
+	 * guarded, even though the plugin header now requires Contact Form 7.
+	 * `Requires Plugins` is enforced at activation, not for ever after: an
+	 * admin can switch Contact Form 7 off at any time, and a card route that
+	 * answered that with a fatal error would take the whole card down over a
+	 * form it could simply leave out.
 	 *
 	 * @return void
 	 */
@@ -203,6 +206,10 @@ final class Forms {
 
 	/**
 	 * Whether Contact Form 7 is active.
+	 *
+	 * Required by the plugin header, so on a healthy site this is always true;
+	 * it is false in the window where an admin has switched Contact Form 7 off
+	 * without switching this plugin off with it.
 	 *
 	 * @return bool True when its main class is loaded.
 	 */

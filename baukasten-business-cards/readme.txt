@@ -4,7 +4,7 @@ Tags: business card, vcard, qr code, contact, wallet
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Requires Plugins: baukasten
+Requires Plugins: baukasten, contact-form-7
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -65,9 +65,9 @@ A card follows the visitor's system setting on its own. Switch on the toggle and
 
 = Contact form =
 
-If Contact Form 7 is installed, a card can embed one of its forms, and there is a button under *Settings, Baukasten, Business Cards* that builds a suitable one: name, email, message, and a consent checkbox that links the card's own privacy policy and terms.
+A card can embed a Contact Form 7 form, and there is a button under *Settings, Baukasten, Business Cards* that builds a suitable one: name, email, message, and a consent checkbox that links the card's own privacy policy and terms. Contact Form 7 is required, so it is there to build against.
 
-The form has to carry an acceptance checkbox for the email consent — if it does not, or if the visitor does not tick it, the submission is refused on the server. Without Contact Form 7 everything else on a card works exactly the same.
+The form has to carry an acceptance checkbox for the email consent — if it does not, or if the visitor does not tick it, the submission is refused on the server.
 
 = Legal links =
 
@@ -75,7 +75,7 @@ If the **Baukasten Addon: Login Legal Pages** is installed, the imprint, privacy
 
 == Installation ==
 
-1. Install and activate **Baukasten - Privacy Toolkit**. WordPress will not let this addon activate without it.
+1. Install and activate **Baukasten - Privacy Toolkit** and **Contact Form 7**. WordPress will not let this addon activate without both of them.
 2. Install and activate **Baukasten Addon: Business Cards**.
 3. Go to **Business Cards** in the menu and add one.
 4. Fill in what you want on it. Everything is optional.
@@ -97,9 +97,11 @@ Not per card, no. The base is configurable, the card part is not — that is the
 
 Not by default. Cards are left out of the sitemap and sent with `noindex`. A filter, `baukasten/business_cards/discourage_indexing`, turns that off if you want them indexed.
 
-= Does this work without Contact Form 7? =
+= Why does this need Contact Form 7? =
 
-Yes. The contact form is the only part that needs it, and its field is simply hidden when it is not there. A form you had chosen is remembered if you deactivate Contact Form 7 and comes back with it.
+Because the contact form on a card is a Contact Form 7 form. This addon builds one for you, keeps its consent wording in step with your legal pages, and refuses a submission that has not consented — all of it through Contact Form 7 rather than around it, so the form you get is the one you already know how to edit.
+
+It is named in `Requires Plugins`, so WordPress will not activate this addon without it. If you switch Contact Form 7 off afterwards, cards keep working: the form field is hidden and the card serves without it, and a form you had chosen comes back when Contact Form 7 does.
 
 = Can it make an Apple Wallet pass? =
 
@@ -130,6 +132,12 @@ No. The QR code is drawn locally, there are no icon fonts and no brand logos, an
 `assets/js/lib/qrcode.js` is the QR Code Generator for JavaScript by Kazuhiko Arase, version 1.4.4, used unmodified under the MIT licence. Its source is <https://github.com/kazuhikoarase/qrcode-generator>. It is not minified and it runs entirely in the browser.
 
 `assets/fonts/` holds nine woff2 files under the SIL Open Font Licence 1.1, subset to Latin: Archivo, Barlow, Barlow Condensed and Inter. Each licence text sits beside them as `OFL-<family>.txt`. They are served from this site, never from a font service, and a card loads only the two faces its design uses.
+
+== Screenshots ==
+
+1. A card on a phone: photo, name, the buttons, and nothing of the theme.
+2. The Business Cards tab under Settings, Baukasten.
+3. The QR code and vCard download a card offers for handing itself on.
 
 == Changelog ==
 

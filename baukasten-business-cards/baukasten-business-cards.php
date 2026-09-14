@@ -7,7 +7,7 @@
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      8.1
- * Requires Plugins:  baukasten
+ * Requires Plugins:  baukasten, contact-form-7
  * Author:            Torsten B.
  * Author URI:        https://github.com/trstnbde
  * License:           GPLv2 or later
