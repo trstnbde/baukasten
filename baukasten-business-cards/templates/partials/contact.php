@@ -16,12 +16,13 @@ namespace Baukasten\BusinessCards;
 defined( 'ABSPATH' ) || exit;
 
 $baukasten_bc_rows = array(
-	'email_work'      => array( __( 'Email (work)', 'baukasten-business-cards' ), 'mailto' ),
-	'email_priv'      => array( __( 'Email (private)', 'baukasten-business-cards' ), 'mailto' ),
-	'phone_work'      => array( __( 'Phone (work)', 'baukasten-business-cards' ), 'tel' ),
-	'phone_priv'      => array( __( 'Phone (private)', 'baukasten-business-cards' ), 'tel' ),
-	'mobile_work'     => array( __( 'Mobile (work)', 'baukasten-business-cards' ), 'tel' ),
-	'mobile_priv'     => array( __( 'Mobile (private)', 'baukasten-business-cards' ), 'tel' ),
+	'email'           => array( __( 'Email', 'baukasten-business-cards' ), 'mailto' ),
+	'email_2'         => array( __( 'Email 2', 'baukasten-business-cards' ), 'mailto' ),
+	'phone'           => array( __( 'Phone', 'baukasten-business-cards' ), 'tel' ),
+	'mobile'          => array( __( 'Mobile', 'baukasten-business-cards' ), 'tel' ),
+	// A name, not a way to get in touch, so it is the one row without a link.
+	'assistant'       => array( __( 'Assistant', 'baukasten-business-cards' ), 'text' ),
+	'assistant_phone' => array( __( 'Assistant\'s phone', 'baukasten-business-cards' ), 'tel' ),
 	'contact_website' => array( __( 'Website', 'baukasten-business-cards' ), 'url' ),
 );
 
@@ -41,7 +42,10 @@ Skins::open_section( $baukasten_bc_skin, 'contact', __( 'My details', 'baukasten
 			<?php
 			$baukasten_bc_value = (string) $baukasten_bc_card[ $baukasten_bc_key ];
 
-			if ( 'tel' === $baukasten_bc_row[1] ) {
+			if ( 'text' === $baukasten_bc_row[1] ) {
+				$baukasten_bc_href = '';
+				$baukasten_bc_text = esc_html( $baukasten_bc_value );
+			} elseif ( 'tel' === $baukasten_bc_row[1] ) {
 				$baukasten_bc_href = Obfuscate::tel( $baukasten_bc_value );
 				$baukasten_bc_text = Obfuscate::html( $baukasten_bc_value );
 			} elseif ( 'mailto' === $baukasten_bc_row[1] ) {
@@ -56,9 +60,13 @@ Skins::open_section( $baukasten_bc_skin, 'contact', __( 'My details', 'baukasten
 				<dt class="bkbc-contact__label"><?php echo esc_html( (string) $baukasten_bc_row[0] ); ?></dt>
 				<dd class="bkbc-contact__value">
 					<?php /* Both sides are already escaped, or entity-encoded past the point of having anything to escape. */ ?>
-					<a href="<?php echo $baukasten_bc_href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- an escaped URL, or a fully entity-encoded one; see Obfuscate. ?>">
-						<?php echo $baukasten_bc_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- as above. ?>
-					</a>
+					<?php if ( '' === $baukasten_bc_href ) : ?>
+						<?php echo $baukasten_bc_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- esc_html() above. ?>
+					<?php else : ?>
+						<a href="<?php echo $baukasten_bc_href; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- an escaped URL, or a fully entity-encoded one; see Obfuscate. ?>">
+							<?php echo $baukasten_bc_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- as above. ?>
+						</a>
+					<?php endif; ?>
 				</dd>
 			</div>
 		<?php endif; ?>

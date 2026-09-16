@@ -1,0 +1,323 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Two-Factor Approval 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-2fa\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-14T19:04:38+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-2fa\n"
+
+#. Plugin Name of the plugin
+#: baukasten-2fa.php
+msgid "Baukasten Addon: Two-Factor Approval"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-2fa.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-2fa.php
+msgid "Adds a two-factor method that asks a second, already signed-in browser session to approve the login from the WordPress admin bar."
+msgstr ""
+
+#. Author of the plugin
+#: baukasten-2fa.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-2fa.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/settings-tab.php:17
+msgid "Adds a second factor that asks another browser instead of asking for a code: when someone signs in, every other session that is already signed in shows a confirmation in its admin bar."
+msgstr ""
+
+#: admin/views/settings-tab.php:22
+msgid "The Two Factor plugin is not active, so this method is not being offered to anyone."
+msgstr ""
+
+#: admin/views/settings-tab.php:26
+msgid "The Two Factor settings list which methods this site allows, and this one is not on it. Until it is, nobody can select it on their profile."
+msgstr ""
+
+#: admin/views/settings-tab.php:29
+#: includes/class-notices.php:88
+msgid "Allow this method site-wide"
+msgstr ""
+
+#: admin/views/settings-tab.php:35
+msgid "Timing"
+msgstr ""
+
+#: admin/views/settings-tab.php:45
+msgid "How long a request waits"
+msgstr ""
+
+#: admin/views/settings-tab.php:58
+#: admin/views/settings-tab.php:83
+#: admin/views/settings-tab.php:114
+msgid "seconds"
+msgstr ""
+
+#: admin/views/settings-tab.php:61
+msgid "The other browser learns about the request through the WordPress heartbeat, which ticks about once a minute and slows down further in a tab that has been idle for a while. Allow for up to a minute before the confirmation appears — if people report that requests expire before they see them, raise this."
+msgstr ""
+
+#: admin/views/settings-tab.php:71
+msgid "Check every"
+msgstr ""
+
+#: admin/views/settings-tab.php:85
+msgid "Only while a request is actually open. The rest of the time nothing is polled beyond the heartbeat that runs anyway."
+msgstr ""
+
+#: admin/views/settings-tab.php:90
+msgid "Requests per user"
+msgstr ""
+
+#: admin/views/settings-tab.php:101
+msgid "requests"
+msgstr ""
+
+#: admin/views/settings-tab.php:104
+msgid "within"
+msgstr ""
+
+#: admin/views/settings-tab.php:117
+msgid "Stops repeated sign-in attempts from filling somebody's admin bar with confirmations."
+msgstr ""
+
+#: admin/views/settings-tab.php:124
+msgid "What the prompt shows"
+msgstr ""
+
+#: admin/views/settings-tab.php:129
+msgid "Context"
+msgstr ""
+
+#: admin/views/settings-tab.php:138
+msgid "Show where the sign-in came from"
+msgstr ""
+
+#: admin/views/settings-tab.php:142
+msgid "A shortened address and a rough browser name, so the question \"was that you?\" can actually be answered. The full address and the full browser string are never stored."
+msgstr ""
+
+#: admin/views/settings-tab.php:151
+msgid "Idle tabs"
+msgstr ""
+
+#: admin/views/settings-tab.php:160
+msgid "Keep checking in an idle wp-admin tab"
+msgstr ""
+
+#: admin/views/settings-tab.php:164
+msgid "WordPress stops its heartbeat in a tab nobody has touched for a few minutes — which is usually exactly the tab that should be showing the confirmation. This keeps it going in the dashboard only, never on the public site."
+msgstr ""
+
+#: admin/views/settings-tab.php:174
+msgid "Keep records for"
+msgstr ""
+
+#: admin/views/settings-tab.php:186
+msgid "hours"
+msgstr ""
+
+#: admin/views/settings-tab.php:188
+msgid "Answered and expired requests are deleted after this. They are kept at all only so repeated requests can be counted."
+msgstr ""
+
+#: admin/views/settings-tab.php:198
+msgid "Turning it on"
+msgstr ""
+
+#. translators: %s: link to the current user's profile screen.
+#: admin/views/settings-tab.php:204
+#, php-format
+msgid "Each person switches this on for themselves under Two-Factor Options on their %s."
+msgstr ""
+
+#: admin/views/settings-tab.php:208
+msgid "profile"
+msgstr ""
+
+#: admin/views/settings-tab.php:216
+msgid "Worth keeping a second method switched on as well. If no other session is open when a request goes out, this one simply waits until it expires — the sign-in page then offers the other methods."
+msgstr ""
+
+#: includes/class-admin-bar.php:105
+msgid "Confirm sign-in"
+msgstr ""
+
+#: includes/class-admin-bar.php:112
+msgid "A sign-in is waiting for your confirmation"
+msgstr ""
+
+#: includes/class-admin-bar.php:146
+msgid "Someone is signing in to your account. Was that you?"
+msgstr ""
+
+#: includes/class-admin-bar.php:147
+msgid "Yes, it was me"
+msgstr ""
+
+#: includes/class-admin-bar.php:148
+msgid "No"
+msgstr ""
+
+#: includes/class-admin-bar.php:182
+msgid "Confirmed."
+msgstr ""
+
+#: includes/class-admin-bar.php:183
+msgid "Declined. The sign-in will not continue."
+msgstr ""
+
+#: includes/class-admin-bar.php:184
+msgid "This was already answered."
+msgstr ""
+
+#: includes/class-admin-bar.php:185
+msgid "This sign-in request is no longer valid."
+msgstr ""
+
+#: includes/class-admin-bar.php:186
+msgid "That did not work. Please try again."
+msgstr ""
+
+#. translators: %s: coarse description of where the sign-in came from.
+#: includes/class-admin-bar.php:188
+#, php-format
+msgid "From %s"
+msgstr ""
+
+#: includes/class-baukasten-two-factor-approve.php:64
+msgctxt "Provider Label"
+msgid "Confirmation in another session"
+msgstr ""
+
+#: includes/class-baukasten-two-factor-approve.php:73
+msgid "Confirm in another signed-in session"
+msgstr ""
+
+#: includes/class-baukasten-two-factor-approve.php:146
+msgid "When you sign in, any other browser where you are already signed in shows a confirmation in the admin bar. Approving it there completes the sign-in."
+msgstr ""
+
+#: includes/class-login-screen.php:86
+msgid "Open one of your other signed-in browsers. A confirmation is waiting in its admin bar."
+msgstr ""
+
+#: includes/class-login-screen.php:99
+msgid "Too many confirmation requests were sent recently. Please wait a few minutes, or use one of the other methods below."
+msgstr ""
+
+#: includes/class-login-screen.php:117
+#: includes/class-login-screen.php:139
+msgid "Waiting for confirmation…"
+msgstr ""
+
+#: includes/class-login-screen.php:121
+msgid "JavaScript is switched off, so this page cannot notice the confirmation on its own. Approve the request in your other browser, then press the button below."
+msgstr ""
+
+#: includes/class-login-screen.php:140
+msgid "Confirmed. Signing you in…"
+msgstr ""
+
+#: includes/class-login-screen.php:141
+msgid "The request was declined. This sign-in will not continue."
+msgstr ""
+
+#: includes/class-login-screen.php:142
+msgid "The request expired. Send a new one, or use another method below."
+msgstr ""
+
+#: includes/class-login-screen.php:143
+msgid "Cannot reach the site right now. Still trying…"
+msgstr ""
+
+#: includes/class-login-screen.php:169
+msgid "I have confirmed"
+msgstr ""
+
+#: includes/class-login-screen.php:170
+msgid "Send again"
+msgstr ""
+
+#: includes/class-login-screen.php:171
+msgid "Cancel"
+msgstr ""
+
+#: includes/class-notices.php:59
+msgid "Baukasten Two-Factor Approval needs the Two Factor plugin. Install and activate it to offer confirmation from a second session."
+msgstr ""
+
+#: includes/class-notices.php:83
+msgid "Confirmation in another session is switched off site-wide: the Two Factor settings list which methods this site allows, and this one is not on it. Nobody can select it until it is."
+msgstr ""
+
+#: includes/class-notices.php:90
+msgid "Dismiss"
+msgstr ""
+
+#: includes/class-notices.php:119
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/class-rest-controller.php:127
+msgid "Too many requests."
+msgstr ""
+
+#: includes/class-rest-controller.php:137
+msgid "Unknown request."
+msgstr ""
+
+#: includes/class-rest-controller.php:209
+#: includes/class-rest-controller.php:217
+msgid "This request is no longer waiting for an answer."
+msgstr ""
+
+#: includes/class-rest-controller.php:229
+msgid "This sign-in request is no longer valid. Start the sign-in again."
+msgstr ""
+
+#: includes/class-settings-tab.php:73
+msgid "Two-Factor"
+msgstr ""
+
+#: includes/class-settings-tab.php:98
+msgid "Settings"
+msgstr ""
+
+#: includes/class-settings-tab.php:117
+msgid "Confirmation in another session is working with its default settings, but its settings screen needs the Baukasten - Privacy Toolkit plugin."
+msgstr ""
+
+#: includes/class-settings-tab.php:164
+msgid "Settings saved."
+msgstr ""
+
+#: includes/class-settings-tab.php:177
+#: includes/class-settings-tab.php:225
+msgid "You are not allowed to change these settings."
+msgstr ""
+
+#: includes/class-settings-tab.php:187
+msgid "All two-factor methods were already allowed."
+msgstr ""
+
+#: includes/class-settings-tab.php:197
+msgid "This method is now allowed site-wide. Users can select it on their profile."
+msgstr ""

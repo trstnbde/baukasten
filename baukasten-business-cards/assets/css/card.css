@@ -77,9 +77,6 @@
 
 	--bkbc-shadow: 0 1px 2px rgba(16, 20, 28, 0.06), 0 16px 40px rgba(16, 20, 28, 0.12);
 
-	/* The width every button in "My links" takes, whatever its label says. */
-	--bkbc-link-width: 150px;
-
 	color-scheme: light;
 
 	--bkbc-bg: var(--bkbc-light-bg);
@@ -516,48 +513,58 @@ body.bkbc {
 
 /* ════════════════════════════════════════════ networks, links, downloads */
 
-/* Fixed columns rather than `1fr`, so every button is the same width whatever
-   its label says and however many there are — a row of two does not come out
-   twice the width of a row of three. As many fit as fit; the rest wrap. */
-.bkbc-networks__list {
+/* Columns that share the width rather than fixed-width buttons, so a row
+   always reaches both edges of the card. A phone gets two networks to a row
+   and one link or download; the breakpoint at the end of this file doubles
+   both. Networks can afford the narrower column because a logo carries most of
+   the meaning; a free link or a file name has only its words. */
+.bkbc-networks__list,
+.bkbc-links__list,
+.bkbc-downloads__list {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, var(--bkbc-link-width));
-	justify-content: start;
 	gap: var(--bkbc-space-2);
 }
 
-.bkbc .bkbc-networks__list .bkbc-button {
-	width: var(--bkbc-link-width);
+.bkbc-networks__list {
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bkbc-links__list,
+.bkbc-downloads__list {
+	grid-template-columns: minmax(0, 1fr);
+}
+
+/* A grid item stretches to its row's height, and the button inside has to
+   follow it, or two neighbours with labels of different length come out
+   different heights. */
+.bkbc-networks__list > li,
+.bkbc-links__list > li,
+.bkbc-downloads__list > li {
+	display: flex;
+	min-width: 0;
+}
+
+.bkbc .bkbc-networks__list .bkbc-button,
+.bkbc .bkbc-links__list .bkbc-button {
 	overflow: hidden;
 }
 
-.bkbc-networks__list .bkbc-button > span:last-child {
+.bkbc-networks__list .bkbc-button > span:last-child,
+.bkbc-links__list .bkbc-button > span:last-child {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-.bkbc-networks__initial {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	width: 18px;
-	flex: none;
-	font-weight: 700;
-	font-size: 15px;
-	text-align: center;
-}
-
-.bkbc-downloads__list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	gap: var(--bkbc-space-2);
+/* In two columns a file name and its "PDF · 1.2 MB" tag rarely both fit. The
+   tag moves under the name rather than cutting the name short: the name is what
+   tells the reader which file this is. */
+.bkbc .bkbc-downloads__list .bkbc-button {
+	flex-wrap: wrap;
+	row-gap: var(--bkbc-space-1);
 }
 
 .bkbc-downloads__name {
@@ -651,6 +658,26 @@ body.bkbc {
 .bkbc-form .wpcf7-not-valid-tip {
 	color: var(--bkbc-accent-strong);
 	font-size: 12px;
+}
+
+/* `size:flexible` makes the widget fill its container, down to Cloudflare's
+   300px minimum. A 320px phone has less than that inside the card's margins,
+   so the overflow is clipped rather than pushing the whole card sideways. */
+.bkbc-form .wpcf7-turnstile {
+	max-width: 100%;
+	margin: 0 0 var(--bkbc-space-3);
+	overflow: hidden;
+}
+
+.bkbc-form .wpcf7-turnstile:empty {
+	margin: 0;
+}
+
+.bkbc-form__notice {
+	margin: var(--bkbc-space-3) 0 0;
+	font-size: 12px;
+	line-height: 1.5;
+	opacity: 0.7;
 }
 
 .bkbc-form .wpcf7-response-output {
@@ -811,6 +838,15 @@ body.bkbc {
 
 	.bkbc-stage {
 		padding: 40px 20px;
+	}
+
+	.bkbc-networks__list {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	.bkbc-links__list,
+	.bkbc-downloads__list {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 
 	.bkbc-card {

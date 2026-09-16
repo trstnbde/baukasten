@@ -96,7 +96,7 @@ It is served rather than linked because the media type is the whole thing: iOS o
 
 **Google.** There is no pass file to serve: a Google Wallet pass exists only as a signed JWT behind `pay.google.com/gp/v/save/…`. So the card stores the token and builds the address itself. The sanitiser accepts a whole save URL and takes the token out of it, and checks the shape — three base64url segments with a readable header. **The signature is not checked**, because verifying it needs the issuer's public key, and a check that cannot fail is worse than no check.
 
-The button is the plugin's own, not Google's asset: a brand mark is a trademark with its own rules, which is the same position `Icons` takes on network logos.
+The button is the plugin's own, not Google's asset. That is a different case from the network buttons, which do carry the networks' logos: a network mark next to a link to your own profile is the use those brands' guidelines allow, while a Wallet button has its own badge rules that a plain link would only half follow.
 
 ## The vCard
 
@@ -121,7 +121,17 @@ The salutation is deliberately kept out of `N` and `FN`: contact apps render it 
 
 **Content Visibility** defaults every new post of a supported type to private, which for a business card is exactly backwards: the whole point is a link you hand to someone who is not logged in. Cards are removed from its list through its documented `baukasten/content_visibility/post_types` filter. Put them back with `baukasten/business_cards/respect_content_visibility`.
 
-**Consent Blocking Engine** treats any host but the site's own as third party, Cloudflare included. Measured on a test install: a Turnstile script on a card route is rewritten to `type="text/plain"` with `data-baukasten-consent="functional"`, so a Turnstile-protected form cannot be submitted until the visitor consents — with no error to explain why. That is the engine doing its job, not a bug, and this plugin does not override it. A card with no contact form drops Contact Form 7's and Turnstile's assets entirely, so it makes no third-party request at all.
+**Consent Blocking Engine** treats any host but the site's own as third party, Cloudflare included, and rewrites a Turnstile script tag to `type="text/plain"`. A card offers no way to consent, so before 1.0.0 shipped that meant a Turnstile-protected form on a card could never produce a token and every submission was filed as spam, with nothing on the screen to say why.
+
+`Forms::defer_turnstile()` takes Turnstile out of the page instead. The script is dequeued, and `assets/js/form.js` — served from the site, so the engine has no reason to touch it — loads Cloudflare's script in explicit mode at the first focus, tap or key press inside a form that has a widget. The engine does not rewrite scripts added in the browser. Three things in that file are load-bearing:
+
+- a `submit` listener on the document in the capture phase holds a submission that arrives before the token and re-sends it with `requestSubmit()` once there is one, because the first interaction can be the tap on the send button;
+- the `error-callback` releases held forms rather than leaving the button dead, so Contact Form 7 answers with its own message;
+- `wpcf7submit` resets the widget, which Contact Form 7 normally does from an inline script attached to the handle that was dequeued.
+
+A card with no contact form drops Contact Form 7's and Turnstile's assets entirely, so it makes no third-party request at all.
+
+**Contact Form 7** fills `_wpcf7_container_post` from `get_the_ID()` only while `in_the_loop()` is true, and the filter for hidden fields cannot override it (`+=`). The card template is not a loop, so `Forms::render()` sets `in_the_loop` for the length of `do_shortcode()`. That is what lets `require_consent()` apply to card submissions only; before, it hung on `wpcf7_validate` for every form on the site and failed any form without a consent box. It also means `[_post_title]` and `[_post_url]` in a mail refer to the card.
 
 ## Filters
 
@@ -142,13 +152,14 @@ details the card already carries, promoted. Two places to type the same telephon
 number is two places for it to go out of date, and the one that gets forgotten is
 always the one at the top of the card.
 
-The order is: the first of `phone_work`, `mobile_work`, `phone_priv`,
-`mobile_priv` for Call; the first of `email_work`, `email_priv` for Email;
-`contact_website` for Website; and for WhatsApp the first *mobile* number, because
+The order is: `phone`, else `mobile`, for Call; `email`, else `email_2`, for
+Email; `contact_website` for Website; and `mobile` for WhatsApp, because
 WhatsApp is a mobile service and offering it for a desk line produces a button
 that goes nowhere.
 
 ## Third-party code
+
+The network logos in `includes/class-icons.php` are inline path data. LinkedIn, GitHub, Mastodon, Facebook, Instagram, Threads and Discord come from WordPress core's Social Links block (GPL); core has no Xing or Signal, so those two come from [Simple Icons](https://simpleicons.org) (CC0 1.0). Simple Icons and core's Mastodon draw to the edge of the 24-unit box while core's other marks leave air around them, so those three are rendered with a `-2 -2 28 28` viewBox rather than an edited path.
 
 `assets/js/lib/qrcode.js` is [QR Code Generator for JavaScript](https://github.com/kazuhikoarase/qrcode-generator) 1.4.4 by Kazuhiko Arase, MIT, unmodified and unminified.
 

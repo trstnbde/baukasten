@@ -42,6 +42,16 @@ final class Forms {
 	);
 
 	/**
+	 * Contact Form 7's handle for the Turnstile script.
+	 */
+	const TURNSTILE_HANDLE = 'cloudflare-turnstile';
+
+	/**
+	 * Handle of the script that loads Turnstile once the form is used.
+	 */
+	const LOADER_HANDLE = 'baukasten-business-cards-form';
+
+	/**
 	 * Option holding the id of the form this plugin created.
 	 */
 	const OPTION_FORM_ID = 'baukasten_business_cards_form_id';
@@ -59,9 +69,12 @@ final class Forms {
 	/**
 	 * Registers the hooks the form needs.
 	 *
-	 * The filters are added unconditionally: a filter on a hook that never
-	 * fires costs nothing, and Contact Form 7 can be activated at any time.
-	 * Only the function calls are guarded.
+	 * The filters are added unconditionally and the function calls stay
+	 * guarded, even though the plugin header now requires Contact Form 7.
+	 * `Requires Plugins` is enforced at activation, not for ever after: an
+	 * admin can switch Contact Form 7 off at any time, and a card route that
+	 * answered that with a fatal error would take the whole card down over a
+	 * form it could simply leave out.
 	 *
 	 * @return void
 	 */
@@ -204,6 +217,10 @@ final class Forms {
 	/**
 	 * Whether Contact Form 7 is active.
 	 *
+	 * Required by the plugin header, so on a healthy site this is always true;
+	 * it is false in the window where an admin has switched Contact Form 7 off
+	 * without switching this plugin off with it.
+	 *
 	 * @return bool True when its main class is loaded.
 	 */
 	public static function is_available(): bool {
@@ -289,6 +306,8 @@ final class Forms {
 				wpcf7_enqueue_styles();
 			}
 
+			self::defer_turnstile();
+
 			return;
 		}
 
@@ -296,6 +315,63 @@ final class Forms {
 			wp_dequeue_script( $handle );
 			wp_dequeue_style( $handle );
 		}
+	}
+
+	/**
+	 * Takes Turnstile out of the page load and hands it to the card's loader.
+	 *
+	 * Contact Form 7 enqueues Cloudflare's script on every page once the
+	 * integration has keys, which on a card means every visitor's address goes
+	 * to Cloudflare whether they ever touch the form or not. And with the
+	 * Consent Blocking Engine active it is worse than that: the engine rightly
+	 * treats Cloudflare as a third party, rewrites the tag to `text/plain`, and
+	 * a card offers no way to consent — so no token is ever made and every
+	 * submission is filed as spam, with nothing on the screen to say why.
+	 *
+	 * So the script is dequeued here and `assets/js/form.js` loads it on the
+	 * first sign that somebody is using the form. The loader is served from this
+	 * site, so the engine has no reason to hold it back, and the script it adds
+	 * afterwards is added in the browser, where the engine does not rewrite
+	 * anything. Whoever only looks at the card causes no request to Cloudflare.
+	 *
+	 * @return void
+	 */
+	private static function defer_turnstile(): void {
+		$scripts = wp_scripts();
+
+		if ( ! wp_script_is( self::TURNSTILE_HANDLE, 'enqueued' ) || ! isset( $scripts->registered[ self::TURNSTILE_HANDLE ] ) ) {
+			return;
+		}
+
+		$src = (string) $scripts->registered[ self::TURNSTILE_HANDLE ]->src;
+
+		wp_dequeue_script( self::TURNSTILE_HANDLE );
+
+		if ( '' === $src ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			self::LOADER_HANDLE,
+			PLUGIN_URL . 'assets/js/form.js',
+			array( 'contact-form-7' ),
+			VERSION,
+			array( 'in_footer' => true )
+		);
+
+		wp_localize_script(
+			self::LOADER_HANDLE,
+			'baukastenBusinessCardsForm',
+			array(
+				'turnstileSrc' => add_query_arg(
+					array(
+						'render' => 'explicit',
+						'onload' => 'baukastenBusinessCardsTurnstileReady',
+					),
+					$src
+				),
+			)
+		);
 	}
 
 	/**
@@ -313,7 +389,50 @@ final class Forms {
 			return '';
 		}
 
-		return do_shortcode( sprintf( '[contact-form-7 id="%d"]', $form_id ) );
+		/*
+		 * Rendered as though inside the loop, for one reason: that is the only
+		 * way Contact Form 7 sends the card's id along as `_wpcf7_container_post`.
+		 * It fills that field from `get_the_ID()` when `in_the_loop()` is true
+		 * and from nothing otherwise, and a filter cannot change it, because the
+		 * filtered fields are merged in with `+=`. The card template is not a
+		 * loop, so without this every submission would arrive as if from
+		 * nowhere — and `require_consent()` could not tell a card's form from
+		 * any other form on the site.
+		 */
+		global $wp_query;
+
+		$restore = $wp_query instanceof \WP_Query ? $wp_query->in_the_loop : null;
+
+		if ( null !== $restore ) {
+			$wp_query->in_the_loop = true;
+		}
+
+		$html = do_shortcode( sprintf( '[contact-form-7 id="%d"]', $form_id ) );
+
+		if ( null !== $restore ) {
+			$wp_query->in_the_loop = $restore;
+		}
+
+		return $html;
+	}
+
+	/**
+	 * The card a submission was sent from, if it was sent from one.
+	 *
+	 * @return int Card post ID, or 0.
+	 */
+	private static function submitted_from_card(): int {
+		if ( ! function_exists( 'wpcf7_superglobal_post' ) ) {
+			return 0;
+		}
+
+		$post_id = absint( wpcf7_superglobal_post( '_wpcf7_container_post' ) );
+
+		if ( 0 === $post_id || Post_Type::POST_TYPE !== get_post_type( $post_id ) ) {
+			return 0;
+		}
+
+		return 'publish' === get_post_status( $post_id ) ? $post_id : 0;
 	}
 
 	/**
@@ -348,6 +467,10 @@ final class Forms {
 			'    [textarea* your-message]</label>',
 			'',
 			'[acceptance email-consent] ' . $consent . ' [/acceptance]',
+			'',
+			// Prints nothing unless Turnstile is set up under Contact, Integration.
+			// Without the tag Contact Form 7 puts the widget above the first field.
+			'[turnstile size:flexible]',
 			'',
 			'[submit "' . __( 'Send message', 'baukasten-business-cards' ) . '"]',
 		);
@@ -413,10 +536,14 @@ final class Forms {
 	}
 
 	/**
-	 * Fails a submission whose email consent is missing or unticked.
+	 * Fails a card submission whose email consent is missing or unticked.
 	 *
 	 * Priority 20, so this runs after Contact Form 7's own acceptance check and
 	 * this wording is the one that survives.
+	 *
+	 * Only for submissions sent from a card. `wpcf7_validate` runs for every
+	 * form on the site, and a rule that fails any form without a consent box
+	 * would break the site's other forms — which it did, until this check.
 	 *
 	 * @param mixed $result Contact Form 7's validation result object.
 	 * @param mixed $tags   The form's tag objects.
@@ -424,6 +551,10 @@ final class Forms {
 	 */
 	public static function require_consent( $result, $tags ) {
 		if ( ! is_object( $result ) || ! method_exists( $result, 'invalidate' ) ) {
+			return $result;
+		}
+
+		if ( 0 === self::submitted_from_card() ) {
 			return $result;
 		}
 

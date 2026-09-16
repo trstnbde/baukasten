@@ -2,11 +2,12 @@
  * Login Legal Pages - wp-login.php.
  *
  * Turns the login screen into one card: the form on top, a slightly recessed
- * footer under it holding the four links. Core prints those as three separate
- * siblings inside the 320px #login column — `<form id="loginform">`,
- * `<p id="nav">` and the `.privacy-policy-page-link` wrapper from
- * login_footer() — so no DOM surgery and no JavaScript is needed: three
- * stacked blocks with the right borders read as a single card.
+ * footer under it holding the links. #login is a flat list of blocks, so no DOM
+ * surgery and no JavaScript is needed — stacked blocks with the right borders
+ * read as a single card.
+ *
+ * Which blocks are there depends on the screen, and that is the whole
+ * difficulty. See the footer section below.
  *
  * Also removes the two elements core offers no filter for.
  */
@@ -56,23 +57,46 @@
 }
 
 /*
- * The card footer, in the two pieces core hands us.
+ * The card footer, in whatever pieces this screen happens to have.
  *
- * Each is pulled up by one pixel so its own opaque background covers the
- * bottom border of the block above; CSS has no selector for "an element
- * followed by another" short of :has(), and stacking two 1px borders would
- * draw a double line through the card.
+ * Core and its plugins print a flat list of blocks inside the 320px #login
+ * column and the list is not the same twice: the form always, `<p id="nav">`
+ * on the screens that offer "Lost your password?", the
+ * `.privacy-policy-page-link` wrapper from login_footer() whenever a legal
+ * page is configured, and — on the second factor screen the Two Factor plugin
+ * renders — a `.backup-methods-wrap` listing the other ways in, between those
+ * two and with `#nav` absent entirely.
+ *
+ * Assuming one fixed sequence is what broke that screen: the form ended in a
+ * square edge against nothing, the backup methods floated unstyled in the gap,
+ * and the legal links read as a second, detached box. So none of these rules
+ * names a position. Every block under the form is a footer row, and the rows
+ * work out among themselves which one draws the seam and which one closes the
+ * card.
+ *
+ * Each row is pulled up by one pixel so its own opaque background covers the
+ * bottom border of the row above; stacking two 1px borders would draw a double
+ * line through the card.
  *
  * Width is deliberately not set. Like the form, these are block children of
  * the 320px column, so `width: auto` makes their border box exactly as wide
  * as the form's. Core's `width: 100%` on the privacy wrapper has to be undone
  * for that, or its padding would push it 50px wider.
+ *
+ * Every footer selector carries the redundant-looking `#login` on purpose.
+ * Two Factor's user-edit.css claims its block as `#login .backup-methods-wrap`,
+ * and an ID beats any number of classes, so a class-only rule here loses its
+ * margin and padding however the stylesheets are ordered. Matching the ID and
+ * adding the body class settles it by specificity rather than by enqueue
+ * order, which is not ours to depend on. The rest of the set is written the
+ * same way so the rows keep one shape.
  */
-.login #nav,
-.login .privacy-policy-page-link {
+.login #login #nav,
+.login #login .backup-methods-wrap,
+.login #login .privacy-policy-page-link {
 	width: auto;
 	margin: -1px 0 0;
-	padding: 0 24px;
+	padding: 18px 24px 6px;
 	background: #f6f7f7;
 	border: 1px solid #c3c4c7;
 	border-top: 1px solid #e2e4e7;
@@ -81,36 +105,74 @@
 	text-align: center;
 }
 
-/* Row one: the login navigation core prints, "Lost your password?". */
-.login #nav {
-	padding-top: 18px;
-	padding-bottom: 6px;
-}
-
-/* Row two: the legal links. */
-.login .privacy-policy-page-link {
-	padding-bottom: 18px;
-	border-radius: 0 0 12px 12px;
-}
-
 /*
- * Only the first piece of the footer carries the divider; the second one
- * continues it.
+ * Only the first row carries the divider under the form; the rest continue it.
+ *
+ * Spelled out as sibling pairs rather than folded into one :has() rule: this
+ * decides whether the card shows one seam or three, and a card with three
+ * horizontal lines drawn through it is not an acceptable fallback. Pairs use
+ * `~`, which every browser that can render this screen supports.
  */
-.login #nav ~ .privacy-policy-page-link {
+.login #login #nav ~ .backup-methods-wrap,
+.login #login #nav ~ .privacy-policy-page-link,
+.login #login .backup-methods-wrap ~ .privacy-policy-page-link {
 	padding-top: 0;
 	border-top: 0;
 }
 
 /*
- * A screen with a navigation row but no legal links has to close the card
- * itself. Progressive enhancement on purpose: where :has() is missing the
- * card simply ends with square corners, which is the state this rule
- * improves on rather than one it repairs.
+ * The last row closes the card.
+ *
+ * The legal links are last whenever they are there at all, so the common case
+ * needs no selector support. The screens without them fall back on :has() to
+ * find the closing row, and that is progressive enhancement on purpose: where
+ * :has() is missing the card simply ends with square corners, which is the
+ * state this rule improves on rather than one it repairs.
+ *
+ * `#backtoblog` sits between the backup methods and the legal links and is
+ * hidden further up, but `~` matches on document order rather than on
+ * rendering, so a hidden block between two rows changes nothing here.
  */
-.login #nav:not(:has( ~ .privacy-policy-page-link )) {
+.login #login .privacy-policy-page-link,
+.login #login #nav:not(:has( ~ .backup-methods-wrap )):not(:has( ~ .privacy-policy-page-link )),
+.login #login .backup-methods-wrap:not(:has( ~ .privacy-policy-page-link )) {
 	padding-bottom: 18px;
 	border-radius: 0 0 12px 12px;
+}
+
+/*
+ * Two Factor's own block, made to look like the rest of the footer.
+ *
+ * It prints `<p>Having Problems?</p>` over a `<ul>` of alternative providers
+ * and styles them from an inline `<style>` in the body — `margin-top: 16px`,
+ * `padding: 0 24px` and `list-style-position: inside`. That stylesheet comes
+ * later in the document than this one, so these rules have to out-specify it
+ * rather than out-order it, which the `.login` prefix already does.
+ *
+ * The list then gets the same treatment as the legal links below, so the two
+ * footer rows read as one footer rather than as two plugins.
+ */
+.login #login .backup-methods-wrap p,
+.login #login .backup-methods-wrap ul {
+	margin: 0;
+	padding: 0;
+}
+
+.login #login .backup-methods-wrap ul {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	list-style: none;
+}
+
+/*
+ * user-edit.css also takes the underline off its links. The legal links a row
+ * down keep theirs, and one footer with two kinds of link in it reads as a
+ * mistake, so it goes back on.
+ */
+.login #login .backup-methods-wrap a {
+	text-decoration: underline;
 }
 
 .baukasten-login-legal {
@@ -143,24 +205,28 @@
  * a pipe reads as a mistake, while one that ends with a pipe reads as a
  * continuation.
  */
-.baukasten-login-legal__item:not(:last-child)::after {
+.baukasten-login-legal__item:not(:last-child)::after,
+.login #login .backup-methods-wrap li:not(:last-child)::after {
 	content: "|";
 	margin: 0 8px;
 	color: #c3c4c7;
 }
 
 /*
- * All four links in the footer look alike: core's own treatment for
+ * Every link in the footer looks alike: core's own treatment for
  * "Lost your password?", applied to the legal links as well rather than
  * giving the two rows different colours and sizes.
  */
-.login #nav a,
+.login #login #nav a,
+.login #login .backup-methods-wrap a,
 .baukasten-login-legal__link {
 	color: #50575e;
 }
 
-.login #nav a:hover,
-.login #nav a:focus,
+.login #login #nav a:hover,
+.login #login #nav a:focus,
+.login #login .backup-methods-wrap a:hover,
+.login #login .backup-methods-wrap a:focus,
 .baukasten-login-legal__link:hover,
 .baukasten-login-legal__link:focus {
 	color: var( --wp-admin-theme-color-darker-20, #135e96 );

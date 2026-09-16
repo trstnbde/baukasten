@@ -1,0 +1,77 @@
+/**
+ * The waiting screen on wp-login.php.
+ *
+ * wp-login.php floats `.button-primary` to the right of the form, which on a
+ * screen with three buttons puts the least important one where the eye lands
+ * first. These rules lay the actions out in reading order instead, matching the
+ * DOM order that the Enter key follows.
+ */
+
+.login .baukasten-2fa-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 16px 0 0;
+}
+
+.login .baukasten-2fa-actions button {
+	float: none;
+	margin: 0;
+}
+
+/* Cancel is a way out, not a third equal option. */
+.login .baukasten-2fa-actions button[value="cancel"] {
+	background: none;
+	border: 0;
+	box-shadow: none;
+	color: #50575e;
+	margin-left: auto;
+	padding-left: 4px;
+	padding-right: 4px;
+	text-decoration: underline;
+}
+
+.login .baukasten-2fa-actions button[value="cancel"]:hover,
+.login .baukasten-2fa-actions button[value="cancel"]:focus {
+	color: #135e96;
+}
+
+.login .baukasten-2fa-status {
+	color: #50575e;
+	margin: 12px 0 0;
+}
+
+.login .baukasten-2fa-status::before {
+	content: "";
+	display: inline-block;
+	height: 14px;
+	margin-right: 8px;
+	vertical-align: -2px;
+	width: 14px;
+	border: 2px solid #c3c4c7;
+	border-radius: 50%;
+	border-top-color: #2271b1;
+	animation: baukasten-2fa-spin 0.9s linear infinite;
+}
+
+/* A spinner that never stops is a lie once there is nothing left to wait for. */
+.login .baukasten-2fa-status.baukasten-2fa-settled::before {
+	display: none;
+}
+
+.login .baukasten-2fa-error {
+	color: #b32d2e;
+	font-weight: 600;
+}
+
+@keyframes baukasten-2fa-spin {
+	to {
+		transform: rotate( 360deg );
+	}
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+	.login .baukasten-2fa-status::before {
+		animation: none;
+	}
+}

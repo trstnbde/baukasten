@@ -23,6 +23,50 @@
 	width: 20em;
 }
 
+/*
+ * The status cell carries a word and, for the two states you can do something
+ * about, a button under it.
+ *
+ * Laid out with plain block flow rather than flex: a `display: flex` on a `td`
+ * takes the cell out of the table's own sizing, and the widest label then
+ * pushes the whole table past the screen instead of wrapping inside its
+ * column.
+ */
+.baukasten-addons-status {
+	width: 12em;
+}
+
+.baukasten-addons-status .button {
+	margin-top: 8px;
+}
+
+/*
+ * The dot carries the state at a glance; the word next to it carries it for
+ * everyone the colour does not reach. Neither is ever on its own.
+ */
+.baukasten-status::before {
+	content: "";
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin-right: 6px;
+	border-radius: 50%;
+	background: #c3c4c7;
+	vertical-align: 1px;
+}
+
+.baukasten-status--active::before {
+	background: #00a32a;
+}
+
+.baukasten-status--inactive::before {
+	background: #dba617;
+}
+
+.baukasten-status--missing {
+	color: #50575e;
+}
+
 .baukasten-addons-hint {
 	margin-top: 1em;
 }
@@ -40,7 +84,8 @@
 }
 
 @media screen and ( max-width: 782px ) {
-	.baukasten-addons th[scope="row"] {
+	.baukasten-addons th[scope="row"],
+	.baukasten-addons-status {
 		width: auto;
 	}
 }

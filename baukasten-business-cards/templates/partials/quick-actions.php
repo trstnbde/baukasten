@@ -37,9 +37,11 @@ $baukasten_bc_first = static function ( array $card, array $keys ): string {
 	return '';
 };
 
-$baukasten_bc_phone   = $baukasten_bc_first( $baukasten_bc_card, array( 'phone_work', 'mobile_work', 'phone_priv', 'mobile_priv' ) );
-$baukasten_bc_mobile  = $baukasten_bc_first( $baukasten_bc_card, array( 'mobile_work', 'mobile_priv' ) );
-$baukasten_bc_email   = $baukasten_bc_first( $baukasten_bc_card, array( 'email_work', 'email_priv' ) );
+// The assistant's number is deliberately not a fallback for Call: a button
+// labelled "Call" on somebody's card should ring that somebody.
+$baukasten_bc_phone   = $baukasten_bc_first( $baukasten_bc_card, array( 'phone', 'mobile' ) );
+$baukasten_bc_mobile  = $baukasten_bc_first( $baukasten_bc_card, array( 'mobile' ) );
+$baukasten_bc_email   = $baukasten_bc_first( $baukasten_bc_card, array( 'email', 'email_2' ) );
 $baukasten_bc_website = $baukasten_bc_first( $baukasten_bc_card, array( 'contact_website' ) );
 
 $baukasten_bc_actions = array();

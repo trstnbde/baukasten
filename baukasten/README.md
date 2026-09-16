@@ -27,7 +27,8 @@ The core deliberately does almost nothing. WordPress already installs, updates, 
 
 ## What the core provides
 
-- **A tabbed settings screen** under *Settings → Baukasten*. One tab per active addon, plus an overview of what is installed. Deactivate an addon and its tab disappears with it.
+- **A tabbed settings screen** under *Settings → Baukasten*. One tab per active addon, plus an overview listing every addon there is — active, installed but switched off, or not installed at all, each with the one link that moves it along. Deactivate an addon and its tab disappears with it.
+- **A hard-coded addon catalog** in `includes/class-catalog.php`. It is what lets the overview name an addon the site has not got. Adding an addon to the family means adding a row there; nothing is fetched from the plugin directory at runtime.
 - **The `manage_baukasten` capability**, granted to administrators on activation. Not tied to `manage_options`, so it can be delegated. Addons may additionally require a capability that fits their data.
 - **`Baukasten\Admin` helpers** addons use for their own forms: `page_url()`, `add_notice()` and `redirect_to_tab()`.
 

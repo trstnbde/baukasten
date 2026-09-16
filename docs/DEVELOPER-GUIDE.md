@@ -8,7 +8,7 @@ Everything here describes v1.0.0.
 
 ## 1. What this is
 
-Six WordPress plugins in one repository, published separately to the plugin directory:
+Seven WordPress plugins in one repository, published separately to the plugin directory:
 
 | Slug | Role |
 |---|---|
@@ -18,6 +18,7 @@ Six WordPress plugins in one repository, published separately to the plugin dire
 | `baukasten-consent-blocking-engine` | Blocks third parties until consent; site hardening. |
 | `baukasten-multi-domain` | A domain per page. |
 | `baukasten-business-cards` | A digital business card on its own short link, in one of three designs. |
+| `baukasten-2fa` | A second factor answered from the admin bar of another signed-in session. Also requires the Two Factor plugin. |
 
 They are separate plugins because the features are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a release.
 
@@ -128,7 +129,7 @@ Only `baukasten/` has a `vendor/`; the other four are linted with `../baukasten/
 
 ### The local test setup
 
-XAMPP at `D:\xampp\htdocs`, WordPress 7.1, all six plugins linked in as **directory junctions** so edits are live:
+XAMPP at `D:\xampp\htdocs`, WordPress 7.1, all seven plugins linked in as **directory junctions** so edits are live:
 
 ```powershell
 New-Item -ItemType Junction -Path "D:\xampp\htdocs\wp-content\plugins\<slug>" -Target "D:\Code\Baukasten\<slug>"
@@ -180,11 +181,12 @@ Every one of these cost time. They are listed so they cost it once.
 ## 6. Where things are
 
 ```
-baukasten*/                 the six plugins
+baukasten*/                 the seven plugins
 bin/build.php               packaging, one plugin or --all
 bin/make-assets.php         directory icon and banner
 docs/DEVELOPER-GUIDE.md     this file
 docs/WORDPRESS-ORG-COMPLIANCE.md   guideline-by-guideline readiness, and what is left before submitting
+docs/RELEASING.md           what ships together, and the one-shot slug step at first submission
 .github/workflows/lint.yml  PHPCS per plugin, php -l on 8.0 to 8.4
 ```
 
@@ -194,15 +196,12 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-Nothing has been published yet; all six are at 1.0.0.
+Nothing has been published yet; all seven are at 1.0.0.
 
-For a release:
-
-1. Bump the version in the plugin header **and** the `readme.txt` stable tag — `bin/build.php` checks they match.
-2. Add a changelog entry to `readme.txt`.
-3. Regenerate the `.pot`, update the `.po`, compile the `.mo`.
-4. `php -d extension=zip bin/build.php <slug>`.
-5. Take fresh screenshots into `<slug>/.wordpress-org/assets/` — they are referenced from `readme.txt` and belong in the SVN `assets` directory, never in the plugin ZIP.
-6. Check the slug is still free, then commit the ZIP contents to SVN trunk and tag.
+The procedure lives in [`RELEASING.md`](RELEASING.md): which plugins ship together, and the one
+irreversible step at first submission. **WordPress.org derives the directory slug from the
+`Plugin Name` header, and it can only be corrected once, before a reviewer picks the submission
+up.** Left alone every one of our seven would land under the wrong slug, and the slug is also the
+folder name and the text domain.
 
 `docs/WORDPRESS-ORG-COMPLIANCE.md` lists what is still outstanding.

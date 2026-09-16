@@ -24,6 +24,7 @@ jobs:
           - baukasten-consent-blocking-engine
           - baukasten-multi-domain
           - baukasten-business-cards
+          - baukasten-2fa
 
     steps:
       - name: Check out the repository
