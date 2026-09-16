@@ -27,4 +27,16 @@ Skins::open_section( $baukasten_bc_skin, 'form', __( 'Contact me', 'baukasten-bu
 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- shortcode output, escaped by the form plugin.
 echo $baukasten_bc_form;
 
+/*
+ * Said where it happens, and only when it does: Turnstile is held back until
+ * the form is used, and that is exactly the moment a third party gets involved.
+ * No widget in the form, or Turnstile not deferred, and there is nothing to say.
+ */
+if ( str_contains( $baukasten_bc_form, 'cf-turnstile' ) && wp_script_is( Forms::LOADER_HANDLE, 'enqueued' ) ) {
+	printf(
+		'<p class="bkbc-form__notice">%s</p>',
+		esc_html__( 'Spam protection by Cloudflare Turnstile is loaded as soon as you start using this form.', 'baukasten-business-cards' )
+	);
+}
+
 Skins::close_section();
