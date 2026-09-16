@@ -173,13 +173,12 @@ final class VCard {
 		}
 
 		$telephones = array(
-			'phone_work'  => 'WORK,VOICE',
-			'mobile_work' => 'WORK,CELL',
-			'phone_priv'  => 'HOME,VOICE',
-			'mobile_priv' => 'HOME,CELL',
+			'phone'  => 'WORK,VOICE',
+			'mobile' => 'CELL',
 		);
 
-		$seen = array();
+		// Kept past the loop: the assistant's number below is checked against it too.
+		$numbers = array();
 
 		foreach ( $telephones as $key => $types ) {
 			if ( ! isset( $card[ $key ] ) ) {
@@ -189,17 +188,17 @@ final class VCard {
 			$number = (string) $card[ $key ];
 
 			// A contact with the same number twice is nobody's idea of helpful.
-			if ( in_array( $number, $seen, true ) ) {
+			if ( in_array( $number, $numbers, true ) ) {
 				continue;
 			}
 
-			$seen[]  = $number;
-			$lines[] = 'TEL;TYPE=' . $types . ':' . self::text( $number );
+			$numbers[] = $number;
+			$lines[]   = 'TEL;TYPE=' . $types . ':' . self::text( $number );
 		}
 
 		$emails = array(
-			'email_work' => 'INTERNET,WORK,PREF',
-			'email_priv' => 'INTERNET,HOME',
+			'email'   => 'INTERNET,PREF',
+			'email_2' => 'INTERNET',
 		);
 
 		$seen = array();
@@ -217,6 +216,30 @@ final class VCard {
 
 			$seen[]  = $address;
 			$lines[] = 'EMAIL;TYPE=' . $types . ':' . self::text( $address );
+		}
+
+		/*
+		 * vCard 3.0 has no type for an assistant, neither for the person nor for
+		 * their number. Apple's grouped labels are the closest thing to a standard:
+		 * Contacts on iOS and macOS show "Assistant" for both, and every other
+		 * program reads `item1.TEL` as a plain number and skips the extension
+		 * properties it does not know — which is the right failure, because a
+		 * made-up TYPE value would be filed under the wrong heading instead.
+		 */
+		$group = 0;
+
+		if ( isset( $card['assistant'] ) ) {
+			++$group;
+
+			$lines[] = 'item' . $group . '.X-ABRELATEDNAMES:' . self::text( (string) $card['assistant'] );
+			$lines[] = 'item' . $group . '.X-ABLabel:_$!<Assistant>!$_';
+		}
+
+		if ( isset( $card['assistant_phone'] ) && ! in_array( (string) $card['assistant_phone'], $numbers, true ) ) {
+			++$group;
+
+			$lines[] = 'item' . $group . '.TEL:' . self::text( (string) $card['assistant_phone'] );
+			$lines[] = 'item' . $group . '.X-ABLabel:_$!<Assistant>!$_';
 		}
 
 		$website = (string) ( $card['contact_website'] ?? '' );

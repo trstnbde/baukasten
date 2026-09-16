@@ -41,11 +41,11 @@ Every field is optional, and an empty field renders nothing at all: no empty hea
 
 = What fits on a card =
 
-Name, salutation, academic title, position and company. A biography. Call, email, WhatsApp and website as a row of four tiles — taken from the contact details below them, not typed a second time. Work and private email, phone and mobile, a website, a postal address and a what3words link. LinkedIn, Xing, GitHub, Mastodon, Facebook, Instagram, Threads, Discord and Signal, plus three links of your own. Three file downloads. An Apple Wallet pass and a Google Wallet token. A contact form. Imprint, privacy policy and terms in the footer.
+Name, salutation, academic title, position and company. A biography. Call, email, WhatsApp and website as a row of four tiles — taken from the contact details below them, not typed a second time. Two email addresses, a phone and a mobile number, an assistant and their number, a website, a postal address and a what3words link. LinkedIn, Xing, GitHub, Mastodon, Facebook, Instagram, Threads, Discord and Signal as buttons with their logos, and three links of your own in a section of their own. Three file downloads. An Apple Wallet pass and a Google Wallet token. A contact form. Imprint, privacy policy and terms in the footer.
 
 = Save contact =
 
-A card can offer itself as a vCard 3.0 file, which is what every phone means by "add to contacts". Name, organisation, title, every phone number and address you filled in, the postal address and the biography as a note.
+A card can offer itself as a vCard 3.0 file, which is what every phone means by "add to contacts". Name, organisation, title, every phone number and address you filled in, the postal address and the biography as a note. The assistant and their number are written the way Apple Contacts labels them; other contact apps keep the number and skip the label.
 
 = Wallet =
 
@@ -119,17 +119,21 @@ From the Login Legal Pages addon if you have it — one answer for the whole sit
 
 Because your site's permalink structure has none. Card addresses follow the site setting, like every other permalink.
 
-= I use the Consent Blocking Engine and my form will not submit. =
+= Does the contact form work with Cloudflare Turnstile? =
 
-If the form uses Cloudflare Turnstile, the Consent Blocking Engine holds that script back until the visitor consents — Turnstile is a third party, and blocking it is the engine doing its job. Either put it in a category your visitors accept, or use a form without it on cards.
+Yes, including `[turnstile]` and `[acceptance email-consent]`. Turnstile is not loaded with the card: it is loaded the moment someone starts using the form, so a visitor who only looks at the card causes no request to Cloudflare. A note under the form says so. A tap on the send button that comes before Turnstile is ready is held and sent as soon as it is, rather than going out without a token and being filed as spam.
+
+This also means the Consent Blocking Engine, which holds third-party scripts back until the visitor consents, no longer stops the form from working on a card.
 
 = Does anything phone home? =
 
-No. The QR code is drawn locally, there are no icon fonts and no brand logos, and a card with no contact form on it makes no third-party request at all.
+No. The QR code is drawn locally, the network logos are inline SVG in the page rather than an icon font or image service, and a card with no contact form on it makes no third-party request at all. A card with a Turnstile-protected form contacts Cloudflare only once the form is used.
 
 == Third-party code ==
 
 `assets/js/lib/qrcode.js` is the QR Code Generator for JavaScript by Kazuhiko Arase, version 1.4.4, used unmodified under the MIT licence. Its source is <https://github.com/kazuhikoarase/qrcode-generator>. It is not minified and it runs entirely in the browser.
+
+The network logos in `includes/class-icons.php` are path data, not files. LinkedIn, GitHub, Mastodon, Facebook, Instagram, Threads and Discord are the marks WordPress core ships with its Social Links block, under the GPL. Xing and Signal are from Simple Icons, <https://simpleicons.org>, under CC0 1.0. All are trademarks of their owners and are used only to link to the card holder's own profile.
 
 `assets/fonts/` holds nine woff2 files under the SIL Open Font Licence 1.1, subset to Latin: Archivo, Barlow, Barlow Condensed and Inter. Each licence text sits beside them as `OFL-<family>.txt`. They are served from this site, never from a font service, and a card loads only the two faces its design uses.
 

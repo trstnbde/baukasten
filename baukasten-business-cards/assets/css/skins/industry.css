@@ -82,6 +82,7 @@
 
 .bkbc--industry .bkbc-bio,
 .bkbc--industry .bkbc-networks,
+.bkbc--industry .bkbc-links,
 .bkbc--industry .bkbc-downloads,
 .bkbc--industry .bkbc-form {
 	padding: var(--bkbc-space-4);
@@ -91,6 +92,7 @@
 
 .bkbc--industry .bkbc-bio .bkbc-corner,
 .bkbc--industry .bkbc-networks .bkbc-corner,
+.bkbc--industry .bkbc-links .bkbc-corner,
 .bkbc--industry .bkbc-downloads .bkbc-corner,
 .bkbc--industry .bkbc-form .bkbc-corner {
 	display: block;

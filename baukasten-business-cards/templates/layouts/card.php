@@ -29,6 +29,7 @@ require PLUGIN_DIR . 'templates/partials/banner.php';
 	require PLUGIN_DIR . 'templates/partials/bio.php';
 	require PLUGIN_DIR . 'templates/partials/contact.php';
 	require PLUGIN_DIR . 'templates/partials/networks.php';
+	require PLUGIN_DIR . 'templates/partials/links.php';
 	require PLUGIN_DIR . 'templates/partials/downloads.php';
 	require PLUGIN_DIR . 'templates/partials/form.php';
 	require PLUGIN_DIR . 'templates/partials/footer.php';

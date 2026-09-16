@@ -114,6 +114,8 @@ final class Renderer {
 
 		self::strip_head();
 
+		add_filter( 'document_title_parts', array( __CLASS__, 'title_parts' ) );
+
 		// After every theme and plugin has had its say. `wp_enqueue_scripts`
 		// runs from `wp_head` priority 1, well before styles are printed or
 		// inlined, so a dequeue here still takes effect.
@@ -124,6 +126,23 @@ final class Renderer {
 		// Before the stylesheets, so neither costs the other a round trip.
 		add_action( 'wp_head', array( __CLASS__, 'preload_fonts' ), 2 );
 		add_action( 'wp_head', array( __CLASS__, 'print_theme_script' ), 3 );
+	}
+
+	/**
+	 * Titles a card after the person, and nothing else.
+	 *
+	 * A card is detached from the site in every other way, and the tab title is
+	 * what a phone shows in its tab switcher and uses as the bookmark name. "Jane
+	 * Doe" is what someone wants to find there again; "Jane Doe – Example Ltd
+	 * intranet" is the site introducing itself on a card that is not about it.
+	 *
+	 * @param mixed $parts Title parts: `title`, and possibly `site`, `tagline`, `page`.
+	 * @return array<string, string> Title parts.
+	 */
+	public static function title_parts( $parts ): array {
+		$parts = array_map( 'strval', (array) $parts );
+
+		return isset( $parts['title'] ) ? array( 'title' => $parts['title'] ) : $parts;
 	}
 
 	/**
