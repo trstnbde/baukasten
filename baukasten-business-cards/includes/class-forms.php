@@ -77,6 +77,19 @@ final class Forms {
 	const PLACEHOLDER_TERMS = '/terms';
 
 	/**
+	 * Stand-ins used by forms created before the template changed.
+	 *
+	 * Such a form keeps them until "Apply the template again" is pressed, and
+	 * its links must work in the meantime.
+	 *
+	 * @var array<string, string> Stand-in => legal page name.
+	 */
+	const LEGACY_PLACEHOLDERS = array(
+		'https://baukasten.invalid/privacy' => 'privacy',
+		'https://baukasten.invalid/terms'   => 'terms',
+	);
+
+	/**
 	 * Registers the hooks the form needs.
 	 *
 	 * The filters are added unconditionally and the function calls stay
@@ -242,7 +255,7 @@ final class Forms {
 		$pairs = array(
 			self::PLACEHOLDER_PRIVACY => 'privacy',
 			self::PLACEHOLDER_TERMS   => 'terms',
-		);
+		) + self::LEGACY_PLACEHOLDERS;
 
 		foreach ( $pairs as $placeholder => $name ) {
 			$url = array() === $card ? Legal_Links::site_or_core_url( $name ) : Legal_Links::url( $card, $name );
