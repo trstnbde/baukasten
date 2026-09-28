@@ -42,6 +42,10 @@ class ConsentOriginTest extends WP_UnitTestCase {
 	public function set_up(): void {
 		parent::set_up();
 
+		// Hooks are restored after every test, the REST server is not: start a
+		// fresh one so rest_api_init runs again and the guards are registered.
+		$GLOBALS['wp_rest_server'] = null;
+
 		$_SERVER['REMOTE_ADDR'] = '192.0.2.10';
 		Consent_Log::install();
 	}
