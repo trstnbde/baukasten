@@ -10,7 +10,11 @@ namespace Baukasten;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The addons that exist, whether or not this site has them.
+ * The features and addons that exist, whether or not this site has them.
+ *
+ * Three entries are built into this plugin — Content Visibility, Login Legal
+ * Pages and the Consent Blocking Engine — and are always there. The rest are
+ * separate plugins.
  *
  * `Addons` only knows the addons whose PHP is running, which is the right
  * answer for building tabs and the wrong one for the overview: an addon that
@@ -21,12 +25,17 @@ defined( 'ABSPATH' ) || exit;
  * The list is hard-coded on purpose. Reading it from the plugin directory API
  * would mean an outbound request from a plugin whose whole selling point is
  * that it makes none, and the guidelines are right to ask for consent before
- * one. Six names in a PHP array cost a release note when a seventh appears,
- * which is the cheaper of the two.
+ * one. A handful of names in a PHP array cost a release note when another
+ * appears, which is the cheaper of the two.
  *
  * Keyed by tab id, so an entry lines up with what the addon registers.
  */
 final class Catalog {
+
+	/**
+	 * A feature built into this plugin, always running.
+	 */
+	public const BUILT_IN = 'built-in';
 
 	/**
 	 * An addon that is installed and running.
@@ -51,26 +60,28 @@ final class Catalog {
 	 * description from each addon's readme, translated here because a site
 	 * that has not installed the addon has no other copy of it.
 	 *
+	 * Built-in features have an empty slug: there is no plugin to install.
+	 *
 	 * @return array<string, array{slug: string, title: string, description: string, position: int}>
 	 */
 	private static function entries(): array {
 		return array(
 			'content-visibility' => array(
-				'slug'        => 'baukasten-content-visibility',
-				'title'       => 'Baukasten Addon: Content Visibility',
+				'slug'        => '',
+				'title'       => 'Content Visibility',
 				'description' => __( 'A public/private switch on every post and page. Private content is readable by logged-in users only, whatever their role.', 'baukasten' ),
 				'position'    => 10,
 			),
 			'login-legal-pages'  => array(
-				'slug'        => 'baukasten-login-legal-pages',
-				'title'       => 'Baukasten Addon: Login Legal Pages',
-				'description' => __( 'Privacy policy, terms and imprint under the login form, no WordPress header on the screen, and a login address people can read.', 'baukasten' ),
+				'slug'        => '',
+				'title'       => 'Login Legal Pages',
+				'description' => __( 'Privacy policy, terms and imprint under the login form, no WordPress header on the screen, a login address people can read, and a rate limit on failed sign-ins.', 'baukasten' ),
 				'position'    => 20,
 			),
 			'consent'            => array(
-				'slug'        => 'baukasten-consent-blocking-engine',
-				'title'       => 'Baukasten Addon: Consent Blocking Engine',
-				'description' => __( 'Blocks third-party scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, and keeps an auditable log.', 'baukasten' ),
+				'slug'        => '',
+				'title'       => 'Consent Blocking Engine',
+				'description' => __( 'Blocks third-party scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, keeps an auditable log, and hardens the site.', 'baukasten' ),
 				'position'    => 30,
 			),
 			'multi-domain'       => array(
@@ -90,6 +101,12 @@ final class Catalog {
 				'title'       => 'Baukasten Addon: Two-Factor Approval',
 				'description' => __( 'Adds a two-factor method that asks a second, already signed-in browser session to approve the login from the WordPress admin bar.', 'baukasten' ),
 				'position'    => 60,
+			),
+			'form-privacy'       => array(
+				'slug'        => 'baukasten-form-privacy',
+				'title'       => 'Baukasten Addon: Form Privacy',
+				'description' => __( 'Contact Form 7 without the leaks: its files only where a form is, no IP address, no address book, a retention period, and spam protection without a third party.', 'baukasten' ),
+				'position'    => 70,
 			),
 		);
 	}
@@ -111,6 +128,22 @@ final class Catalog {
 		$addons    = array();
 
 		foreach ( self::entries() as $id => $entry ) {
+			if ( '' === $entry['slug'] ) {
+				$addons[ $id ] = array(
+					'id'          => $id,
+					'slug'        => '',
+					'file'        => '',
+					'title'       => $entry['title'],
+					'description' => $entry['description'],
+					'position'    => $entry['position'],
+					'status'      => self::BUILT_IN,
+					'version'     => VERSION,
+					'has_tab'     => Addons::has( $id ),
+				);
+
+				continue;
+			}
+
 			$file   = $entry['slug'] . '/' . $entry['slug'] . '.php';
 			$header = $installed[ $file ] ?? null;
 
@@ -207,6 +240,9 @@ final class Catalog {
 	 */
 	public static function status_label( string $status ): string {
 		switch ( $status ) {
+			case self::BUILT_IN:
+				return __( 'Included', 'baukasten' );
+
 			case self::ACTIVE:
 				return __( 'Active', 'baukasten' );
 

@@ -55,7 +55,8 @@
 	vertical-align: 1px;
 }
 
-.baukasten-status--active::before {
+.baukasten-status--active::before,
+.baukasten-status--built-in::before {
 	background: #00a32a;
 }
 

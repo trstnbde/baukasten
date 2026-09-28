@@ -25,6 +25,21 @@ final class Installer {
 	const OPTION_VERSION = 'baukasten_version';
 
 	/**
+	 * Option holding the structure version.
+	 *
+	 * Bumped when the shape of the plugin changes without its version number
+	 * changing, as when the three addons were merged into the core. Checked on
+	 * every request, not only in the admin, because the features need their
+	 * options and table before the first visitor arrives.
+	 */
+	const OPTION_STRUCTURE = 'baukasten_structure';
+
+	/**
+	 * Current structure version. 2: features merged into the core.
+	 */
+	const STRUCTURE = 2;
+
+	/**
 	 * Capability used before 1.0.0, when addons were uploaded as modules.
 	 */
 	const LEGACY_CAPABILITY = 'manage_baukasten_modules';
@@ -63,6 +78,13 @@ final class Installer {
 
 		self::add_capabilities();
 		self::remove_legacy_data();
+
+		Features::activate();
+		Features::install();
+
+		if ( Features::all_loaded() ) {
+			update_option( self::OPTION_STRUCTURE, self::STRUCTURE, true );
+		}
 	}
 
 	/**
@@ -75,6 +97,8 @@ final class Installer {
 	 */
 	public static function deactivate(): void {
 		self::remove_capabilities();
+
+		Features::deactivate();
 	}
 
 	/**
@@ -138,6 +162,31 @@ final class Installer {
 		self::remove_legacy_data();
 
 		update_option( self::OPTION_VERSION, VERSION, false );
+	}
+
+	/**
+	 * Installs the features when the structure version is behind.
+	 *
+	 * Runs on `plugins_loaded`. A site updated by replacing the plugin files
+	 * never fires the activation hook, and the version number did not change
+	 * when the features were merged in, so this is what brings a site that
+	 * had the separate plugins over. Every step is idempotent.
+	 *
+	 * @return void
+	 */
+	public static function maybe_install_features(): void {
+		if ( (int) get_option( self::OPTION_STRUCTURE, 0 ) >= self::STRUCTURE ) {
+			return;
+		}
+
+		Features::install();
+		self::add_capabilities();
+
+		// A feature skipped because its old plugin is still active has not
+		// been installed yet. Leave the version behind so it is next time.
+		if ( Features::all_loaded() ) {
+			update_option( self::OPTION_STRUCTURE, self::STRUCTURE, true );
+		}
 	}
 
 	/**

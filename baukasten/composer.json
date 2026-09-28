@@ -1,6 +1,6 @@
 {
 	"name": "trstnbde/baukasten",
-	"description": "A settings hub for the Baukasten addons. Install the addons you need as separate plugins and configure them all in one place.",
+	"description": "Consent-based blocking of third parties, site hardening, a public/private switch on all content, and legal links on a tidy login screen.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
 	"homepage": "https://github.com/trstnbde/baukasten",
@@ -11,7 +11,7 @@
 		}
 	],
 	"require": {
-		"php": ">=8.0"
+		"php": ">=8.1"
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.9",
@@ -21,7 +21,8 @@
 	},
 	"autoload": {
 		"classmap": [
-			"includes/"
+			"includes/",
+			"features/"
 		]
 	},
 	"config": {

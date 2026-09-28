@@ -1,6 +1,6 @@
 # Baukasten - Privacy Toolkit
 
-The shared base for a family of small, focused WordPress plugins, most of them about privacy. On its own it adds one screen under *Settings → Baukasten* and a capability; the addons fill it.
+A privacy toolkit for WordPress in one plugin: consent-based blocking of third parties with an auditable log, site hardening, a public/private switch on all content, and legal links on a tidy, rate-limited login screen. Everything is configured under *Settings → Baukasten*, and further addons add their own tabs to the same screen.
 
 [![Lint](https://github.com/trstnbde/baukasten/actions/workflows/lint.yml/badge.svg)](https://github.com/trstnbde/baukasten/actions/workflows/lint.yml)
 
@@ -8,37 +8,42 @@ The shared base for a family of small, focused WordPress plugins, most of them a
 |---|---|
 | Requires WordPress | 6.5 |
 | Tested up to | 7.1 |
-| Requires PHP | 8.0 |
+| Requires PHP | 8.1 |
 | License | GPLv2 or later |
 
-## Why
+## What is built in
 
-Privacy features arrive one at a time and are needed in different combinations, so each one is its own plugin: install what you need, update them independently, deactivate one without touching the rest. What that normally costs you is six scattered settings pages. Baukasten is the one place they all report to.
+| Feature | Tab | What it does |
+|---|---|---|
+| [Content Visibility](features/content-visibility/README.md) | 10 | A public/private switch on every post, page and public custom post type. Private content is readable by logged-in users only, regardless of role. |
+| [Login Legal Pages](features/login-legal-pages/README.md) | 20 | Terms and imprint page pickers, all three legal links on the login screen, a `/login/` URL, and a rate limit on failed sign-ins. |
+| [Consent Blocking Engine](features/consent-blocking-engine/README.md) | 30 | Blocks non-essential scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, keeps an auditable consent log, and hardens the site — including automatic updates for every plugin and theme. |
 
-The core deliberately does almost nothing. WordPress already installs, updates, activates, pauses on fatal errors and uninstalls plugins; there is no reason to reimplement any of it.
+All three are always on. They were separate plugins until they were merged into this one: whoever wants the toolkit wants all of it, and three plugins that could not run without a fourth were four things to install and update for one decision. Each still lives in its own directory under `features/` with its own namespace, options and hooks, so nothing about a site's data changed.
+
+`includes/class-features.php` loads them, and handles a site that still has one of the old plugins: WordPress loads `baukasten-consent-blocking-engine/…` before `baukasten/baukasten.php`, so if an old plugin is still active, its feature is skipped for that request instead of declaring every class twice. The next admin request deactivates the old plugin silently and asks for its folder to be removed by hand — **never through the Plugins screen**, because the old plugin's own `uninstall.php` would delete the data the feature now uses. The option `baukasten_structure` records that the features were installed; it replaces a version bump, which the merge did not get.
 
 ## The addons
 
-| Plugin | What it does |
-|---|---|
-| [`baukasten-content-visibility`](../baukasten-content-visibility) | A public/private switch on every post, page and public custom post type. Private content is readable by logged-in users only, regardless of role. |
-| [`baukasten-login-legal-pages`](../baukasten-login-legal-pages) | Terms and imprint page pickers, all three legal links on the login screen, and a `/login/` URL. |
-| [`baukasten-consent-blocking-engine`](../baukasten-consent-blocking-engine) | Blocks non-essential scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, with an auditable consent log. |
+Separate plugins that declare `Requires Plugins: baukasten` and add a tab:
+
+| Plugin | Tab | What it does |
+|---|---|---|
+| [`baukasten-multi-domain`](../baukasten-multi-domain) | 40 | A domain per page. |
+| [`baukasten-business-cards`](../baukasten-business-cards) | 50 | A digital business card on its own short link. |
+| [`baukasten-2fa`](../baukasten-2fa) | 60 | A second factor approved from another signed-in session. |
+| [`baukasten-form-privacy`](../baukasten-form-privacy) | 70 | Contact Form 7 and Flamingo without the leaks. |
 
 ## What the core provides
 
-- **A tabbed settings screen** under *Settings → Baukasten*. One tab per active addon, plus an overview listing every addon there is — active, installed but switched off, or not installed at all, each with the one link that moves it along. Deactivate an addon and its tab disappears with it.
-- **A hard-coded addon catalog** in `includes/class-catalog.php`. It is what lets the overview name an addon the site has not got. Adding an addon to the family means adding a row there; nothing is fetched from the plugin directory at runtime.
+- **A tabbed settings screen** under *Settings → Baukasten*. One tab per feature and per active addon, plus an overview listing the built-in features and every addon there is — active, installed but switched off, or not installed at all, each with the one link that moves it along. Deactivate an addon and its tab disappears with it.
+- **A hard-coded catalog** in `includes/class-catalog.php`. It is what lets the overview name an addon the site has not got. Adding an addon to the family means adding a row there; nothing is fetched from the plugin directory at runtime.
 - **The `manage_baukasten` capability**, granted to administrators on activation. Not tied to `manage_options`, so it can be delegated. Addons may additionally require a capability that fits their data.
 - **`Baukasten\Admin` helpers** addons use for their own forms: `page_url()`, `add_notice()` and `redirect_to_tab()`.
 
 ## Installation
 
-Install from the WordPress plugin directory, or clone into your plugins directory:
-
-```bash
-git clone https://github.com/trstnbde/baukasten.git wp-content/plugins/baukasten
-```
+Download `baukasten-<version>.zip` from the [releases](https://github.com/trstnbde/baukasten/releases) and upload it under *Plugins → Add Plugin → Upload Plugin*. The plugin is not in the WordPress.org directory yet; its `Update URI` header tells WordPress not to look for it there.
 
 The plugin ships its own autoloader and runs without `composer install`. Composer is only needed for the linting tools.
 
@@ -92,6 +97,8 @@ add_action( 'admin_post_my_addon_save', static function (): void {
 | Hook | Type | Fires |
 |---|---|---|
 | `baukasten/register_addons` | action | once per request, on `init` priority 20, when the core collects the addons that want a tab |
+
+The features have many more; see their READMEs.
 
 ## Development
 

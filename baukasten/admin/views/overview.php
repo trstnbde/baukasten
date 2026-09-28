@@ -18,7 +18,7 @@ $baukasten_can_activate = current_user_can( 'activate_plugins' );
 <p class="baukasten-intro">
 	<?php
 	esc_html_e(
-		'Baukasten collects the settings of its addons on this screen. Each addon is a separate plugin: install the ones you need, activate them, and each adds its own tab here.',
+		'Content Visibility, Login Legal Pages and the Consent Blocking Engine are part of this plugin and always on. The addons below them are separate plugins: install the ones you need, activate them, and each adds its own tab here.',
 		'baukasten'
 	);
 	?>

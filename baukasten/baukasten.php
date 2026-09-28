@@ -2,17 +2,18 @@
 /**
  * Plugin Name:       Baukasten - Privacy Toolkit
  * Plugin URI:        https://github.com/trstnbde/baukasten
- * Description:       A settings hub for the Baukasten addons. Install the addons you need as separate plugins and configure them all in one place.
+ * Description:       Consent-based blocking of third parties, site hardening, a public/private switch on all content, and legal links on a tidy login screen. All in one settings screen.
  * Version:           1.0.0
  * Requires at least: 6.5
  * Tested up to:      7.1
- * Requires PHP:      8.0
+ * Requires PHP:      8.1
  * Author:            Torsten B.
  * Author URI:        https://github.com/trstnbde
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       baukasten
  * Domain Path:       /languages
+ * Update URI:        https://github.com/trstnbde/baukasten
  *
  * @package Baukasten
  */
@@ -64,5 +65,7 @@ function plugin(): Loader {
 
 	return $loader;
 }
+
+Features::load();
 
 plugin()->run();
