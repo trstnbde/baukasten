@@ -1,22 +1,24 @@
 # Baukasten
 
-A family of small, focused WordPress plugins — one core that gives them a shared settings screen, and one plugin per feature. Most of them are about privacy.
+A family of WordPress plugins about privacy — one toolkit that does the groundwork, and addons for the features only some sites need.
 
-Seven plugins live in this repository. Each is published separately to the WordPress plugin directory; they are developed together because they share conventions, tooling and a release cadence.
+Five plugins live in this repository, each with its own release. They are developed together because they share conventions, tooling and a settings screen.
 
-| Directory | Plugin | What it does |
-|---|---|---|
-| [`baukasten`](baukasten) | Baukasten - Privacy Toolkit | The core. One tabbed screen under *Settings → Baukasten* and the `manage_baukasten` capability. Does nothing on its own. |
-| [`baukasten-content-visibility`](baukasten-content-visibility) | Baukasten Addon: Content Visibility | A public/private switch on every post, page and public custom post type. Private means logged in, any role. |
-| [`baukasten-login-legal-pages`](baukasten-login-legal-pages) | Baukasten Addon: Login Legal Pages | Privacy policy, terms and imprint in the login card; no WordPress header on the screen; a `/login/` URL. |
-| [`baukasten-consent-blocking-engine`](baukasten-consent-blocking-engine) | Baukasten Addon: Consent Blocking Engine | Blocks third-party scripts, styles, embeds, resource hints, Gravatar and emoji until the visitor consents, with an auditable log and a site-wide hardening routine. |
-| [`baukasten-multi-domain`](baukasten-multi-domain) | Baukasten Addon: Multi-Domain Landingpage | Gives a page its own domain, so one install serves a different front page under each domain. |
-| [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | A digital business card on its own short link, built for a phone and detached from the theme, with a vCard download and a QR code. |
-| [`baukasten-2fa`](baukasten-2fa) | Baukasten Addon: Two-Factor Approval | A second factor that asks another already signed-in session to confirm the login from its admin bar. Needs the Two Factor plugin as well as the core. |
+| Directory | Plugin | Tab | What it does |
+|---|---|---|---|
+| [`baukasten`](baukasten) | Baukasten - Privacy Toolkit | 10–30 | The core, with three built-in features: **Content Visibility** (a public/private switch on all content), **Login Legal Pages** (legal links on a tidy, rate-limited `/login/` screen) and the **Consent Blocking Engine** (third parties blocked until consent, an auditable log, site hardening and automatic updates). One tabbed screen under *Settings → Baukasten*. |
+| [`baukasten-multi-domain`](baukasten-multi-domain) | Baukasten Addon: Multi-Domain Landingpage | 40 | Gives a page its own domain, so one install serves a different front page under each domain. |
+| [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | 50 | A digital business card on its own short link, built for a phone and detached from the theme, with a vCard download, a QR code and a contact form that mails the card's owner. |
+| [`baukasten-2fa`](baukasten-2fa) | Baukasten Addon: Two-Factor Approval | 60 | A second factor that asks another already signed-in session to confirm the login from its admin bar. Needs the Two Factor plugin as well as the core. |
+| [`baukasten-form-privacy`](baukasten-form-privacy) | Baukasten Addon: Form Privacy | 70 | Contact Form 7 and Flamingo without the leaks: assets only where a form is, no IP address, no address book, a retention period, an exporter, and spam protection without a third party. |
 
-## Why it is split up
+## Why it is split the way it is
 
-Features arrive one at a time and are wanted in different combinations. As separate plugins they can be installed individually, updated independently, and switched off one at a time. What that normally costs is a scattering of settings pages, so the core exists purely to collect them: an addon registers a tab and the core renders it.
+The toolkit was four plugins until the three that could not run without the core were merged into it: whoever wants the toolkit wants all of it. They keep their own directories under `baukasten/features/`, their namespaces, options and hooks.
+
+The addons stay separate because they are wanted in different combinations, depend on other plugins (Contact Form 7, Two Factor), and update on their own schedule. What that normally costs is a scattering of settings pages, so the core collects them: an addon registers a tab and the core renders it.
+
+The plugins are not in the WordPress.org directory yet; that is on hold. Until then each carries `Update URI: https://github.com/trstnbde/baukasten`, so WordPress never offers somebody else's plugin of the same slug as an update. Install them from the [releases](https://github.com/trstnbde/baukasten/releases).
 
 An addon is an ordinary plugin. It declares `Requires Plugins: baukasten` and calls `Baukasten\Addons::register()` on the `baukasten/register_addons` action. Nothing is inherited, nothing is implemented, and an addon that guards the call with `class_exists()` keeps working without the core.
 
@@ -42,12 +44,15 @@ php -d extension=zip bin/build.php baukasten     # just one
 php -d extension=gd  bin/make-assets.php baukasten   # directory icon and banner
 ```
 
-CI runs PHPCS per plugin and `php -l` over everything on PHP 8.0 through 8.4.
+CI runs PHPCS per plugin, `php -l` over everything on PHP 8.0 through 8.4, and integration tests against the WordPress test suite in `wp-env` (`tests/`).
 
 ## Documentation
 
 - [`docs/DEVELOPER-GUIDE.md`](docs/DEVELOPER-GUIDE.md) — how the pieces fit together, the conventions, and the traps
-- [`docs/WORDPRESS-ORG-COMPLIANCE.md`](docs/WORDPRESS-ORG-COMPLIANCE.md) — readiness for the plugin directory, guideline by guideline
+- [`docs/RELEASING.md`](docs/RELEASING.md) — tags, releases, and the one-shot slug step for a later WordPress.org submission
+- [`docs/WORDPRESS-ORG-COMPLIANCE.md`](docs/WORDPRESS-ORG-COMPLIANCE.md) — readiness for the plugin directory, guideline by guideline (on hold)
+- [`docs/briefings/`](docs/briefings) — the briefings behind Form Privacy and the 2026-09 round of changes
+- [`docs/acceptance/`](docs/acceptance) — acceptance protocols from the live site
 
 ## AI disclosure
 

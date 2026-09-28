@@ -15,7 +15,17 @@ phpcs-report.xml
 .DS_Store
 Thumbs.db
 
+# Raw acceptance data from the live site: Site Health exports, response headers,
+# inventories. They name server paths and accounts, and this repository is
+# public. The protocols in docs/acceptance/*.md summarise them instead.
+docs/acceptance/raw/
+Bericht zum Website-Zustand.txt
+
 # A local checkout of a third-party dependency, kept beside the plugins so the
 # site can run them. Not our code, so it never enters this repository; see
 # baukasten-2fa, which requires it.
 two-factor/
+
+# Test dependencies
+tests/vendor/
+tests/composer.lock

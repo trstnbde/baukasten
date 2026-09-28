@@ -1,18 +1,20 @@
 # WordPress.org readiness
 
+> **On hold since 28 September 2026.** Publishing to WordPress.org is postponed; the plugins are released on GitHub and carry an `Update URI` header meanwhile (see [RELEASING.md](RELEASING.md)). This page records the state of the last check so the work can be picked up again. Since then three addons were merged into the core and Form Privacy was added; the guideline review below has not been repeated for those changes, and has to be before a submission. Known additions since the check: the core now enables automatic updates for all plugins and themes by default (guideline 11 territory — it changes site behaviour beyond the plugin, and is documented and switchable), and the `Update URI` headers must be removed.
+
 Checked on 9 September 2026, again for Business Cards on 13 September 2026, and again for Two-Factor Approval on 14 September 2026, against the [detailed plugin guidelines](https://developer.wordpress.org/plugins/wordpress-org/detailed-plugin-guidelines/), the [header requirements](https://developer.wordpress.org/plugins/plugin-basics/header-requirements/) and the [readme standard](https://wordpress.org/plugins/readme.txt), for all seven plugins in this repository.
+
+Current plugins:
 
 | | Slug | Version | Requires WP | Requires PHP |
 |---|---|---|---|---|
-| Baukasten - Privacy Toolkit | `baukasten` | 1.0.0 | 6.5 | 8.0 |
-| Baukasten Addon: Content Visibility | `baukasten-content-visibility` | 1.0.0 | 6.5 | 8.0 |
-| Baukasten Addon: Login Legal Pages | `baukasten-login-legal-pages` | 1.0.0 | 6.5 | 8.0 |
-| Baukasten Addon: Consent Blocking Engine | `baukasten-consent-blocking-engine` | 1.0.0 | 6.5 | 8.1 |
+| Baukasten - Privacy Toolkit (with Consent Blocking Engine, Content Visibility and Login Legal Pages built in) | `baukasten` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Multi-Domain Landingpage | `baukasten-multi-domain` | 1.0.0 | 6.5 | 8.0 |
 | Baukasten Addon: Business Cards | `baukasten-business-cards` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Two-Factor Approval | `baukasten-2fa` | 1.0.0 | 6.5 | 8.1 |
+| Baukasten Addon: Form Privacy | `baukasten-form-privacy` | 1.0.0 | 6.5 | 8.1 |
 
-The slugs in that table are the slugs these plugins must end up with. WordPress.org does not read them from here — it derives the slug from the `Plugin Name` header, and none of the seven derives correctly. See [RELEASING.md](RELEASING.md); it is a one-shot correction at submission time.
+The slugs in that table are the slugs these plugins must end up with. WordPress.org does not read them from here — it derives the slug from the `Plugin Name` header, and none of the five derives correctly. What follows was written when there were seven plugins; "addon" there includes the three that are now part of the core. See [RELEASING.md](RELEASING.md); it is a one-shot correction at submission time.
 
 Nothing below is outstanding except the items under **Before submitting**.
 

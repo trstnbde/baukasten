@@ -2,11 +2,12 @@ name: Release
 
 # Builds the plugin archives for a tag and attaches them to its GitHub release.
 #
-# Tags are `<slug>-<version>`. `baukasten-1.0.0` is the bundled release and
-# carries four ZIPs; the other three slugs carry one each. See docs/RELEASING.md.
+# Tags are `<slug>-<version>`, one plugin and one ZIP per tag. The core carries
+# Consent Blocking Engine, Content Visibility and Login Legal Pages inside it.
+# See docs/RELEASING.md.
 #
-# This workflow does not touch WordPress.org. SVN is still done by hand, because
-# the first submission of every plugin needs a slug correction no script can make.
+# This workflow does not touch WordPress.org. Publishing there is on hold; the
+# plugins carry an `Update URI` header until it happens.
 
 on:
   push:
@@ -41,11 +42,7 @@ jobs:
           slug="${tag%-*}"
 
           case "$slug" in
-            baukasten)
-              # The core and the addons that are pointless without it move together.
-              plugins="baukasten baukasten-consent-blocking-engine baukasten-content-visibility baukasten-login-legal-pages"
-              ;;
-            baukasten-multi-domain|baukasten-business-cards|baukasten-2fa)
+            baukasten|baukasten-multi-domain|baukasten-business-cards|baukasten-2fa|baukasten-form-privacy)
               plugins="$slug"
               ;;
             *)

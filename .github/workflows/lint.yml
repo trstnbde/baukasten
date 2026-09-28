@@ -19,12 +19,10 @@ jobs:
       matrix:
         plugin:
           - baukasten
-          - baukasten-content-visibility
-          - baukasten-login-legal-pages
-          - baukasten-consent-blocking-engine
           - baukasten-multi-domain
           - baukasten-business-cards
           - baukasten-2fa
+          - baukasten-form-privacy
 
     steps:
       - name: Check out the repository
