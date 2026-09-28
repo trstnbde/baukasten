@@ -115,23 +115,32 @@ The salutation is deliberately kept out of `N` and `FN`: contact apps render it 
 
 ## Living with the other addons
 
-**Login Legal Pages**, when it is installed, is the only source of the imprint, privacy policy and terms — the per-card fields are not offered at all, because a field that saves a value nothing reads is a trap. `Legal_Links` reads its three individual getters rather than its `get_links()`: that one applies `baukasten/login_legal_pages/links`, whose own docblock says it filters the links *in the login footer*, and somebody who adds one there has not asked for it on every business card.
+**Login Legal Pages**, built into the core since the merge, is the only source of the imprint, privacy policy and terms — the per-card fields are not offered at all, because a field that saves a value nothing reads is a trap. `Legal_Links` reads its three individual getters rather than its `get_links()`: that one applies `baukasten/login_legal_pages/links`, whose own docblock says it filters the links *in the login footer*, and somebody who adds one there has not asked for it on every business card.
 
 `Meta_Boxes::save()` skips the three page fields while that box is hidden. Without it, a save of any unrelated field would read "posted nothing" as "was cleared" and throw the site's legal pages away.
 
 **Content Visibility** defaults every new post of a supported type to private, which for a business card is exactly backwards: the whole point is a link you hand to someone who is not logged in. Cards are removed from its list through its documented `baukasten/content_visibility/post_types` filter. Put them back with `baukasten/business_cards/respect_content_visibility`.
 
-**Consent Blocking Engine** treats any host but the site's own as third party, Cloudflare included, and rewrites a Turnstile script tag to `type="text/plain"`. A card offers no way to consent, so before 1.0.0 shipped that meant a Turnstile-protected form on a card could never produce a token and every submission was filed as spam, with nothing on the screen to say why.
+**Form Privacy** is where spam protection is meant to come from: a honeypot and a minimum fill time, no third party. When it is active and controls Contact Form 7's assets (`\Baukasten\FormPrivacy\Assets::manages_cf7_assets()`), `match_assets_to_card()` leaves the dequeueing on cards without a form to it, and `card_has_form()` answers its `baukasten/form_privacy/page_has_form` filter so a card with a form counts as a page with one. Without Form Privacy the old dequeue stays as a fallback, Turnstile included.
 
-`Forms::defer_turnstile()` takes Turnstile out of the page instead. The script is dequeued, and `assets/js/form.js` — served from the site, so the engine has no reason to touch it — loads Cloudflare's script in explicit mode at the first focus, tap or key press inside a form that has a widget. The engine does not rewrite scripts added in the browser. Three things in that file are load-bearing:
+**Consent Blocking Engine** treats any host but the site's own as third party, Cloudflare included, and rewrites a Turnstile script tag to `type="text/plain"`. A card offers no way to consent, so a Turnstile-protected form on a card could never produce a token and every submission would be filed as spam, with nothing on the screen to say why.
 
-- a `submit` listener on the document in the capture phase holds a submission that arrives before the token and re-sends it with `requestSubmit()` once there is one, because the first interaction can be the tap on the send button;
+`Forms::defer_turnstile()` takes Turnstile out of the page instead — only relevant on a site that set up Turnstile keys, and so brought in a third party. The script is dequeued, and `assets/js/form.js` — served from the site, so the engine has no reason to touch it — loads Cloudflare's script in explicit mode once the visitor ticks the consent box, `[acceptance email-consent]` (or, failing that name, the form's first acceptance box). The engine does not rewrite scripts added in the browser. Four things in that file are load-bearing:
+
+- a submission with the box unticked goes through untouched: Contact Form 7 validates before it checks for spam, so the visitor is told that consent is missing and Cloudflare is never asked;
+- a `submit` listener on the document in the capture phase holds a submission that arrives before the token and re-sends it with `requestSubmit()` once there is one, because ticking and sending can follow each other closely;
 - the `error-callback` releases held forms rather than leaving the button dead, so Contact Form 7 answers with its own message;
 - `wpcf7submit` resets the widget, which Contact Form 7 normally does from an inline script attached to the handle that was dequeued.
 
 A card with no contact form drops Contact Form 7's and Turnstile's assets entirely, so it makes no third-party request at all.
 
 **Contact Form 7** fills `_wpcf7_container_post` from `get_the_ID()` only while `in_the_loop()` is true, and the filter for hidden fields cannot override it (`+=`). The card template is not a loop, so `Forms::render()` sets `in_the_loop` for the length of `do_shortcode()`. That is what lets `require_consent()` apply to card submissions only; before, it hung on `wpcf7_validate` for every form on the site and failed any form without a consent box. It also means `[_post_title]` and `[_post_url]` in a mail refer to the card.
+
+The same id decides where the mail goes. `[_bkbc_card_email]` resolves to the card's `email`, else `email_2` — the order of the card's own email button — and `[_bkbc_card_title]` to its title. The id comes from the browser, so `Forms::verified_card()` only accepts a published card whose `cf7_form_id` is the submitted form and which Content Visibility's `Frontend_Guard::is_blocked()` does not hide from the sender — that is, cards are not managed by it (the default), or the card is public, or the sender is logged in. Anything else, or a card without an address, sends the mail to `get_bloginfo( 'admin_email' )`: nothing goes undelivered, and a forged id reaches only the admin. The tag name ends in `_email`, so Contact Form 7's configuration check accepts it in the recipient field.
+
+The mail is sent from `[_site_title] <[_site_admin_email]>`. Contact Form 7 warns when that address is not on the site's domain, and receiving servers may reject the mail then; setting a domain address under Settings, General is the site owner's job.
+
+The consent sentence carries the stand-ins `/privacy` and `/terms`. On a card, `localise_consent_links()` swaps them for the card's pages; elsewhere it only touches the plugin's own form, with the site's pages from Login Legal Pages or core's privacy policy setting. A stand-in without a page is unlinked, so no form ever points at a `/privacy` that does not exist.
 
 ## Filters
 
@@ -141,7 +150,7 @@ A card with no contact form drops Contact Form 7's and Turnstile's assets entire
 | `baukasten/business_cards/card` | A card's fields, after loading and before rendering. |
 | `baukasten/business_cards/template` | The template a card is rendered with. |
 | `baukasten/business_cards/discourage_indexing` | `false` to let cards into the sitemap and search results. |
-| `baukasten/business_cards/respect_content_visibility` | `true` to let the Content Visibility addon manage cards. |
+| `baukasten/business_cards/respect_content_visibility` | `true` to let Content Visibility manage cards. |
 | `baukasten/business_cards/skins` | The designs a card can be rendered in. |
 | `baukasten/business_cards/legal_links` | The three links at the foot of a card. |
 

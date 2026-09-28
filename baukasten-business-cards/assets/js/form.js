@@ -1,19 +1,29 @@
 /**
- * Loads Cloudflare Turnstile for a card's contact form, once the form is used.
+ * Loads Cloudflare Turnstile for a card's contact form, once consent is given.
  *
  * Contact Form 7 would load Turnstile with the page, which sends every visitor's
  * address to Cloudflare whether or not they ever write a message. On a card that
  * is most visitors. So the server takes the script out of the page (see
- * `Forms::defer_turnstile()`) and this file puts it back at the first focus,
- * tap or key press inside a form that has a Turnstile widget.
+ * `Forms::defer_turnstile()`) and this file puts it back the moment the visitor
+ * ticks the form's consent box, `[acceptance email-consent]` — the sentence that
+ * box stands for is the consent to having the data processed, and Cloudflare
+ * seeing the visitor's address is part of that processing. Typing into the form
+ * without ticking it sends nothing anywhere.
  *
- * Three details make that work rather than merely look like it:
+ * Unticking the box again cannot take a loaded script back, so the promise is
+ * only ever "not before you tick it".
+ *
+ * Four details make that work rather than merely look like it:
  *
  * - The script is loaded in explicit mode and each widget rendered from here,
  *   so there is no race between Turnstile's own scan of the page and this file.
  * - A submit that arrives before the token does is held and sent again once the
- *   token is there. The very first interaction can be a tap on the send button,
- *   and without this it would go out without a token and be filed as spam.
+ *   token is there. Ticking the box and tapping send can follow each other
+ *   closely, and without this the submission would go out without a token and
+ *   be filed as spam.
+ * - A submit with the box unticked is let through untouched. Contact Form 7
+ *   validates before it checks for spam, so the visitor is told that consent
+ *   is missing, and Cloudflare is never asked.
  * - Contact Form 7 resets Turnstile after each submission through an inline
  *   script attached to the handle the server removed, so that is done here too.
  *
@@ -26,6 +36,8 @@
 	var config = window.baukastenBusinessCardsForm || {};
 	var READY = 'baukastenBusinessCardsTurnstileReady';
 	var WIDGET = '.cf-turnstile';
+	var CONSENT = 'input[type="checkbox"][name="email-consent"]';
+	var ANY_CONSENT = '.wpcf7-acceptance input[type="checkbox"]';
 
 	/** @type {'idle'|'loading'|'ready'|'failed'} */
 	var state = 'idle';
@@ -51,6 +63,32 @@
 		var form = node && node.closest ? node.closest( 'form.wpcf7-form' ) : null;
 
 		return form && form.querySelector( WIDGET ) ? form : null;
+	}
+
+	/**
+	 * The consent box of a form.
+	 *
+	 * The one named `email-consent`, which is what the form this plugin creates
+	 * uses; failing that, the first acceptance box, the same rule the server
+	 * applies in `Forms::require_consent()`.
+	 *
+	 * @param {HTMLFormElement} form A form.
+	 * @return {HTMLInputElement|null} The checkbox, or null.
+	 */
+	function consentBox( form ) {
+		return form.querySelector( CONSENT ) || form.querySelector( ANY_CONSENT );
+	}
+
+	/**
+	 * Whether the visitor has ticked the form's consent box.
+	 *
+	 * @param {HTMLFormElement} form A form.
+	 * @return {boolean} True once ticked.
+	 */
+	function consented( form ) {
+		var box = consentBox( form );
+
+		return !! ( box && box.checked );
 	}
 
 	/**
@@ -195,19 +233,44 @@
 	}
 
 	/**
-	 * Starts loading on the first sign that a protected form is being used.
+	 * Starts loading when the consent box of a protected form is ticked.
 	 *
-	 * @param {Event} event A focus, pointer or key event.
+	 * @param {Event} event A change event.
 	 */
-	function onUse( event ) {
-		if ( protectedForm( event.target ) ) {
+	function onConsent( event ) {
+		var form = protectedForm( event.target );
+
+		if ( form && event.target === consentBox( form ) && consented( form ) ) {
 			load();
 		}
 	}
 
-	document.addEventListener( 'focusin', onUse, true );
-	document.addEventListener( 'pointerdown', onUse, true );
-	document.addEventListener( 'keydown', onUse, true );
+	document.addEventListener( 'change', onConsent, true );
+
+	/**
+	 * Loads right away when a box is already ticked, as it is when the browser
+	 * restores a form on going back.
+	 */
+	function loadIfConsented() {
+		var forms = document.querySelectorAll( 'form.wpcf7-form' );
+		var index;
+
+		for ( index = 0; index < forms.length; index++ ) {
+			if ( protectedForm( forms[ index ] ) && consented( forms[ index ] ) ) {
+				load();
+
+				return;
+			}
+		}
+	}
+
+	if ( 'loading' === document.readyState ) {
+		document.addEventListener( 'DOMContentLoaded', loadIfConsented );
+	} else {
+		loadIfConsented();
+	}
+
+	window.addEventListener( 'pageshow', loadIfConsented );
 
 	/*
 	 * On the document, in the capture phase, so this runs before Contact Form 7's
@@ -218,7 +281,10 @@
 		function ( event ) {
 			var form = protectedForm( event.target );
 
-			if ( ! form || 'failed' === state || hasToken( form ) ) {
+			// Without consent the submission goes through as it is: Contact
+			// Form 7 rejects it for the missing tick before it would ever ask
+			// Cloudflare, so there is nothing to wait for.
+			if ( ! form || ! consented( form ) || 'failed' === state || hasToken( form ) ) {
 				return;
 			}
 

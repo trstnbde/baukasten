@@ -404,7 +404,7 @@ final class Fields {
 				$page_id = absint( $value );
 
 				// Only a real page may be stored; anything else clears the field.
-				// The same rule the Login Legal Pages addon applies to its own
+				// The same rule Login Legal Pages applies to its own
 				// two page pickers.
 				return 0 < $page_id && 'page' === get_post_type( $page_id ) ? (string) $page_id : '';
 

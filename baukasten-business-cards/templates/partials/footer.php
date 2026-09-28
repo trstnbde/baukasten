@@ -3,7 +3,7 @@
  * The legal links at the foot of every card.
  *
  * Where they come from is Legal_Links' business, not this file's: a site running
- * the Login Legal Pages addon has already said where its imprint is.
+ * Login Legal Pages has already said where its imprint is.
  *
  * @package Baukasten\BusinessCards
  *

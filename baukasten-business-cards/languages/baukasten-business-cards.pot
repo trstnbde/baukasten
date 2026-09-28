@@ -9,14 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-16T21:23:52+02:00\n"
+"POT-Creation-Date: 2026-09-28T13:27:30+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten-business-cards\n"
 
 #. Plugin Name of the plugin
 #: baukasten-business-cards.php
-#: includes/class-forms.php:134
+#: includes/class-forms.php:146
 msgid "Baukasten Addon: Business Cards"
 msgstr ""
 
@@ -111,7 +111,7 @@ msgid "Settings, Permalinks"
 msgstr ""
 
 #: admin/views/settings-tab.php:62
-#: includes/class-settings-tab.php:96
+#: includes/class-settings-tab.php:102
 msgid "Cards"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgid "Legal links"
 msgstr ""
 
 #: admin/views/settings-tab.php:94
-msgid "Taken from the Login Legal Pages addon, so every card shows the same imprint, privacy policy and terms."
+msgid "Taken from Login Legal Pages in Baukasten, so every card shows the same imprint, privacy policy and terms."
 msgstr ""
 
 #: admin/views/settings-tab.php:100
@@ -147,7 +147,7 @@ msgid "Change them"
 msgstr ""
 
 #: admin/views/settings-tab.php:105
-msgid "Chosen per card, from the site's pages. Install the Login Legal Pages addon to set them once for the whole site instead."
+msgid "Chosen per card, from the site's pages. Update Baukasten - Privacy Toolkit to set them once for the whole site instead."
 msgstr ""
 
 #: admin/views/settings-tab.php:112
@@ -167,77 +167,94 @@ msgstr ""
 msgid "Edit it"
 msgstr ""
 
-#: admin/views/settings-tab.php:125
-msgid "A form with a name, an email address, a message and a consent checkbox that links the card's own privacy policy and terms. It is created once and can be edited afterwards like any other form."
+#: admin/views/settings-tab.php:127
+msgid "This replaces the form, its mail settings and its additional settings with the current template. Changes you made to the form by hand are lost. Continue?"
 msgstr ""
 
 #: admin/views/settings-tab.php:131
-msgid "Create the contact form"
+msgid "Apply the template again"
 msgstr ""
 
-#: admin/views/settings-tab.php:135
-msgid "What a card address looks like"
+#: admin/views/settings-tab.php:133
+msgid "For a form created by an earlier version: sends mail to the address of the card it was sent from, from the site's administration address. That address should belong to this site's domain, or mail may be rejected as spam."
 msgstr ""
 
 #: admin/views/settings-tab.php:138
+msgid "A form with a name, an email address, a message and a consent checkbox that links the card's own privacy policy and terms. It is created once and can be edited afterwards like any other form."
+msgstr ""
+
+#: admin/views/settings-tab.php:144
+msgid "Create the contact form"
+msgstr ""
+
+#: admin/views/settings-tab.php:148
+msgid "What a card address looks like"
+msgstr ""
+
+#: admin/views/settings-tab.php:151
 msgid "Each card gets eight random characters instead of a readable slug, assigned once and never changed, so a card cannot be found by guessing a name and a printed QR code keeps working."
 msgstr ""
 
-#: admin/views/settings-tab.php:142
-msgid "Cards are deliberately outside the Content Visibility addon: a card is a link you hand to someone who is not logged in."
+#: admin/views/settings-tab.php:155
+msgid "Cards are deliberately outside Content Visibility: a card is a link you hand to someone who is not logged in."
 msgstr ""
 
 #. translators: %d: form ID.
-#: includes/class-forms.php:268
+#: includes/class-forms.php:336
 #, php-format
 msgid "Form %d"
 msgstr ""
 
 #. translators: 1: opening link tag to the privacy policy. 2: closing link tag. 3: opening link tag to the terms. 4: closing link tag.
-#: includes/class-forms.php:452
+#: includes/class-forms.php:564
 #, php-format
-msgid "I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to my email address being processed so that my message can be answered."
+msgid "I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to the processing of my personal data."
 msgstr ""
 
-#: includes/class-forms.php:460
+#: includes/class-forms.php:572
 msgid "Name"
 msgstr ""
 
-#: includes/class-forms.php:463
+#: includes/class-forms.php:575
 #: includes/class-meta-boxes.php:436
 #: templates/partials/contact.php:19
 #: templates/partials/quick-actions.php:61
 msgid "Email"
 msgstr ""
 
-#: includes/class-forms.php:466
+#: includes/class-forms.php:578
 msgid "Message"
 msgstr ""
 
-#: includes/class-forms.php:475
+#: includes/class-forms.php:587
 msgid "Send message"
 msgstr ""
 
-#: includes/class-forms.php:502
+#. translators: [_bkbc_card_title] is a mail tag, keep it as it is.
+#: includes/class-forms.php:619
+msgid "Card: [_bkbc_card_title]"
+msgstr ""
+
+#: includes/class-forms.php:622
 msgid "Sent from a business card at [_url]"
 msgstr ""
 
-#: includes/class-forms.php:503
+#: includes/class-forms.php:623
 msgid "Consent given: [email-consent]"
 msgstr ""
 
 #. translators: %s: the site title mail tag.
-#: includes/class-forms.php:510
+#: includes/class-forms.php:630
 #, php-format
 msgid "Business card enquiry via %s"
 msgstr ""
 
-#: includes/class-forms.php:587
+#: includes/class-forms.php:769
 msgid "This form is missing its consent checkbox and cannot be submitted. Please use one of the other ways to get in touch."
 msgstr ""
 
-#: includes/class-forms.php:606
-msgid "Consent to processing your email address is required."
+#: includes/class-forms.php:788
+msgid "Consent to the processing of your personal data is required."
 msgstr ""
 
 #: includes/class-legal-links.php:64
@@ -274,7 +291,7 @@ msgid "Address"
 msgstr ""
 
 #: includes/class-meta-boxes.php:300
-msgid "These come from the Login Legal Pages addon and are the same on every card."
+msgid "These come from Login Legal Pages in Baukasten and are the same on every card."
 msgstr ""
 
 #: includes/class-meta-boxes.php:305
@@ -571,7 +588,8 @@ msgid "Cards are served from %s. Reserved segments and segments already used by 
 msgstr ""
 
 #: includes/class-permalink-field.php:117
-#: includes/class-settings-tab.php:137
+#: includes/class-settings-tab.php:143
+#: includes/class-settings-tab.php:190
 msgid "You are not allowed to change these settings."
 msgstr ""
 
@@ -664,28 +682,36 @@ msgctxt "navigation link block description"
 msgid "A link to a card."
 msgstr ""
 
-#: includes/class-settings-tab.php:73
+#: includes/class-settings-tab.php:79
 msgid "Business Cards"
 msgstr ""
 
-#: includes/class-settings-tab.php:117
+#: includes/class-settings-tab.php:123
 msgid "Business Cards is serving cards, but its overview needs the Baukasten - Privacy Toolkit plugin. Cards can still be edited under Business Cards."
 msgstr ""
 
-#: includes/class-settings-tab.php:145
+#: includes/class-settings-tab.php:151
 msgid "Contact Form 7 is not active, so there is nothing to build the form with."
 msgstr ""
 
-#: includes/class-settings-tab.php:154
+#: includes/class-settings-tab.php:160
 msgid "The card contact form already exists — it is listed under Contact."
 msgstr ""
 
-#: includes/class-settings-tab.php:163
+#: includes/class-settings-tab.php:169
 msgid "The form could not be created. Contact Form 7 refused to save it."
 msgstr ""
 
-#: includes/class-settings-tab.php:169
+#: includes/class-settings-tab.php:175
 msgid "Contact form created. Choose it on a card under Contact form."
+msgstr ""
+
+#: includes/class-settings-tab.php:198
+msgid "The template could not be applied. Is the form still there, and is Contact Form 7 active?"
+msgstr ""
+
+#: includes/class-settings-tab.php:204
+msgid "The template was applied to the contact form again."
 msgstr ""
 
 #: includes/class-skins.php:41
@@ -737,7 +763,7 @@ msgid "Contact me"
 msgstr ""
 
 #: templates/partials/form.php:38
-msgid "Spam protection by Cloudflare Turnstile is loaded as soon as you start using this form."
+msgid "Spam protection by Cloudflare Turnstile is only loaded once you tick the consent box."
 msgstr ""
 
 #: templates/partials/qr-modal.php:20

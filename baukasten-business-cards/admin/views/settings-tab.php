@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) || exit;
 			<th scope="row"><?php esc_html_e( 'Legal links', 'baukasten-business-cards' ); ?></th>
 			<td>
 				<?php if ( $site_legal ) : ?>
-					<?php esc_html_e( 'Taken from the Login Legal Pages addon, so every card shows the same imprint, privacy policy and terms.', 'baukasten-business-cards' ); ?>
+					<?php esc_html_e( 'Taken from Login Legal Pages in Baukasten, so every card shows the same imprint, privacy policy and terms.', 'baukasten-business-cards' ); ?>
 					<?php if ( class_exists( '\Baukasten\Admin' ) ) : ?>
 						<?php
 						printf(
@@ -102,7 +102,7 @@ defined( 'ABSPATH' ) || exit;
 						?>
 					<?php endif; ?>
 				<?php else : ?>
-					<?php esc_html_e( 'Chosen per card, from the site\'s pages. Install the Login Legal Pages addon to set them once for the whole site instead.', 'baukasten-business-cards' ); ?>
+					<?php esc_html_e( 'Chosen per card, from the site\'s pages. Update Baukasten - Privacy Toolkit to set them once for the whole site instead.', 'baukasten-business-cards' ); ?>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -120,6 +120,19 @@ defined( 'ABSPATH' ) || exit;
 			<?php esc_html_e( 'Edit it', 'baukasten-business-cards' ); ?>
 		</a>
 	</p>
+
+	<form
+		method="post"
+		action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>"
+		onsubmit="return window.confirm( <?php echo esc_attr( (string) wp_json_encode( __( 'This replaces the form, its mail settings and its additional settings with the current template. Changes you made to the form by hand are lost. Continue?', 'baukasten-business-cards' ) ) ); ?> );"
+	>
+		<input type="hidden" name="action" value="<?php echo esc_attr( Settings_Tab::ACTION_REAPPLY_FORM ); ?>" />
+		<?php wp_nonce_field( Settings_Tab::NONCE ); ?>
+		<?php submit_button( __( 'Apply the template again', 'baukasten-business-cards' ), 'secondary', 'submit', false ); ?>
+		<p class="description">
+			<?php esc_html_e( 'For a form created by an earlier version: sends mail to the address of the card it was sent from, from the site\'s administration address. That address should belong to this site\'s domain, or mail may be rejected as spam.', 'baukasten-business-cards' ); ?>
+		</p>
+	</form>
 <?php else : ?>
 	<p>
 		<?php esc_html_e( 'A form with a name, an email address, a message and a consent checkbox that links the card\'s own privacy policy and terms. It is created once and can be edited afterwards like any other form.', 'baukasten-business-cards' ); ?>
@@ -139,5 +152,5 @@ defined( 'ABSPATH' ) || exit;
 </p>
 
 <p class="description">
-	<?php esc_html_e( 'Cards are deliberately outside the Content Visibility addon: a card is a link you hand to someone who is not logged in.', 'baukasten-business-cards' ); ?>
+	<?php esc_html_e( 'Cards are deliberately outside Content Visibility: a card is a link you hand to someone who is not logged in.', 'baukasten-business-cards' ); ?>
 </p>

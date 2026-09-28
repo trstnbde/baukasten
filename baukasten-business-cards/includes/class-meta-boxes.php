@@ -297,7 +297,7 @@ final class Meta_Boxes {
 		$links = Legal_Links::all( Fields::load( $post->ID ) );
 
 		echo '<p class="description">';
-		esc_html_e( 'These come from the Login Legal Pages addon and are the same on every card.', 'baukasten-business-cards' );
+		esc_html_e( 'These come from Login Legal Pages in Baukasten and are the same on every card.', 'baukasten-business-cards' );
 		echo '</p>';
 
 		if ( array() === $links ) {

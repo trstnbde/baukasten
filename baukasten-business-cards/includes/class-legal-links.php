@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * One shape for the footer's three links, from whichever source has them.
  *
- * A site running the Login Legal Pages addon has already answered "where is the
+ * A site running Login Legal Pages has already answered "where is the
  * imprint" once. Answering it again per card is how one card ends up pointing at
  * a page that was replaced two years ago, so when that plugin is present it is
  * the only source and the per-card fields are not offered at all — not offered
@@ -26,7 +26,7 @@ defined( 'ABSPATH' ) || exit;
 final class Legal_Links {
 
 	/**
-	 * Whether the Login Legal Pages addon is answering.
+	 * Whether Login Legal Pages is answering.
 	 *
 	 * `class_exists()` rather than `is_plugin_active()`: the latter is only
 	 * loaded in the admin and this runs on the front end. That plugin requires
@@ -124,7 +124,24 @@ final class Legal_Links {
 	}
 
 	/**
-	 * The address of one legal page according to the Login Legal Pages addon.
+	 * The address of one legal page for the whole site, outside any card.
+	 *
+	 * Login Legal Pages when it answers; otherwise only the privacy policy is
+	 * known, from WordPress's own setting.
+	 *
+	 * @param string $name One of `privacy`, `terms` or `imprint`.
+	 * @return string Permalink, or an empty string.
+	 */
+	public static function site_or_core_url( string $name ): string {
+		if ( self::has_site_source() ) {
+			return self::site_url( $name );
+		}
+
+		return 'privacy' === $name ? (string) get_privacy_policy_url() : '';
+	}
+
+	/**
+	 * The address of one legal page according to Login Legal Pages.
 	 *
 	 * @param string $name One of `privacy`, `terms` or `imprint`.
 	 * @return string Permalink, or an empty string.

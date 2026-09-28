@@ -67,11 +67,15 @@ A card follows the visitor's system setting on its own. Switch on the toggle and
 
 A card can embed a Contact Form 7 form, and there is a button under *Settings, Baukasten, Business Cards* that builds a suitable one: name, email, message, and a consent checkbox that links the card's own privacy policy and terms. Contact Form 7 is required, so it is there to build against.
 
-The form has to carry an acceptance checkbox for the email consent — if it does not, or if the visitor does not tick it, the submission is refused on the server.
+A message sent from a card goes to that card's own email address, from the site's administration address, with the visitor's address as Reply-To. A card without an email address, or a submission that does not come from a published card with that form, goes to the administration address instead. **The administration address under Settings, General has to belong to the site's own domain**, or receiving mail servers may reject the message as forged.
+
+A site with a form from an earlier version can write the current template over it with **Apply the template again** on the same tab. It asks first, because changes made to the form by hand are lost.
+
+The form has to carry an acceptance checkbox for the consent — if it does not, or if the visitor does not tick it, the submission is refused on the server.
 
 = Legal links =
 
-If the **Baukasten Addon: Login Legal Pages** is installed, the imprint, privacy policy and terms come from there and are the same on every card. Without it, each card picks its own three pages from a dropdown of the site's pages.
+The imprint, privacy policy and terms come from Login Legal Pages in Baukasten - Privacy Toolkit and are the same on every card. With an older version of the toolkit that does not have it, each card picks its own three pages from a dropdown of the site's pages.
 
 == Installation ==
 
@@ -113,21 +117,21 @@ Only its shape: three base64url segments with a readable header. The signature w
 
 = Where do the imprint and privacy links come from? =
 
-From the Login Legal Pages addon if you have it — one answer for the whole site, which is what an imprint is. Without it, each card picks its three pages from a dropdown. Either way a page that is unpublished stops being linked instead of linking at a 404.
+From Login Legal Pages in Baukasten - Privacy Toolkit — one answer for the whole site, which is what an imprint is. Either way a page that is unpublished stops being linked instead of linking at a 404.
 
 = Why does my card have no trailing slash? =
 
 Because your site's permalink structure has none. Card addresses follow the site setting, like every other permalink.
 
-= Does the contact form work with Cloudflare Turnstile? =
+= How is the contact form protected against spam? =
 
-Yes, including `[turnstile]` and `[acceptance email-consent]`. Turnstile is not loaded with the card: it is loaded the moment someone starts using the form, so a visitor who only looks at the card causes no request to Cloudflare. A note under the form says so. A tap on the send button that comes before Turnstile is ready is held and sent as soon as it is, rather than going out without a token and being filed as spam.
+By the **Baukasten Addon: Form Privacy**: a honeypot field and a minimum fill time, with no third party involved. That is the recommended setup.
 
-This also means the Consent Blocking Engine, which holds third-party scripts back until the visitor consents, no longer stops the form from working on a card.
+The form template also carries `[turnstile]`. Without Turnstile keys under Contact, Integration the tag prints nothing and loads nothing. Whoever sets up Turnstile brings in a third party: on a card its script is only loaded once the visitor ticks the consent box, `[acceptance email-consent]`, and a note under the form says so. A visitor who only looks at the card, or only types, causes no request to Cloudflare. On any other page the Consent Blocking Engine holds it back until the visitor consents.
 
 = Does anything phone home? =
 
-No. The QR code is drawn locally, the network logos are inline SVG in the page rather than an icon font or image service, and a card with no contact form on it makes no third-party request at all. A card with a Turnstile-protected form contacts Cloudflare only once the form is used.
+No. The QR code is drawn locally, the network logos are inline SVG in the page rather than an icon font or image service, and a card with no contact form on it makes no third-party request at all. A card with a Turnstile-protected form contacts Cloudflare only once the visitor ticks the consent box.
 
 == Third-party code ==
 
@@ -148,6 +152,10 @@ The network logos in `includes/class-icons.php` are path data, not files. Linked
 = 1.0.0 =
 
 * First release.
+* The contact form goes to the card's own address, from the site's administration address; `[_bkbc_card_email]` and `[_bkbc_card_title]` mail tags.
+* "Apply the template again" for a form created by an earlier version.
+* Cloudflare Turnstile is only loaded once the consent box is ticked.
+* Works with the Form Privacy addon, which then decides where Contact Form 7 loads.
 
 == Upgrade Notice ==
 

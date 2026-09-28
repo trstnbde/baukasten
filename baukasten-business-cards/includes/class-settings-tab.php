@@ -35,6 +35,11 @@ final class Settings_Tab {
 	const ACTION_CREATE_FORM = 'baukasten_business_cards_create_form';
 
 	/**
+	 * `admin-post` action that writes the template over the existing form.
+	 */
+	const ACTION_REAPPLY_FORM = 'baukasten_business_cards_reapply_form';
+
+	/**
 	 * Nonce action for the tab's own forms.
 	 */
 	const NONCE = 'baukasten_business_cards_tab';
@@ -46,6 +51,7 @@ final class Settings_Tab {
 	 */
 	public static function register(): void {
 		add_action( 'admin_post_' . self::ACTION_CREATE_FORM, array( __CLASS__, 'create_form' ) );
+		add_action( 'admin_post_' . self::ACTION_REAPPLY_FORM, array( __CLASS__, 'reapply_form' ) );
 
 		add_filter(
 			'plugin_action_links_' . plugin_basename( PLUGIN_FILE ),
@@ -167,6 +173,35 @@ final class Settings_Tab {
 		self::go_back(
 			'success',
 			__( 'Contact form created. Choose it on a card under Contact form.', 'baukasten-business-cards' )
+		);
+	}
+
+	/**
+	 * Writes the current template over the plugin's existing form.
+	 *
+	 * For a form created by an earlier version. The button asks first, because
+	 * whatever was edited in the form by hand is replaced; an update never does
+	 * this on its own for the same reason.
+	 *
+	 * @return void
+	 */
+	public static function reapply_form(): void {
+		if ( ! current_user_can( self::CAPABILITY ) ) {
+			wp_die( esc_html__( 'You are not allowed to change these settings.', 'baukasten-business-cards' ), 403 );
+		}
+
+		check_admin_referer( self::NONCE );
+
+		if ( ! Forms::reapply() ) {
+			self::go_back(
+				'error',
+				__( 'The template could not be applied. Is the form still there, and is Contact Form 7 active?', 'baukasten-business-cards' )
+			);
+		}
+
+		self::go_back(
+			'success',
+			__( 'The template was applied to the contact form again.', 'baukasten-business-cards' )
 		);
 	}
 

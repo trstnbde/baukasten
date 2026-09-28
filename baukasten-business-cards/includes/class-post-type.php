@@ -123,7 +123,7 @@ final class Post_Type {
 	}
 
 	/**
-	 * Takes cards out of the Content Visibility addon's reach.
+	 * Takes cards out of Content Visibility's reach.
 	 *
 	 * That addon defaults every new post of a supported type to "private", which
 	 * for a business card is precisely backwards: the whole point is a link you
@@ -137,7 +137,7 @@ final class Post_Type {
 		$post_types = array_map( 'strval', (array) $post_types );
 
 		/**
-		 * Filters whether the Content Visibility addon may manage cards.
+		 * Filters whether Content Visibility may manage cards.
 		 *
 		 * @since 1.0.0
 		 *

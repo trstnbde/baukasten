@@ -14,6 +14,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       baukasten-business-cards
  * Domain Path:       /languages
+ * Update URI:        https://github.com/trstnbde/baukasten
  *
  * @package Baukasten\BusinessCards
  */

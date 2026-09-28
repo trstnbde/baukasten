@@ -57,14 +57,24 @@ final class Forms {
 	const OPTION_FORM_ID = 'baukasten_business_cards_form_id';
 
 	/**
+	 * Mail tag for the address of the card a form was sent from.
+	 */
+	const TAG_CARD_EMAIL = '_bkbc_card_email';
+
+	/**
+	 * Mail tag for the title of the card a form was sent from.
+	 */
+	const TAG_CARD_TITLE = '_bkbc_card_title';
+
+	/**
 	 * Stand-in address for the privacy policy inside the consent sentence.
 	 */
-	const PLACEHOLDER_PRIVACY = 'https://baukasten.invalid/privacy';
+	const PLACEHOLDER_PRIVACY = '/privacy';
 
 	/**
 	 * Stand-in address for the terms inside the consent sentence.
 	 */
-	const PLACEHOLDER_TERMS = 'https://baukasten.invalid/terms';
+	const PLACEHOLDER_TERMS = '/terms';
 
 	/**
 	 * Registers the hooks the form needs.
@@ -82,6 +92,8 @@ final class Forms {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'match_assets_to_card' ), 20 );
 		add_filter( 'wpcf7_validate', array( __CLASS__, 'require_consent' ), 20, 2 );
 		add_filter( 'wpcf7_form_elements', array( __CLASS__, 'localise_consent_links' ) );
+		add_filter( 'wpcf7_special_mail_tags', array( __CLASS__, 'card_mail_tags' ), 10, 3 );
+		add_filter( 'baukasten/form_privacy/page_has_form', array( __CLASS__, 'card_has_form' ) );
 	}
 
 	/**
@@ -138,21 +150,7 @@ final class Forms {
 			return 0;
 		}
 
-		$form->set_properties(
-			array(
-				'form'                => self::form_body(),
-				'mail'                => self::mail(),
-				'mail_2'              => array( 'active' => false ),
-
-				/*
-				 * Without this Contact Form 7 disables the submit button until
-				 * the box is ticked and says nothing about why. With it the
-				 * refusal is a message beside the checkbox — which is where
-				 * `require_consent()` puts its own, so the two agree.
-				 */
-				'additional_settings' => "acceptance_as_validation: on\n",
-			)
-		);
+		$form->set_properties( self::template() );
 
 		$form_id = absint( $form->save() );
 
@@ -161,6 +159,55 @@ final class Forms {
 		}
 
 		return $form_id;
+	}
+
+	/**
+	 * Writes the template over the plugin's form again.
+	 *
+	 * For a site whose form predates the current template. Overwrites the form
+	 * body, both mail blocks and the additional settings, so anything edited
+	 * there by hand is lost — which is why the button asks first, and why an
+	 * update never does this on its own.
+	 *
+	 * @return bool True when the form was saved.
+	 */
+	public static function reapply(): bool {
+		$form_id = self::plugin_form_id();
+
+		if ( ! self::is_available() || 0 >= $form_id ) {
+			return false;
+		}
+
+		$form = \WPCF7_ContactForm::get_instance( $form_id );
+
+		if ( ! $form instanceof \WPCF7_ContactForm ) {
+			return false;
+		}
+
+		$form->set_properties( self::template() );
+
+		return 0 < absint( $form->save() );
+	}
+
+	/**
+	 * The properties the plugin's form is made of.
+	 *
+	 * @return array<string, mixed> Contact Form 7 properties.
+	 */
+	private static function template(): array {
+		return array(
+			'form'                => self::form_body(),
+			'mail'                => self::mail(),
+			'mail_2'              => array( 'active' => false ),
+
+			/*
+			 * Without this Contact Form 7 disables the submit button until
+			 * the box is ticked and says nothing about why. With it the
+			 * refusal is a message beside the checkbox — which is where
+			 * `require_consent()` puts its own, so the two agree.
+			 */
+			'additional_settings' => "acceptance_as_validation: on\n",
+		);
 	}
 
 	/**
@@ -174,17 +221,23 @@ final class Forms {
 	 * anchor: a link to nowhere in a consent sentence is worse than no link,
 	 * because it looks like the visitor was given something to read.
 	 *
+	 * Outside a card only the plugin's own form is touched — `/privacy` is an
+	 * ordinary relative link in any other form — and the pages come from the
+	 * site: Login Legal Pages, or WordPress's privacy policy setting.
+	 *
 	 * @param mixed $elements Rendered form HTML.
 	 * @return string Form HTML.
 	 */
 	public static function localise_consent_links( $elements ): string {
 		$elements = (string) $elements;
 
-		if ( ! Renderer::is_card_route() ) {
+		if ( Renderer::is_card_route() ) {
+			$card = Fields::load( get_queried_object_id() );
+		} elseif ( self::is_plugin_form_current() ) {
+			$card = array();
+		} else {
 			return $elements;
 		}
-
-		$card = Fields::load( get_queried_object_id() );
 
 		$pairs = array(
 			self::PLACEHOLDER_PRIVACY => 'privacy',
@@ -192,7 +245,7 @@ final class Forms {
 		);
 
 		foreach ( $pairs as $placeholder => $name ) {
-			$url = Legal_Links::url( $card, $name );
+			$url = array() === $card ? Legal_Links::site_or_core_url( $name ) : Legal_Links::url( $card, $name );
 
 			if ( '' !== $url ) {
 				$elements = str_replace(
@@ -212,6 +265,21 @@ final class Forms {
 		}
 
 		return $elements;
+	}
+
+	/**
+	 * Whether the form being rendered is the one this plugin created.
+	 *
+	 * @return bool True for the plugin's form.
+	 */
+	private static function is_plugin_form_current(): bool {
+		if ( ! class_exists( '\WPCF7_ContactForm' ) ) {
+			return false;
+		}
+
+		$current = \WPCF7_ContactForm::get_current();
+
+		return $current instanceof \WPCF7_ContactForm && 0 < self::plugin_form_id() && $current->id() === self::plugin_form_id();
 	}
 
 	/**
@@ -311,10 +379,49 @@ final class Forms {
 			return;
 		}
 
+		// Form Privacy keeps Contact Form 7's files and the captcha scripts off
+		// every page without a form, cards included. Left to it, so the two
+		// never disagree; without it this is the fallback, Turnstile included,
+		// or a site with Turnstile keys would load Cloudflare on every card.
+		if ( self::form_privacy_manages_assets() ) {
+			return;
+		}
+
 		foreach ( self::CF7_HANDLES as $handle ) {
 			wp_dequeue_script( $handle );
 			wp_dequeue_style( $handle );
 		}
+	}
+
+	/**
+	 * Whether the Form Privacy addon decides where Contact Form 7 loads.
+	 *
+	 * @return bool True when it is active and its asset control is on.
+	 */
+	public static function form_privacy_manages_assets(): bool {
+		return is_callable( array( '\Baukasten\FormPrivacy\Assets', 'manages_cf7_assets' ) )
+			&& \Baukasten\FormPrivacy\Assets::manages_cf7_assets();
+	}
+
+	/**
+	 * Tells Form Privacy that a card with a form is a page with a form.
+	 *
+	 * The card template expands the shortcode after `wp_enqueue_scripts`, too
+	 * late for Form Privacy to see it coming.
+	 *
+	 * @param mixed $has_form Whether the page has a form so far.
+	 * @return bool True on a card that embeds one.
+	 */
+	public static function card_has_form( $has_form ): bool {
+		if ( $has_form ) {
+			return true;
+		}
+
+		if ( ! Renderer::is_card_route() ) {
+			return false;
+		}
+
+		return isset( Fields::load( get_queried_object_id() )['cf7_form_id'] );
 	}
 
 	/**
@@ -328,18 +435,23 @@ final class Forms {
 	 * a card offers no way to consent — so no token is ever made and every
 	 * submission is filed as spam, with nothing on the screen to say why.
 	 *
-	 * So the script is dequeued here and `assets/js/form.js` loads it on the
-	 * first sign that somebody is using the form. The loader is served from this
-	 * site, so the engine has no reason to hold it back, and the script it adds
-	 * afterwards is added in the browser, where the engine does not rewrite
-	 * anything. Whoever only looks at the card causes no request to Cloudflare.
+	 * So the script is dequeued here and `assets/js/form.js` loads it once the
+	 * visitor ticks the consent box, `[acceptance email-consent]`. The loader is
+	 * served from this site, so the engine has no reason to hold it back, and
+	 * the script it adds afterwards is added in the browser, where the engine
+	 * does not rewrite anything. Whoever only looks at the card, or only types
+	 * into the form, causes no request to Cloudflare.
+	 *
+	 * Read from the registered handle, not the queue: Form Privacy may have
+	 * dequeued it already. Contact Form 7 only registers it when Turnstile has
+	 * keys, so a registered handle is the sign that it is in use.
 	 *
 	 * @return void
 	 */
 	private static function defer_turnstile(): void {
 		$scripts = wp_scripts();
 
-		if ( ! wp_script_is( self::TURNSTILE_HANDLE, 'enqueued' ) || ! isset( $scripts->registered[ self::TURNSTILE_HANDLE ] ) ) {
+		if ( ! isset( $scripts->registered[ self::TURNSTILE_HANDLE ] ) ) {
 			return;
 		}
 
@@ -421,7 +533,7 @@ final class Forms {
 	 *
 	 * @return int Card post ID, or 0.
 	 */
-	private static function submitted_from_card(): int {
+	public static function submitted_from_card(): int {
 		if ( ! function_exists( 'wpcf7_superglobal_post' ) ) {
 			return 0;
 		}
@@ -449,7 +561,7 @@ final class Forms {
 	private static function form_body(): string {
 		$consent = sprintf(
 			/* translators: 1: opening link tag to the privacy policy. 2: closing link tag. 3: opening link tag to the terms. 4: closing link tag. */
-			__( 'I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to my email address being processed so that my message can be answered.', 'baukasten-business-cards' ),
+			__( 'I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to the processing of my personal data.', 'baukasten-business-cards' ),
 			'<a href="' . self::PLACEHOLDER_PRIVACY . '">',
 			'</a>',
 			'<a href="' . self::PLACEHOLDER_TERMS . '">',
@@ -470,7 +582,7 @@ final class Forms {
 			'',
 			// Prints nothing unless Turnstile is set up under Contact, Integration.
 			// Without the tag Contact Form 7 puts the widget above the first field.
-			'[turnstile size:flexible]',
+			'[turnstile]',
 			'',
 			'[submit "' . __( 'Send message', 'baukasten-business-cards' ) . '"]',
 		);
@@ -490,6 +602,11 @@ final class Forms {
 	 * For a consent that is the whole point of the checkbox, that is the record
 	 * worth keeping.
 	 *
+	 * The mail goes to the card the form was sent from, `[_bkbc_card_email]`,
+	 * and comes from the site's administration address. That address has to
+	 * belong to the site's own domain, or receiving servers will treat the
+	 * mail as forged. Replies go to the visitor.
+	 *
 	 * @return array<string, mixed> Mail properties.
 	 */
 	private static function mail(): array {
@@ -497,6 +614,9 @@ final class Forms {
 			'[your-name] <[your-email]>',
 			'',
 			'[your-message]',
+			'',
+			/* translators: [_bkbc_card_title] is a mail tag, keep it as it is. */
+			__( 'Card: [_bkbc_card_title]', 'baukasten-business-cards' ),
 			'',
 			'-- ',
 			__( 'Sent from a business card at [_url]', 'baukasten-business-cards' ),
@@ -510,8 +630,8 @@ final class Forms {
 				__( 'Business card enquiry via %s', 'baukasten-business-cards' ),
 				'[_site_title]'
 			),
-			'sender'             => '[_site_title] <wordpress@' . self::mail_host() . '>',
-			'recipient'          => '[_site_admin_email]',
+			'sender'             => '[_site_title] <[_site_admin_email]>',
+			'recipient'          => '[' . self::TAG_CARD_EMAIL . ']',
 			'body'               => implode( "\n", $body ),
 			'additional_headers' => 'Reply-To: [your-email]',
 			'attachments'        => '',
@@ -521,18 +641,98 @@ final class Forms {
 	}
 
 	/**
-	 * The host to send the created form's mail from.
+	 * Resolves `[_bkbc_card_email]` and `[_bkbc_card_title]`.
 	 *
-	 * The same rule `wp_mail()` uses for its own default sender: the site's host
-	 * without a leading `www.`, so the address stands a chance of passing the
-	 * checks the admin's own address would not.
+	 * The card is the one the form was sent from, `_wpcf7_container_post`,
+	 * which `render()` makes Contact Form 7 fill in. That id comes from the
+	 * browser, so it only counts when the card is published, embeds this very
+	 * form, and — if Content Visibility manages cards — is either public or
+	 * the sender is logged in. Anything else, and a card without an address,
+	 * sends the mail to the site's administration address instead: nothing
+	 * goes undelivered, and a forged id reaches nobody but the admin.
 	 *
-	 * @return string Host name.
+	 * The tag name ends in `_email`, so Contact Form 7's configuration check
+	 * treats it as an address and does not flag the recipient field.
+	 *
+	 * @param mixed  $output Output so far, null when no filter answered yet.
+	 * @param string $name   Mail tag name, without brackets.
+	 * @param bool   $html   Whether the mail is HTML.
+	 * @return mixed The value for the two tags, `$output` for every other.
 	 */
-	private static function mail_host(): string {
-		$host = strtolower( (string) wp_parse_url( network_home_url(), PHP_URL_HOST ) );
+	public static function card_mail_tags( $output, $name, $html ) {
+		if ( self::TAG_CARD_EMAIL !== $name && self::TAG_CARD_TITLE !== $name ) {
+			return $output;
+		}
 
-		return str_starts_with( $host, 'www.' ) ? substr( $host, 4 ) : $host;
+		$form_id = 0;
+
+		if ( class_exists( '\WPCF7_Submission' ) ) {
+			$submission = \WPCF7_Submission::get_instance();
+			$form       = $submission ? $submission->get_contact_form() : null;
+			$form_id    = $form instanceof \WPCF7_ContactForm ? (int) $form->id() : 0;
+		}
+
+		$card_id = self::verified_card( self::submitted_from_card(), $form_id );
+
+		if ( self::TAG_CARD_TITLE === $name ) {
+			$title = 0 < $card_id ? get_the_title( $card_id ) : '';
+
+			return $html ? esc_html( $title ) : $title;
+		}
+
+		return self::recipient( $card_id );
+	}
+
+	/**
+	 * The card a submission may be delivered to, or 0.
+	 *
+	 * @param int $card_id Card the browser says the form was sent from.
+	 * @param int $form_id Contact Form 7 form that was submitted.
+	 * @return int The card ID if it passed every check, or 0.
+	 */
+	public static function verified_card( int $card_id, int $form_id ): int {
+		if ( 0 >= $card_id || 0 >= $form_id
+			|| Post_Type::POST_TYPE !== get_post_type( $card_id )
+			|| 'publish' !== get_post_status( $card_id )
+		) {
+			return 0;
+		}
+
+		$card = Fields::load( $card_id );
+
+		if ( (int) ( $card['cf7_form_id'] ?? 0 ) !== $form_id ) {
+			return 0;
+		}
+
+		// Content Visibility counts a post without a flag as private, and cards
+		// carry none unless it manages them. So ask its guard, which knows
+		// whether the post type is managed at all and who is asking.
+		if ( is_callable( array( '\Baukasten\ContentVisibility\Frontend_Guard', 'is_blocked' ) )
+			&& \Baukasten\ContentVisibility\Frontend_Guard::is_blocked( $card_id )
+		) {
+			return 0;
+		}
+
+		return $card_id;
+	}
+
+	/**
+	 * Where a card's mail goes.
+	 *
+	 * @param int $card_id A card from `verified_card()`, or 0.
+	 * @return string The card's address, or the site's administration address.
+	 */
+	public static function recipient( int $card_id ): string {
+		$card = 0 < $card_id ? Fields::load( $card_id ) : array();
+
+		// The same order the card's own email button uses.
+		foreach ( array( 'email', 'email_2' ) as $field ) {
+			if ( ! empty( $card[ $field ] ) && is_email( (string) $card[ $field ] ) ) {
+				return (string) $card[ $field ];
+			}
+		}
+
+		return (string) get_bloginfo( 'admin_email' );
 	}
 
 	/**
@@ -603,7 +803,7 @@ final class Forms {
 		if ( '' === $posted || '0' === $posted ) {
 			$result->invalidate(
 				$acceptance,
-				__( 'Consent to processing your email address is required.', 'baukasten-business-cards' )
+				__( 'Consent to the processing of your personal data is required.', 'baukasten-business-cards' )
 			);
 		}
 

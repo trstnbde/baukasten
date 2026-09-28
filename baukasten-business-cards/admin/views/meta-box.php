@@ -91,7 +91,7 @@ defined( 'ABSPATH' ) || exit;
 					<?php
 					// wp_dropdown_pages() prints an escaped <select>; core calls it
 					// the same way for the privacy policy picker, and so does the
-					// Login Legal Pages addon.
+					// Login & Legal tab.
 					// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 					wp_dropdown_pages(
 						array(

@@ -35,7 +35,7 @@ echo $baukasten_bc_form;
 if ( str_contains( $baukasten_bc_form, 'cf-turnstile' ) && wp_script_is( Forms::LOADER_HANDLE, 'enqueued' ) ) {
 	printf(
 		'<p class="bkbc-form__notice">%s</p>',
-		esc_html__( 'Spam protection by Cloudflare Turnstile is loaded as soon as you start using this form.', 'baukasten-business-cards' )
+		esc_html__( 'Spam protection by Cloudflare Turnstile is only loaded once you tick the consent box.', 'baukasten-business-cards' )
 	);
 }
 
