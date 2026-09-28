@@ -67,7 +67,8 @@ ZIP like the others.
    directory is excluded by `.distignore`.
 6. **Tag and release.** `git tag -a <slug>-<version>`, push the tag.
    `.github/workflows/release.yml` builds the ZIP and attaches it to the GitHub
-   release for that tag.
+   release for that tag. **Push tags one at a time:** GitHub creates no events,
+   and so starts no workflow, when more than three tags arrive in one push.
 7. **Deploy** to the live site as described in `DEVELOPER-GUIDE.md`, backup
    first.
 
