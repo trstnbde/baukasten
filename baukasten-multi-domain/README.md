@@ -57,6 +57,8 @@ Make a domain reach you. DNS has to point at the server and the web server has t
 |---|---|
 | `baukasten/multi_domain/page_id` | the page a host is routed to; return `0` to route nothing |
 
+It also hooks the core's `baukasten/consent/allowed_hosts`, so a consent decision sent from any mapped domain is accepted by the consent endpoint.
+
 ## Development
 
 ```bash

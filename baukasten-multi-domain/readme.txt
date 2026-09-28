@@ -86,6 +86,7 @@ Yes. Only the host is swapped; the scheme and any path are kept.
 * One domain belongs to exactly one page, enforced on every write.
 * Front end routing from a single autoloaded option, with no query of its own.
 * `home`, `siteurl` and every asset URL follow the domain the visitor is on.
+* Consent decisions sent from a mapped domain are accepted by the Consent Blocking Engine.
 
 == Upgrade Notice ==
 

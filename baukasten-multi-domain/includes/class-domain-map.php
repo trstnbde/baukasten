@@ -56,6 +56,20 @@ final class Domain_Map {
 		add_action( 'deleted_post', array( __CLASS__, 'on_post_gone' ) );
 		add_action( 'trashed_post', array( __CLASS__, 'on_post_gone' ) );
 		add_action( 'untrashed_post', array( __CLASS__, 'on_post_restored' ) );
+
+		// The consent endpoint of the core only accepts decisions sent from
+		// the site's own hosts; every mapped domain is one of them.
+		add_filter( 'baukasten/consent/allowed_hosts', array( __CLASS__, 'add_hosts' ) );
+	}
+
+	/**
+	 * Adds every mapped host to a list of hosts.
+	 *
+	 * @param string[] $hosts Host names.
+	 * @return string[] Host names, the mapped ones included.
+	 */
+	public static function add_hosts( $hosts ): array {
+		return array_merge( (array) $hosts, array_map( 'strval', array_keys( self::all() ) ) );
 	}
 
 	/**
