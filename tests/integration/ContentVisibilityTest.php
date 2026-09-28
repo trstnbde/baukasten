@@ -53,6 +53,26 @@ class ContentVisibilityTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A private posts page is guarded like any private page.
+	 */
+	public function test_private_posts_page_is_guarded(): void {
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', self::factory()->post->create( array( 'post_type' => 'page' ) ) );
+		update_option( 'page_for_posts', self::factory()->post->create( array( 'post_type' => 'page' ) ) );
+		Visibility::set( (int) get_option( 'page_for_posts' ), Visibility::VISIBILITY_PRIVATE );
+
+		// A 403 instead of the login redirect, which would end the test run.
+		add_filter( 'baukasten/content_visibility/login_redirect', '__return_empty_string' );
+
+		$this->go_to( get_permalink( (int) get_option( 'page_for_posts' ) ) );
+
+		$this->assertTrue( is_home() );
+		$this->expectException( WPDieException::class );
+
+		Frontend_Guard::guard_singular();
+	}
+
+	/**
 	 * The oEmbed endpoint treats the URL as unknown.
 	 */
 	public function test_oembed_endpoint_refuses(): void {

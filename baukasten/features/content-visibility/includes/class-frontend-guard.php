@@ -97,11 +97,15 @@ final class Frontend_Guard {
 	 * @return void
 	 */
 	public static function guard_singular(): void {
-		if ( ! is_singular() ) {
+		// The posts page is a page with a flag of its own, but WordPress
+		// treats its view as the blog index, not as a singular page.
+		$posts_page = is_home() && (int) get_option( 'page_for_posts' ) > 0;
+
+		if ( ! is_singular() && ! $posts_page ) {
 			return;
 		}
 
-		$post = get_queried_object();
+		$post = $posts_page ? get_post( (int) get_option( 'page_for_posts' ) ) : get_queried_object();
 
 		if ( ! self::is_blocked( $post ) ) {
 			return;
@@ -162,6 +166,10 @@ final class Frontend_Guard {
 
 		status_header( 404 );
 		nocache_headers();
+
+		// Otherwise `redirect_canonical()` guesses the post from the URL and
+		// redirects to it, which is exactly the address being hidden.
+		remove_action( 'template_redirect', 'redirect_canonical' );
 	}
 
 	/**
