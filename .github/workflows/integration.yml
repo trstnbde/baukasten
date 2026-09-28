@@ -1,0 +1,38 @@
+name: Integration tests
+
+# PHPUnit against the WordPress test suite, in wp-env. Covers what must never
+# regress: private content through embed, oEmbed and REST; forged consent;
+# the card mail recipient; activation leaving core options alone; the sign-in
+# rate limit; Form Privacy's filters. See tests/.
+
+on:
+  push:
+    branches: [ main, 'work/**' ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    name: PHPUnit in wp-env
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Start wp-env
+        run: npx --yes @wordpress/env@10 start
+
+      - name: Install the test dependencies
+        run: npx --yes @wordpress/env@10 run tests-cli --env-cwd=wp-content/baukasten-tests composer install --no-interaction --no-progress
+
+      - name: Run the tests
+        run: npx --yes @wordpress/env@10 run tests-cli --env-cwd=wp-content/baukasten-tests vendor/bin/phpunit
