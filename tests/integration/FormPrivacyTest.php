@@ -45,8 +45,9 @@ class FormPrivacyTest extends WP_UnitTestCase {
 	 * F4: only whitelisted metadata reaches Flamingo.
 	 */
 	public function test_metadata_is_reduced(): void {
-		$args = apply_filters(
-			'wpcf7_flamingo_inbound_message_parameters',
+		// Called directly: Contact Form 7's own callbacks on this filter need
+		// a live submission.
+		$args = Submissions::minimise(
 			array(
 				'meta'      => array(
 					'remote_ip'  => '192.0.2.1',

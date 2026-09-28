@@ -27,7 +27,7 @@ final class Loader {
 	 * @return void
 	 */
 	public function run(): void {
-		add_action( 'plugins_loaded', array( Installer::class, 'maybe_install_features' ), 5 );
+		add_action( 'wp_loaded', array( Installer::class, 'maybe_install_features' ), 1 );
 		add_action( 'init', array( $this, 'load_textdomain' ), 1 );
 		add_action( 'init', array( Addons::class, 'collect' ), 20 );
 

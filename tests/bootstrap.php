@@ -32,12 +32,14 @@ tests_add_filter(
 	}
 );
 
+// After init, like a real activation: the visibility migration needs the
+// post types to exist.
 tests_add_filter(
-	'plugins_loaded',
+	'init',
 	static function (): void {
 		Baukasten\Installer::activate();
 	},
-	1
+	99
 );
 
 require $baukasten_tests_dir . '/includes/bootstrap.php';

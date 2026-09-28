@@ -29,8 +29,8 @@ final class Installer {
 	 *
 	 * Bumped when the shape of the plugin changes without its version number
 	 * changing, as when the three addons were merged into the core. Checked on
-	 * every request, not only in the admin, because the features need their
-	 * options and table before the first visitor arrives.
+	 * every request (on `wp_loaded`), not only in the admin, because the
+	 * features need their options and table before the first visitor arrives.
 	 */
 	const OPTION_STRUCTURE = 'baukasten_structure';
 
@@ -167,10 +167,14 @@ final class Installer {
 	/**
 	 * Installs the features when the structure version is behind.
 	 *
-	 * Runs on `plugins_loaded`. A site updated by replacing the plugin files
+	 * Runs on `wp_loaded`. A site updated by replacing the plugin files
 	 * never fires the activation hook, and the version number did not change
 	 * when the features were merged in, so this is what brings a site that
 	 * had the separate plugins over. Every step is idempotent.
+	 *
+	 * Not earlier: Content Visibility's migration asks which post types exist,
+	 * and before `init` there are none — it would migrate nothing, and cache
+	 * an empty list of managed types for the rest of the request.
 	 *
 	 * @return void
 	 */

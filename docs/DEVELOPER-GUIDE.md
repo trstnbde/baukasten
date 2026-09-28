@@ -180,7 +180,7 @@ Every one of these cost time. They are listed so they cost it once.
 
 **An old addon and its merged feature cannot both load.** WordPress includes active plugins in the sorted order of their paths, and `-` sorts before `/`, so `baukasten-consent-blocking-engine/…` is included before `baukasten/baukasten.php`. If the old plugin is still active when the new core arrives, every class of the feature already exists. `Baukasten\Features::load()` skips a feature whose old `PLUGIN_FILE` constant is defined, deactivates the old plugin on the next admin request, and only then records the structure version.
 
-**A version number that does not change cannot trigger an upgrade.** The merge shipped as 1.0.0, like everything before it, so `Installer::maybe_upgrade()` never noticed it. `baukasten_structure` is a second version, for the shape of the plugin, checked on every `plugins_loaded`.
+**A version number that does not change cannot trigger an upgrade.** The merge shipped as 1.0.0, like everything before it, so `Installer::maybe_upgrade()` never noticed it. `baukasten_structure` is a second version, for the shape of the plugin, checked on every `wp_loaded` — not `plugins_loaded`: Content Visibility's migration asks which post types exist, and before `init` there are none, so it would migrate nothing and cache an empty list of managed types.
 
 **Contact Form 7 registers its handles on `wp_enqueue_scripts`.** A block theme renders the whole template — shortcodes included — before `wp_head`, so `wpcf7_shortcode_callback` fires before the handles exist and `wpcf7_enqueue_scripts()` from there is silently ignored. Take note in the callback and enqueue on `wp_enqueue_scripts` (Form Privacy's `Assets`).
 
