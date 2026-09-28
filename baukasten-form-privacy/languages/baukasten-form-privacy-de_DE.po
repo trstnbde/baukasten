@@ -1,0 +1,421 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Form Privacy 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-form-privacy\n"
+"Last-Translator: Torsten B.\n"
+"Language-Team: Deutsch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-28T14:00:00+02:00\n"
+"PO-Revision-Date: 2026-09-28T14:00:00+02:00\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-form-privacy\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: baukasten-form-privacy.php
+msgid "Baukasten Addon: Form Privacy"
+msgstr "Baukasten Addon: Form Privacy"
+
+#. Plugin URI of the plugin
+#: baukasten-form-privacy.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr "https://github.com/trstnbde/baukasten"
+
+#. Description of the plugin
+#: baukasten-form-privacy.php
+msgid "Contact Form 7 and Flamingo without the leaks: form assets only where a form is, no IP address, no address book, a retention period, an exporter, and spam protection without a third party."
+msgstr "Contact Form 7 und Flamingo ohne Datenlecks: Formular-Dateien nur dort, wo ein Formular ist, keine IP-Adresse, kein Adressbuch, eine Löschfrist, ein Exporter und Spamschutz ohne Drittanbieter."
+
+#. Author of the plugin
+#: baukasten-form-privacy.php
+msgid "Torsten B."
+msgstr "Torsten B."
+
+#. Author URI of the plugin
+#: baukasten-form-privacy.php
+msgid "https://github.com/trstnbde"
+msgstr "https://github.com/trstnbde"
+
+#: admin/views/settings-tab.php:21
+msgid "Load Contact Form 7 only where a form is"
+msgstr "Contact Form 7 nur dort laden, wo ein Formular ist"
+
+#: admin/views/settings-tab.php:22
+msgid "Its script and stylesheet load only on pages that show a form. Cloudflare Turnstile and Google reCAPTCHA, if set up, are kept off every page without one."
+msgstr "Skript und Stylesheet werden nur auf Seiten geladen, die ein Formular zeigen. Cloudflare Turnstile und Google reCAPTCHA bleiben, falls eingerichtet, von jeder Seite ohne Formular fern."
+
+#: admin/views/settings-tab.php:25
+msgid "Do not collect the sender’s IP address"
+msgstr "IP-Adresse des Absenders nicht erheben"
+
+#: admin/views/settings-tab.php:26
+msgid "Contact Form 7 never sees the address. Side effects: IP rules on the Disallowed Comment Keys list stop matching, [_remote_ip] stays empty in mails, and the address is no longer part of the duplicate check."
+msgstr "Contact Form 7 bekommt die Adresse gar nicht zu sehen. Nebenwirkungen: IP-Regeln der Liste unerlaubter Kommentarschlüssel greifen nicht mehr, [_remote_ip] bleibt in Mails leer, und die Adresse ist nicht mehr Teil der Dublettenprüfung."
+
+#: admin/views/settings-tab.php:29
+msgid "Spam protection with a honeypot and a minimum fill time"
+msgstr "Spamschutz mit Honeypot und Mindestausfüllzeit"
+
+#: admin/views/settings-tab.php:30
+msgid "An invisible field that bots fill in, and a signed timestamp that catches forms sent back faster than a person could type. No request to anybody, no cookie, no JavaScript. It does not stop spam sent by hand."
+msgstr "Ein unsichtbares Feld, das Bots ausfüllen, und ein signierter Zeitstempel, der Formulare erkennt, die schneller zurückkommen, als ein Mensch tippen kann. Keine Anfrage an Dritte, kein Cookie, kein JavaScript. Gegen Spam, der von Hand gesendet wird, hilft das nicht."
+
+#: admin/views/settings-tab.php:36
+msgid "Store submissions in Flamingo"
+msgstr "Einsendungen in Flamingo speichern"
+
+#: admin/views/settings-tab.php:37
+msgid "Off: messages are only mailed, and the site keeps no copy."
+msgstr "Aus: Nachrichten werden nur gemailt, und die Website behält keine Kopie."
+
+#: admin/views/settings-tab.php:40
+msgid "Store submissions recognised as spam"
+msgstr "Als Spam erkannte Einsendungen speichern"
+
+#: admin/views/settings-tab.php:41
+msgid "Off: spam is dropped instead of kept for review."
+msgstr "Aus: Spam wird verworfen statt zur Prüfung aufbewahrt."
+
+#: admin/views/settings-tab.php:46
+msgid "Serial number"
+msgstr "Laufende Nummer"
+
+#: admin/views/settings-tab.php:47
+msgid "IP address"
+msgstr "IP-Adresse"
+
+#: admin/views/settings-tab.php:48
+msgid "Browser (user agent)"
+msgstr "Browser (User-Agent)"
+
+#: admin/views/settings-tab.php:49
+msgid "Page address"
+msgstr "Seitenadresse"
+
+#: admin/views/settings-tab.php:50
+msgid "Date"
+msgstr "Datum"
+
+#: admin/views/settings-tab.php:51
+msgid "Time"
+msgstr "Uhrzeit"
+
+#: admin/views/settings-tab.php:52
+msgid "Entry ID"
+msgstr "Eintrags-ID"
+
+#: admin/views/settings-tab.php:53
+msgid "Entry slug"
+msgstr "Titelform des Eintrags"
+
+#: admin/views/settings-tab.php:54
+msgid "Entry title"
+msgstr "Titel des Eintrags"
+
+#: admin/views/settings-tab.php:55
+msgid "Entry address"
+msgstr "Adresse des Eintrags"
+
+#: admin/views/settings-tab.php:56
+msgid "Entry author"
+msgstr "Autor des Eintrags"
+
+#: admin/views/settings-tab.php:57
+msgid "Entry author’s email"
+msgstr "E-Mail des Autors"
+
+#: admin/views/settings-tab.php:58
+msgid "Site title"
+msgstr "Titel der Website"
+
+#: admin/views/settings-tab.php:59
+msgid "Site tagline"
+msgstr "Untertitel der Website"
+
+#: admin/views/settings-tab.php:60
+msgid "Site address"
+msgstr "Adresse der Website"
+
+#: admin/views/settings-tab.php:61
+msgid "Site admin email"
+msgstr "Administrator-E-Mail der Website"
+
+#: admin/views/settings-tab.php:62
+msgid "Logged-in user’s login"
+msgstr "Anmeldename des angemeldeten Benutzers"
+
+#: admin/views/settings-tab.php:63
+msgid "Logged-in user’s email"
+msgstr "E-Mail des angemeldeten Benutzers"
+
+#: admin/views/settings-tab.php:64
+msgid "Logged-in user’s name"
+msgstr "Name des angemeldeten Benutzers"
+
+#: admin/views/settings-tab.php:72
+msgid "Contact Form 7 and Flamingo without the leaks: form assets only where a form is, no IP address, no address book, a retention period, an entry in the personal data export, and spam protection that asks nobody."
+msgstr "Contact Form 7 und Flamingo ohne Datenlecks: Formular-Dateien nur dort, wo ein Formular ist, keine IP-Adresse, kein Adressbuch, eine Löschfrist, ein Eintrag im Export personenbezogener Daten und ein Spamschutz, der niemanden fragt."
+
+#: admin/views/settings-tab.php:82
+msgid "Flamingo is not active, so no submission is stored on this site. The storage, retention and cleanup settings appear once it is."
+msgstr "Flamingo ist nicht aktiv, daher wird auf dieser Website keine Einsendung gespeichert. Die Einstellungen zu Speicherung, Löschfrist und Bereinigung erscheinen, sobald Flamingo aktiv ist."
+
+#: admin/views/settings-tab.php:88
+msgid "Flamingo’s address book is switched off."
+msgstr "Das Adressbuch von Flamingo ist abgeschaltet."
+
+#: admin/views/settings-tab.php:89
+msgid "No contact is collected from forms, users or comments any more, and the Address Book screen is gone. That is not a setting."
+msgstr "Aus Formularen, Benutzern und Kommentaren werden keine Kontakte mehr gesammelt, und die Adressbuch-Seite ist verschwunden. Das ist keine Einstellung."
+
+#: admin/views/settings-tab.php:113
+#: admin/views/settings-tab.php:151
+msgid "On"
+msgstr "An"
+
+#: admin/views/settings-tab.php:121
+msgid "Minimum fill time"
+msgstr "Mindestausfüllzeit"
+
+#: admin/views/settings-tab.php:133
+msgid "seconds"
+msgstr "Sekunden"
+
+#: admin/views/settings-tab.php:159
+#: includes/class-cleanup.php:174
+msgid "Retention period"
+msgstr "Löschfrist"
+
+#: admin/views/settings-tab.php:171
+msgid "days"
+msgstr "Tage"
+
+#: admin/views/settings-tab.php:173
+msgid "Older messages are deleted for good once a day, spam and trash included. WP-Cron only runs when the site has visitors, so a server cron job keeps this punctual."
+msgstr "Ältere Nachrichten werden einmal täglich endgültig gelöscht, Spam und Papierkorb eingeschlossen. WP-Cron läuft nur, wenn die Website Besucher hat; ein Server-Cronjob sorgt für Pünktlichkeit."
+
+#: admin/views/settings-tab.php:178
+#: admin/views/settings-tab.php:181
+msgid "Metadata kept with a message"
+msgstr "Metadaten, die bei einer Nachricht bleiben"
+
+#: admin/views/settings-tab.php:196
+msgid "Everything else Contact Form 7 hands Flamingo is dropped, and so are the raw answers of Akismet, reCAPTCHA and Turnstile."
+msgstr "Alles andere, was Contact Form 7 an Flamingo übergibt, wird verworfen, ebenso die Rohantworten von Akismet, reCAPTCHA und Turnstile."
+
+#: admin/views/settings-tab.php:201
+msgid "Contact Form 7 has its own means as well: <code>do_not_store: true</code> under a form’s additional settings keeps that whole form out of Flamingo, and the form-tag option <code>do-not-store</code> keeps a single field out."
+msgstr "Contact Form 7 hat auch eigene Mittel: <code>do_not_store: true</code> unter den zusätzlichen Einstellungen eines Formulars hält das ganze Formular aus Flamingo heraus, die Form-Tag-Option <code>do-not-store</code> ein einzelnes Feld."
+
+#: admin/views/settings-tab.php:213
+msgid "Save settings"
+msgstr "Einstellungen speichern"
+
+#: admin/views/settings-tab.php:217
+msgid "What is stored"
+msgstr "Was gespeichert ist"
+
+#: admin/views/settings-tab.php:222
+msgid "Stored messages"
+msgstr "Gespeicherte Nachrichten"
+
+#: admin/views/settings-tab.php:226
+msgid "Oldest message"
+msgstr "Älteste Nachricht"
+
+#: admin/views/settings-tab.php:231
+msgid "none"
+msgstr "keine"
+
+#: admin/views/settings-tab.php:238
+msgid "Contacts left in the address book"
+msgstr "Verbliebene Kontakte im Adressbuch"
+
+#: admin/views/settings-tab.php:242
+msgid "Next retention run"
+msgstr "Nächster Löschlauf"
+
+#: admin/views/settings-tab.php:247
+msgid "not scheduled"
+msgstr "nicht geplant"
+
+#: admin/views/settings-tab.php:256
+msgid "Clean up what is already stored"
+msgstr "Bestehende Daten bereinigen"
+
+#: admin/views/settings-tab.php:259
+msgid "The settings above only change what is stored from now on. The cleanup deals with what is already there: it deletes every address book contact and contact tag, reduces the metadata of every stored message to the list above, and applies the retention period right away. Each step reports whether it changed anything; a second run should report no change everywhere. It never runs on its own."
+msgstr "Die Einstellungen oben ändern nur, was ab jetzt gespeichert wird. Die Bereinigung kümmert sich um das, was schon da ist: Sie löscht alle Adressbuch-Kontakte und Kontakt-Schlagwörter, reduziert die Metadaten jeder gespeicherten Nachricht auf die Liste oben und wendet die Löschfrist sofort an. Jeder Schritt meldet, ob er etwas geändert hat; ein zweiter Lauf sollte überall „keine Änderung“ melden. Sie läuft nie von selbst."
+
+#: admin/views/settings-tab.php:264
+msgid "Result of the last cleanup"
+msgstr "Ergebnis der letzten Bereinigung"
+
+#: admin/views/settings-tab.php:267
+msgid "Step"
+msgstr "Schritt"
+
+#: admin/views/settings-tab.php:268
+msgid "Result"
+msgstr "Ergebnis"
+
+#: admin/views/settings-tab.php:269
+msgid "Detail"
+msgstr "Detail"
+
+#: admin/views/settings-tab.php:280
+msgid "changed"
+msgstr "geändert"
+
+#: admin/views/settings-tab.php:281
+msgid "no change"
+msgstr "keine Änderung"
+
+#: admin/views/settings-tab.php:295
+msgid "This deletes every Flamingo contact and every message older than the retention period for good, and strips metadata from the rest. Deleted data cannot be brought back. Continue?"
+msgstr "Das löscht alle Flamingo-Kontakte und alle Nachrichten, die älter als die Löschfrist sind, endgültig und entfernt Metadaten aus den übrigen. Gelöschte Daten lassen sich nicht wiederherstellen. Fortfahren?"
+
+#: admin/views/settings-tab.php:299
+msgid "Clean up now"
+msgstr "Jetzt bereinigen"
+
+#. translators: %s: WP-CLI command.
+#: admin/views/settings-tab.php:304
+#, php-format
+msgid "The same routine runs from the command line as %s."
+msgstr "Dieselbe Routine läuft auf der Kommandozeile als %s."
+
+#: includes/class-cleanup.php:44
+msgid "Flamingo"
+msgstr "Flamingo"
+
+#: includes/class-cleanup.php:44
+msgid "Flamingo is not active, so there is nothing to clean up."
+msgstr "Flamingo ist nicht aktiv, es gibt also nichts zu bereinigen."
+
+#: includes/class-cleanup.php:61
+msgid "Address book"
+msgstr "Adressbuch"
+
+#: includes/class-cleanup.php:103
+msgid "No change: the address book is empty."
+msgstr "Keine Änderung: Das Adressbuch ist leer."
+
+#. translators: 1: number of contacts, 2: number of tags.
+#: includes/class-cleanup.php:111
+#, php-format
+msgid "%1$s contacts and %2$s tags deleted."
+msgstr "%1$s Kontakte und %2$s Schlagwörter gelöscht."
+
+#: includes/class-cleanup.php:124
+msgid "Metadata of stored messages"
+msgstr "Metadaten gespeicherter Nachrichten"
+
+#: includes/class-cleanup.php:154
+msgid "No change: every message holds only the allowed metadata."
+msgstr "Keine Änderung: Jede Nachricht enthält nur die erlaubten Metadaten."
+
+#. translators: %s: number of messages.
+#: includes/class-cleanup.php:162
+#, php-format
+msgid "%s message reduced."
+msgid_plural "%s messages reduced."
+msgstr[0] "%s Nachricht reduziert."
+msgstr[1] "%s Nachrichten reduziert."
+
+#: includes/class-cleanup.php:178
+msgid "No change: no message is older than the retention period."
+msgstr "Keine Änderung: Keine Nachricht ist älter als die Löschfrist."
+
+#. translators: %s: number of messages.
+#: includes/class-cleanup.php:186
+#, php-format
+msgid "%s message deleted."
+msgid_plural "%s messages deleted."
+msgstr[0] "%s Nachricht gelöscht."
+msgstr[1] "%s Nachrichten gelöscht."
+
+#: includes/class-exporter.php:46
+msgid "Contact form messages (Flamingo)"
+msgstr "Kontaktformular-Nachrichten (Flamingo)"
+
+#: includes/class-exporter.php:115
+msgid "Subject"
+msgstr "Betreff"
+
+#: includes/class-exporter.php:119
+msgid "Received"
+msgstr "Eingegangen"
+
+#. translators: %s: name of a metadata field.
+#: includes/class-exporter.php:134
+#, php-format
+msgid "Metadata: %s"
+msgstr "Metadaten: %s"
+
+#: includes/class-exporter.php:141
+msgid "Contact form messages"
+msgstr "Kontaktformular-Nachrichten"
+
+#: includes/class-honeypot.php:76
+msgid "Leave this field empty"
+msgstr "Dieses Feld leer lassen"
+
+#: includes/class-policy-text.php:50
+msgid "When you send us a message through a contact form, we store what you entered in the form — typically your name, your email address and your message — together with the date and time, the address of the page you sent it from and the title of that page, so that we can answer and follow up on your message."
+msgstr "Wenn du uns über ein Kontaktformular eine Nachricht sendest, speichern wir deine Eingaben – in der Regel deinen Namen, deine E-Mail-Adresse und deine Nachricht – zusammen mit Datum und Uhrzeit, der Adresse der Seite, von der aus du sie gesendet hast, und dem Titel dieser Seite, damit wir deine Nachricht beantworten und bearbeiten können."
+
+#. translators: %s: number of days.
+#: includes/class-policy-text.php:54
+#, php-format
+msgid "Stored messages are deleted automatically after %s day."
+msgid_plural "Stored messages are deleted automatically after %s days."
+msgstr[0] "Gespeicherte Nachrichten werden nach %s Tag automatisch gelöscht."
+msgstr[1] "Gespeicherte Nachrichten werden nach %s Tagen automatisch gelöscht."
+
+#: includes/class-policy-text.php:63
+msgid "When you send us a message through a contact form, it is sent to us by email. The website itself does not keep a copy."
+msgstr "Wenn du uns über ein Kontaktformular eine Nachricht sendest, wird sie uns per E-Mail zugestellt. Die Website selbst behält keine Kopie."
+
+#: includes/class-policy-text.php:67
+msgid "Your IP address is not collected when you send the form."
+msgstr "Beim Absenden des Formulars wird deine IP-Adresse nicht erhoben."
+
+#: includes/class-policy-text.php:70
+msgid "We do not keep an address book of people who contacted us."
+msgstr "Wir führen kein Adressbuch der Personen, die uns kontaktiert haben."
+
+#: includes/class-policy-text.php:72
+msgid "Our contact forms are protected against spam without an external service: no data is sent to a third party for that purpose, and no cookie is set."
+msgstr "Unsere Kontaktformulare sind ohne externen Dienst gegen Spam geschützt: Dafür werden keine Daten an Dritte übermittelt, und es wird kein Cookie gesetzt."
+
+#: includes/class-settings-tab.php:78
+msgid "Form Privacy"
+msgstr "Form Privacy"
+
+#: includes/class-settings-tab.php:105
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/class-settings-tab.php:157
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: includes/class-settings-tab.php:179
+msgid "Nothing to do — every step reported no change."
+msgstr "Nichts zu tun – kein Schritt hat etwas geändert."
+
+#. translators: 1: steps that changed something, 2: all steps.
+#: includes/class-settings-tab.php:182
+#, php-format
+msgid "Cleanup done: %1$d of %2$d steps changed something."
+msgstr "Bereinigung abgeschlossen: %1$d von %2$d Schritten haben etwas geändert."
+
+#: includes/class-settings-tab.php:196
+msgid "You are not allowed to change these settings."
+msgstr "Du darfst diese Einstellungen nicht ändern."

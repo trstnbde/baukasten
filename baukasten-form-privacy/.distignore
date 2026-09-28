@@ -1,0 +1,17 @@
+# Files and directories excluded from the distributable plugin archive.
+.git
+.gitignore
+.distignore
+.editorconfig
+.wordpress-org
+docs
+composer.json
+composer.lock
+phpcs.xml.dist
+phpcs-report.xml
+vendor
+node_modules
+build
+*.log
+.DS_Store
+Thumbs.db

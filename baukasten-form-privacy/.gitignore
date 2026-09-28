@@ -1,0 +1,22 @@
+# Dependencies. composer.lock is deliberately not ignored: where one exists it
+# is committed, because it pins the linting tools so CI cannot break on an
+# upstream release. Only baukasten/ has one so far; the addons resolve their
+# dev dependencies fresh on every CI run.
+vendor/
+node_modules/
+
+# Build output
+build/
+phpcs-report.xml
+
+# Local PHPCS overrides
+phpcs.xml
+.phpcs.xml
+.phpunit.result.cache
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
