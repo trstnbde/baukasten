@@ -1,10 +1,10 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
 	"core": null,
-	"phpVersion": "8.2",
+	"phpVersion": "8.4",
 	"plugins": [
-		"https://downloads.wordpress.org/plugin/contact-form-7.zip",
-		"https://downloads.wordpress.org/plugin/flamingo.zip",
+		"https://downloads.wordpress.org/plugin/contact-form-7.6.1.7.zip",
+		"https://downloads.wordpress.org/plugin/flamingo.2.6.4.zip",
 		"./baukasten",
 		"./baukasten-business-cards",
 		"./baukasten-form-privacy"
