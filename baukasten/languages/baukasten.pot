@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-28T13:17:17+02:00\n"
+"POT-Creation-Date: 2026-09-29T11:04:13+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten\n"
@@ -50,32 +50,41 @@ msgid "Baukasten addons"
 msgstr ""
 
 #: admin/views/overview.php:31
+#: admin/views/overview.php:93
 msgid "Addon"
 msgstr ""
 
 #: admin/views/overview.php:32
+#: admin/views/overview.php:94
 #: features/consent-blocking-engine/admin/views/settings-tab.php:321
 msgid "Description"
 msgstr ""
 
-#: admin/views/overview.php:33
-msgid "Version"
+#. translators: %s: addon version number.
+#: admin/views/overview.php:44
+#, php-format
+msgid "Version %s"
 msgstr ""
 
-#: admin/views/overview.php:34
-msgid "Status"
+#: admin/views/overview.php:56
+#: includes/class-admin.php:91
+msgid "Settings"
 msgstr ""
 
-#: admin/views/overview.php:59
+#: admin/views/overview.php:63
 msgid "Install"
 msgstr ""
 
-#: admin/views/overview.php:66
+#: admin/views/overview.php:70
 msgid "Activate"
 msgstr ""
 
+#: admin/views/overview.php:77
+msgid "Show more details"
+msgstr ""
+
 #. translators: %s: link to the installed plugins screen.
-#: admin/views/overview.php:84
+#: admin/views/overview.php:105
 #, php-format
 msgid "Addons are managed like any other plugin, on the <a href=\"%s\">Plugins</a> screen."
 msgstr ""
@@ -738,21 +747,21 @@ msgid_plural "%s items were skipped because you may not edit them."
 msgstr[0] ""
 msgstr[1] ""
 
-#: features/content-visibility/includes/class-frontend-guard.php:136
-#: features/content-visibility/includes/class-frontend-guard.php:313
-#: features/content-visibility/includes/class-frontend-guard.php:464
+#: features/content-visibility/includes/class-frontend-guard.php:140
+#: features/content-visibility/includes/class-frontend-guard.php:321
+#: features/content-visibility/includes/class-frontend-guard.php:472
 msgid "This content is available to logged-in users only."
 msgstr ""
 
-#: features/content-visibility/includes/class-frontend-guard.php:137
+#: features/content-visibility/includes/class-frontend-guard.php:141
 msgid "Login required"
 msgstr ""
 
-#: features/content-visibility/includes/class-frontend-guard.php:447
+#: features/content-visibility/includes/class-frontend-guard.php:455
 msgid "Invalid post ID."
 msgstr ""
 
-#: features/content-visibility/includes/class-frontend-guard.php:466
+#: features/content-visibility/includes/class-frontend-guard.php:474
 msgid "Log in"
 msgstr ""
 
@@ -825,7 +834,7 @@ msgid "Shown as the second link."
 msgstr ""
 
 #: features/login-legal-pages/admin/views/settings-tab.php:122
-#: features/login-legal-pages/includes/class-legal-pages.php:135
+#: features/login-legal-pages/includes/class-legal-pages.php:157
 msgid "Imprint"
 msgstr ""
 
@@ -901,11 +910,11 @@ msgstr ""
 msgid "Password reset requests are limited as well, to three per address and hour."
 msgstr ""
 
-#: features/login-legal-pages/includes/class-legal-pages.php:127
+#: features/login-legal-pages/includes/class-legal-pages.php:149
 msgid "Privacy Policy"
 msgstr ""
 
-#: features/login-legal-pages/includes/class-legal-pages.php:131
+#: features/login-legal-pages/includes/class-legal-pages.php:153
 msgid "Terms of Service"
 msgstr ""
 
@@ -927,10 +936,6 @@ msgstr ""
 
 #: includes/class-admin.php:64
 msgid "Baukasten"
-msgstr ""
-
-#: includes/class-admin.php:91
-msgid "Settings"
 msgstr ""
 
 #: includes/class-admin.php:125

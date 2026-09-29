@@ -3,7 +3,7 @@
  *
  * The settings screen is a plain WordPress tabbed options page, so there is
  * very little to style: a readable measure for the intro text, and a bit of
- * air around the tab panel and the addon table.
+ * air around the tab panel. The overview borrows the Plugins screen's list.
  */
 
 .baukasten-intro {
@@ -14,58 +14,22 @@
 	margin-top: 1.5em;
 }
 
+/*
+ * The addon list is the Plugins screen's own table: `list-tables` styles the
+ * rows, the row actions and the narrow-screen layout. What it cannot give is
+ * the blue bar at the start of an active row, because core hangs that on the
+ * checkbox column and this table has none.
+ */
 .baukasten-addons {
-	max-width: 60em;
 	margin-top: 1em;
 }
 
-.baukasten-addons th[scope="row"] {
-	width: 20em;
+.baukasten-addons .active td.plugin-title {
+	border-left: 4px solid #72aee6;
 }
 
-/*
- * The status cell carries a word and, for the two states you can do something
- * about, a button under it.
- *
- * Laid out with plain block flow rather than flex: a `display: flex` on a `td`
- * takes the cell out of the table's own sizing, and the widest label then
- * pushes the whole table past the screen instead of wrapping inside its
- * column.
- */
-.baukasten-addons-status {
-	width: 12em;
-}
-
-.baukasten-addons-status .button {
-	margin-top: 8px;
-}
-
-/*
- * The dot carries the state at a glance; the word next to it carries it for
- * everyone the colour does not reach. Neither is ever on its own.
- */
-.baukasten-status::before {
-	content: "";
-	display: inline-block;
-	width: 8px;
-	height: 8px;
-	margin-right: 6px;
-	border-radius: 50%;
-	background: #c3c4c7;
-	vertical-align: 1px;
-}
-
-.baukasten-status--active::before,
-.baukasten-status--built-in::before {
-	background: #00a32a;
-}
-
-.baukasten-status--inactive::before {
-	background: #dba617;
-}
-
-.baukasten-status--missing {
-	color: #50575e;
+.baukasten-addons .plugin-title {
+	width: 30%;
 }
 
 .baukasten-addons-hint {
@@ -82,11 +46,4 @@
 
 .baukasten-tab-panel .form-table {
 	max-width: 60em;
-}
-
-@media screen and ( max-width: 782px ) {
-	.baukasten-addons th[scope="row"],
-	.baukasten-addons-status {
-		width: auto;
-	}
 }

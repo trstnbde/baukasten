@@ -15,7 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: baukasten\n"
 
-# The plugin name is a proper noun and stays English in every locale.
 #. Plugin Name of the plugin
 #: baukasten.php
 #: admin/views/settings-page.php:18
@@ -52,32 +51,41 @@ msgid "Baukasten addons"
 msgstr "Baukasten-Addons"
 
 #: admin/views/overview.php:31
+#: admin/views/overview.php:93
 msgid "Addon"
 msgstr "Addon"
 
 #: admin/views/overview.php:32
+#: admin/views/overview.php:94
 #: features/consent-blocking-engine/admin/views/settings-tab.php:321
 msgid "Description"
 msgstr "Beschreibung"
 
-#: admin/views/overview.php:33
-msgid "Version"
-msgstr "Version"
+#. translators: %s: addon version number.
+#: admin/views/overview.php:44
+#, php-format
+msgid "Version %s"
+msgstr "Version %s"
 
-#: admin/views/overview.php:34
-msgid "Status"
-msgstr "Status"
+#: admin/views/overview.php:56
+#: includes/class-admin.php:91
+msgid "Settings"
+msgstr "Einstellungen"
 
-#: admin/views/overview.php:59
+#: admin/views/overview.php:63
 msgid "Install"
 msgstr "Installieren"
 
-#: admin/views/overview.php:66
+#: admin/views/overview.php:70
 msgid "Activate"
 msgstr "Aktivieren"
 
+#: admin/views/overview.php:77
+msgid "Show more details"
+msgstr "Weitere Details anzeigen"
+
 #. translators: %s: link to the installed plugins screen.
-#: admin/views/overview.php:84
+#: admin/views/overview.php:105
 #, php-format
 msgid "Addons are managed like any other plugin, on the <a href=\"%s\">Plugins</a> screen."
 msgstr "Addons werden wie jedes andere Plugin auf der Seite <a href=\"%s\">Plugins</a> verwaltet."
@@ -740,21 +748,21 @@ msgid_plural "%s items were skipped because you may not edit them."
 msgstr[0] "%s Eintrag wurde übersprungen, weil du ihn nicht bearbeiten darfst."
 msgstr[1] "%s Einträge wurden übersprungen, weil du sie nicht bearbeiten darfst."
 
-#: features/content-visibility/includes/class-frontend-guard.php:136
-#: features/content-visibility/includes/class-frontend-guard.php:313
-#: features/content-visibility/includes/class-frontend-guard.php:464
+#: features/content-visibility/includes/class-frontend-guard.php:140
+#: features/content-visibility/includes/class-frontend-guard.php:321
+#: features/content-visibility/includes/class-frontend-guard.php:472
 msgid "This content is available to logged-in users only."
 msgstr "Dieser Inhalt ist nur für angemeldete Benutzer verfügbar."
 
-#: features/content-visibility/includes/class-frontend-guard.php:137
+#: features/content-visibility/includes/class-frontend-guard.php:141
 msgid "Login required"
 msgstr "Anmeldung erforderlich"
 
-#: features/content-visibility/includes/class-frontend-guard.php:447
+#: features/content-visibility/includes/class-frontend-guard.php:455
 msgid "Invalid post ID."
 msgstr "Ungültige Beitrags-ID."
 
-#: features/content-visibility/includes/class-frontend-guard.php:466
+#: features/content-visibility/includes/class-frontend-guard.php:474
 msgid "Log in"
 msgstr "Anmelden"
 
@@ -827,7 +835,7 @@ msgid "Shown as the second link."
 msgstr "Erscheint als zweiter Link."
 
 #: features/login-legal-pages/admin/views/settings-tab.php:122
-#: features/login-legal-pages/includes/class-legal-pages.php:135
+#: features/login-legal-pages/includes/class-legal-pages.php:157
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -903,11 +911,11 @@ msgstr "Erste Sperre"
 msgid "Password reset requests are limited as well, to three per address and hour."
 msgstr "Anfragen zum Zurücksetzen des Passworts sind ebenfalls begrenzt, auf drei pro Adresse und Stunde."
 
-#: features/login-legal-pages/includes/class-legal-pages.php:127
+#: features/login-legal-pages/includes/class-legal-pages.php:149
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: features/login-legal-pages/includes/class-legal-pages.php:131
+#: features/login-legal-pages/includes/class-legal-pages.php:153
 msgid "Terms of Service"
 msgstr "Nutzungsbedingungen"
 
@@ -930,10 +938,6 @@ msgstr "Login & Rechtliches"
 #: includes/class-admin.php:64
 msgid "Baukasten"
 msgstr "Baukasten"
-
-#: includes/class-admin.php:91
-msgid "Settings"
-msgstr "Einstellungen"
 
 #: includes/class-admin.php:125
 msgid "You are not allowed to manage Baukasten."

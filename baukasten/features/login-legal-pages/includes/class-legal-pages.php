@@ -116,6 +116,28 @@ final class Legal_Pages {
 	}
 
 	/**
+	 * Returns the title of the page stored in an option.
+	 *
+	 * The login footer names each link after the page it opens, so a site that
+	 * calls its terms page "Haftungsausschluss" sees exactly that under the form.
+	 *
+	 * @param int    $page_id  Page ID, 0 when unset.
+	 * @param string $fallback Label used when the page has no title.
+	 * @return string Page title, or the fallback.
+	 */
+	public static function get_label( int $page_id, string $fallback ): string {
+		if ( $page_id > 0 ) {
+			$title = trim( wp_strip_all_tags( get_the_title( $page_id ) ) );
+
+			if ( '' !== $title ) {
+				return $title;
+			}
+		}
+
+		return $fallback;
+	}
+
+	/**
 	 * Returns the links that actually have a page behind them.
 	 *
 	 * @return array<int, array{url: string, label: string}> Usable links.
@@ -124,15 +146,15 @@ final class Legal_Pages {
 		$candidates = array(
 			array(
 				'url'   => self::get_privacy_url(),
-				'label' => __( 'Privacy Policy', 'baukasten' ),
+				'label' => self::get_label( (int) get_option( 'wp_page_for_privacy_policy', 0 ), __( 'Privacy Policy', 'baukasten' ) ),
 			),
 			array(
 				'url'   => self::get_terms_url(),
-				'label' => __( 'Terms of Service', 'baukasten' ),
+				'label' => self::get_label( self::get_page_id( self::OPTION_TERMS ), __( 'Terms of Service', 'baukasten' ) ),
 			),
 			array(
 				'url'   => self::get_imprint_url(),
-				'label' => __( 'Imprint', 'baukasten' ),
+				'label' => self::get_label( self::get_page_id( self::OPTION_IMPRINT ), __( 'Imprint', 'baukasten' ) ),
 			),
 		);
 

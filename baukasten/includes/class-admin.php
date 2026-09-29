@@ -110,7 +110,7 @@ final class Admin {
 		wp_enqueue_style(
 			'baukasten-admin',
 			PLUGIN_URL . 'admin/css/admin.css',
-			array( 'common' ),
+			array( 'common', 'list-tables' ),
 			VERSION
 		);
 	}

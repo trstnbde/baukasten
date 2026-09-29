@@ -129,6 +129,8 @@ Its options, the visibility flags and the consent log table are removed. Export 
 == Changelog ==
 
 = 1.0.0 =
+* Login Legal Pages: the links under the login form are named after the pages they open, such as "Haftungsausschluss".
+* The overview tab looks like the Plugins screen.
 * Consent Blocking Engine, Content Visibility and Login Legal Pages are part of this plugin instead of separate addons. Their settings and data carry over unchanged.
 * Consent: the endpoint only accepts JSON from this site's own pages; the nonce is gone.
 * Consent: front end script and styles only load where something is blocked or embedded.

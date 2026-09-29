@@ -24,55 +24,76 @@ $baukasten_can_activate = current_user_can( 'activate_plugins' );
 	?>
 </p>
 
-<table class="widefat striped baukasten-addons">
+<table class="wp-list-table widefat plugins baukasten-addons">
 	<caption class="screen-reader-text"><?php esc_html_e( 'Baukasten addons', 'baukasten' ); ?></caption>
 	<thead>
 		<tr>
-			<th scope="col"><?php esc_html_e( 'Addon', 'baukasten' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Description', 'baukasten' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Version', 'baukasten' ); ?></th>
-			<th scope="col"><?php esc_html_e( 'Status', 'baukasten' ); ?></th>
+			<th scope="col" class="manage-column column-name column-primary"><?php esc_html_e( 'Addon', 'baukasten' ); ?></th>
+			<th scope="col" class="manage-column column-description"><?php esc_html_e( 'Description', 'baukasten' ); ?></th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="the-list">
 		<?php foreach ( $addons as $baukasten_addon ) : ?>
-			<?php $baukasten_status = (string) $baukasten_addon['status']; ?>
-			<tr>
-				<th scope="row">
-					<?php if ( $baukasten_addon['has_tab'] ) : ?>
-						<a href="<?php echo esc_url( Admin::page_url( (string) $baukasten_addon['id'] ) ); ?>">
-							<?php echo esc_html( (string) $baukasten_addon['title'] ); ?>
-						</a>
-					<?php else : ?>
-						<?php echo esc_html( (string) $baukasten_addon['title'] ); ?>
-					<?php endif; ?>
-				</th>
-				<td><?php echo esc_html( (string) $baukasten_addon['description'] ); ?></td>
-				<td><?php echo esc_html( (string) $baukasten_addon['version'] ); ?></td>
-				<td class="baukasten-addons-status">
-					<span class="baukasten-status baukasten-status--<?php echo esc_attr( $baukasten_status ); ?>">
-						<?php echo esc_html( Catalog::status_label( $baukasten_status ) ); ?>
-					</span>
+			<?php
+			$baukasten_status = (string) $baukasten_addon['status'];
+			$baukasten_on     = in_array( $baukasten_status, array( Catalog::ACTIVE, Catalog::BUILT_IN ), true );
+			$baukasten_meta   = array();
 
-					<?php if ( Catalog::MISSING === $baukasten_status && $baukasten_can_install && '' !== $baukasten_addon['slug'] ) : ?>
-						<a class="button button-secondary" href="<?php echo esc_url( Catalog::install_url( $baukasten_addon ) ); ?>">
-							<?php esc_html_e( 'Install', 'baukasten' ); ?>
-							<span class="screen-reader-text">
-								<?php echo esc_html( (string) $baukasten_addon['title'] ); ?>
+			if ( '' !== (string) $baukasten_addon['version'] ) {
+				/* translators: %s: addon version number. */
+				$baukasten_meta[] = sprintf( __( 'Version %s', 'baukasten' ), (string) $baukasten_addon['version'] );
+			}
+
+			$baukasten_meta[] = Catalog::status_label( $baukasten_status );
+			?>
+			<tr class="<?php echo $baukasten_on ? 'active' : 'inactive'; ?>">
+				<td class="plugin-title column-primary">
+					<strong><?php echo esc_html( (string) $baukasten_addon['title'] ); ?></strong>
+					<div class="row-actions visible">
+						<?php if ( $baukasten_addon['has_tab'] ) : ?>
+							<span class="settings">
+								<a href="<?php echo esc_url( Admin::page_url( (string) $baukasten_addon['id'] ) ); ?>">
+									<?php esc_html_e( 'Settings', 'baukasten' ); ?>
+									<span class="screen-reader-text"><?php echo esc_html( (string) $baukasten_addon['title'] ); ?></span>
+								</a>
 							</span>
-						</a>
-					<?php elseif ( Catalog::INACTIVE === $baukasten_status && $baukasten_can_activate && '' !== $baukasten_addon['file'] ) : ?>
-						<a class="button button-secondary" href="<?php echo esc_url( Catalog::activate_url( $baukasten_addon ) ); ?>">
-							<?php esc_html_e( 'Activate', 'baukasten' ); ?>
-							<span class="screen-reader-text">
-								<?php echo esc_html( (string) $baukasten_addon['title'] ); ?>
+						<?php elseif ( Catalog::MISSING === $baukasten_status && $baukasten_can_install && '' !== $baukasten_addon['slug'] ) : ?>
+							<span class="install">
+								<a href="<?php echo esc_url( Catalog::install_url( $baukasten_addon ) ); ?>">
+									<?php esc_html_e( 'Install', 'baukasten' ); ?>
+									<span class="screen-reader-text"><?php echo esc_html( (string) $baukasten_addon['title'] ); ?></span>
+								</a>
 							</span>
-						</a>
-					<?php endif; ?>
+						<?php elseif ( Catalog::INACTIVE === $baukasten_status && $baukasten_can_activate && '' !== $baukasten_addon['file'] ) : ?>
+							<span class="activate">
+								<a href="<?php echo esc_url( Catalog::activate_url( $baukasten_addon ) ); ?>">
+									<?php esc_html_e( 'Activate', 'baukasten' ); ?>
+									<span class="screen-reader-text"><?php echo esc_html( (string) $baukasten_addon['title'] ); ?></span>
+								</a>
+							</span>
+						<?php endif; ?>
+					</div>
+					<button type="button" class="toggle-row">
+						<span class="screen-reader-text"><?php esc_html_e( 'Show more details', 'baukasten' ); ?></span>
+					</button>
+				</td>
+				<td class="column-description desc">
+					<div class="plugin-description">
+						<p><?php echo esc_html( (string) $baukasten_addon['description'] ); ?></p>
+					</div>
+					<div class="<?php echo $baukasten_on ? 'active' : 'inactive'; ?> second plugin-version-author-uri">
+						<?php echo esc_html( implode( ' | ', $baukasten_meta ) ); ?>
+					</div>
 				</td>
 			</tr>
 		<?php endforeach; ?>
 	</tbody>
+	<tfoot>
+		<tr>
+			<th scope="col" class="manage-column column-name column-primary"><?php esc_html_e( 'Addon', 'baukasten' ); ?></th>
+			<th scope="col" class="manage-column column-description"><?php esc_html_e( 'Description', 'baukasten' ); ?></th>
+		</tr>
+	</tfoot>
 </table>
 
 <?php if ( $baukasten_can_activate ) : ?>

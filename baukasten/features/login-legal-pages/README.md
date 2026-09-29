@@ -6,7 +6,7 @@ Part of [Baukasten - Privacy Toolkit](../../README.md), in `features/login-legal
 
 ## What it does
 
-**Legal links under the form.** Privacy policy, terms of service and imprint, in that order, rendered through the `the_privacy_policy_link` filter so they land in the wrapper core already prints under the form rather than in a second block at the bottom of the page. A page that does not exist or is not published is left out — a dead link on the login screen is the first thing every user of the site sees.
+**Legal links under the form.** Privacy policy, terms of service and imprint, in that order, rendered through the `the_privacy_policy_link` filter so they land in the wrapper core already prints under the form rather than in a second block at the bottom of the page. Each link is named after the page it opens, so a terms page called "Haftungsausschluss" reads exactly that; a page without a title falls back to the generic name. A page that does not exist or is not published is left out — a dead link on the login screen is the first thing every user of the site sees.
 
 **One card.** Core prints the form, its login navigation (`<p id="nav">`, the "Lost your password?" link) and the legal links as three separate siblings inside the `#login` column. They are styled as a single card: white form on top, a recessed `#f6f7f7` footer under it with a divider and 8px rounded corners. No DOM surgery and no JavaScript — three stacked blocks with the right borders are a card. Each block is pulled up one pixel so its own background covers the border above it, because CSS has no selector for "an element followed by another" short of `:has()`.
 
