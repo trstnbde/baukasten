@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Noto Sans",
+	"slug": "noto-sans",
+	"styles": {
+		"typography": {
+			"fontFamily": "var:preset|font-family|noto-sans"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-sans"
+				}
+			},
+			"button": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-sans"
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-sans"
+				}
+			},
+			"core/pullquote": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-sans"
+				}
+			}
+		}
+	}
+}

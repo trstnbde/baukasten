@@ -1,0 +1,2570 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Theme: TT5 Fork 1.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/baukasten-tt5-fork\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-11T05:30:51+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-tt5-fork\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "Baukasten Theme: TT5 Fork"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "A standalone fork of Twenty Twenty-Five 1.5 that carries three design systems as styles: Organic (the default), Modernist and Nocturne, plus Noto Sans and Noto Serif as font presets. Templates, template parts and patterns come from Twenty Twenty-Five; all fonts are bundled, so the theme sends no requests to third parties."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: functions.php:100
+msgid "Checkmark"
+msgstr ""
+
+#: functions.php:128
+msgid "Pages"
+msgstr ""
+
+#: functions.php:129
+msgid "A collection of full page layouts."
+msgstr ""
+
+#: functions.php:136
+msgid "Post formats"
+msgstr ""
+
+#: functions.php:137
+msgid "A collection of post format patterns."
+msgstr ""
+
+#: functions.php:156
+msgctxt "Label for the block binding placeholder in the editor"
+msgid "Post format name"
+msgstr ""
+
+#: patterns/banner-about-book.php
+msgctxt "Pattern title"
+msgid "Banner with book description"
+msgstr ""
+
+#: patterns/banner-about-book.php
+msgctxt "Pattern description"
+msgid "Banner with book description and accompanying image for promotion."
+msgstr ""
+
+#: patterns/banner-about-book.php:21
+msgid "About the book"
+msgstr ""
+
+#: patterns/banner-about-book.php:25
+msgctxt "Pattern placeholder text."
+msgid "This exquisite compilation showcases a diverse array of photographs that capture the essence of different eras and cultures, reflecting the unique styles and perspectives of each artist. Fleckenstein’s evocative imagery, Strand’s groundbreaking modernist approach, and Kōno’s meticulous documentation of Japanese life come together in a harmonious blend that celebrates the art of photography. Each image in “The Stories Book” is accompanied by insightful commentary, providing historical context and revealing the stories behind the photographs. This collection is not only a visual feast but also a tribute to the power of photography to preserve and narrate the multifaceted experiences of humanity."
+msgstr ""
+
+#: patterns/banner-about-book.php:33
+msgid "Image of a book"
+msgstr ""
+
+#: patterns/banner-cover-big-heading.php
+msgctxt "Pattern title"
+msgid "Cover with big heading"
+msgstr ""
+
+#: patterns/banner-cover-big-heading.php
+msgctxt "Pattern description"
+msgid "A full-width cover section with a large background image and an oversized heading."
+msgstr ""
+
+#: patterns/banner-cover-big-heading.php:19
+#: patterns/media-instagram-grid.php:35
+#: patterns/page-coming-soon.php:18
+msgid "Photo of a field full of flowers, a blue sky and a tree."
+msgstr ""
+
+#: patterns/banner-cover-big-heading.php:26
+#: patterns/footer-columns.php:32
+#: patterns/footer-columns.php:34
+#: patterns/footer-newsletter.php:19
+#: patterns/template-home-photo-blog.php:21
+msgid "Stories"
+msgstr ""
+
+#: patterns/banner-intro-image.php
+msgctxt "Pattern title"
+msgid "Short heading and paragraph and image on the left"
+msgstr ""
+
+#: patterns/banner-intro-image.php
+msgctxt "Pattern description"
+msgid "A Intro pattern with Short heading, paragraph and image on the left."
+msgstr ""
+
+#: patterns/banner-intro-image.php:21
+msgctxt "Alt text for intro picture."
+msgid "Picture of a flower"
+msgstr ""
+
+#: patterns/banner-intro-image.php:30
+msgctxt "Heading for banner pattern."
+msgid "New arrivals"
+msgstr ""
+
+#: patterns/banner-intro-image.php:34
+msgctxt "Sample description for banner with flower."
+msgid "Like flowers that bloom in unexpected places, every story unfolds with beauty and resilience, revealing hidden wonders."
+msgstr ""
+
+#: patterns/banner-intro-image.php:41
+#: patterns/cta-centered-heading.php:27
+#: patterns/hero-full-width-image.php:32
+msgid "Learn more"
+msgstr ""
+
+#: patterns/banner-intro.php
+msgctxt "Pattern title"
+msgid "Intro with left-aligned description"
+msgstr ""
+
+#: patterns/banner-intro.php
+msgctxt "Pattern description"
+msgid "A large left-aligned heading with a brand name emphasized in bold."
+msgstr ""
+
+#. translators: %s is the brand name, e.g., 'Fleurs'.
+#: patterns/banner-intro.php:20
+#, php-format
+msgctxt "Pattern placeholder text."
+msgid "We're %s, our mission is to deliver exquisite flower arrangements that not only adorn living spaces but also inspire a deeper appreciation for natural beauty."
+msgstr ""
+
+#: patterns/banner-intro.php:21
+#: patterns/banner-with-description-and-images-grid.php:31
+#: patterns/footer-columns.php:45
+#: patterns/overlapped-images.php:47
+msgctxt "Example brand name."
+msgid "Fleurs"
+msgstr ""
+
+#: patterns/banner-poster.php
+msgctxt "Pattern title"
+msgid "Poster-like section"
+msgstr ""
+
+#: patterns/banner-poster.php
+msgctxt "Pattern description"
+msgid "A section that can be used as a banner or a landing page to announce an event."
+msgstr ""
+
+#: patterns/banner-poster.php:14
+msgid "Picture of a historical building in ruins."
+msgstr ""
+
+#. translators: This string contains the word "Stories" in four different languages with the first item in the locale's language.
+#: patterns/banner-poster.php:27
+#: patterns/cta-events-list.php:67
+#: patterns/cta-events-list.php:136
+#: patterns/event-rsvp.php:29
+msgctxt "Placeholder heading in four languages."
+msgid "“Stories, <span lang=\"es\">historias</span>, <span lang=\"uk\">iсторії</span>, <span lang=\"el\">iστορίες</span>”"
+msgstr ""
+
+#: patterns/banner-poster.php:38
+msgctxt "Example event date in pattern."
+msgid "Aug 08—10 2025"
+msgstr ""
+
+#: patterns/banner-poster.php:38
+msgid "Fuego Bar, Mexico City"
+msgstr ""
+
+#: patterns/banner-poster.php:50
+msgid "Let’s hear them."
+msgstr ""
+
+#: patterns/banner-poster.php:58
+msgid "#stories"
+msgstr ""
+
+#: patterns/banner-with-description-and-images-grid.php
+msgctxt "Pattern title"
+msgid "Banner with description and images grid"
+msgstr ""
+
+#: patterns/banner-with-description-and-images-grid.php
+msgctxt "Pattern description"
+msgid "A banner with a short paragraph, and two images displayed in a grid layout."
+msgstr ""
+
+#: patterns/banner-with-description-and-images-grid.php:22
+#: patterns/overlapped-images.php:36
+msgid "About Us"
+msgstr ""
+
+#. translators: %s is the brand name, e.g., 'Fleurs'.
+#: patterns/banner-with-description-and-images-grid.php:30
+#: patterns/overlapped-images.php:46
+#, php-format
+msgid "%s is a flower delivery and subscription business. Based in the EU, our mission is not only to deliver stunning flower arrangements across but also foster knowledge and enthusiasm on the beautiful gift of nature: flowers."
+msgstr ""
+
+#: patterns/banner-with-description-and-images-grid.php:41
+#: patterns/overlapped-images.php:20
+msgid "Photography close up of a red flower."
+msgstr ""
+
+#: patterns/banner-with-description-and-images-grid.php:47
+#: patterns/overlapped-images.php:25
+msgid "Black and white photography close up of a flower."
+msgstr ""
+
+#: patterns/binding-format.php
+msgctxt "Pattern title"
+msgid "Post format name"
+msgstr ""
+
+#: patterns/binding-format.php
+msgctxt "Pattern description"
+msgid "Prints the name of the post format with the help of the Block Bindings API."
+msgstr ""
+
+#: patterns/comments.php
+msgctxt "Pattern title"
+msgid "Comments"
+msgstr ""
+
+#: patterns/comments.php
+msgctxt "Pattern description"
+msgid "Comments area with comments list, pagination, and comment form."
+msgstr ""
+
+#: patterns/comments.php:17
+msgid "Comments"
+msgstr ""
+
+#: patterns/contact-centered-social-link.php
+msgctxt "Pattern title"
+msgid "Centered link and social links"
+msgstr ""
+
+#: patterns/contact-centered-social-link.php
+msgctxt "Pattern description"
+msgid "Centered contact section with a prominent message and social media links."
+msgstr ""
+
+#: patterns/contact-centered-social-link.php:20
+msgctxt "Heading of the Contact social link pattern"
+msgid "Got questions? <br><a href=\"#\" rel=\"nofollow\">Feel free to reach out.</a>"
+msgstr ""
+
+#: patterns/contact-info-locations.php
+msgctxt "Pattern title"
+msgid "Contact, info and locations"
+msgstr ""
+
+#: patterns/contact-info-locations.php
+msgctxt "Pattern description"
+msgid "Contact section with social media links, email, and multiple location details."
+msgstr ""
+
+#: patterns/contact-info-locations.php:20
+msgid "How to get in touch with us"
+msgstr ""
+
+#: patterns/contact-info-locations.php:28
+#: patterns/contact-info-locations.php:30
+#: patterns/footer-social.php:19
+msgid "Social media"
+msgstr ""
+
+#: patterns/contact-info-locations.php:31
+#: patterns/footer-social.php:22
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php:39
+#: patterns/page-link-in-bio-with-tight-margins.php:51
+msgctxt "Refers to the social media platform formerly known as Twitter."
+msgid "X"
+msgstr ""
+
+#: patterns/contact-info-locations.php:32
+#: patterns/footer-social.php:21
+#: patterns/media-instagram-grid.php:23
+#: patterns/page-cv-bio.php:46
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php:35
+#: patterns/page-link-in-bio-with-tight-margins.php:47
+msgid "Instagram"
+msgstr ""
+
+#: patterns/contact-info-locations.php:33
+#: patterns/footer-social.php:20
+msgid "Facebook"
+msgstr ""
+
+#: patterns/contact-info-locations.php:34
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php:43
+#: patterns/page-link-in-bio-with-tight-margins.php:55
+msgid "TikTok"
+msgstr ""
+
+#: patterns/contact-info-locations.php:37
+msgid "Email"
+msgstr ""
+
+#: patterns/contact-info-locations.php:40
+msgid "example@example.com"
+msgstr ""
+
+#: patterns/contact-info-locations.php:50
+msgid "New York"
+msgstr ""
+
+#: patterns/contact-info-locations.php:53
+#: patterns/contact-info-locations.php:65
+#: patterns/contact-info-locations.php:77
+#: patterns/contact-info-locations.php:89
+msgid "123 Example St. Manhattan, NY 10300 United States"
+msgstr ""
+
+#: patterns/contact-info-locations.php:61
+msgid "San Diego"
+msgstr ""
+
+#: patterns/contact-info-locations.php:73
+msgid "Salt Lake City"
+msgstr ""
+
+#: patterns/contact-info-locations.php:85
+msgid "Portland"
+msgstr ""
+
+#: patterns/contact-location-and-link.php
+msgctxt "Pattern title"
+msgid "Contact location and link"
+msgstr ""
+
+#: patterns/contact-location-and-link.php
+msgctxt "Pattern description"
+msgid "Contact section with a location address, a directions link, and an image of the location."
+msgstr ""
+
+#: patterns/contact-location-and-link.php:21
+msgid "Visit us at 123 Example St. Manhattan, NY 10300, United States"
+msgstr ""
+
+#: patterns/contact-location-and-link.php:25
+msgid "Get directions"
+msgstr ""
+
+#: patterns/contact-location-and-link.php:35
+msgid "The business location"
+msgstr ""
+
+#: patterns/cta-book-links.php
+msgctxt "Pattern title"
+msgid "Call to action with book links"
+msgstr ""
+
+#: patterns/cta-book-links.php
+msgctxt "Pattern description"
+msgid "A call to action section with links to get the book in different websites."
+msgstr ""
+
+#: patterns/cta-book-links.php:16
+msgid "Buy your copy of The Stories Book"
+msgstr ""
+
+#: patterns/cta-book-links.php:22
+#: patterns/hero-overlapped-book-cover-with-links.php:54
+msgctxt "Example brand name."
+msgid "Amazon"
+msgstr ""
+
+#: patterns/cta-book-links.php:26
+#: patterns/hero-overlapped-book-cover-with-links.php:76
+msgctxt "Example brand name."
+msgid "Audible"
+msgstr ""
+
+#: patterns/cta-book-links.php:30
+#: patterns/hero-overlapped-book-cover-with-links.php:83
+msgctxt "Example brand name."
+msgid "Barnes &amp; Noble"
+msgstr ""
+
+#: patterns/cta-book-links.php:34
+#: patterns/hero-overlapped-book-cover-with-links.php:61
+msgctxt "Example brand name."
+msgid "Apple Books"
+msgstr ""
+
+#: patterns/cta-book-links.php:38
+msgctxt "Example brand name."
+msgid "Bookshop.org"
+msgstr ""
+
+#: patterns/cta-book-links.php:42
+msgctxt "Example brand name."
+msgid "Spotify"
+msgstr ""
+
+#: patterns/cta-book-links.php:46
+msgctxt "Example brand name."
+msgid "BAM!"
+msgstr ""
+
+#: patterns/cta-book-links.php:50
+msgctxt "Example brand name."
+msgid "Simon &amp; Schuster"
+msgstr ""
+
+#: patterns/cta-book-links.php:56
+#: patterns/hero-overlapped-book-cover-with-links.php:99
+msgctxt "Pattern placeholder text with link."
+msgid "Outside Europe? View <a href=\"#\" rel=\"nofollow\">international editions</a>."
+msgstr ""
+
+#: patterns/cta-book-locations.php
+msgctxt "Pattern title"
+msgid "Call to action with locations"
+msgstr ""
+
+#: patterns/cta-book-locations.php
+msgctxt "Pattern description"
+msgid "A call to action section with links to get the book in the most popular locations."
+msgstr ""
+
+#: patterns/cta-book-locations.php:22
+msgid "International editions"
+msgstr ""
+
+#: patterns/cta-book-locations.php:26
+msgid "The Stories Book will be available from these international retailers."
+msgstr ""
+
+#: patterns/cta-book-locations.php:42
+msgid "Australia"
+msgstr ""
+
+#: patterns/cta-book-locations.php:46
+#: patterns/cta-book-locations.php:58
+#: patterns/cta-book-locations.php:70
+#: patterns/cta-book-locations.php:82
+#: patterns/cta-book-locations.php:98
+#: patterns/cta-book-locations.php:110
+#: patterns/cta-book-locations.php:122
+#: patterns/cta-book-locations.php:134
+msgid "Book Store"
+msgstr ""
+
+#: patterns/cta-book-locations.php:54
+msgid "Brazil"
+msgstr ""
+
+#: patterns/cta-book-locations.php:66
+msgid "Canada"
+msgstr ""
+
+#: patterns/cta-book-locations.php:78
+msgid "Japan"
+msgstr ""
+
+#: patterns/cta-book-locations.php:94
+msgid "New Zealand"
+msgstr ""
+
+#: patterns/cta-book-locations.php:106
+msgid "Switzerland"
+msgstr ""
+
+#: patterns/cta-book-locations.php:118
+msgid "United States"
+msgstr ""
+
+#: patterns/cta-book-locations.php:130
+msgid "United Kingdom"
+msgstr ""
+
+#: patterns/cta-centered-heading.php
+msgctxt "Pattern title"
+msgid "Centered heading"
+msgstr ""
+
+#: patterns/cta-centered-heading.php
+msgctxt "Pattern description"
+msgid "A hero with a centered heading, paragraph and button."
+msgstr ""
+
+#: patterns/cta-centered-heading.php:18
+#: patterns/cta-events-list.php:32
+#: patterns/cta-events-list.php:101
+#: patterns/event-3-col.php:39
+#: patterns/event-3-col.php:63
+#: patterns/event-3-col.php:87
+#: patterns/template-home-photo-blog.php:26
+msgid "Tell your story"
+msgstr ""
+
+#: patterns/cta-centered-heading.php:21
+msgid "Like flowers that bloom in unexpected places, every story unfolds with beauty and resilience, revealing hidden wonders."
+msgstr ""
+
+#: patterns/cta-events-list.php
+msgctxt "Pattern title"
+msgid "Events list"
+msgstr ""
+
+#: patterns/cta-events-list.php
+msgctxt "Pattern description"
+msgid "A list of events with call to action."
+msgstr ""
+
+#: patterns/cta-events-list.php:18
+msgid "Upcoming events"
+msgstr ""
+
+#: patterns/cta-events-list.php:22
+msgid "These are some of the upcoming events"
+msgstr ""
+
+#: patterns/cta-events-list.php:36
+msgid "Atlanta, GA, USA"
+msgstr ""
+
+#: patterns/cta-events-list.php:44
+#: patterns/cta-events-list.php:82
+#: patterns/cta-events-list.php:113
+#: patterns/cta-events-list.php:151
+#: patterns/event-3-col.php:43
+#: patterns/event-3-col.php:67
+#: patterns/event-3-col.php:91
+#: patterns/event-rsvp.php:36
+#: patterns/event-schedule.php:34
+#: patterns/event-schedule.php:120
+msgctxt "Example event date in pattern."
+msgid "Mon, Jan 1"
+msgstr ""
+
+#: patterns/cta-events-list.php:50
+#: patterns/cta-events-list.php:88
+#: patterns/cta-events-list.php:119
+#: patterns/cta-events-list.php:157
+msgid "Buy Tickets"
+msgstr ""
+
+#: patterns/cta-events-list.php:74
+msgid "Mexico City, Mexico"
+msgstr ""
+
+#: patterns/cta-events-list.php:105
+#: patterns/cta-events-list.php:143
+msgid "Thornville, OH, USA"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php
+msgctxt "Pattern title"
+msgid "Call to action with grid layout with products and link"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php
+msgctxt "Pattern description"
+msgid "A call to action featuring product images."
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:19
+msgid "Our online store."
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:25
+#: patterns/cta-grid-products-link.php:125
+msgid "Black and white flower"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:31
+msgid "Delivered every week"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:37
+msgid "Closeup of plantlife in the Malibu Canyon area"
+msgstr ""
+
+#. translators: %s: Starting price, split into three rows using HTML <br> tags. The price value has a font size set.
+#: patterns/cta-grid-products-link.php:57
+#, php-format
+msgid "Starting at%s/month"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:58
+msgid "30€"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:69
+msgid "Flora of Akaka Falls State Park"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:75
+msgid "Tailored to your needs"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:83
+msgid "Free shipping"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:99
+msgid "Cancel anytime"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:113
+msgid "Botany flowers"
+msgstr ""
+
+#: patterns/cta-grid-products-link.php:133
+msgid "Shop now"
+msgstr ""
+
+#: patterns/cta-heading-search.php
+msgctxt "Pattern title"
+msgid "Heading and search form"
+msgstr ""
+
+#: patterns/cta-heading-search.php
+msgctxt "Pattern description"
+msgid "Large heading with a search form for quick navigation."
+msgstr ""
+
+#: patterns/cta-heading-search.php:17
+msgid "What are you looking for?"
+msgstr ""
+
+#: patterns/cta-heading-search.php:20
+#: patterns/hidden-search.php:13
+msgctxt "Search form label."
+msgid "Search"
+msgstr ""
+
+#: patterns/cta-heading-search.php:20
+#: patterns/hidden-search.php:13
+msgctxt "Search input field placeholder text."
+msgid "Type here..."
+msgstr ""
+
+#: patterns/cta-heading-search.php:20
+#: patterns/hidden-search.php:13
+msgctxt "Button text. Verb."
+msgid "Search"
+msgstr ""
+
+#: patterns/cta-newsletter.php
+msgctxt "Pattern title"
+msgid "Newsletter sign-up"
+msgstr ""
+
+#: patterns/cta-newsletter.php:18
+msgid "Sign up to get daily stories"
+msgstr ""
+
+#: patterns/cta-newsletter.php:22
+msgid "Get access to a curated collection of moments in time featuring photographs from historical relevance."
+msgstr ""
+
+#: patterns/cta-newsletter.php:31
+#: patterns/footer-newsletter.php:29
+#: patterns/page-coming-soon.php:38
+#: patterns/services-subscriber-only-section.php:50
+msgid "Subscribe"
+msgstr ""
+
+#: patterns/event-3-col.php
+msgctxt "Pattern title"
+msgid "Events, 3 columns with event images and titles"
+msgstr ""
+
+#: patterns/event-3-col.php
+msgctxt "Pattern description"
+msgid "A header with title and text and three columns that show 3 events with their images and titles."
+msgstr ""
+
+#: patterns/event-3-col.php:19
+#: patterns/footer-columns.php:48
+#: patterns/footer.php:54
+msgid "Events"
+msgstr ""
+
+#: patterns/event-3-col.php:23
+#: patterns/event-schedule.php:22
+msgid "These are some of the upcoming events."
+msgstr ""
+
+#: patterns/event-3-col.php:33
+#: patterns/event-3-col.php:57
+#: patterns/event-3-col.php:81
+#: patterns/format-audio.php:19
+msgid "Event image"
+msgstr ""
+
+#: patterns/event-3-col.php:49
+#: patterns/event-3-col.php:73
+#: patterns/event-3-col.php:97
+msgid "Event details"
+msgstr ""
+
+#: patterns/event-rsvp.php
+msgctxt "Pattern title"
+msgid "Event RSVP"
+msgstr ""
+
+#: patterns/event-rsvp.php
+msgctxt "Pattern description"
+msgid "RSVP for an upcoming event with a cover image and event details."
+msgstr ""
+
+#: patterns/event-rsvp.php:56
+msgid "Free Workshop"
+msgstr ""
+
+#: patterns/event-rsvp.php:72
+msgid "This immersive event celebrates the universal human experience through the lenses of history and ancestry, featuring a diverse array of photographers whose works capture the essence of different cultures and historical moments."
+msgstr ""
+
+#: patterns/event-rsvp.php:80
+msgctxt "Abbreviation for \"Please respond\"."
+msgid "RSVP"
+msgstr ""
+
+#: patterns/event-rsvp.php:90
+msgid "Close up photo of white flowers on a grey background"
+msgstr ""
+
+#: patterns/event-schedule.php
+msgctxt "Pattern title"
+msgid "Event schedule"
+msgstr ""
+
+#: patterns/event-schedule.php
+msgctxt "Pattern description"
+msgid "A section with specified dates and times for an event."
+msgstr ""
+
+#: patterns/event-schedule.php:19
+msgid "Agenda"
+msgstr ""
+
+#: patterns/event-schedule.php:45
+#: patterns/media-instagram-grid.php:59
+msgid "Birds on a lake."
+msgstr ""
+
+#: patterns/event-schedule.php:56
+msgid "Fauna from North America and its characteristics"
+msgstr ""
+
+#: patterns/event-schedule.php:59
+#: patterns/event-schedule.php:91
+#: patterns/event-schedule.php:144
+#: patterns/event-schedule.php:176
+msgctxt "Example event time in pattern."
+msgid "9 AM — 11 AM"
+msgstr ""
+
+#: patterns/event-schedule.php:64
+#: patterns/event-schedule.php:96
+#: patterns/event-schedule.php:149
+#: patterns/event-schedule.php:181
+msgctxt "Pattern placeholder text with link."
+msgid "Lecture by <a href=\"#\">Prof. Fiona Presley</a>"
+msgstr ""
+
+#: patterns/event-schedule.php:77
+#: patterns/media-instagram-grid.php:43
+msgid "View of the deep ocean."
+msgstr ""
+
+#: patterns/event-schedule.php:88
+msgid "Things you didn’t know about the deep ocean"
+msgstr ""
+
+#: patterns/event-schedule.php:131
+#: patterns/media-instagram-grid.php:51
+msgid "The Acropolis of Athens."
+msgstr ""
+
+#: patterns/event-schedule.php:141
+msgid "Ancient buildings and symbols"
+msgstr ""
+
+#: patterns/event-schedule.php:162
+msgid "Black and white photo of an African woman."
+msgstr ""
+
+#: patterns/event-schedule.php:173
+msgid "An introduction to African dialects"
+msgstr ""
+
+#: patterns/footer-centered.php
+msgctxt "Pattern title"
+msgid "Centered footer"
+msgstr ""
+
+#: patterns/footer-centered.php
+msgctxt "Pattern description"
+msgid "Footer with centered site title and tagline."
+msgstr ""
+
+#. translators: Designed with WordPress. %s: WordPress link.
+#: patterns/footer-centered.php:32
+#: patterns/footer-columns.php:72
+#: patterns/footer-newsletter.php:48
+#: patterns/footer-social.php:34
+#: patterns/footer.php:81
+#, php-format
+msgid "Designed with %s"
+msgstr ""
+
+#: patterns/footer-centered.php:33
+#: patterns/footer-columns.php:73
+#: patterns/footer-newsletter.php:49
+#: patterns/footer-social.php:35
+#: patterns/footer.php:82
+msgid "https://wordpress.org"
+msgstr ""
+
+#: patterns/footer-columns.php
+msgctxt "Pattern title"
+msgid "Footer with columns"
+msgstr ""
+
+#: patterns/footer-columns.php
+msgctxt "Pattern description"
+msgid "Footer columns with title, tagline and links."
+msgstr ""
+
+#: patterns/footer-columns.php:35
+#: patterns/footer.php:44
+#: patterns/hidden-blog-heading.php:14
+#: patterns/template-home-text-blog.php:19
+msgid "Blog"
+msgstr ""
+
+#: patterns/footer-columns.php:36
+#: patterns/footer.php:46
+msgid "About"
+msgstr ""
+
+#: patterns/footer-columns.php:37
+#: patterns/footer.php:48
+msgid "FAQs"
+msgstr ""
+
+#: patterns/footer-columns.php:38
+#: patterns/footer.php:50
+msgid "Authors"
+msgstr ""
+
+#: patterns/footer-columns.php:47
+msgid "Featured"
+msgstr ""
+
+#: patterns/footer-columns.php:49
+#: patterns/footer.php:56
+msgid "Shop"
+msgstr ""
+
+#: patterns/footer-columns.php:50
+#: patterns/footer.php:58
+msgid "Patterns"
+msgstr ""
+
+#: patterns/footer-columns.php:51
+#: patterns/footer.php:60
+msgid "Themes"
+msgstr ""
+
+#: patterns/footer-columns.php:65
+#: patterns/footer-newsletter.php:41
+#: patterns/footer.php:74
+#: patterns/page-portfolio-home.php:225
+msgid "Baukasten TT5 Fork"
+msgstr ""
+
+#: patterns/footer-newsletter.php
+msgctxt "Pattern title"
+msgid "Footer with newsletter signup"
+msgstr ""
+
+#: patterns/footer-newsletter.php
+msgctxt "Pattern description"
+msgid "Footer with large site title and newsletter signup."
+msgstr ""
+
+#: patterns/footer-newsletter.php:23
+msgid "Receive our articles in your inbox."
+msgstr ""
+
+#: patterns/footer-social.php
+msgctxt "Pattern title"
+msgid "Centered footer with social links"
+msgstr ""
+
+#: patterns/footer-social.php
+msgctxt "Pattern description"
+msgid "Footer with centered site title and social links."
+msgstr ""
+
+#: patterns/footer.php
+msgctxt "Pattern title"
+msgid "Footer"
+msgstr ""
+
+#: patterns/footer.php
+msgctxt "Pattern description"
+msgid "Footer columns with logo, title, tagline and links."
+msgstr ""
+
+#: patterns/format-audio.php
+msgctxt "Pattern title"
+msgid "Audio format"
+msgstr ""
+
+#: patterns/format-audio.php
+msgctxt "Pattern description"
+msgid "An audio post format with an image, title, audio player, and description."
+msgstr ""
+
+#: patterns/format-audio.php:25
+msgid "Episode 1: Acoma Pueblo with Prof. Fiona Presley"
+msgstr ""
+
+#: patterns/format-audio.php:29
+msgid "Acoma Pueblo, in New Mexico, stands as a testament to the resilience and cultural heritage of the Acoma people"
+msgstr ""
+
+#: patterns/format-link.php
+msgctxt "Pattern title"
+msgid "Link format"
+msgstr ""
+
+#: patterns/format-link.php
+msgctxt "Pattern description"
+msgid "A link post format with a description and an emphasized link for key content."
+msgstr ""
+
+#: patterns/format-link.php:16
+msgid "The Stories Book, a fine collection of moments in time featuring photographs from Louis Fleckenstein, Paul Strand and Asahachi Kōno, is available for pre-order"
+msgstr ""
+
+#: patterns/format-link.php:22
+msgid "https://example.com"
+msgstr ""
+
+#: patterns/grid-videos.php
+msgctxt "Pattern title"
+msgid "Grid with videos"
+msgstr ""
+
+#: patterns/grid-videos.php
+msgctxt "Pattern description"
+msgid "A grid with videos."
+msgstr ""
+
+#: patterns/grid-videos.php:18
+msgid "Explore the episodes"
+msgstr ""
+
+#: patterns/grid-videos.php:22
+msgid "Podcast"
+msgstr ""
+
+#: patterns/grid-with-categories.php
+msgctxt "Pattern title"
+msgid "Grid with categories"
+msgstr ""
+
+#: patterns/grid-with-categories.php
+msgctxt "Pattern description"
+msgid "A grid section with different categories."
+msgstr ""
+
+#: patterns/grid-with-categories.php:21
+msgid "Top Categories"
+msgstr ""
+
+#: patterns/grid-with-categories.php:28
+msgid "Close up of a red anthurium."
+msgstr ""
+
+#: patterns/grid-with-categories.php:35
+msgid "Anthuriums"
+msgstr ""
+
+#: patterns/grid-with-categories.php:49
+msgid "Cactus"
+msgstr ""
+
+#: patterns/grid-with-categories.php:63
+msgid "Sunflowers"
+msgstr ""
+
+#: patterns/header-centered.php
+msgctxt "Pattern title"
+msgid "Centered site header"
+msgstr ""
+
+#: patterns/header-centered.php
+msgctxt "Pattern description"
+msgid "Site header with centered site title and navigation."
+msgstr ""
+
+#: patterns/header-columns.php
+msgctxt "Pattern title"
+msgid "Header with columns"
+msgstr ""
+
+#: patterns/header-columns.php
+msgctxt "Pattern description"
+msgid "Site header with site title and navigation in columns."
+msgstr ""
+
+#: patterns/header-large-title.php
+msgctxt "Pattern title"
+msgid "Header with large title"
+msgstr ""
+
+#: patterns/header-large-title.php
+msgctxt "Pattern description"
+msgid "Site header with large site title and right-aligned navigation."
+msgstr ""
+
+#: patterns/header.php
+msgctxt "Pattern title"
+msgid "Header"
+msgstr ""
+
+#: patterns/header.php
+msgctxt "Pattern description"
+msgid "Site header with site title and navigation."
+msgstr ""
+
+#: patterns/heading-and-paragraph-with-image.php
+msgctxt "Pattern title"
+msgid "Heading and paragraph with image on the right"
+msgstr ""
+
+#: patterns/heading-and-paragraph-with-image.php
+msgctxt "Pattern description"
+msgid "A two-column section with a heading and paragraph on the left, and an image on the right."
+msgstr ""
+
+#: patterns/heading-and-paragraph-with-image.php:22
+msgid "About the event"
+msgstr ""
+
+#: patterns/heading-and-paragraph-with-image.php:26
+msgctxt "Event Overview Text."
+msgid "Held over a weekend, the event is structured around a series of exhibitions, workshops, and panel discussions. The exhibitions showcase a curated selection of photographs that tell compelling stories from various corners of the globe, each image accompanied by detailed narratives that provide context and deeper insight into the historical significance of the scenes depicted. These photographs are drawn from the archives of renowned photographers, as well as emerging talents, ensuring a blend of both classical and contemporary perspectives."
+msgstr ""
+
+#: patterns/heading-and-paragraph-with-image.php:35
+msgctxt "Alt text for Overview picture."
+msgid "Cliff Palace, Colorado"
+msgstr ""
+
+#: patterns/hero-book.php
+msgctxt "Pattern title"
+msgid "Hero book"
+msgstr ""
+
+#: patterns/hero-book.php
+msgctxt "Pattern description"
+msgid "A hero section for the book with a description and pre-order link."
+msgstr ""
+
+#: patterns/hero-book.php:23
+msgid "Image of the book"
+msgstr ""
+
+#: patterns/hero-book.php:37
+msgctxt "Heading of the hero section."
+msgid "The Stories Book"
+msgstr ""
+
+#: patterns/hero-book.php:41
+msgctxt "Content of the hero section."
+msgid "A fine collection of moments in time featuring photographs from Louis Fleckenstein, Paul Strand and Asahachi Kōno."
+msgstr ""
+
+#: patterns/hero-book.php:45
+msgctxt "CTA text of the hero section."
+msgid "Available for pre-order now."
+msgstr ""
+
+#: patterns/hero-full-width-image.php
+msgctxt "Pattern title"
+msgid "Hero, full width image"
+msgstr ""
+
+#: patterns/hero-full-width-image.php
+msgctxt "Pattern description"
+msgid "A hero with a full width image, heading, short paragraph and button."
+msgstr ""
+
+#: patterns/hero-full-width-image.php:17
+msgctxt "Alt text for cover image."
+msgid "Picture of a flower"
+msgstr ""
+
+#: patterns/hero-full-width-image.php:22
+msgctxt "Sample hero heading"
+msgid "Tell your story"
+msgstr ""
+
+#: patterns/hero-full-width-image.php:26
+msgctxt "Sample hero paragraph"
+msgid "Like flowers that bloom in unexpected places, every story unfolds with beauty and resilience, revealing hidden wonders."
+msgstr ""
+
+#: patterns/hero-overlapped-book-cover-with-links.php
+msgctxt "Pattern title"
+msgid "Hero, overlapped book cover with links"
+msgstr ""
+
+#: patterns/hero-overlapped-book-cover-with-links.php
+msgctxt "Pattern description"
+msgid "A hero with an overlapped book cover and links."
+msgstr ""
+
+#: patterns/hero-overlapped-book-cover-with-links.php:27
+msgctxt "Hero - Overlapped book cover pattern headline text"
+msgid "The Stories Book"
+msgstr ""
+
+#: patterns/hero-overlapped-book-cover-with-links.php:33
+msgctxt "Hero - Overlapped book cover pattern subline text"
+msgid "A fine collection of moments in time featuring photographs from Louis Fleckenstein, Paul Strand and Asahachi Kōno."
+msgstr ""
+
+#: patterns/hero-overlapped-book-cover-with-links.php:112
+msgid "Book Image"
+msgstr ""
+
+#: patterns/hero-podcast.php
+msgctxt "Pattern title"
+msgid "Hero podcast"
+msgstr ""
+
+#: patterns/hero-podcast.php:21
+msgctxt "Alt text for hero image."
+msgid "Picture of a person"
+msgstr ""
+
+#: patterns/hero-podcast.php:31
+msgid "The Stories Podcast"
+msgstr ""
+
+#: patterns/hero-podcast.php:35
+msgctxt "Podcast description"
+msgid "Storytelling, expert analysis, and vivid descriptions. The Stories Podcast brings history to life, making it accessible and engaging for a global audience."
+msgstr ""
+
+#: patterns/hero-podcast.php:42
+msgid "Subscribe on your favorite platform"
+msgstr ""
+
+#: patterns/hero-podcast.php:48
+msgctxt "Button text"
+msgid "YouTube"
+msgstr ""
+
+#: patterns/hero-podcast.php:52
+msgctxt "Button text"
+msgid "Apple Podcasts"
+msgstr ""
+
+#: patterns/hero-podcast.php:56
+msgctxt "Button text"
+msgid "Spotify"
+msgstr ""
+
+#: patterns/hero-podcast.php:60
+msgctxt "Button text"
+msgid "Pocket Casts"
+msgstr ""
+
+#: patterns/hero-podcast.php:64
+msgctxt "Button text"
+msgid "RSS"
+msgstr ""
+
+#: patterns/hidden-404.php
+msgctxt "Pattern title"
+msgid "404"
+msgstr ""
+
+#: patterns/hidden-404.php:20
+msgctxt "image description"
+msgid "Small totara tree on ridge above Long Point"
+msgstr ""
+
+#: patterns/hidden-404.php:31
+msgctxt "404 error message"
+msgid "Page not found"
+msgstr ""
+
+#: patterns/hidden-404.php:35
+msgctxt "404 error message"
+msgid "The page you are looking for doesn't exist, or it has been moved. Please try searching using the form below."
+msgstr ""
+
+#: patterns/hidden-blog-heading.php
+msgctxt "Pattern title"
+msgid "Hidden blog heading"
+msgstr ""
+
+#: patterns/hidden-blog-heading.php
+msgctxt "Pattern description"
+msgid "Hidden heading for the home page and index template."
+msgstr ""
+
+#: patterns/hidden-search.php
+msgctxt "Pattern title"
+msgid "Search"
+msgstr ""
+
+#: patterns/hidden-sidebar.php
+msgctxt "Pattern title"
+msgid "Sidebar"
+msgstr ""
+
+#: patterns/hidden-sidebar.php:13
+msgid "Other Posts"
+msgstr ""
+
+#: patterns/hidden-sidebar.php:36
+#: patterns/template-home-posts-grid-news-blog.php:33
+#: patterns/template-home-with-sidebar-news-blog.php:60
+msgid "Add text or blocks that will display when a query returns no results."
+msgstr ""
+
+#: patterns/hidden-sidebar.php:37
+#: patterns/page-portfolio-home.php:64
+#: patterns/page-portfolio-home.php:86
+#: patterns/page-portfolio-home.php:120
+#: patterns/page-portfolio-home.php:153
+#: patterns/page-portfolio-home.php:175
+#: patterns/page-portfolio-home.php:202
+#: patterns/template-home-news-blog.php:39
+#: patterns/template-home-posts-grid-news-blog.php:34
+#: patterns/template-home-posts-grid-news-blog.php:59
+#: patterns/template-home-posts-grid-news-blog.php:77
+#: patterns/template-home-posts-grid-news-blog.php:102
+#: patterns/template-home-with-sidebar-news-blog.php:61
+#: patterns/template-home-with-sidebar-news-blog.php:118
+#: patterns/template-query-loop-news-blog.php:54
+#: patterns/template-query-loop-photo-blog.php:21
+#: patterns/template-query-loop-text-blog.php:18
+#: patterns/template-query-loop-vertical-header-blog.php:46
+#: patterns/template-query-loop.php:30
+msgctxt "Message explaining that there are no results returned from a search."
+msgid "Sorry, but nothing was found. Please try a search with different keywords."
+msgstr ""
+
+#: patterns/hidden-written-by.php
+msgctxt "Pattern title"
+msgid "Written by"
+msgstr ""
+
+#: patterns/hidden-written-by.php:15
+msgid "Written by "
+msgstr ""
+
+#: patterns/hidden-written-by.php:19
+msgid "in"
+msgstr ""
+
+#: patterns/logos.php
+msgctxt "Pattern title"
+msgid "Logos"
+msgstr ""
+
+#: patterns/logos.php
+msgctxt "Pattern description"
+msgid "Showcasing the podcast's clients with a heading and a series of client logos."
+msgstr ""
+
+#: patterns/logos.php:16
+msgid "The Stories Podcast is sponsored by"
+msgstr ""
+
+#: patterns/media-instagram-grid.php
+msgctxt "Pattern title"
+msgid "Instagram grid"
+msgstr ""
+
+#: patterns/media-instagram-grid.php
+msgctxt "Pattern description"
+msgid "A grid section with photos and a link to an Instagram profile."
+msgstr ""
+
+#: patterns/media-instagram-grid.php:27
+msgctxt "Example username for social media account."
+msgid "@example"
+msgstr ""
+
+#: patterns/media-instagram-grid.php:39
+msgid "Profile portrait of a native person."
+msgstr ""
+
+#: patterns/media-instagram-grid.php:47
+msgid "Portrait of an African Woman dressed in traditional costume, wearing decorative jewelry."
+msgstr ""
+
+#: patterns/media-instagram-grid.php:55
+msgid "Close up of two flowers on a dark background."
+msgstr ""
+
+#: patterns/more-posts.php
+msgctxt "Pattern title"
+msgid "More posts"
+msgstr ""
+
+#: patterns/more-posts.php
+msgctxt "Pattern description"
+msgid "Displays a list of posts with title and date."
+msgstr ""
+
+#: patterns/more-posts.php:17
+msgid "More posts"
+msgstr ""
+
+#: patterns/overlapped-images.php
+msgctxt "Pattern title"
+msgid "Overlapping images and paragraph on right"
+msgstr ""
+
+#: patterns/overlapped-images.php
+msgctxt "Pattern description"
+msgid "A section with overlapping images, and a description."
+msgstr ""
+
+#: patterns/page-business-home.php
+msgctxt "Pattern title"
+msgid "Business homepage"
+msgstr ""
+
+#: patterns/page-business-home.php
+msgctxt "Pattern description"
+msgid "A business homepage pattern."
+msgstr ""
+
+#: patterns/page-coming-soon.php
+msgctxt "Pattern title"
+msgid "Coming soon"
+msgstr ""
+
+#: patterns/page-coming-soon.php
+msgctxt "Pattern description"
+msgid "A full-width cover banner that can be applied to a page or it can work as a single landing page."
+msgstr ""
+
+#: patterns/page-coming-soon.php:23
+msgid "Event"
+msgstr ""
+
+#: patterns/page-coming-soon.php:28
+msgid "Something great is coming soon"
+msgstr ""
+
+#: patterns/page-coming-soon.php:32
+msgid "Subscribe to get notified when our website is ready."
+msgstr ""
+
+#: patterns/page-cv-bio.php
+msgctxt "Pattern title"
+msgid "CV/bio"
+msgstr ""
+
+#: patterns/page-cv-bio.php
+msgctxt "Pattern description"
+msgid "A pattern for a CV/Bio landing page."
+msgstr ""
+
+#: patterns/page-cv-bio.php:27
+msgctxt "Example heading in pattern."
+msgid "Hey,"
+msgstr ""
+
+#: patterns/page-cv-bio.php:30
+msgctxt "Pattern placeholder text."
+msgid "My name is Nora Winslow Keene, and I’m a committed public interest attorney. Living in Denver, Colorado, I’ve spent years championing the rights of underrepresented workers. A graduate of Stanford University, I played a key role in securing critical protections for agricultural laborers, ensuring better wages and access to healthcare. My work has focused on advocating for environmental justice and improving the quality of life for rural communities. Every case I take on is driven by the belief that everyone deserves dignity and fair treatment in the workplace."
+msgstr ""
+
+#: patterns/page-cv-bio.php:42
+#: patterns/page-link-in-bio-wide-margins.php:23
+#: patterns/services-team-photos.php:31
+msgid "Woman on beach, splashing water."
+msgstr ""
+
+#: patterns/page-cv-bio.php:46
+msgid "LinkedIn"
+msgstr ""
+
+#: patterns/page-cv-bio.php:46
+msgctxt "Link to a page with information about what the person is working on right now."
+msgid "Now"
+msgstr ""
+
+#: patterns/page-landing-book.php
+msgctxt "Pattern title"
+msgid "Landing page for book"
+msgstr ""
+
+#: patterns/page-landing-book.php
+msgctxt "Pattern description"
+msgid "A landing page for the book with a hero section, pre-order links, locations, FAQs and newsletter signup."
+msgstr ""
+
+#: patterns/page-landing-event.php
+msgctxt "Pattern title"
+msgid "Landing page for event"
+msgstr ""
+
+#: patterns/page-landing-event.php
+msgctxt "Pattern description"
+msgid "A landing page for the event with a hero section, description, FAQs and call to action."
+msgstr ""
+
+#: patterns/page-landing-podcast.php
+msgctxt "Pattern title"
+msgid "Landing page for podcast"
+msgstr ""
+
+#: patterns/page-landing-podcast.php
+msgctxt "Pattern description"
+msgid "A landing page for the podcast with a hero section, description, logos, grid with videos and newsletter signup."
+msgstr ""
+
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php
+msgctxt "Pattern title"
+msgid "Link in bio heading, paragraph, links and full-height image"
+msgstr ""
+
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php
+msgctxt "Pattern description"
+msgid "A link in bio landing page with a heading, paragraph, links and a full height image."
+msgstr ""
+
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php:25
+msgid "Lewis Hine"
+msgstr ""
+
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php:29
+msgid "Lewis W. Hine studied sociology before moving to New York in 1901 to work at the Ethical Culture School, where he took up photography to enhance his teaching practices"
+msgstr ""
+
+#: patterns/page-link-in-bio-heading-paragraph-links-image.php:56
+msgid "Photo of a woman worker."
+msgstr ""
+
+#: patterns/page-link-in-bio-wide-margins.php
+msgctxt "Pattern title"
+msgid "Link in bio with profile, links and wide margins"
+msgstr ""
+
+#: patterns/page-link-in-bio-wide-margins.php
+msgctxt "Pattern description"
+msgid "A link in bio landing page with social links, a profile photo and a brief description."
+msgstr ""
+
+#: patterns/page-link-in-bio-wide-margins.php:33
+msgid "Nora Winslow Keene"
+msgstr ""
+
+#: patterns/page-link-in-bio-wide-margins.php:37
+msgctxt "Pattern placeholder text."
+msgid "I’m Nora, a dedicated public interest attorney based in Denver. I’m a graduate of Stanford University."
+msgstr ""
+
+#: patterns/page-link-in-bio-with-tight-margins.php
+msgctxt "Pattern title"
+msgid "Link in bio with tight margins"
+msgstr ""
+
+#: patterns/page-link-in-bio-with-tight-margins.php
+msgctxt "Pattern description"
+msgid "A full-width, full-height link in bio section with an image, a paragraph and social links."
+msgstr ""
+
+#: patterns/page-link-in-bio-with-tight-margins.php:26
+msgid "Black and white photo focusing on a woman and a child from afar."
+msgstr ""
+
+#: patterns/page-link-in-bio-with-tight-margins.php:41
+msgid "I’m Asahachi Kōno, a Japanese photographer, a member of Los Angeles’s Japanese Camera Pictorialists of California. Before returning to Japan, I worked as a photo retoucher."
+msgstr ""
+
+#: patterns/page-portfolio-home.php
+msgctxt "Pattern title"
+msgid "Portfolio homepage"
+msgstr ""
+
+#: patterns/page-portfolio-home.php
+msgctxt "Pattern description"
+msgid "A portfolio homepage pattern."
+msgstr ""
+
+#: patterns/page-portfolio-home.php:26
+msgid "My name is Anna Möller and these are some of my photo projects."
+msgstr ""
+
+#: patterns/page-portfolio-home.php:228
+msgid "email@example.com"
+msgstr ""
+
+#: patterns/page-portfolio-home.php:228
+msgctxt "Phone number."
+msgid "+1 555 349 1806"
+msgstr ""
+
+#: patterns/page-shop-home.php
+msgctxt "Pattern title"
+msgid "Shop homepage"
+msgstr ""
+
+#: patterns/page-shop-home.php
+msgctxt "Pattern description"
+msgid "A shop homepage pattern."
+msgstr ""
+
+#: patterns/post-navigation.php
+msgctxt "Pattern title"
+msgid "Post navigation"
+msgstr ""
+
+#: patterns/post-navigation.php
+msgctxt "Pattern description"
+msgid "Next and previous post links."
+msgstr ""
+
+#: patterns/post-navigation.php:16
+#: patterns/post-navigation.php:17
+#: patterns/template-single-left-aligned-content.php:77
+#: patterns/template-single-left-aligned-content.php:78
+#: patterns/template-single-news-blog.php:94
+#: patterns/template-single-news-blog.php:95
+#: patterns/template-single-offset.php:60
+#: patterns/template-single-offset.php:61
+#: patterns/template-single-photo-blog.php:75
+#: patterns/template-single-photo-blog.php:76
+#: patterns/template-single-text-blog.php:35
+#: patterns/template-single-text-blog.php:36
+#: patterns/template-single-vertical-header-blog.php:81
+#: patterns/template-single-vertical-header-blog.php:82
+msgid "Post navigation"
+msgstr ""
+
+#: patterns/pricing-2-col.php
+msgctxt "Pattern title"
+msgid "Pricing, 2 columns"
+msgstr ""
+
+#: patterns/pricing-2-col.php
+msgctxt "Pattern description"
+msgid "Pricing section with two columns, pricing plan, description, and call-to-action buttons."
+msgstr ""
+
+#: patterns/pricing-2-col.php:17
+#: patterns/pricing-3-col.php:22
+msgid "Pricing"
+msgstr ""
+
+#: patterns/pricing-2-col.php:21
+#: patterns/services-subscriber-only-section.php:60
+msgid "Cancel or pause anytime."
+msgstr ""
+
+#: patterns/pricing-2-col.php:33
+#: patterns/pricing-3-col.php:36
+msgid "Free"
+msgstr ""
+
+#: patterns/pricing-2-col.php:37
+#: patterns/pricing-3-col.php:48
+msgid "0€"
+msgstr ""
+
+#: patterns/pricing-2-col.php:43
+#: patterns/pricing-2-col.php:87
+#: patterns/services-subscriber-only-section.php:26
+msgid "Get access to our paid articles and weekly newsletter."
+msgstr ""
+
+#: patterns/pricing-2-col.php:47
+#: patterns/pricing-2-col.php:91
+#: patterns/services-subscriber-only-section.php:30
+msgid "Join our IRL events."
+msgstr ""
+
+#: patterns/pricing-2-col.php:51
+#: patterns/pricing-2-col.php:95
+#: patterns/services-subscriber-only-section.php:34
+msgid "Get a free tote bag."
+msgstr ""
+
+#: patterns/pricing-2-col.php:55
+#: patterns/pricing-2-col.php:99
+#: patterns/services-subscriber-only-section.php:38
+msgid "An elegant addition of home decor collection."
+msgstr ""
+
+#: patterns/pricing-2-col.php:59
+#: patterns/pricing-2-col.php:103
+#: patterns/services-subscriber-only-section.php:42
+msgid "Join our forums."
+msgstr ""
+
+#: patterns/pricing-2-col.php:67
+#: patterns/pricing-2-col.php:111
+#: patterns/pricing-3-col.php:58
+#: patterns/pricing-3-col.php:98
+#: patterns/pricing-3-col.php:138
+msgctxt "Button text, refers to joining a community. Verb."
+msgid "Join"
+msgstr ""
+
+#: patterns/pricing-2-col.php:77
+#: patterns/pricing-3-col.php:72
+msgctxt "Name of membership package."
+msgid "Single"
+msgstr ""
+
+#: patterns/pricing-2-col.php:81
+msgid "20€/month"
+msgstr ""
+
+#: patterns/pricing-3-col.php
+msgctxt "Pattern title"
+msgid "Pricing, 3 columns"
+msgstr ""
+
+#: patterns/pricing-3-col.php
+msgctxt "Pattern description"
+msgid "A three-column boxed pricing table designed to showcase services, descriptions, and pricing options."
+msgstr ""
+
+#: patterns/pricing-3-col.php:18
+msgid "Choose your membership"
+msgstr ""
+
+#: patterns/pricing-3-col.php:40
+msgid "Get access to our free articles and weekly newsletter."
+msgstr ""
+
+#: patterns/pricing-3-col.php:76
+msgid "Get access to our paid newsletter and a limited pass for one event."
+msgstr ""
+
+#: patterns/pricing-3-col.php:84
+msgid "20€"
+msgstr ""
+
+#: patterns/pricing-3-col.php:88
+#: patterns/pricing-3-col.php:128
+msgid "Month"
+msgstr ""
+
+#: patterns/pricing-3-col.php:112
+msgctxt "Name of membership package."
+msgid "Expert"
+msgstr ""
+
+#: patterns/pricing-3-col.php:116
+msgid "Get access to our paid newsletter and an unlimited pass."
+msgstr ""
+
+#: patterns/pricing-3-col.php:124
+msgid "40€"
+msgstr ""
+
+#: patterns/services-3-col.php
+msgctxt "Pattern title"
+msgid "Services, 3 columns"
+msgstr ""
+
+#: patterns/services-3-col.php
+msgctxt "Pattern description"
+msgid "Three columns with images and text to showcase services."
+msgstr ""
+
+#: patterns/services-3-col.php:16
+msgid "Our services"
+msgstr ""
+
+#: patterns/services-3-col.php:26
+#: patterns/services-3-col.php:44
+#: patterns/services-3-col.php:62
+msgid "Image for service"
+msgstr ""
+
+#: patterns/services-3-col.php:31
+msgid "Collect"
+msgstr ""
+
+#: patterns/services-3-col.php:35
+#: patterns/services-3-col.php:53
+#: patterns/services-3-col.php:71
+msgid "Like flowers that bloom in unexpected places, every story unfolds with beauty and resilience"
+msgstr ""
+
+#: patterns/services-3-col.php:49
+msgid "Assemble"
+msgstr ""
+
+#: patterns/services-3-col.php:67
+msgid "Deliver"
+msgstr ""
+
+#: patterns/services-subscriber-only-section.php
+msgctxt "Pattern title"
+msgid "Services, subscriber only section"
+msgstr ""
+
+#: patterns/services-subscriber-only-section.php
+msgctxt "Pattern description"
+msgid "A subscriber-only section highlighting exclusive services and offerings."
+msgstr ""
+
+#: patterns/services-subscriber-only-section.php:20
+msgid "Subscribe to get unlimited access"
+msgstr ""
+
+#: patterns/services-subscriber-only-section.php:54
+msgid "View plans"
+msgstr ""
+
+#: patterns/services-subscriber-only-section.php:68
+msgid "Smartphones capturing a scenic wildflower meadow with trees"
+msgstr ""
+
+#: patterns/services-team-photos.php
+msgctxt "Pattern title"
+msgid "Services, team photos"
+msgstr ""
+
+#: patterns/services-team-photos.php
+msgctxt "Pattern description"
+msgid "Display team photos in a services section with grid layout."
+msgstr ""
+
+#: patterns/services-team-photos.php:20
+msgid "Our small team is a group of driven, detail-oriented people who are passionate about their customers."
+msgstr ""
+
+#: patterns/services-team-photos.php:37
+msgid "Portrait of a nurse"
+msgstr ""
+
+#: patterns/services-team-photos.php:43
+msgid "Picture of a person typing on a typewriter."
+msgstr ""
+
+#: patterns/services-team-photos.php:49
+msgid "Man in hat, standing in front of a building."
+msgstr ""
+
+#: patterns/template-404-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned 404"
+msgstr ""
+
+#: patterns/template-archive-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog archive"
+msgstr ""
+
+#: patterns/template-archive-photo-blog.php
+msgctxt "Pattern title"
+msgid "Photo blog archive"
+msgstr ""
+
+#: patterns/template-archive-text-blog.php
+msgctxt "Pattern title"
+msgid "Text blog archive"
+msgstr ""
+
+#: patterns/template-archive-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned archive"
+msgstr ""
+
+#: patterns/template-home-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog home"
+msgstr ""
+
+#: patterns/template-home-photo-blog.php
+msgctxt "Pattern title"
+msgid "Photo blog home"
+msgstr ""
+
+#: patterns/template-home-posts-grid-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog with featured posts grid"
+msgstr ""
+
+#: patterns/template-home-posts-grid-news-blog.php:113
+msgid "Architecture"
+msgstr ""
+
+#: patterns/template-home-text-blog.php
+msgctxt "Pattern title"
+msgid "Text blog home"
+msgstr ""
+
+#: patterns/template-home-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned home"
+msgstr ""
+
+#: patterns/template-home-with-sidebar-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog with sidebar"
+msgstr ""
+
+#: patterns/template-home-with-sidebar-news-blog.php:41
+msgid "The Latest"
+msgstr ""
+
+#: patterns/template-home-with-sidebar-news-blog.php:87
+#: patterns/template-single-left-aligned-content.php:55
+#: patterns/template-single-news-blog.php:38
+msgctxt "Separator between date and categories."
+msgid "·"
+msgstr ""
+
+#: patterns/template-page-photo-blog.php
+msgctxt "Pattern title"
+msgid "Photo blog page"
+msgstr ""
+
+#: patterns/template-page-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned page"
+msgstr ""
+
+#: patterns/template-query-loop-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog query loop"
+msgstr ""
+
+#: patterns/template-query-loop-news-blog.php:29
+msgctxt "Prefix before the author name. The post author name is displayed in a separate block."
+msgid "Written by"
+msgstr ""
+
+#: patterns/template-query-loop-news-blog.php:44
+msgid "Newer Posts"
+msgstr ""
+
+#: patterns/template-query-loop-news-blog.php:48
+msgid "Older Posts"
+msgstr ""
+
+#: patterns/template-query-loop-photo-blog.php
+msgctxt "Pattern title"
+msgid "Photo blog posts"
+msgstr ""
+
+#: patterns/template-query-loop-photo-blog.php
+msgctxt "Pattern description"
+msgid "A list of posts, 3 columns, with only featured images."
+msgstr ""
+
+#: patterns/template-query-loop-text-blog.php
+msgctxt "Pattern title"
+msgid "Text blog query loop"
+msgstr ""
+
+#: patterns/template-query-loop-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned query loop"
+msgstr ""
+
+#: patterns/template-query-loop.php
+msgctxt "Pattern title"
+msgid "List of posts, 1 column"
+msgstr ""
+
+#: patterns/template-query-loop.php
+msgctxt "Pattern description"
+msgid "A list of posts, 1 column, with featured image and post date."
+msgstr ""
+
+#: patterns/template-search-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog search results"
+msgstr ""
+
+#: patterns/template-search-photo-blog.php
+msgctxt "Pattern title"
+msgid "Photo blog search results"
+msgstr ""
+
+#: patterns/template-search-text-blog.php
+msgctxt "Pattern title"
+msgid "Text blog search results"
+msgstr ""
+
+#: patterns/template-search-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned blog, search"
+msgstr ""
+
+#: patterns/template-single-left-aligned-content.php
+msgctxt "Pattern title"
+msgid "Post with left-aligned content"
+msgstr ""
+
+#: patterns/template-single-left-aligned-content.php:30
+msgctxt "Prefix before the author name. The post author name is displayed in a separate block."
+msgid "by"
+msgstr ""
+
+#: patterns/template-single-news-blog.php
+msgctxt "Pattern title"
+msgid "News blog single post with sidebar"
+msgstr ""
+
+#: patterns/template-single-offset.php
+msgctxt "Pattern title"
+msgid "Offset post without featured image"
+msgstr ""
+
+#: patterns/template-single-offset.php:39
+#: patterns/template-single-photo-blog.php:35
+msgctxt "Prefix before the post date block."
+msgid "Published on"
+msgstr ""
+
+#: patterns/template-single-photo-blog.php
+msgctxt "Pattern title"
+msgid "Photo blog single post"
+msgstr ""
+
+#: patterns/template-single-photo-blog.php:41
+msgctxt "Prefix before the author name. The post author name is displayed in a separate block on the next line."
+msgid "Posted by"
+msgstr ""
+
+#: patterns/template-single-photo-blog.php:52
+msgctxt "Prefix before one or more categories. The categories are displayed in a separate block on the next line."
+msgid "Categories:"
+msgstr ""
+
+#: patterns/template-single-photo-blog.php:60
+msgctxt "Prefix before one or more tags. The tags are displayed in a separate block on the next line."
+msgid "Tagged:"
+msgstr ""
+
+#: patterns/template-single-photo-blog.php:77
+msgid "Previous Photo"
+msgstr ""
+
+#: patterns/template-single-photo-blog.php:78
+msgid "Next Photo"
+msgstr ""
+
+#: patterns/template-single-text-blog.php
+msgctxt "Pattern title"
+msgid "Text blog single post"
+msgstr ""
+
+#: patterns/template-single-vertical-header-blog.php
+msgctxt "Pattern title"
+msgid "Right-aligned single post"
+msgstr ""
+
+#: patterns/testimonials-2-col.php
+msgctxt "Pattern title"
+msgid "2 columns with avatar"
+msgstr ""
+
+#: patterns/testimonials-2-col.php
+msgctxt "Pattern description"
+msgid "Two columns with testimonials and avatars."
+msgstr ""
+
+#: patterns/testimonials-2-col.php:25
+#: patterns/testimonials-2-col.php:54
+msgctxt "Alt text for testimonial image."
+msgid "Picture of a person"
+msgstr ""
+
+#: patterns/testimonials-2-col.php:35
+#: patterns/testimonials-large.php:31
+msgctxt "Sample testimonial."
+msgid "“Superb product and customer service!”"
+msgstr ""
+
+#: patterns/testimonials-2-col.php:37
+#: patterns/testimonials-large.php:35
+msgctxt "Sample testimonial citation."
+msgid "Jo Mulligan <br /><sub>Atlanta, GA</sub>"
+msgstr ""
+
+#: patterns/testimonials-2-col.php:64
+#: patterns/testimonials-6-col.php:29
+#: patterns/testimonials-6-col.php:46
+#: patterns/testimonials-6-col.php:63
+#: patterns/testimonials-6-col.php:84
+#: patterns/testimonials-6-col.php:100
+#: patterns/testimonials-6-col.php:115
+msgctxt "Sample testimonial."
+msgid "“Amazing quality and care. I love all your products.”"
+msgstr ""
+
+#: patterns/testimonials-2-col.php:66
+#: patterns/testimonials-6-col.php:33
+#: patterns/testimonials-6-col.php:50
+#: patterns/testimonials-6-col.php:67
+#: patterns/testimonials-6-col.php:88
+#: patterns/testimonials-6-col.php:103
+#: patterns/testimonials-6-col.php:118
+msgctxt "Sample testimonial citation."
+msgid "Otto Reid <br><sub>Springfield, IL</sub>"
+msgstr ""
+
+#: patterns/testimonials-6-col.php
+msgctxt "Pattern title"
+msgid "3 column layout with 6 testimonials"
+msgstr ""
+
+#: patterns/testimonials-6-col.php
+msgctxt "Pattern description"
+msgid "A section with three columns and two rows, each containing a testimonial and citation."
+msgstr ""
+
+#: patterns/testimonials-6-col.php:17
+msgctxt "Testimonial section heading."
+msgid "What people are saying"
+msgstr ""
+
+#: patterns/testimonials-large.php
+msgctxt "Pattern title"
+msgid "Review with large image on right"
+msgstr ""
+
+#: patterns/testimonials-large.php
+msgctxt "Pattern description"
+msgid "A testimonial with a large image on the right."
+msgstr ""
+
+#: patterns/testimonials-large.php:23
+msgctxt "Testimonial heading."
+msgid "What people are saying"
+msgstr ""
+
+#: patterns/testimonials-large.php:46
+msgctxt "Alt text for testimonial image."
+msgid "Picture of a person typing on a typewriter."
+msgstr ""
+
+#: patterns/text-faqs.php
+msgctxt "Pattern title"
+msgid "FAQs"
+msgstr ""
+
+#: patterns/text-faqs.php
+msgctxt "Pattern description"
+msgid "A FAQs section with a FAQ heading and list of questions and answers."
+msgstr ""
+
+#: patterns/text-faqs.php:20
+msgctxt "Heading of the FAQs pattern."
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: patterns/text-faqs.php:30
+msgctxt "Question in the FAQs pattern."
+msgid "What is The Stories Book about?"
+msgstr ""
+
+#: patterns/text-faqs.php:34
+#: patterns/text-faqs.php:50
+#: patterns/text-faqs.php:70
+#: patterns/text-faqs.php:86
+msgctxt "Answer in the FAQs pattern."
+msgid "This exquisite compilation showcases a diverse array of photographs that capture the essence of different eras and cultures, reflecting the unique styles and perspectives of each artist."
+msgstr ""
+
+#: patterns/text-faqs.php:46
+msgctxt "Question in the FAQs pattern."
+msgid "How much does The Stories Book cost?"
+msgstr ""
+
+#: patterns/text-faqs.php:66
+msgctxt "Question in the FAQs pattern."
+msgid "When will The Stories Book be released?"
+msgstr ""
+
+#: patterns/text-faqs.php:82
+msgctxt "Question in the FAQs pattern."
+msgid "Are signed copies available?"
+msgstr ""
+
+#: patterns/vertical-header.php
+msgctxt "Pattern title"
+msgid "Vertical site header"
+msgstr ""
+
+#: patterns/vertical-header.php
+msgctxt "Pattern description"
+msgid "Vertical site header with site title and navigation."
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+msgctxt "Style variation name"
+msgid "Organic"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Base"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Contrast"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent 1"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent 2"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent 3"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent 4"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent 5"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent 6"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Second Accent"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent Hover"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Accent Tint"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Text on Accent Tint"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Second Accent Tint"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Second Accent Strong"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Text on Second Accent Tint"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Neutral Tint"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Text on Neutral Tint"
+msgstr ""
+
+#: theme.json
+#: styles/01-organic.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Color name"
+msgid "Neutral Strongest"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "Tiny"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "X-Small"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "Regular"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "X-Large"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Space size name"
+msgid "XX-Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Extra Extra Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Display"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Figtree"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Caprasimo"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Archivo"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Inter"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Noto Sans"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Noto Serif"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Fira Code"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Border radius size name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Border radius size name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Border radius size name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Border radius size name"
+msgid "Frame"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Border radius size name"
+msgid "Pill"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Shadow name"
+msgid "Small"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Shadow name"
+msgid "Medium"
+msgstr ""
+
+#: theme.json
+#: styles/02-modernist.json
+#: styles/03-nocturne.json
+msgctxt "Shadow name"
+msgid "Large"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Vertical site header"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header with large title"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer Columns"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer Newsletter"
+msgstr ""
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Sidebar"
+msgstr ""
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page No Title"
+msgstr ""
+
+#: styles/02-modernist.json
+msgctxt "Style variation name"
+msgid "Modernist"
+msgstr ""
+
+#: styles/03-nocturne.json
+msgctxt "Style variation name"
+msgid "Nocturne"
+msgstr ""
+
+#: styles/blocks/01-display.json
+msgctxt "Style variation name"
+msgid "Display"
+msgstr ""
+
+#: styles/blocks/02-subtitle.json
+msgctxt "Style variation name"
+msgid "Subtitle"
+msgstr ""
+
+#: styles/blocks/03-annotation.json
+msgctxt "Style variation name"
+msgid "Annotation"
+msgstr ""
+
+#: styles/blocks/post-terms-1.json
+msgctxt "Style variation name"
+msgid "Pill shaped"
+msgstr ""
+
+#: styles/sections/section-1.json
+msgctxt "Style variation name"
+msgid "Style 1"
+msgstr ""
+
+#: styles/sections/section-2.json
+msgctxt "Style variation name"
+msgid "Style 2"
+msgstr ""
+
+#: styles/sections/section-3.json
+msgctxt "Style variation name"
+msgid "Style 3"
+msgstr ""
+
+#: styles/sections/section-4.json
+msgctxt "Style variation name"
+msgid "Style 4"
+msgstr ""
+
+#: styles/sections/section-5.json
+msgctxt "Style variation name"
+msgid "Style 5"
+msgstr ""
+
+#: styles/typography/noto-sans.json
+msgctxt "Style variation name"
+msgid "Noto Sans"
+msgstr ""
+
+#: styles/typography/noto-serif.json
+msgctxt "Style variation name"
+msgid "Noto Serif"
+msgstr ""

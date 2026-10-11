@@ -1,0 +1,282 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Modernist",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"name": "Base",
+					"slug": "base",
+					"color": "#f3f2f2"
+				},
+				{
+					"name": "Contrast",
+					"slug": "contrast",
+					"color": "#201e1d"
+				},
+				{
+					"name": "Accent 1",
+					"slug": "accent-1",
+					"color": "#ec3013"
+				},
+				{
+					"name": "Accent 2",
+					"slug": "accent-2",
+					"color": "#ffe0d9"
+				},
+				{
+					"name": "Accent 3",
+					"slug": "accent-3",
+					"color": "#ae1800"
+				},
+				{
+					"name": "Accent 4",
+					"slug": "accent-4",
+					"color": "#605d5d"
+				},
+				{
+					"name": "Accent 5",
+					"slug": "accent-5",
+					"color": "#eae9e9"
+				},
+				{
+					"name": "Accent 6",
+					"slug": "accent-6",
+					"color": "color-mix(in srgb, currentColor 40%, transparent)"
+				},
+				{
+					"name": "Second Accent",
+					"slug": "second-accent",
+					"color": "#e15b47"
+				},
+				{
+					"name": "Accent Hover",
+					"slug": "accent-hover",
+					"color": "#dd2b0f"
+				},
+				{
+					"name": "Accent Tint",
+					"slug": "accent-tint",
+					"color": "#fff2ef"
+				},
+				{
+					"name": "Text on Accent Tint",
+					"slug": "accent-on-tint",
+					"color": "#7c1405"
+				},
+				{
+					"name": "Second Accent Tint",
+					"slug": "second-accent-tint",
+					"color": "#fff2ef"
+				},
+				{
+					"name": "Second Accent Strong",
+					"slug": "second-accent-strong",
+					"color": "#9e3526"
+				},
+				{
+					"name": "Text on Second Accent Tint",
+					"slug": "second-accent-on-tint",
+					"color": "#71261b"
+				},
+				{
+					"name": "Neutral Tint",
+					"slug": "neutral-tint",
+					"color": "#f8f4f4"
+				},
+				{
+					"name": "Text on Neutral Tint",
+					"slug": "neutral-on-tint",
+					"color": "#444141"
+				},
+				{
+					"name": "Neutral Strongest",
+					"slug": "neutral-strongest",
+					"color": "#2d2b2b"
+				}
+			]
+		},
+		"border": {
+			"radiusSizes": [
+				{
+					"name": "Small",
+					"slug": "sm",
+					"size": "0px"
+				},
+				{
+					"name": "Medium",
+					"slug": "md",
+					"size": "0px"
+				},
+				{
+					"name": "Large",
+					"slug": "lg",
+					"size": "0px"
+				},
+				{
+					"name": "Frame",
+					"slug": "frame",
+					"size": "0px"
+				},
+				{
+					"name": "Pill",
+					"slug": "pill",
+					"size": "0px"
+				}
+			]
+		},
+		"shadow": {
+			"presets": [
+				{
+					"name": "Small",
+					"slug": "sm",
+					"shadow": "0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent)"
+				},
+				{
+					"name": "Medium",
+					"slug": "md",
+					"shadow": "0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent)"
+				},
+				{
+					"name": "Large",
+					"slug": "lg",
+					"shadow": "0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent)"
+				}
+			]
+		},
+		"spacing": {
+			"spacingSizes": [
+				{
+					"name": "Tiny",
+					"slug": "20",
+					"size": "8px"
+				},
+				{
+					"name": "X-Small",
+					"slug": "30",
+					"size": "12px"
+				},
+				{
+					"name": "Small",
+					"slug": "40",
+					"size": "16px"
+				},
+				{
+					"name": "Regular",
+					"slug": "50",
+					"size": "24px"
+				},
+				{
+					"name": "Large",
+					"slug": "60",
+					"size": "32px"
+				},
+				{
+					"name": "X-Large",
+					"slug": "70",
+					"size": "48px"
+				},
+				{
+					"name": "XX-Large",
+					"slug": "80",
+					"size": "64px"
+				}
+			]
+		},
+		"custom": {
+			"spacing": {
+				"1": "4px"
+			},
+			"color": {
+				"neutral": {
+					"100": "#f8f4f4",
+					"200": "#eae7e7",
+					"300": "#d7d3d3",
+					"400": "#bab6b6",
+					"500": "#9b9797",
+					"600": "#7d7979",
+					"700": "#605d5d",
+					"800": "#444141",
+					"900": "#2d2b2b"
+				},
+				"accent": {
+					"100": "#fff2ef",
+					"200": "#ffe0d9",
+					"300": "#ffc4b8",
+					"400": "#ff9783",
+					"500": "#ff563c",
+					"600": "#dd2b0f",
+					"700": "#ae1800",
+					"800": "#7c1405",
+					"900": "#4d170e"
+				},
+				"accent-2": {
+					"100": "#fff2ef",
+					"200": "#ffe0da",
+					"300": "#ffc4b9",
+					"400": "#ff9784",
+					"500": "#ef6853",
+					"600": "#c94b39",
+					"700": "#9e3526",
+					"800": "#71261b",
+					"900": "#471d16"
+				},
+				"divider": "color-mix(in srgb, #201e1d 40%, transparent)"
+			},
+			"image": {
+				"filter": "grayscale(1) contrast(1.08)",
+				"blend": "normal"
+			},
+			"button": {
+				"align": "left"
+			}
+		}
+	},
+	"styles": {
+		"typography": {
+			"fontFamily": "var:preset|font-family|archivo"
+		},
+		"blocks": {
+			"core/separator": {
+				"border": {
+					"width": "0 0 2px 0"
+				}
+			},
+			"core/table": {
+				"css": "& th, & td { border-width: 0 0 1px 0; border-style: solid; padding: var(--wp--preset--spacing--20); text-align: left; } & th { font-size: var(--wp--preset--font-size--x-small); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, currentColor 60%, transparent); border-color: var(--wp--custom--color--divider); border-bottom-width: 2px; } & td { border-color: var(--wp--custom--color--divider); } & tbody tr:hover { background: color-mix(in srgb, currentColor 4%, transparent); } & thead { border-bottom: 0; } & tfoot { border-top: 0; }"
+			},
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|archivo",
+					"fontWeight": "800"
+				}
+			},
+			"core/pullquote": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|archivo",
+					"fontWeight": "800"
+				}
+			}
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|archivo",
+					"fontWeight": "800"
+				}
+			},
+			"h6": {
+				"typography": {
+					"fontWeight": "800"
+				}
+			},
+			"button": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|archivo",
+					"fontWeight": "800"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,113 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Organic",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"name": "Base",
+					"slug": "base",
+					"color": "#f5ead8"
+				},
+				{
+					"name": "Contrast",
+					"slug": "contrast",
+					"color": "#201e1d"
+				},
+				{
+					"name": "Accent 1",
+					"slug": "accent-1",
+					"color": "#c67139"
+				},
+				{
+					"name": "Accent 2",
+					"slug": "accent-2",
+					"color": "#e1eecc"
+				},
+				{
+					"name": "Accent 3",
+					"slug": "accent-3",
+					"color": "#8c491a"
+				},
+				{
+					"name": "Accent 4",
+					"slug": "accent-4",
+					"color": "#645c50"
+				},
+				{
+					"name": "Accent 5",
+					"slug": "accent-5",
+					"color": "#ebddc5"
+				},
+				{
+					"name": "Accent 6",
+					"slug": "accent-6",
+					"color": "color-mix(in srgb, currentColor 16%, transparent)"
+				},
+				{
+					"name": "Second Accent",
+					"slug": "second-accent",
+					"color": "#7a8a5e"
+				},
+				{
+					"name": "Accent Hover",
+					"slug": "accent-hover",
+					"color": "#b2622d"
+				},
+				{
+					"name": "Accent Tint",
+					"slug": "accent-tint",
+					"color": "#fff2eb"
+				},
+				{
+					"name": "Text on Accent Tint",
+					"slug": "accent-on-tint",
+					"color": "#643312"
+				},
+				{
+					"name": "Second Accent Tint",
+					"slug": "second-accent-tint",
+					"color": "#f0fae1"
+				},
+				{
+					"name": "Second Accent Strong",
+					"slug": "second-accent-strong",
+					"color": "#56633f"
+				},
+				{
+					"name": "Text on Second Accent Tint",
+					"slug": "second-accent-on-tint",
+					"color": "#3d472b"
+				},
+				{
+					"name": "Neutral Tint",
+					"slug": "neutral-tint",
+					"color": "#f9f4ed"
+				},
+				{
+					"name": "Text on Neutral Tint",
+					"slug": "neutral-on-tint",
+					"color": "#474238"
+				},
+				{
+					"name": "Neutral Strongest",
+					"slug": "neutral-strongest",
+					"color": "#2e2b25"
+				}
+			]
+		}
+	},
+	"styles": {
+		"typography": {
+			"fontFamily": "var:preset|font-family|figtree"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|caprasimo"
+				}
+			}
+		}
+	}
+}

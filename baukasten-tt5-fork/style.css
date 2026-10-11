@@ -1,0 +1,126 @@
+/*
+Theme Name: Baukasten Theme: TT5 Fork
+Theme URI: https://github.com/trstnbde/baukasten
+Author: Torsten B.
+Author URI: https://github.com/trstnbde
+Description: A standalone fork of Twenty Twenty-Five 1.5 that carries three design systems as styles: Organic (the default), Modernist and Nocturne, plus Noto Sans and Noto Serif as font presets. Templates, template parts and patterns come from Twenty Twenty-Five; all fonts are bundled, so the theme sends no requests to third parties.
+Requires at least: 6.9
+Tested up to: 7.1
+Requires PHP: 7.2
+Version: 1.5
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: baukasten-tt5-fork
+Domain Path: /languages
+Update URI: https://github.com/trstnbde/baukasten
+Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, featured-images, full-site-editing, block-patterns, rtl-language-support, sticky-post, threaded-comments, translation-ready, wide-blocks, block-styles, style-variations, blog, portfolio, news
+*/
+
+/*
+ * Every value that differs between Organic, Modernist and Nocturne lives in
+ * theme.json and styles/*.json. The rules below only read those values
+ * (--wp--preset--*, --wp--custom--*), so a style variation never has to undo
+ * a rule written for another one.
+ */
+
+/*
+ * Link styles
+ * https://github.com/WordPress/gutenberg/issues/42319
+ * All three design systems set the underline 3px below the baseline.
+ * theme.json has no property for the offset.
+ */
+a {
+	text-decoration-thickness: 1px !important;
+	text-underline-offset: 3px;
+}
+
+/*
+ * Focus: the ring shows for keyboard focus only, 2px in the accent, 2px away.
+ */
+:where(.wp-site-blocks *:focus):not(:focus-visible) {
+	outline: none;
+}
+
+:where(.wp-site-blocks *:focus-visible) {
+	outline: 2px solid var(--wp--preset--color--accent-1);
+	outline-offset: 2px;
+}
+
+/* Increase the bottom margin on submenus, so that the outline is visible. */
+.wp-block-navigation .wp-block-navigation-submenu .wp-block-navigation-item:not(:last-child) {
+	margin-bottom: 3px;
+}
+
+/* Increase the outline offset on the parent menu items, so that the outline does not touch the text. */
+.wp-block-navigation .wp-block-navigation-item .wp-block-navigation-item__content {
+	outline-offset: 4px;
+}
+
+/* Remove outline offset from the submenus, otherwise the outline is visible outside the submenu container. */
+.wp-block-navigation .wp-block-navigation-item ul.wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	outline-offset: 0;
+}
+
+/* Text selection: an accent tint instead of the browser default. */
+::selection {
+	background: color-mix(in srgb, var(--wp--preset--color--accent-1) 30%, transparent);
+}
+
+/*
+ * Image treatment: Organic washes photographs out, Modernist prints them in
+ * black and white, Nocturne lets their dark values fall into the page.
+ * theme.json only offers duotone, not a filter chain or a blend mode.
+ */
+.wp-block-image img,
+.wp-block-post-featured-image img,
+.wp-block-media-text__media img,
+.wp-block-cover__image-background,
+.wp-block-gallery img {
+	filter: var(--wp--custom--image--filter, none);
+	mix-blend-mode: var(--wp--custom--image--blend, normal);
+}
+
+/*
+ * Framed containers: groups and columns with a background take the frame
+ * radius, unless they run full width, so headers, footers and full-width
+ * sections stay square.
+ */
+.wp-block-group.has-background:not(.alignfull),
+.wp-block-column.has-background {
+	border-radius: var(--wp--preset--border-radius--frame);
+}
+
+/* Button labels: centred, or flush left where a design system asks for it. */
+.wp-block-button__link:not([class*="has-text-align-"]) {
+	text-align: var(--wp--custom--button--align, center);
+}
+
+/* Disabled controls drop to 45% opacity. */
+:where(.wp-site-blocks) :is(button, input, select, textarea, .wp-element-button):disabled {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+
+/*
+ * Progressive enhancement to reduce widows and orphans
+ * https://github.com/WordPress/gutenberg/issues/55190
+ */
+h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
+	text-wrap: pretty;
+}
+
+/*
+ * Change the position of the more block on the front, by making it a block level element.
+ * https://github.com/WordPress/gutenberg/issues/65934
+*/
+.more-link {
+	display: block;
+}
+
+/*
+ * Prevents unnecessary scrollbars while handling long lines of preformatted text.
+ * https://core.trac.wordpress.org/ticket/63875
+ */
+:where(pre) {
+	overflow-x: auto;
+}

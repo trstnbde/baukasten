@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/wp/6.9/theme.json",
+	"version": 3,
+	"title": "Noto Serif",
+	"slug": "noto-serif",
+	"styles": {
+		"typography": {
+			"fontFamily": "var:preset|font-family|noto-serif"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-serif"
+				}
+			},
+			"button": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-serif"
+				}
+			}
+		},
+		"blocks": {
+			"core/site-title": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-serif"
+				}
+			},
+			"core/pullquote": {
+				"typography": {
+					"fontFamily": "var:preset|font-family|noto-serif"
+				}
+			}
+		}
+	}
+}
