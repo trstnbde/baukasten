@@ -1,15 +1,17 @@
 <?php
 /**
- * Builds a distributable plugin archive.
+ * Builds a distributable plugin or theme archive.
  *
- * Copies everything in a plugin directory that is not listed in its
+ * Copies everything in a plugin or theme directory that is not listed in its
  * .distignore into build/<slug>/ and zips it as build/<slug>-<version>.zip,
  * which is what goes into the WordPress.org SVN trunk and a GitHub release.
  *
- * Usage: php bin/build.php <plugin-directory>
+ * Usage: php bin/build.php <plugin-or-theme-directory>
  *        php bin/build.php --all
  *
- * The slug is the directory name; the main file is <slug>/<slug>.php.
+ * The slug is the directory name. A plugin's main file is <slug>/<slug>.php;
+ * a theme is a directory whose style.css carries a `Theme Name:` header, and
+ * its version comes from that header.
  *
  * @package Baukasten
  */
@@ -43,12 +45,24 @@ if ( array( '--all' ) === $args ) {
 			continue;
 		}
 
-		if ( is_file( $repo . '/' . $entry . '/' . $entry . '.php' ) ) {
+		if ( is_file( $repo . '/' . $entry . '/' . $entry . '.php' ) || is_theme( $repo . '/' . $entry ) ) {
 			$args[] = $entry;
 		}
 	}
 
 	sort( $args );
+}
+
+/**
+ * Whether a directory is a theme: its style.css names one.
+ *
+ * @param string $dir Directory.
+ * @return bool True for a theme.
+ */
+function is_theme( string $dir ): bool {
+	$style = $dir . '/style.css';
+
+	return is_readable( $style ) && 1 === preg_match( '/^\s*Theme Name:/mi', (string) file_get_contents( $style ) );
 }
 
 /**
@@ -137,23 +151,25 @@ function rmtree( string $path ): void {
  * @return bool True on success.
  */
 function build_plugin( string $repo, string $slug ): bool {
-	$dir  = $repo . '/' . $slug;
-	$main = $dir . '/' . $slug . '.php';
+	$dir   = $repo . '/' . $slug;
+	$theme = is_theme( $dir );
+	$main  = $theme ? $dir . '/style.css' : $dir . '/' . $slug . '.php';
 
 	if ( ! is_file( $main ) ) {
-		fwrite( STDERR, "No main file at $slug/$slug.php\n" );
+		fwrite( STDERR, "No main file at $slug/$slug.php or theme style.css\n" );
 
 		return false;
 	}
 
 	$version = null;
+	$header  = $theme ? '/^\s*Version:\s*(.+)$/mi' : '/^\s*\*\s*Version:\s*(.+)$/mi';
 
-	if ( preg_match( '/^\s*\*\s*Version:\s*(.+)$/mi', (string) file_get_contents( $main ), $matches ) ) {
+	if ( preg_match( $header, (string) file_get_contents( $main ), $matches ) ) {
 		$version = trim( $matches[1] );
 	}
 
 	if ( null === $version ) {
-		fwrite( STDERR, "Could not read the version from $slug/$slug.php\n" );
+		fwrite( STDERR, 'Could not read the version from ' . $slug . '/' . basename( $main ) . "\n" );
 
 		return false;
 	}

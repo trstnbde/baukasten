@@ -1,8 +1,8 @@
 name: Release
 
-# Builds the plugin archives for a tag and attaches them to its GitHub release.
+# Builds the plugin or theme archive for a tag and attaches it to its GitHub release.
 #
-# Tags are `<slug>-<version>`, one plugin and one ZIP per tag. The core carries
+# Tags are `<slug>-<version>`, one plugin or theme and one ZIP per tag. The core carries
 # Consent Blocking Engine, Content Visibility and Login Legal Pages inside it.
 # See docs/RELEASING.md.
 #
@@ -42,7 +42,7 @@ jobs:
           slug="${tag%-*}"
 
           case "$slug" in
-            baukasten|baukasten-multi-domain|baukasten-business-cards|baukasten-2fa|baukasten-form-privacy)
+            baukasten|baukasten-multi-domain|baukasten-business-cards|baukasten-2fa|baukasten-form-privacy|baukasten-tt5-fork)
               plugins="$slug"
               ;;
             *)
@@ -66,7 +66,7 @@ jobs:
             php bin/build.php "$plugin"
 
             if [ ! -f "build/$plugin-$version.zip" ]; then
-              echo "::error::$plugin did not build as $version. Check its header and readme stable tag."
+              echo "::error::$plugin did not build as $version. Check its header (style.css for the theme) and readme stable tag."
               exit 1
             fi
           done
