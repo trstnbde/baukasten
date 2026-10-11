@@ -19,12 +19,12 @@ msgstr ""
 #. Plugin Name of the plugin
 #: baukasten-multi-domain.php
 msgid "Baukasten Addon: Multi-Domain Landingpage"
-msgstr ""
+msgstr "Baukasten Addon: Multi-Domain Landingpage"
 
 #. Plugin URI of the plugin
 #: baukasten-multi-domain.php
 msgid "https://github.com/trstnbde/baukasten"
-msgstr ""
+msgstr "https://github.com/trstnbde/baukasten"
 
 #. Description of the plugin
 #: baukasten-multi-domain.php
@@ -34,12 +34,12 @@ msgstr "Ordnet Seiten Domains zu, sodass eine WordPress-Installation unter jeder
 #. Author of the plugin
 #: baukasten-multi-domain.php
 msgid "Torsten B."
-msgstr ""
+msgstr "Torsten B."
 
 #. Author URI of the plugin
 #: baukasten-multi-domain.php
 msgid "https://github.com/trstnbde"
-msgstr ""
+msgstr "https://github.com/trstnbde"
 
 #: admin/views/settings-tab.php:17
 msgid "A page can be the front page of a domain of its own. Assign the domain in the page list — as a column, in the quick edit, or in the page editor — and every visitor arriving on that domain sees that page instead of the usual front page."
