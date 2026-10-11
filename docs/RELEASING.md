@@ -1,12 +1,12 @@
 # Releasing
 
-Five plugins, five releases. This is the whole procedure; `DEVELOPER-GUIDE.md`
+Five plugins and one theme, six releases. This is the whole procedure; `DEVELOPER-GUIDE.md`
 covers day-to-day work and `WORDPRESS-ORG-COMPLIANCE.md` covers what the
 directory asks for.
 
 **Publishing to WordPress.org is on hold** (decided 28 September 2026). Releases
 are GitHub releases with ZIPs attached, installed by upload. Until that changes,
-every plugin header carries
+every plugin header and the theme's `style.css` carry
 
 ```
 Update URI: https://github.com/trstnbde/baukasten
@@ -18,7 +18,7 @@ ours. Remove the header from each plugin before it is submitted to the directory
 
 ## What ships
 
-One tag, one plugin, one ZIP:
+One tag, one plugin or theme, one ZIP:
 
 | Tag | Plugin |
 | --- | --- |
@@ -27,6 +27,7 @@ One tag, one plugin, one ZIP:
 | `baukasten-business-cards-<version>` | `baukasten-business-cards` |
 | `baukasten-2fa-<version>` | `baukasten-2fa` |
 | `baukasten-form-privacy-<version>` | `baukasten-form-privacy` |
+| `baukasten-tt5-fork-<version>` | `baukasten-tt5-fork` — the theme, Baukasten Theme: TT5 Fork |
 
 Tags are always `<slug>-<version>`. The core used to ship together with three
 separate addons under one tag; since those were merged into it, it is a single
@@ -35,9 +36,11 @@ ZIP like the others.
 ## Steps
 
 1. **Bump the version in two places** — the `Version:` header in
-   `<slug>/<slug>.php` and `Stable tag:` in `<slug>/readme.txt`. `bin/build.php`
-   refuses to build when they disagree. In the core, `const VERSION` follows the
-   header; the features use it too.
+   `<slug>/<slug>.php` (the theme: `baukasten-tt5-fork/style.css`) and
+   `Stable tag:` in `<slug>/readme.txt`. `bin/build.php` refuses to build when
+   they disagree. In the core, `const VERSION` follows the header; the features
+   use it too. The plugins stay at 1.0.0; the theme carries the version of the
+   Twenty Twenty-Five release it was forked from (1.5).
 2. **Write the changelog.** A `= <version> =` block under `== Changelog ==`, and
    a matching one under `== Upgrade Notice ==` saying why someone should bother.
 3. **Translations.** Regenerate, merge, compile:
@@ -47,6 +50,9 @@ ZIP like the others.
    # fill in the new msgstr in <slug>/languages/<slug>-de_DE.po (bin/po-merge.py helps)
    wp i18n make-mo <slug>/languages <slug>/languages
    ```
+
+   The theme's German file is `baukasten-tt5-fork/languages/de_DE.po` (a
+   theme's own translations are named after the locale only).
 
 4. **Build.**
 

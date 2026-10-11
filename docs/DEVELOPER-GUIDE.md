@@ -8,7 +8,7 @@ Everything here describes 1.0.0 as of 28 September 2026, after the core merge.
 
 ## 1. What this is
 
-Five WordPress plugins in one repository, each with its own release:
+Five WordPress plugins and one block theme in one repository, each with its own release:
 
 | Slug | Role |
 |---|---|
@@ -17,6 +17,7 @@ Five WordPress plugins in one repository, each with its own release:
 | `baukasten-business-cards` | A digital business card on its own short link, in one of three designs. Also requires Contact Form 7. |
 | `baukasten-2fa` | A second factor answered from the admin bar of another signed-in session. Also requires the Two Factor plugin. |
 | `baukasten-form-privacy` | Contact Form 7 and Flamingo without the leaks. Also requires Contact Form 7. |
+| `baukasten-tt5-fork` | The theme, "Baukasten Theme: TT5 Fork": a standalone fork of Twenty Twenty-Five 1.5 with the design systems Organic (default), Modernist and Nocturne as styles. Version 1.5, following the parent it was forked from. See [`theme/TT5-FORK.md`](theme/TT5-FORK.md). |
 
 The addons are separate plugins because they are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a settings screen.
 
@@ -135,14 +136,16 @@ Only `baukasten/` has a `vendor/`; the other four are linted with `../baukasten/
 python bin/po-merge.py <slug>/languages/<slug>.pot out.po <slug>/languages/<slug>-de_DE.po --extra new.json --report missing.json
 ```
 
-On the development machine the PHP CLI used for tooling (`D:\xampp\php\php.exe`, 8.2) has **`ext-zip` and `ext-gd` disabled**, hence the `-d extension=…` above; it is only a CLI there, not a test server.
+On the development machine the PHP CLI used for tooling (PHP 8.4 from winget, `php` on the path) loads **no extensions by default**, hence the `-d extension=…` above; WP-CLI additionally needs `-d extension_dir=<php>/ext -d extension=mbstring`, and `wp i18n make-pot` on the theme fetches `theme-i18n.json` from develop.svn.wordpress.org, so it needs `curl` and `openssl` and network access. It is only a CLI there, not a test server.
+
+The theme follows the theme convention, not the plugin one: its translations are `baukasten-tt5-fork/languages/de_DE.po` and `de_DE.mo` (`load_theme_textdomain()` looks for `<locale>.mo`), next to `baukasten-tt5-fork.pot`.
 
 ### Testing
 
-There is no local test site any more. Changes are tested on the live site, https://bundeshub.de/ (Hetzner, PHP 8.4), which runs all five plugins:
+There is no local test site any more. Changes are tested on the live site, https://bundeshub.de/ (Hetzner, PHP 8.4), which runs all five plugins and the theme:
 
 - **Automated:** `tests/` holds PHPUnit integration tests that run in CI against the WordPress test suite in `wp-env`. They cover what must never regress: private content through embed, oEmbed and REST; forged consent; the card mail recipient; activation leaving core options alone; the rate limit; Form Privacy's filters.
-- **Deploy:** by SSH (`ssh -p 222 cwyhqy@www673.your-server.de`, key authentication, WP-CLI as `~/bin/wp`). Before every deployment, a database export and a tarball of `wp-content/plugins` go to `~/baukasten-backups/<date>/`, outside the web root. Then `wp plugin install <zip> --force` per plugin.
+- **Deploy:** by SSH (`ssh -p 222 cwyhqy@www673.your-server.de`, key authentication, WP-CLI as `~/bin/wp`). Before every deployment, a database export and a tarball of `wp-content/plugins` go to `~/baukasten-backups/<date>/`, outside the web root. Then `wp plugin install <zip> --force` per plugin. The WordPress directory is also mounted on the development machine as `Z:\usr\home\cwyhqy\public_html\apps\wordpress`; copying `build/<slug>/` there works, but **files created through that mount arrive as `rwxr-x---`** and the web server answers 403 for them (fonts, CSS, images — PHP still runs, so the page looks half-styled). Afterwards, over SSH: `find <dir> -type d -exec chmod 755 {} + ; find <dir> -type f -exec chmod 644 {} +`.
 - **Logged in:** in the site owner's Chrome session, which already exists. Never sign out or in: the login asks for Two Factor.
 - **Logged out:** `curl`, or a browser without the session.
 - **Dangerous on a live site:** anything that sends mail to a third party, deletes data, or could lock the owner out (the rate limit — test it with `wp eval-file` and a documentation IP address, not through the login form). Ask first.
@@ -196,14 +199,19 @@ Every one of these cost time. They are listed so they cost it once.
 
 **PHPCS's PrefixAllGlobals sniff treats view locals as globals.** Prefix them, or the build fails on a file that looks perfectly ordinary.
 
+**A style variation inherits every key of `theme.json` it does not set.** Choosing a variation stores theme.json merged with it, so a rule written into theme.json for Organic — a filter on images, a radius on framed groups — would follow the site into Modernist and Nocturne. The theme keeps such rules in `style.css` and lets them read values (`--wp--custom--image--filter`, `--wp--preset--border-radius--frame`, `--wp--custom--button--align`) that each variation sets. A new design-specific rule follows the same pattern.
+
+**A theme's own translations are `<locale>.mo`.** `load_theme_textdomain()` looks for `languages/de_DE.mo`; a file named like a plugin's (`<domain>-de_DE.mo`) is ignored on the front end while the theme details screen, which loads differently, still shows German.
+
 ---
 
 ## 6. Where things are
 
 ```
-baukasten*/                 the five plugins
+baukasten*/                 the five plugins and the theme
 baukasten/features/         Content Visibility, Login Legal Pages, Consent Blocking Engine
-bin/build.php               packaging, one plugin or --all
+baukasten-tt5-fork/         the theme; styles/ holds Organic, Modernist, Nocturne and the Noto presets
+bin/build.php               packaging, one plugin or theme, or --all
 bin/make-assets.php         directory icon and banner
 bin/po-merge.py             carries translations into a fresh .pot
 tests/                      PHPUnit integration tests, run in wp-env
@@ -212,6 +220,7 @@ docs/RELEASING.md           tags and releases, and the one-shot slug step at a l
 docs/WORDPRESS-ORG-COMPLIANCE.md   guideline-by-guideline readiness (submission on hold)
 docs/briefings/             the September 2026 briefings and what came of them
 docs/acceptance/            protocols from the live site
+docs/theme/TT5-FORK.md      the theme: token mapping, variations, contrast
 .github/workflows/          lint.yml (PHPCS, php -l), integration.yml (tests), release.yml (ZIPs per tag)
 ```
 
@@ -221,7 +230,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-All five are at 1.0.0 and released on GitHub; publishing to WordPress.org is on hold.
+All five plugins are at 1.0.0 and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
 
 The procedure lives in [`RELEASING.md`](RELEASING.md). For the day the directory submission is
 taken up again it also holds the one irreversible step: **WordPress.org derives the directory slug
