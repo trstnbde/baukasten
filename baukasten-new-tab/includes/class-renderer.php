@@ -155,9 +155,11 @@ final class Renderer {
 			}
 		);
 
-		header( 'Referrer-Policy: no-referrer' );
-		header( 'Cache-Control: no-store, private' );
-		header( 'X-Robots-Tag: noindex, nofollow' );
+		if ( ! headers_sent() ) {
+			header( 'Referrer-Policy: no-referrer' );
+			header( 'Cache-Control: no-store, private' );
+			header( 'X-Robots-Tag: noindex, nofollow' );
+		}
 
 		if ( wp_safe_redirect( $url, 303, 'Baukasten New Tab Page' ) ) {
 			exit;

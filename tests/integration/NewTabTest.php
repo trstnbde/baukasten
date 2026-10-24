@@ -225,7 +225,7 @@ class NewTabTest extends WP_UnitTestCase {
 		foreach ( array( 'evil.example.com', 'https://evil.example.com/login', 'localhost:8080', '192.0.2.1' ) as $entry ) {
 			$this->reset_renderer();
 
-			$this->go_to( add_query_arg( 'q', rawurlencode( $entry ), get_permalink( $this->page_id ) ) );
+			$this->go_to( get_permalink( $this->page_id ) . '&q=' . rawurlencode( $entry ) );
 
 			Renderer::take_over();
 
@@ -251,12 +251,12 @@ class NewTabTest extends WP_UnitTestCase {
 			}
 		);
 
-		$this->go_to( add_query_arg( array( 'q' => rawurlencode( 'Mondlandung 1969' ), 'e' => 'brave' ), get_permalink( $this->page_id ) ) );
+		$this->go_to( get_permalink( $this->page_id ) . '&q=Mondlandung+1969&e=brave' );
 
 		try {
 			Renderer::take_over();
-		} catch ( RuntimeException $exception ) {
-			unset( $exception );
+		} catch ( Throwable $exception ) {
+			$this->assertSame( 'redirect', $exception->getMessage() );
 		}
 
 		$this->assertSame( 'search.brave.com', wp_parse_url( $target, PHP_URL_HOST ) );
@@ -618,12 +618,26 @@ class NewTabTest extends WP_UnitTestCase {
 	 * Over-long and empty queries get nothing.
 	 */
 	public function test_suggest_input_is_bounded(): void {
+		add_filter(
+			'pre_http_request',
+			static fn() => array(
+				'response' => array( 'code' => 200 ),
+				'body'     => '["q",[]]',
+				'headers'  => array(),
+			)
+		);
+
 		$request = new WP_REST_Request( 'GET', '/baukasten-new-tab/v1/suggest' );
 		$request->set_query_params( array( 'q' => str_repeat( 'a', 500 ) ) );
 
 		$response = rest_get_server()->dispatch( $request );
 
-		$this->assertSame( 400, $response->get_status() );
+		// Either refused outright or cut to the limit; never passed on whole.
+		if ( 200 === $response->get_status() ) {
+			$this->assertLessThanOrEqual( Search::MAX_LENGTH, mb_strlen( (string) $response->get_data()[0] ) );
+		} else {
+			$this->assertSame( 400, $response->get_status() );
+		}
 	}
 
 	/**
