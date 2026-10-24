@@ -116,6 +116,9 @@ final class Legal_Links {
 			$label = '' !== $title ? $title : $fallback;
 		}
 
+		// A typography plugin hyphenates page titles with soft hyphens; a footer label should not carry them.
+		$label = str_replace( "\u{00AD}", '', $label );
+
 		$reason = '';
 
 		if ( 0 >= $page_id && '' === $url ) {

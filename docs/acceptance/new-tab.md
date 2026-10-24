@@ -58,3 +58,17 @@ Geprüft am 24. Oktober 2026 auf https://bundeshub.de/ (WordPress 7.1.3, PHP 8.4
 1. Unsplash: Access Key im Tab eintragen, dann „Speichern und Verbindung testen“, Einwilligung (keine Fremd-Requests vor dem Klick, danach Foto und Kategorie zusätzlich zu bestehenden), Quellenangabe.
 2. Mobil, Dark Mode und reduzierte Bewegung auf einem echten Gerät ansehen.
 3. Entscheidung, ob die Seite öffentlich oder privat bleibt und ob eine Domain per Multi-Domain zugewiesen wird.
+
+## Nachtrag 24. Oktober 2026: Änderungen nach der Abnahme
+
+Auf Wunsch von Torsten geändert und erneut deployt (Backup `~/baukasten-backups/2026-10-24-2/`, CI grün):
+
+- Schrift Noto Sans (400, 600; Latin 27 KB statt 73 KB), im Suchfeld normales Gewicht.
+- Einstellung für die Grüße (an/aus, Feiertage an/aus, eigene Liste); 52 neue nerdige Business-Grüße.
+- Seitenwahl nur noch im Tab, nicht mehr unter Einstellungen → Lesen.
+- Vorschläge immer von Startpage (`osuggestions`), Einstellung entfernt.
+- Rechtslinks nicht mehr im Tab erwähnt; Footer unverändert die Standardlinks der Site.
+- Seiten-Icon: Site-Icon bzw. `/favicon.ico` (WordPress-Standard).
+- Unsplash ohne Einwilligung, dafür Datenschutzhinweis im Tab.
+
+Geprüft: Unsplash-Verbindungstest („Mit Unsplash verbunden. 8 von 50 Anfragen in dieser Stunde übrig.“), Foto, Fotograf und Unsplash-Link mit `utm_source=bundeshub-de` auf der Seite, Vorschläge von Startpage, kein Einwilligungsknopf mehr, Tab mit Seitenwahl und Grußeinstellungen. Der Unsplash-Test ist damit erledigt; die Demo-Anwendung erlaubt 50 Anfragen pro Stunde.
