@@ -1,0 +1,37 @@
+/* Baukasten New Tab Page - the settings tab. WordPress admin type and colours. */
+
+.baukasten-new-tab-engines td,
+.baukasten-new-tab-favorites td { vertical-align: middle; }
+
+.baukasten-new-tab-engines .large-text { min-width: 24em; }
+
+.baukasten-new-tab-favorites__order { white-space: nowrap; }
+.baukasten-new-tab-favorites__order .button { margin-right: 2px; }
+
+.baukasten-new-tab-media__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0 0 8px;
+}
+.baukasten-new-tab-media__list li { position: relative; margin: 0; }
+.baukasten-new-tab-media__list img { display: block; object-fit: cover; border: 1px solid #c3c4c7; }
+.baukasten-new-tab-media__remove {
+	position: absolute;
+	top: 2px;
+	right: 2px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff !important;
+	color: #b32d2e !important;
+	line-height: 18px;
+	text-align: center;
+	text-decoration: none !important;
+}
+
+.baukasten-new-tab-warning { color: #b32d2e; }
+
+@media (max-width: 782px) {
+	.baukasten-new-tab-engines .large-text { min-width: 0; }
+}

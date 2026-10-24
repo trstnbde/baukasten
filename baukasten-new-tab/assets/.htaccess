@@ -1,0 +1,14 @@
+# The New Tab Page links its files with a version taken from their contents
+# (Renderer::asset()), so a browser may keep them for a year: a changed file
+# gets a new URL. Fonts carry no version but never change under their name.
+# Ignored by servers other than Apache, and by Apache without these modules.
+
+<IfModule mod_headers.c>
+	<FilesMatch "\.(css|js|woff2)$">
+		Header set Cache-Control "public, max-age=31536000, immutable"
+	</FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/css text/javascript application/javascript
+</IfModule>
