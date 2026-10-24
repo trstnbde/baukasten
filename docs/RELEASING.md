@@ -1,6 +1,6 @@
 # Releasing
 
-Five plugins and one theme, six releases. This is the whole procedure; `DEVELOPER-GUIDE.md`
+Six plugins and one theme, seven releases. This is the whole procedure; `DEVELOPER-GUIDE.md`
 covers day-to-day work and `WORDPRESS-ORG-COMPLIANCE.md` covers what the
 directory asks for.
 
@@ -27,6 +27,7 @@ One tag, one plugin or theme, one ZIP:
 | `baukasten-business-cards-<version>` | `baukasten-business-cards` |
 | `baukasten-2fa-<version>` | `baukasten-2fa` |
 | `baukasten-form-privacy-<version>` | `baukasten-form-privacy` |
+| `baukasten-new-tab-<version>` | `baukasten-new-tab` |
 | `baukasten-tt5-fork-<version>` | `baukasten-tt5-fork` — the theme, Baukasten Theme: TT5 Fork |
 
 Tags are always `<slug>-<version>`. The core used to ship together with three
@@ -101,6 +102,7 @@ plugin is approved nothing can be done at all.
 | Baukasten Addon: Business Cards | `baukasten-addon-business-cards` | `baukasten-business-cards` |
 | Baukasten Addon: Two-Factor Approval | `baukasten-addon-two-factor-approval` | `baukasten-2fa` |
 | Baukasten Addon: Form Privacy | `baukasten-addon-form-privacy` | `baukasten-form-privacy` |
+| Baukasten Addon: New Tab Page | `baukasten-addon-new-tab-page` | `baukasten-new-tab` |
 
 **Submit the core first and wait for it to be approved.** Every addon declares
 `Requires Plugins: baukasten`, and that header is matched against the directory

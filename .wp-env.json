@@ -7,7 +7,8 @@
 		"https://downloads.wordpress.org/plugin/flamingo.2.6.4.zip",
 		"./baukasten",
 		"./baukasten-business-cards",
-		"./baukasten-form-privacy"
+		"./baukasten-form-privacy",
+		"./baukasten-new-tab"
 	],
 	"mappings": {
 		"wp-content/baukasten-tests": "./tests"

@@ -197,7 +197,7 @@ final class Reading_Setting {
 		$states = (array) $states;
 
 		if ( $post instanceof \WP_Post && 'page' === $post->post_type && 0 < $post->ID && Settings::page_id() === (int) $post->ID ) {
-			$states['baukasten_new_tab'] = __( 'New Tab Page', 'baukasten-new-tab' );
+			$states['baukasten_new_tab'] = __( 'New tab page', 'baukasten-new-tab' );
 		}
 
 		return $states;

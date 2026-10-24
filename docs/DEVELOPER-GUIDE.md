@@ -8,7 +8,7 @@ Everything here describes 1.0.0 as of 28 September 2026, after the core merge.
 
 ## 1. What this is
 
-Five WordPress plugins and one block theme in one repository, each with its own release:
+Six WordPress plugins and one block theme in one repository, each with its own release:
 
 | Slug | Role |
 |---|---|
@@ -17,6 +17,7 @@ Five WordPress plugins and one block theme in one repository, each with its own 
 | `baukasten-business-cards` | A digital business card on its own short link, in one of three designs. Also requires Contact Form 7. |
 | `baukasten-2fa` | A second factor answered from the admin bar of another signed-in session. Also requires the Two Factor plugin. |
 | `baukasten-form-privacy` | Contact Form 7 and Flamingo without the leaks. Also requires Contact Form 7. |
+| `baukasten-new-tab` | A browser start page: one page, chosen under Settings → Reading, served without the theme, with search, a favourites bar, a greeting that knows ten holidays and a background from the media library or, after consent, Unsplash. |
 | `baukasten-tt5-fork` | The theme, "Baukasten Theme: TT5 Fork": a standalone fork of Twenty Twenty-Five 1.5 with the design systems Organic (default), Modernist and Nocturne as styles. Version 1.5, following the parent it was forked from. See [`theme/TT5-FORK.md`](theme/TT5-FORK.md). |
 
 The addons are separate plugins because they are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a settings screen.
@@ -52,7 +53,7 @@ add_action( 'baukasten/register_addons', static function (): void {
 } );
 ```
 
-Tab positions in use: 10 Content Visibility, 20 Login Legal Pages, 30 Consent Blocking Engine (all three built into the core), 40 Multi-Domain, 50 Business Cards, 60 Two-Factor Approval, 70 Form Privacy. A new addon starts at 80.
+Tab positions in use: 10 Content Visibility, 20 Login Legal Pages, 30 Consent Blocking Engine (all three built into the core), 40 Multi-Domain, 50 Business Cards, 60 Two-Factor Approval, 70 Form Privacy, 80 New Tab Page. A new addon starts at 90.
 
 Every addon header also carries `Update URI: https://github.com/trstnbde/baukasten` while the plugins are not in the WordPress.org directory. Without it WordPress asks wordpress.org for updates to our slugs, and whoever registers one of them first would be offered to every site running ours.
 
@@ -117,6 +118,16 @@ composer lint:fix                              # PHPCBF
 # from the repository root
 php -d extension=zip bin/build.php --all       # build/<slug>-<version>.zip for each plugin
 php -d extension=gd  bin/make-assets.php <slug> # .wordpress-org/assets icon and banner
+php -d extension=openssl bin/fetch-holidays.php  # New Tab Page holiday tables; once a year
+```
+
+`bin/fetch-holidays.php` writes `baukasten-new-tab/data/holidays-islamic.php` (AlAdhan, `DIYANET`; Umm al-Qura, marked per line, after the date up to which AlAdhan vouches for DIYANET) and `holidays-jewish.php` (Hebcal, CC BY 4.0). Run it once a year and commit the result; the integration test fails when a table reaches less than two years ahead.
+
+New Tab Page keeps its script and stylesheet as readable sources in `assets/src/` and ships them minified from `assets/js/` and `assets/css/`. After changing a source:
+
+```bash
+npx esbuild@0.24.0 baukasten-new-tab/assets/src/new-tab.js  --minify --target=es2019 --legal-comments=none --outfile=baukasten-new-tab/assets/js/new-tab.js
+npx esbuild@0.24.0 baukasten-new-tab/assets/src/new-tab.css --minify --outfile=baukasten-new-tab/assets/css/new-tab.css
 ```
 
 `bin/build.php` refuses to build when a plugin's header version and its `readme.txt` stable tag disagree. It copies everything not listed in that plugin's `.distignore`.
@@ -128,7 +139,7 @@ wp i18n make-pot <dir> <dir>/languages/<slug>.pot --slug=<slug> --domain=<slug>
 wp i18n make-mo  <dir>/languages <dir>/languages
 ```
 
-Only `baukasten/` has a `vendor/`; the other four are linted with `../baukasten/vendor/bin/phpcs`.
+Only `baukasten/` has a `vendor/`; the other five are linted with `../baukasten/vendor/bin/phpcs`.
 
 `bin/po-merge.py` builds a translated `.po` from a fresh `.pot` and existing translations — used when the three features' German moved into `baukasten-de_DE.po`, and for filling in new strings from a JSON list:
 
@@ -203,12 +214,22 @@ Every one of these cost time. They are listed so they cost it once.
 
 **A theme's own translations are `<locale>.mo`.** `load_theme_textdomain()` looks for `languages/de_DE.mo`; a file named like a plugin's (`<domain>-de_DE.mo`) is ignored on the front end while the theme details screen, which loads differently, still shows German.
 
+**A page without `wp_head()` has no enqueue to hook into.** New Tab Page prints its own `<link>` and `<script>`, which PHPCS flags (`WordPress.WP.EnqueuedResources`) and which is intended: calling `wp_head()` would bring in the theme, block CSS, emoji, Statify's script and the admin bar, the very things the page exists to be without. The version in those URLs comes from the file contents (`Renderer::asset()`), which is what makes a year of `immutable` caching safe.
+
+**A Content Security Policy without `unsafe-inline` still takes inline styles — by hash.** The page has two (the colour of the photo and a `<noscript>` rule); `Renderer::content_security_policy()` hashes the exact bytes it prints. Edit either string by hand in the template and the style silently stops applying.
+
+**A search that forwards `?q=<host>` is an open redirect.** The search without JavaScript forwards to the engines in the settings only; anything that looks like an address gets an interstitial page with a link instead. A test covers it.
+
+**AlAdhan's DIYANET calendar ends in January 2028.** Its method list says so ("… to 29 Şaban 1449 AH"), and asking for a later date returns HTTP 500. The fetch script falls back to Umm al-Qura for those feasts, which agreed with DIYANET for every feast from 1445 to 1448, and marks the lines. Running it again each year replaces them as the range grows.
+
+**Never run `phpcbf` from the repository root.** Without a ruleset next to it, it falls back to the PEAR standard and rewrites every PHP, JS and CSS file it is pointed at. Run it from inside the plugin directory, or pass `--standard=<plugin>/phpcs.xml.dist`.
+
 ---
 
 ## 6. Where things are
 
 ```
-baukasten*/                 the five plugins and the theme
+baukasten*/                 the six plugins and the theme
 baukasten/features/         Content Visibility, Login Legal Pages, Consent Blocking Engine
 baukasten-tt5-fork/         the theme; styles/ holds Organic, Modernist, Nocturne and the Noto presets
 bin/build.php               packaging, one plugin or theme, or --all
@@ -230,7 +251,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-All five plugins are at 1.0.0 and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
+The five addons are at 1.0.0, the core at 1.0.1 and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
 
 The procedure lives in [`RELEASING.md`](RELEASING.md). For the day the directory submission is
 taken up again it also holds the one irreversible step: **WordPress.org derives the directory slug

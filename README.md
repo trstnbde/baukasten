@@ -13,6 +13,7 @@ Five plugins and one theme live in this repository, each with its own release. T
 | [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | 50 | A digital business card on its own short link, built for a phone and detached from the theme, with a vCard download, a QR code and a contact form that mails the card's owner. |
 | [`baukasten-2fa`](baukasten-2fa) | Baukasten Addon: Two-Factor Approval | 60 | A second factor that asks another already signed-in session to confirm the login from its admin bar. Needs the Two Factor plugin as well as the core. |
 | [`baukasten-form-privacy`](baukasten-form-privacy) | Baukasten Addon: Form Privacy | 70 | Contact Form 7 and Flamingo without the leaks: assets only where a form is, no IP address, no address book, a retention period, an exporter, and spam protection without a third party. |
+| [`baukasten-new-tab`](baukasten-new-tab) | Baukasten Addon: New Tab Page | 80 | Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting that knows the holidays, and a background from the media library or, after consent, Unsplash. Chosen under *Settings → Reading* like the homepage. |
 
 | Directory | Theme | Version | What it does |
 |---|---|---|---|
@@ -42,11 +43,12 @@ One tag, one ZIP, one GitHub release per plugin or theme:
 
 | Tag | ZIP |
 |---|---|
-| `baukasten-1.0.0` | `baukasten-1.0.0.zip` |
+| `baukasten-1.0.1` | `baukasten-1.0.1.zip` |
 | `baukasten-multi-domain-1.0.0` | `baukasten-multi-domain-1.0.0.zip` |
 | `baukasten-business-cards-1.0.0` | `baukasten-business-cards-1.0.0.zip` |
 | `baukasten-2fa-1.0.0` | `baukasten-2fa-1.0.0.zip` |
 | `baukasten-form-privacy-1.0.0` | `baukasten-form-privacy-1.0.0.zip` |
+| `baukasten-new-tab-1.0.0` | `baukasten-new-tab-1.0.0.zip` |
 | `baukasten-tt5-fork-1.5` | `baukasten-tt5-fork-1.5.zip` |
 
 Plugins: *Plugins → Add New → Upload Plugin*. Theme: *Appearance → Themes → Add New → Upload Theme*.

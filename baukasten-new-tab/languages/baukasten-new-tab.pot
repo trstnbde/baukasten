@@ -1,0 +1,601 @@
+# Copyright (C) 2026 Torsten B.
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: New Tab Page 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-new-tab\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-24T10:56:39+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-new-tab\n"
+
+#. Plugin Name of the plugin
+#: baukasten-new-tab.php
+msgid "Baukasten Addon: New Tab Page"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: baukasten-new-tab.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr ""
+
+#. Description of the plugin
+#: baukasten-new-tab.php
+msgid "Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting and a background, detached from the theme and without third-party requests."
+msgstr ""
+
+#. Author of the plugin
+#: baukasten-new-tab.php
+msgid "Torsten B."
+msgstr ""
+
+#. Author URI of the plugin
+#: baukasten-new-tab.php
+msgid "https://github.com/trstnbde"
+msgstr ""
+
+#: admin/views/settings-tab.php:38
+msgid "A page of the site that works as the start page of a browser: search with a choice of engines, a favourites bar, a greeting and a background. It is served without the theme, and makes no request to a third party unless a visitor agrees to photos from Unsplash."
+msgstr ""
+
+#: admin/views/settings-tab.php:41
+msgid "Page"
+msgstr ""
+
+#: admin/views/settings-tab.php:46
+#: includes/class-reading-setting.php:86
+#: includes/class-reading-setting.php:200
+msgid "New tab page"
+msgstr ""
+
+#: admin/views/settings-tab.php:52
+msgid "Open the page"
+msgstr ""
+
+#: admin/views/settings-tab.php:53
+msgid "Choose another page under Settings → Reading"
+msgstr ""
+
+#: admin/views/settings-tab.php:56
+msgid "This page is also the homepage, so the address of the site opens it."
+msgstr ""
+
+#: admin/views/settings-tab.php:59
+msgid "No page is selected. The choice is made under Settings → Reading, like the homepage."
+msgstr ""
+
+#: admin/views/settings-tab.php:63
+msgid "Create page and select it"
+msgstr ""
+
+#: admin/views/settings-tab.php:64
+msgid "Settings → Reading"
+msgstr ""
+
+#. translators: %s: page slug.
+#: admin/views/settings-tab.php:70
+#, php-format
+msgid "Creates a published page called \"New Tab\" at /%s/, if that address is free."
+msgstr ""
+
+#: admin/views/settings-tab.php:79
+msgid "Who can open it"
+msgstr ""
+
+#: admin/views/settings-tab.php:82
+msgid "Decided per page, with the public/private switch of Content Visibility."
+msgstr ""
+
+#: admin/views/settings-tab.php:84
+msgid "Private: only logged-in users see it, everybody else is sent to the login screen."
+msgstr ""
+
+#: admin/views/settings-tab.php:86
+msgid "Public: anybody with the address sees it."
+msgstr ""
+
+#: admin/views/settings-tab.php:89
+msgid "Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private."
+msgstr ""
+
+#: admin/views/settings-tab.php:91
+msgid "Content Visibility"
+msgstr ""
+
+#: admin/views/settings-tab.php:103
+#: templates/new-tab.php:98
+msgid "Search"
+msgstr ""
+
+#: admin/views/settings-tab.php:105
+msgid "The menu in the search box offers the engines that are switched on; the choice is remembered per browser. Typing @ and a shortcut in front of the terms searches one engine once. {q} in an address stands for the search terms."
+msgstr ""
+
+#: admin/views/settings-tab.php:110
+msgid "On"
+msgstr ""
+
+#: admin/views/settings-tab.php:111
+msgid "Default"
+msgstr ""
+
+#: admin/views/settings-tab.php:112
+msgid "Name"
+msgstr ""
+
+#: admin/views/settings-tab.php:113
+msgid "Shortcut"
+msgstr ""
+
+#: admin/views/settings-tab.php:114
+#: admin/views/settings-tab.php:246
+#: admin/views/settings-tab.php:255
+msgid "Address"
+msgstr ""
+
+#: admin/views/settings-tab.php:133
+#: admin/views/settings-tab.php:136
+#: templates/new-tab.php:100
+msgid "Suggestions"
+msgstr ""
+
+#: admin/views/settings-tab.php:139
+msgid "Google"
+msgstr ""
+
+#: admin/views/settings-tab.php:140
+msgid "DuckDuckGo"
+msgstr ""
+
+#: admin/views/settings-tab.php:141
+msgid "Brave"
+msgstr ""
+
+#: admin/views/settings-tab.php:142
+msgid "Off"
+msgstr ""
+
+#: admin/views/settings-tab.php:148
+msgid "The server asks the provider, not the browser: the provider sees what is typed, but not who typed it. Answers are cached for ten minutes."
+msgstr ""
+
+#: admin/views/settings-tab.php:155
+msgid "Background"
+msgstr ""
+
+#: admin/views/settings-tab.php:160
+#: admin/views/settings-tab.php:163
+msgid "Source"
+msgstr ""
+
+#: admin/views/settings-tab.php:164
+msgid "Images from the media library"
+msgstr ""
+
+#: admin/views/settings-tab.php:165
+msgid "Photos from the Unsplash API, after consent"
+msgstr ""
+
+#: admin/views/settings-tab.php:166
+msgid "None, a gradient"
+msgstr ""
+
+#: admin/views/settings-tab.php:171
+msgid "Library images"
+msgstr ""
+
+#: admin/views/settings-tab.php:180
+msgid "Choose images"
+msgstr ""
+
+#: admin/views/settings-tab.php:181
+msgid "Choosing images needs JavaScript."
+msgstr ""
+
+#: admin/views/settings-tab.php:184
+msgid "One is picked at random on every page load. Meant for photos downloaded from unsplash.com: the Unsplash License allows that and asks for no credit, but credit is welcome — write it into the image caption, which the page shows in its footer. An empty caption shows nothing."
+msgstr ""
+
+#: admin/views/settings-tab.php:189
+msgid "Unsplash access key"
+msgstr ""
+
+#: admin/views/settings-tab.php:191
+msgid "Stored — leave empty to keep it"
+msgstr ""
+
+#: admin/views/settings-tab.php:193
+msgid "Delete the stored key"
+msgstr ""
+
+#: admin/views/settings-tab.php:195
+msgid "The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser. Photos are hotlinked from images.unsplash.com, as the API guidelines require, so the page asks visitors first and shows the photographer's name."
+msgstr ""
+
+#: admin/views/settings-tab.php:199
+msgid "Unsplash search terms"
+msgstr ""
+
+#: admin/views/settings-tab.php:203
+msgid "Orientation"
+msgstr ""
+
+#: admin/views/settings-tab.php:208
+msgid "Landscape"
+msgstr ""
+
+#: admin/views/settings-tab.php:209
+msgid "Portrait"
+msgstr ""
+
+#: admin/views/settings-tab.php:210
+msgid "Square"
+msgstr ""
+
+#: admin/views/settings-tab.php:211
+msgid "Any"
+msgstr ""
+
+#: admin/views/settings-tab.php:221
+msgid "Application name"
+msgstr ""
+
+#: admin/views/settings-tab.php:224
+msgid "As registered at Unsplash; used as utm_source in the links to the photographer."
+msgstr ""
+
+#: admin/views/settings-tab.php:228
+msgid "Change every"
+msgstr ""
+
+#: admin/views/settings-tab.php:231
+msgid "minutes"
+msgstr ""
+
+#: admin/views/settings-tab.php:232
+msgid "0 changes the background only when the page is loaded. A hidden tab does not change."
+msgstr ""
+
+#: admin/views/settings-tab.php:238
+#: templates/new-tab.php:63
+msgid "Favourites"
+msgstr ""
+
+#: admin/views/settings-tab.php:240
+msgid "The bar at the top. What does not fit moves into the » menu. Icons are fetched by the server when saving and once a week, and served from this site; without one, the bar draws the first letter."
+msgstr ""
+
+#: admin/views/settings-tab.php:245
+#: admin/views/settings-tab.php:254
+msgid "Title"
+msgstr ""
+
+#: admin/views/settings-tab.php:247
+#: admin/views/settings-tab.php:256
+msgid "Icon address (optional)"
+msgstr ""
+
+#: admin/views/settings-tab.php:248
+msgid "Order"
+msgstr ""
+
+#: admin/views/settings-tab.php:262
+msgid "Add a favourite"
+msgstr ""
+
+#: admin/views/settings-tab.php:264
+msgid "Legal links"
+msgstr ""
+
+#: admin/views/settings-tab.php:267
+msgid "The footer links the privacy policy, the terms and the imprint chosen for Login & Legal, named after their pages."
+msgstr ""
+
+#: admin/views/settings-tab.php:269
+msgid "Change them"
+msgstr ""
+
+#: admin/views/settings-tab.php:277
+msgid "shown"
+msgstr ""
+
+#: admin/views/settings-tab.php:279
+msgid "left out — the page is private, logged-out visitors would land on the login screen."
+msgstr ""
+
+#: admin/views/settings-tab.php:281
+msgid "left out — the page is not published."
+msgstr ""
+
+#: admin/views/settings-tab.php:283
+msgid "left out — no page is chosen."
+msgstr ""
+
+#: admin/views/settings-tab.php:290
+msgid "Save changes"
+msgstr ""
+
+#: admin/views/settings-tab.php:291
+msgid "Save and test the Unsplash connection"
+msgstr ""
+
+#: admin/views/settings-tab.php:298
+msgid "Empty the cache"
+msgstr ""
+
+#: admin/views/settings-tab.php:299
+msgid "Forgets the Unsplash photo pool and the cached suggestions."
+msgstr ""
+
+#: includes/class-legal-links.php:49
+#: includes/class-legal-links.php:58
+msgid "Privacy Policy"
+msgstr ""
+
+#: includes/class-legal-links.php:63
+msgid "Terms of Service"
+msgstr ""
+
+#: includes/class-legal-links.php:68
+msgid "Imprint"
+msgstr ""
+
+#: includes/class-reading-setting.php:70
+msgid "The page shown as the new tab page."
+msgstr ""
+
+#: includes/class-reading-setting.php:107
+msgid "— Select —"
+msgstr ""
+
+#. translators: %s: link to the New Tab Page tab.
+#: includes/class-reading-setting.php:120
+#, php-format
+msgid "This page shows search, favourites and a greeting instead of its content. Settings under %s."
+msgstr ""
+
+#: includes/class-reading-setting.php:124
+msgid "Baukasten → New Tab Page"
+msgstr ""
+
+#: includes/class-reading-setting.php:128
+msgid "This page shows search, favourites and a greeting instead of its content."
+msgstr ""
+
+#: includes/class-reading-setting.php:136
+msgid "It is also the homepage, so the address of the site opens it."
+msgstr ""
+
+#: includes/class-reading-setting.php:162
+msgid "The new tab page has to be a published page. The previous choice was kept."
+msgstr ""
+
+#: includes/class-reading-setting.php:168
+msgid "The posts page cannot be the new tab page as well: its posts would no longer be shown. The previous choice was kept."
+msgstr ""
+
+#: includes/class-reading-setting.php:212
+msgid "You are editing the new tab page. Its content is not shown."
+msgstr ""
+
+#. translators: %s: search engine name.
+#: includes/class-renderer.php:264
+#: templates/new-tab.php:81
+#, php-format
+msgid "Search engine: %s"
+msgstr ""
+
+#. translators: %s: search engine name.
+#: includes/class-renderer.php:266
+#: templates/new-tab.php:96
+#, php-format
+msgid "Search with %s or enter address"
+msgstr ""
+
+#. translators: %s: search engine name.
+#: includes/class-renderer.php:268
+#, php-format
+msgid "Search with %s"
+msgstr ""
+
+#: includes/class-renderer.php:269
+#: templates/new-tab.php:70
+msgid "More favourites"
+msgstr ""
+
+#. translators: 1: photographer, linked. 2: "Unsplash", linked.
+#: includes/class-renderer.php:271
+#: templates/new-tab.php:115
+#, php-format
+msgid "Photo: %1$s on %2$s"
+msgstr ""
+
+#: includes/class-renderer.php:272
+msgid "The choice could not be saved. Please try again."
+msgstr ""
+
+#: includes/class-rest-controller.php:83
+msgid "No new tab page is selected."
+msgstr ""
+
+#: includes/class-rest-controller.php:87
+msgid "The new tab page is available to logged-in users only."
+msgstr ""
+
+#: includes/class-rest-controller.php:105
+msgid "Too many suggestion requests. Please wait a minute."
+msgstr ""
+
+#: includes/class-settings-tab.php:91
+msgid "New Tab Page"
+msgstr ""
+
+#: includes/class-settings-tab.php:112
+msgid "New Tab Page serves the page chosen under Settings → Reading, but its settings need the Baukasten - Privacy Toolkit plugin."
+msgstr ""
+
+#: includes/class-settings-tab.php:137
+msgid "Choose background images"
+msgstr ""
+
+#: includes/class-settings-tab.php:138
+msgid "Use these images"
+msgstr ""
+
+#: includes/class-settings-tab.php:139
+msgid "Move up"
+msgstr ""
+
+#: includes/class-settings-tab.php:140
+msgid "Move down"
+msgstr ""
+
+#: includes/class-settings-tab.php:141
+msgid "Remove"
+msgstr ""
+
+#: includes/class-settings-tab.php:142
+msgid "Remove this image"
+msgstr ""
+
+#: includes/class-settings-tab.php:159
+#: includes/class-settings-tab.php:330
+#: includes/class-settings-tab.php:380
+msgid "You are not allowed to change these settings."
+msgstr ""
+
+#. translators: %s: search engine name.
+#: includes/class-settings-tab.php:182
+#, php-format
+msgid "The shortcut of %s has to be up to eight letters or digits, different from the others."
+msgstr ""
+
+#. translators: %s: search engine name.
+#: includes/class-settings-tab.php:188
+#, php-format
+msgid "The address of %s has to start with https:// and contain {q}."
+msgstr ""
+
+#: includes/class-settings-tab.php:205
+msgid "At least one search engine has to stay switched on. Startpage was kept on."
+msgstr ""
+
+#: includes/class-settings-tab.php:214
+msgid "The default search engine has to be one that is switched on."
+msgstr ""
+
+#: includes/class-settings-tab.php:254
+msgid "That does not look like an Unsplash access key (20 to 100 letters, digits, - or _). The stored key was kept."
+msgstr ""
+
+#. translators: %s: the address as entered.
+#: includes/class-settings-tab.php:278
+#, php-format
+msgid "The favourite \"%s\" was left out: only http and https addresses work."
+msgstr ""
+
+#. translators: %d: maximum number of favourites.
+#: includes/class-settings-tab.php:285
+#, php-format
+msgid "Only the first %d favourites were kept."
+msgstr ""
+
+#: includes/class-settings-tab.php:308
+#: includes/class-settings-tab.php:316
+msgid "Settings saved."
+msgstr ""
+
+#: includes/class-settings-tab.php:313
+msgid "Settings saved, with exceptions:"
+msgstr ""
+
+#: includes/class-settings-tab.php:336
+msgid "A new tab page is already selected."
+msgstr ""
+
+#. translators: 1: page title. 2: slug.
+#: includes/class-settings-tab.php:346
+#, php-format
+msgid "The page \"%1$s\" already uses the address /%2$s/. Select it under Settings → Reading, or choose another page there."
+msgstr ""
+
+#: includes/class-settings-tab.php:357
+msgid "New Tab"
+msgstr ""
+
+#: includes/class-settings-tab.php:365
+msgid "The page could not be created."
+msgstr ""
+
+#: includes/class-settings-tab.php:370
+msgid "Page created and selected as the new tab page."
+msgstr ""
+
+#: includes/class-settings-tab.php:388
+msgid "Cache emptied. The next page load fetches a new photo pool."
+msgstr ""
+
+#: includes/class-unsplash.php:145
+msgid "Unsplash answered with something that is not a list of photos."
+msgstr ""
+
+#: includes/class-unsplash.php:170
+msgid "No access key is stored."
+msgstr ""
+
+#. translators: 1: requests left this hour. 2: requests allowed per hour.
+#: includes/class-unsplash.php:190
+#, php-format
+msgid "Connected to Unsplash. %1$s of %2$s requests left this hour."
+msgstr ""
+
+#: includes/class-unsplash.php:191
+msgid "Connected to Unsplash."
+msgstr ""
+
+#: includes/class-unsplash.php:223
+msgid "Unsplash refused the access key (401). Check that it is the Access Key, not the Secret Key."
+msgstr ""
+
+#: includes/class-unsplash.php:225
+msgid "Unsplash refused the request (403). The hourly rate limit may be used up."
+msgstr ""
+
+#. translators: %d: HTTP status code.
+#: includes/class-unsplash.php:228
+#, php-format
+msgid "Unsplash answered with HTTP status %d."
+msgstr ""
+
+#: templates/address.php:34
+msgid "Open this address?"
+msgstr ""
+
+#: templates/address.php:36
+msgid "Back to the new tab page"
+msgstr ""
+
+#: templates/new-tab.php:85
+msgid "Search engine"
+msgstr ""
+
+#: templates/new-tab.php:86
+msgid "Search with"
+msgstr ""
+
+#: templates/new-tab.php:95
+msgid "Search or enter address"
+msgstr ""
+
+#: templates/new-tab.php:109
+msgid "Load photos from Unsplash"
+msgstr ""
+
+#: templates/new-tab.php:126
+msgid "Legal"
+msgstr ""

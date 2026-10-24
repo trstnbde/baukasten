@@ -447,7 +447,7 @@ final class Renderer {
 	 * @return void
 	 */
 	public static function start_compression(): void {
-		if ( headers_sent() || ! function_exists( 'ob_gzhandler' ) || ini_get( 'zlib.output_compression' ) ) {
+		if ( 'cli' === PHP_SAPI || headers_sent() || ! function_exists( 'ob_gzhandler' ) || ini_get( 'zlib.output_compression' ) ) {
 			return;
 		}
 

@@ -23,6 +23,7 @@ jobs:
           - baukasten-business-cards
           - baukasten-2fa
           - baukasten-form-privacy
+          - baukasten-new-tab
 
     steps:
       - name: Check out the repository

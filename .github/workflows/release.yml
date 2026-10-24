@@ -42,7 +42,7 @@ jobs:
           slug="${tag%-*}"
 
           case "$slug" in
-            baukasten|baukasten-multi-domain|baukasten-business-cards|baukasten-2fa|baukasten-form-privacy|baukasten-tt5-fork)
+            baukasten|baukasten-multi-domain|baukasten-business-cards|baukasten-2fa|baukasten-form-privacy|baukasten-new-tab|baukasten-tt5-fork)
               plugins="$slug"
               ;;
             *)

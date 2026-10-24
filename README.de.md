@@ -13,6 +13,7 @@ In diesem Repository liegen fünf Plugins und ein Theme, jedes mit eigenem Relea
 | [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | 50 | Eine digitale Visitenkarte unter einem eigenen kurzen Link, für das Handy gebaut und vom Theme abgekoppelt, mit vCard-Download, QR-Code und einem Kontaktformular, das an die Inhaberin oder den Inhaber der Karte geht. |
 | [`baukasten-2fa`](baukasten-2fa) | Baukasten Addon: Two-Factor Approval | 60 | Ein zweiter Faktor, bei dem eine andere, bereits angemeldete Sitzung die Anmeldung über ihre Adminleiste bestätigt. Braucht neben dem Kern das Plugin Two Factor. |
 | [`baukasten-form-privacy`](baukasten-form-privacy) | Baukasten Addon: Form Privacy | 70 | Contact Form 7 und Flamingo ohne Datenlecks: Dateien nur dort, wo ein Formular ist, keine IP-Adresse, kein Adressbuch, eine Löschfrist, ein Exporter und Spamschutz ohne Drittanbieter. |
+| [`baukasten-new-tab`](baukasten-new-tab) | Baukasten Addon: New Tab Page | 80 | Macht eine Seite zur Startseite des Browsers: Suche mit wählbarer Suchmaschine, Favoritenleiste, ein Gruß, der die Feiertage kennt, und ein Hintergrund aus der Mediathek oder, nach Einwilligung, von Unsplash. Wird unter *Einstellungen → Lesen* gewählt wie die Homepage. |
 
 | Verzeichnis | Theme | Version | Was es tut |
 |---|---|---|---|
@@ -42,11 +43,12 @@ Ein Tag, ein ZIP, ein GitHub-Release je Plugin oder Theme:
 
 | Tag | ZIP |
 |---|---|
-| `baukasten-1.0.0` | `baukasten-1.0.0.zip` |
+| `baukasten-1.0.1` | `baukasten-1.0.1.zip` |
 | `baukasten-multi-domain-1.0.0` | `baukasten-multi-domain-1.0.0.zip` |
 | `baukasten-business-cards-1.0.0` | `baukasten-business-cards-1.0.0.zip` |
 | `baukasten-2fa-1.0.0` | `baukasten-2fa-1.0.0.zip` |
 | `baukasten-form-privacy-1.0.0` | `baukasten-form-privacy-1.0.0.zip` |
+| `baukasten-new-tab-1.0.0` | `baukasten-new-tab-1.0.0.zip` |
 | `baukasten-tt5-fork-1.5` | `baukasten-tt5-fork-1.5.zip` |
 
 Plugins: *Plugins → Neues Plugin hinzufügen → Plugin hochladen*. Theme: *Design → Themes → Theme hinzufügen → Theme hochladen*.

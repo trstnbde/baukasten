@@ -108,6 +108,12 @@ final class Catalog {
 				'description' => __( 'Contact Form 7 without the leaks: its files only where a form is, no IP address, no address book, a retention period, and spam protection without a third party.', 'baukasten' ),
 				'position'    => 70,
 			),
+			'new-tab'            => array(
+				'slug'        => 'baukasten-new-tab',
+				'title'       => 'Baukasten Addon: New Tab Page',
+				'description' => __( 'Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting and a background, detached from the theme and without third-party requests.', 'baukasten' ),
+				'position'    => 80,
+			),
 		);
 	}
 

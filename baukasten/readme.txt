@@ -4,7 +4,7 @@ Tags: privacy, gdpr, consent, login, hardening
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Baukasten is a privacy toolkit in one plugin. Everything is configured on one sc
 * **Content Visibility** — a public/private switch for every post, page and public custom post type. Private content is readable by logged-in users only, regardless of their role.
 * **Login Legal Pages** — links to your privacy policy, terms and imprint on the login screen, a readable `/login/` address, and a rate limit on failed sign-ins.
 
-All three are always on. More features come as separate addon plugins, which add their own tabs to the same screen: Multi-Domain Landingpage, Business Cards, Two-Factor Approval and Form Privacy.
+All three are always on. More features come as separate addon plugins, which add their own tabs to the same screen: Multi-Domain Landingpage, Business Cards, Two-Factor Approval, Form Privacy and New Tab Page.
 
 = Consent: what it blocks =
 
@@ -128,6 +128,9 @@ Its options, the visibility flags and the consent log table are removed. Export 
 
 == Changelog ==
 
+= 1.0.1 =
+* The overview lists the new addon Baukasten Addon: New Tab Page.
+
 = 1.0.0 =
 * Login Legal Pages: the links under the login form are named after the pages they open, such as "Haftungsausschluss".
 * The overview tab looks like the Plugins screen.
@@ -145,6 +148,9 @@ Its options, the visibility flags and the consent log table are removed. Export 
 * Addons are ordinary WordPress plugins with `Requires Plugins: baukasten`, registered through `baukasten/register_addons`.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Only the overview changes: it names the New Tab Page addon.
 
 = 1.0.0 =
 Consent Blocking Engine, Content Visibility and Login Legal Pages are now built in. The old plugins are deactivated automatically; remove their folders by FTP, not from the Plugins screen, or their uninstall routine deletes your data.

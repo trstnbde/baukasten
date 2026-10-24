@@ -33,6 +33,7 @@ Separate plugins that declare `Requires Plugins: baukasten` and add a tab:
 | [`baukasten-business-cards`](../baukasten-business-cards) | 50 | A digital business card on its own short link. |
 | [`baukasten-2fa`](../baukasten-2fa) | 60 | A second factor approved from another signed-in session. |
 | [`baukasten-form-privacy`](../baukasten-form-privacy) | 70 | Contact Form 7 and Flamingo without the leaks. |
+| [`baukasten-new-tab`](../baukasten-new-tab) | 80 | A page that works as the browser start page. |
 
 ## What the core provides
 

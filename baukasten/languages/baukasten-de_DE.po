@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten - Privacy Toolkit 1.0.0\n"
+"Project-Id-Version: Baukasten - Privacy Toolkit 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten\n"
 "Last-Translator: Torsten B.\n"
 "Language-Team: Deutsch\n"
@@ -975,19 +975,23 @@ msgstr "Ergänzt eine Zwei-Faktor-Methode, die eine zweite, bereits angemeldete 
 msgid "Contact Form 7 without the leaks: its files only where a form is, no IP address, no address book, a retention period, and spam protection without a third party."
 msgstr "Contact Form 7 ohne Datenlecks: seine Dateien nur dort, wo ein Formular ist, keine IP-Adresse, kein Adressbuch, eine Löschfrist und Spamschutz ohne Drittanbieter."
 
-#: includes/class-catalog.php:244
+#: includes/class-catalog.php:114
+msgid "Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting and a background, detached from the theme and without third-party requests."
+msgstr "Macht eine Seite zur Startseite des Browsers: Suche mit wählbarer Suchmaschine, Favoritenleiste, Gruß und Hintergrund, vom Theme abgekoppelt und ohne Anfragen an Dritte."
+
+#: includes/class-catalog.php:250
 msgid "Included"
 msgstr "Enthalten"
 
-#: includes/class-catalog.php:247
+#: includes/class-catalog.php:253
 msgid "Active"
 msgstr "Aktiv"
 
-#: includes/class-catalog.php:250
+#: includes/class-catalog.php:256
 msgid "Installed, not active"
 msgstr "Installiert, nicht aktiv"
 
-#: includes/class-catalog.php:253
+#: includes/class-catalog.php:259
 msgid "Not installed"
 msgstr "Nicht installiert"
 
