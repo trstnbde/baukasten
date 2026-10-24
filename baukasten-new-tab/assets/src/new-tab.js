@@ -503,7 +503,7 @@
 			typed = input.value;
 			window.clearTimeout( timer );
 
-			if ( ! config.suggest || ! list || value.length < 2 || addressOf( value ) ) {
+			if ( ! list || value.length < 2 || addressOf( value ) ) {
 				closeSuggestions();
 
 				return;
