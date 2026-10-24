@@ -3,7 +3,7 @@
  * Plugin Name:       Baukasten - Privacy Toolkit
  * Plugin URI:        https://github.com/trstnbde/baukasten
  * Description:       Consent-based blocking of third parties, site hardening, a public/private switch on all content, and legal links on a tidy login screen. All in one settings screen.
- * Version:           1.0.1
+ * Version:           1.0.0
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      8.1
@@ -22,7 +22,7 @@ namespace Baukasten;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '1.0.1';
+const VERSION = '1.0.0';
 
 /**
  * Absolute path to the plugin directory, with trailing slash.

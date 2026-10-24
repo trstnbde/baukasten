@@ -251,7 +251,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-The five addons are at 1.0.0, the core at 1.0.1 and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
+The five addons are at 1.0.0, the core at 1.0.0 and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
 
 The procedure lives in [`RELEASING.md`](RELEASING.md). For the day the directory submission is
 taken up again it also holds the one irreversible step: **WordPress.org derives the directory slug

@@ -43,7 +43,7 @@ Ein Tag, ein ZIP, ein GitHub-Release je Plugin oder Theme:
 
 | Tag | ZIP |
 |---|---|
-| `baukasten-1.0.1` | `baukasten-1.0.1.zip` |
+| `baukasten-1.0.0` | `baukasten-1.0.0.zip` |
 | `baukasten-multi-domain-1.0.0` | `baukasten-multi-domain-1.0.0.zip` |
 | `baukasten-business-cards-1.0.0` | `baukasten-business-cards-1.0.0.zip` |
 | `baukasten-2fa-1.0.0` | `baukasten-2fa-1.0.0.zip` |

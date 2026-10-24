@@ -1,4 +1,4 @@
-# Abnahme: Baukasten Addon: New Tab Page 1.0.0 (Core 1.0.1)
+# Abnahme: Baukasten Addon: New Tab Page 1.0.0 (Core 1.0.0)
 
 Geprüft am 24. Oktober 2026 auf https://bundeshub.de/ (WordPress 7.1.3, PHP 8.4), eingeloggt in Chrome (Claude in Chrome, neuer Tab), ausgeloggt per `curl`. Backup vor dem Deploy: `~/baukasten-backups/2026-10-24/` (`db.sql`, `plugins.tgz`). CI (`integration.yml`, 72 Tests) auf `work/new-tab` grün.
 
@@ -72,3 +72,10 @@ Auf Wunsch von Torsten geändert und erneut deployt (Backup `~/baukasten-backups
 - Unsplash ohne Einwilligung, dafür Datenschutzhinweis im Tab.
 
 Geprüft: Unsplash-Verbindungstest („Mit Unsplash verbunden. 8 von 50 Anfragen in dieser Stunde übrig.“), Foto, Fotograf und Unsplash-Link mit `utm_source=bundeshub-de` auf der Seite, Vorschläge von Startpage, kein Einwilligungsknopf mehr, Tab mit Seitenwahl und Grußeinstellungen. Der Unsplash-Test ist damit erledigt; die Demo-Anwendung erlaubt 50 Anfragen pro Stunde.
+
+## Nachtrag 24. Oktober 2026: Schlusslauf und Release
+
+- Core wieder auf 1.0.0 (Katalogeintrag für das Addon bleibt, im Changelog von 1.0.0), Addons 1.0.0, Theme 1.5. Das Release `baukasten-1.0.0` wurde neu angelegt, `baukasten-new-tab-1.0.0` ist neu; die übrigen Releases haben unveränderten Inhalt und bleiben.
+- Test-Favoriten und Testbilder (IDs 181–183) sind von der Live-Site gelöscht; Sicherung vorher: `~/baukasten-backups/2026-10-24-3/db.sql`.
+- Mit Claude in Chrome nach dem Aufräumen geprüft: Seite lädt ohne Konsolenfehler, Unsplash-Foto mit Fotograf, 30 Fotos im Pool, Schrift Noto Sans 87,5 % mit Gewicht 400 im Suchfeld, Footer-Links, Site-Icon `/favicon.ico`, Vorschläge von Startpage (8 für „linu“, Pfeiltaste übernimmt den Vorschlag), Suchmaschinenmenü mit fünf Einträgen, `@b `/`@s ` schalten die Maschine um, Einstellungen → Lesen ohne das Feld, Tab ohne Rechtslinks und ohne Anbieterwahl, mit Datenschutzhinweis und zehn Feiertagsfeldern.
+- Behoben auf dem Weg: Vorschläge funktionierten nach dem Entfernen der Anbieterwahl nicht mehr (das Skript prüfte noch ein entferntes Flag).

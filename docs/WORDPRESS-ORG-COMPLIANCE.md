@@ -8,7 +8,7 @@ Current plugins:
 
 | | Slug | Version | Requires WP | Requires PHP |
 |---|---|---|---|---|
-| Baukasten - Privacy Toolkit (with Consent Blocking Engine, Content Visibility and Login Legal Pages built in) | `baukasten` | 1.0.1 | 6.5 | 8.1 |
+| Baukasten - Privacy Toolkit (with Consent Blocking Engine, Content Visibility and Login Legal Pages built in) | `baukasten` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Multi-Domain Landingpage | `baukasten-multi-domain` | 1.0.0 | 6.5 | 8.0 |
 | Baukasten Addon: Business Cards | `baukasten-business-cards` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Two-Factor Approval | `baukasten-2fa` | 1.0.0 | 6.5 | 8.1 |
