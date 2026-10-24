@@ -40,7 +40,7 @@ Renderer::start_compression();
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark light">
 <title><?php echo esc_html( (string) $baukasten_nt_view['title'] ); ?></title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%232b2a33'/%3E%3Cpath d='M5 8l4 4-4 4' stroke='%2350fa7b' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='17' x2='18' y2='17' stroke='%2350fa7b' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="<?php echo esc_url( (string) $baukasten_nt_view['icon'] ); ?>">
 <link rel="preload" href="<?php echo esc_url( (string) $baukasten_nt_view['font'] ); ?>" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?php echo esc_url( (string) $baukasten_nt_view['css'] ); ?>"><?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- No wp_head() on this page, by design. ?>
 <style><?php echo esc_html( (string) $baukasten_nt_view['style'] ); ?></style>
@@ -75,7 +75,9 @@ Renderer::start_compression();
 <?php endif; ?>
 
 <main class="bk-main">
-	<h1 class="bk-greeting"><span class="bk-greeting__prompt" aria-hidden="true">›</span> <span class="bk-greeting__text"><?php echo esc_html( (string) $baukasten_nt_view['greeting']['text'] ); ?></span><span class="bk-cursor" aria-hidden="true"></span></h1>
+	<?php if ( '' !== (string) $baukasten_nt_view['greeting']['text'] ) : ?>
+		<h1 class="bk-greeting"><span class="bk-greeting__prompt" aria-hidden="true">›</span> <span class="bk-greeting__text"><?php echo esc_html( (string) $baukasten_nt_view['greeting']['text'] ); ?></span><span class="bk-cursor" aria-hidden="true"></span></h1>
+	<?php endif; ?>
 
 	<form class="bk-search" role="search" method="get" action="<?php echo esc_url( (string) $baukasten_nt_view['action'] ); ?>">
 		<div class="bk-search__box">
@@ -106,8 +108,6 @@ Renderer::start_compression();
 	<p class="bk-footer__credit">
 		<?php if ( 'media' === $baukasten_nt_background['mode'] && '' !== (string) ( $baukasten_nt_media['caption'] ?? '' ) ) : ?>
 			<span class="bk-credit"><?php echo esc_html( (string) $baukasten_nt_media['caption'] ); ?></span>
-		<?php elseif ( 'unsplash' === $baukasten_nt_background['mode'] && empty( $baukasten_nt_background['allowed'] ) ) : ?>
-			<button type="button" class="bk-consent" hidden><?php esc_html_e( 'Load photos from Unsplash', 'baukasten-new-tab' ); ?></button>
 		<?php elseif ( 'unsplash' === $baukasten_nt_background['mode'] && array() !== $baukasten_nt_photo && '' !== (string) $baukasten_nt_photo['name'] ) : ?>
 			<span class="bk-credit">
 			<?php

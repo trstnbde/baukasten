@@ -193,6 +193,22 @@ final class Renderer {
 	}
 
 	/**
+	 * Turns an absolute URL into one relative to the host.
+	 *
+	 * The script asks the host the page was opened on, which on a domain
+	 * served by Multi-Domain is not the one WordPress would print.
+	 *
+	 * @param string $url Absolute URL.
+	 * @return string Path and query.
+	 */
+	public static function relative( string $url ): string {
+		$path  = (string) wp_parse_url( $url, PHP_URL_PATH );
+		$query = (string) wp_parse_url( $url, PHP_URL_QUERY );
+
+		return ( '' !== $path ? $path : '/' ) . ( '' !== $query ? '?' . $query : '' );
+	}
+
+	/**
 	 * The values the template prints.
 	 *
 	 * @return array<string, mixed> View.
@@ -242,13 +258,12 @@ final class Renderer {
 
 		$config = array(
 			'rest'          => array(
-				'suggest'     => Consent::relative( rest_url( REST_Controller::NAMESPACE . '/suggest' ) ),
-				'backgrounds' => Consent::relative( rest_url( REST_Controller::NAMESPACE . '/backgrounds' ) ),
+				'suggest'     => self::relative( rest_url( REST_Controller::NAMESPACE . '/suggest' ) ),
+				'backgrounds' => self::relative( rest_url( REST_Controller::NAMESPACE . '/backgrounds' ) ),
 				'nonce'       => wp_create_nonce( 'wp_rest' ),
 			),
 			'engines'       => Search::for_script(),
 			'defaultEngine' => Settings::default_engine(),
-			'suggest'       => 'off' !== Settings::get( 'suggest' ),
 			'fileEndings'   => Search::FILE_ENDINGS,
 			'greeting'      => array(
 				'holiday' => '' !== $greeting['holiday'],
@@ -258,7 +273,6 @@ final class Renderer {
 				'mode'     => (string) $background['mode'],
 				'interval' => max( 0, (int) Settings::get( 'interval' ) ),
 				'count'    => (int) ( $background['count'] ?? 0 ),
-				'allowed'  => ! empty( $background['allowed'] ),
 				'photo'    => $background['photo'] ?? null,
 			),
 			'i18n'          => array(
@@ -271,13 +285,8 @@ final class Renderer {
 				'more'             => __( 'More favourites', 'baukasten-new-tab' ),
 				/* translators: 1: photographer, linked. 2: "Unsplash", linked. */
 				'photoBy'          => __( 'Photo: %1$s on %2$s', 'baukasten-new-tab' ),
-				'consentFail'      => __( 'The choice could not be saved. Please try again.', 'baukasten-new-tab' ),
 			),
 		);
-
-		if ( 'unsplash' === $background['mode'] ) {
-			$config['consent'] = Consent::for_script();
-		}
 
 		$style = ':root{--bk-dominant:' . $color . '}';
 
@@ -298,7 +307,8 @@ final class Renderer {
 			'nojs_style' => self::NOJS_STYLE,
 			'css'        => self::asset( 'assets/css/new-tab.css' ),
 			'js'         => self::asset( 'assets/js/new-tab.js' ),
-			'font'       => plugin_url( 'assets/fonts/fira-sans-latin-600.woff2' ),
+			'font'       => plugin_url( 'assets/fonts/noto-sans-latin-600.woff2' ),
+			'icon'       => get_site_icon_url( 32, home_url( '/favicon.ico' ) ),
 		);
 	}
 

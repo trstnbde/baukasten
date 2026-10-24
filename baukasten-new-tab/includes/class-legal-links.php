@@ -14,7 +14,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * The site has answered "where is the imprint" once, on the Login & Legal
  * tab, and a second answer here would drift from it. So there is no field
- * for these links; the tab points to that one.
+ * for these links and the tab does not mention them: the footer shows
+ * whatever the site's standard is.
  *
  * Its three getters are used, not `get_links()`: that one applies the filter
  * `baukasten/login_legal_pages/links`, which its docblock reserves for the

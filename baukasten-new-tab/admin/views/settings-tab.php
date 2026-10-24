@@ -10,7 +10,6 @@
  * @var bool                 $has_key    Whether an Unsplash access key is stored.
  * @var bool                 $is_private Whether Content Visibility keeps the page from logged-out visitors.
  * @var bool                 $is_front   Whether the page is also the homepage.
- * @var array<int, array>    $legal      Legal link candidates from `Legal_Links::candidates()`.
  * @var array<int, string>   $media      Thumbnail URL per selected attachment.
  */
 
@@ -35,70 +34,103 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 
 ?>
 <p class="baukasten-intro">
-	<?php esc_html_e( 'A page of the site that works as the start page of a browser: search with a choice of engines, a favourites bar, a greeting and a background. It is served without the theme, and makes no request to a third party unless a visitor agrees to photos from Unsplash.', 'baukasten-new-tab' ); ?>
+	<?php esc_html_e( 'A page of the site that works as the start page of a browser: search with a choice of engines, a favourites bar, a greeting and a background. It is served without the theme and makes no request to a third party, except when the background is set to photos from Unsplash.', 'baukasten-new-tab' ); ?>
 </p>
 
-<h2><?php esc_html_e( 'Page', 'baukasten-new-tab' ); ?></h2>
-
-<table class="form-table" role="presentation">
-	<tbody>
-		<tr>
-			<th scope="row"><?php esc_html_e( 'New tab page', 'baukasten-new-tab' ); ?></th>
-			<td>
-				<?php if ( $page instanceof \WP_Post ) : ?>
-					<strong><?php echo esc_html( get_the_title( $page ) ); ?></strong>
-					<code><?php echo esc_html( (string) get_permalink( $page ) ); ?></code>
-					<p>
-						<a class="button" href="<?php echo esc_url( (string) get_permalink( $page ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open the page', 'baukasten-new-tab' ); ?></a>
-						<a href="<?php echo esc_url( admin_url( 'options-reading.php' ) ); ?>"><?php esc_html_e( 'Choose another page under Settings → Reading', 'baukasten-new-tab' ); ?></a>
-					</p>
-					<?php if ( $is_front ) : ?>
-						<p class="description"><?php esc_html_e( 'This page is also the homepage, so the address of the site opens it.', 'baukasten-new-tab' ); ?></p>
-					<?php endif; ?>
-				<?php else : ?>
-					<p><?php esc_html_e( 'No page is selected. The choice is made under Settings → Reading, like the homepage.', 'baukasten-new-tab' ); ?></p>
-					<form method="post" action="<?php echo $baukasten_nt_action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>">
-						<input type="hidden" name="action" value="<?php echo esc_attr( Settings_Tab::ACTION_CREATE_PAGE ); ?>" />
-						<?php wp_nonce_field( Settings_Tab::NONCE ); ?>
-						<?php submit_button( __( 'Create page and select it', 'baukasten-new-tab' ), 'secondary', 'submit', false ); ?>
-						<a href="<?php echo esc_url( admin_url( 'options-reading.php' ) ); ?>"><?php esc_html_e( 'Settings → Reading', 'baukasten-new-tab' ); ?></a>
-					</form>
-					<p class="description">
-						<?php
-						printf(
-							/* translators: %s: page slug. */
-							esc_html__( 'Creates a published page called "New Tab" at /%s/, if that address is free.', 'baukasten-new-tab' ),
-							esc_html( Settings_Tab::PAGE_SLUG )
-						);
-						?>
-					</p>
-				<?php endif; ?>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row"><?php esc_html_e( 'Who can open it', 'baukasten-new-tab' ); ?></th>
-			<td>
-				<?php if ( 0 >= $page_id ) : ?>
-					<?php esc_html_e( 'Decided per page, with the public/private switch of Content Visibility.', 'baukasten-new-tab' ); ?>
-				<?php elseif ( $is_private ) : ?>
-					<?php esc_html_e( 'Private: only logged-in users see it, everybody else is sent to the login screen.', 'baukasten-new-tab' ); ?>
-				<?php else : ?>
-					<?php esc_html_e( 'Public: anybody with the address sees it.', 'baukasten-new-tab' ); ?>
-				<?php endif; ?>
-				<p class="description">
-					<?php esc_html_e( 'Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private.', 'baukasten-new-tab' ); ?>
-					<?php if ( '' !== $baukasten_nt_cv_tab ) : ?>
-						<a href="<?php echo esc_url( $baukasten_nt_cv_tab ); ?>"><?php esc_html_e( 'Content Visibility', 'baukasten-new-tab' ); ?></a>
-					<?php endif; ?>
-				</p>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<?php if ( ! $page instanceof \WP_Post ) : ?>
+<div class="notice notice-info inline">
+	<p><?php esc_html_e( 'No page is selected yet. Choose one below, or let this plugin create one.', 'baukasten-new-tab' ); ?></p>
+	<form method="post" action="<?php echo $baukasten_nt_action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>">
+		<input type="hidden" name="action" value="<?php echo esc_attr( Settings_Tab::ACTION_CREATE_PAGE ); ?>" />
+		<?php wp_nonce_field( Settings_Tab::NONCE ); ?>
+		<?php submit_button( __( 'Create page and select it', 'baukasten-new-tab' ), 'secondary', 'submit', false ); ?>
+		<span class="description">
+			<?php
+			printf(
+				/* translators: %s: page slug. */
+				esc_html__( 'Creates a published page called "New Tab" at /%s/, if that address is free.', 'baukasten-new-tab' ),
+				esc_html( Settings_Tab::PAGE_SLUG )
+			);
+			?>
+		</span>
+	</form>
+</div>
+<?php endif; ?>
 
 <form method="post" action="<?php echo $baukasten_nt_action; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>" class="baukasten-new-tab-form">
 	<input type="hidden" name="action" value="<?php echo esc_attr( Settings_Tab::ACTION_SAVE ); ?>" />
 	<?php wp_nonce_field( Settings_Tab::NONCE ); ?>
+
+	<h2><?php esc_html_e( 'Page', 'baukasten-new-tab' ); ?></h2>
+
+	<table class="form-table" role="presentation">
+		<tbody>
+			<tr>
+				<th scope="row"><label for="baukasten-new-tab-page"><?php esc_html_e( 'New tab page', 'baukasten-new-tab' ); ?></label></th>
+				<td>
+					<?php
+					wp_dropdown_pages(
+						array(
+							'name'              => 'page_id',
+							'id'                => 'baukasten-new-tab-page',
+							'selected'          => (int) $page_id,
+							'show_option_none'  => esc_html__( '— Select —', 'baukasten-new-tab' ),
+							'option_none_value' => '0',
+							'post_status'       => 'publish',
+						)
+					);
+					?>
+					<?php if ( $page instanceof \WP_Post ) : ?>
+						<a class="button" href="<?php echo esc_url( (string) get_permalink( $page ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open the page', 'baukasten-new-tab' ); ?></a>
+					<?php endif; ?>
+					<p class="description"><?php esc_html_e( 'This page shows search, favourites and a greeting instead of its content. It cannot be the posts page. It may be the homepage.', 'baukasten-new-tab' ); ?></p>
+					<?php if ( $is_front ) : ?>
+						<p class="description"><?php esc_html_e( 'This page is also the homepage, so the address of the site opens it.', 'baukasten-new-tab' ); ?></p>
+					<?php endif; ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Who can open it', 'baukasten-new-tab' ); ?></th>
+				<td>
+					<?php if ( 0 >= $page_id ) : ?>
+						<?php esc_html_e( 'Decided per page, with the public/private switch of Content Visibility.', 'baukasten-new-tab' ); ?>
+					<?php elseif ( $is_private ) : ?>
+						<?php esc_html_e( 'Private: only logged-in users see it, everybody else is sent to the login screen.', 'baukasten-new-tab' ); ?>
+					<?php else : ?>
+						<?php esc_html_e( 'Public: anybody with the address sees it.', 'baukasten-new-tab' ); ?>
+					<?php endif; ?>
+					<p class="description">
+						<?php esc_html_e( 'Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private.', 'baukasten-new-tab' ); ?>
+						<?php if ( '' !== $baukasten_nt_cv_tab ) : ?>
+							<a href="<?php echo esc_url( $baukasten_nt_cv_tab ); ?>"><?php esc_html_e( 'Content Visibility', 'baukasten-new-tab' ); ?></a>
+						<?php endif; ?>
+					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2><?php esc_html_e( 'Greeting', 'baukasten-new-tab' ); ?></h2>
+
+	<table class="form-table" role="presentation">
+		<tbody>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Show a greeting', 'baukasten-new-tab' ); ?></th>
+				<td>
+					<label><input type="checkbox" name="greeting" value="1" <?php checked( ! empty( $settings['greeting'] ) ); ?> /> <?php esc_html_e( 'A line above the search box, picked at random on every visit', 'baukasten-new-tab' ); ?></label><br />
+					<label><input type="checkbox" name="greeting_holidays" value="1" <?php checked( ! empty( $settings['greeting_holidays'] ) ); ?> /> <?php esc_html_e( 'On a holiday, in the week it falls in, show its own greeting', 'baukasten-new-tab' ); ?></label>
+					<p class="description"><?php esc_html_e( 'Carnival in Cologne, Easter, Eid al-Fitr, Europe Day, Eid al-Adha, Rosh Hashanah, Yom Kippur, German Unity Day, Christmas and New Year\'s Eve.', 'baukasten-new-tab' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><label for="baukasten-new-tab-greeting-custom"><?php esc_html_e( 'Your own greetings', 'baukasten-new-tab' ); ?></label></th>
+				<td>
+					<textarea id="baukasten-new-tab-greeting-custom" name="greeting_custom" rows="6" class="large-text" maxlength="20000"><?php echo esc_textarea( (string) $settings['greeting_custom'] ); ?></textarea>
+					<p class="description"><?php esc_html_e( 'One per line. If there are any, they replace the built-in ones (52 nerdy business greetings); the holiday greetings stay. The same greeting does not come back within three visits.', 'baukasten-new-tab' ); ?></p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
 	<h2><?php esc_html_e( 'Search', 'baukasten-new-tab' ); ?></h2>
 
@@ -132,21 +164,7 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Suggestions', 'baukasten-new-tab' ); ?></th>
 				<td>
-					<fieldset>
-						<legend class="screen-reader-text"><?php esc_html_e( 'Suggestions', 'baukasten-new-tab' ); ?></legend>
-						<?php
-						$baukasten_nt_suggesters = array(
-							'google'     => __( 'Google', 'baukasten-new-tab' ),
-							'duckduckgo' => __( 'DuckDuckGo', 'baukasten-new-tab' ),
-							'brave'      => __( 'Brave', 'baukasten-new-tab' ),
-							'off'        => __( 'Off', 'baukasten-new-tab' ),
-						);
-						foreach ( $baukasten_nt_suggesters as $baukasten_nt_value => $baukasten_nt_name ) :
-							?>
-							<label><input type="radio" name="suggest" value="<?php echo esc_attr( $baukasten_nt_value ); ?>" <?php checked( $settings['suggest'], $baukasten_nt_value ); ?> /> <?php echo esc_html( $baukasten_nt_name ); ?></label><br />
-						<?php endforeach; ?>
-						<p class="description"><?php esc_html_e( 'The server asks the provider, not the browser: the provider sees what is typed, but not who typed it. Answers are cached for ten minutes.', 'baukasten-new-tab' ); ?></p>
-					</fieldset>
+					<?php esc_html_e( 'From Startpage, asked for by the server: Startpage sees what is typed, but not who typed it. Answers are cached for ten minutes.', 'baukasten-new-tab' ); ?>
 				</td>
 			</tr>
 		</tbody>
@@ -162,7 +180,7 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 					<fieldset>
 						<legend class="screen-reader-text"><?php esc_html_e( 'Source', 'baukasten-new-tab' ); ?></legend>
 						<label><input type="radio" name="background" value="media" <?php checked( $settings['background'], 'media' ); ?> /> <?php esc_html_e( 'Images from the media library', 'baukasten-new-tab' ); ?></label><br />
-						<label><input type="radio" name="background" value="unsplash" <?php checked( $settings['background'], 'unsplash' ); ?> /> <?php esc_html_e( 'Photos from the Unsplash API, after consent', 'baukasten-new-tab' ); ?></label><br />
+						<label><input type="radio" name="background" value="unsplash" <?php checked( $settings['background'], 'unsplash' ); ?> /> <?php esc_html_e( 'Photos from the Unsplash API', 'baukasten-new-tab' ); ?></label><br />
 						<label><input type="radio" name="background" value="off" <?php checked( $settings['background'], 'off' ); ?> /> <?php esc_html_e( 'None, a gradient', 'baukasten-new-tab' ); ?></label>
 					</fieldset>
 				</td>
@@ -192,7 +210,14 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 					<?php if ( $has_key ) : ?>
 						<label><input type="checkbox" name="unsplash_key_delete" value="1" /> <?php esc_html_e( 'Delete the stored key', 'baukasten-new-tab' ); ?></label>
 					<?php endif; ?>
-					<p class="description"><?php esc_html_e( 'The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser. Photos are hotlinked from images.unsplash.com, as the API guidelines require, so the page asks visitors first and shows the photographer\'s name.', 'baukasten-new-tab' ); ?></p>
+					<p class="description"><?php esc_html_e( 'The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser.', 'baukasten-new-tab' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Privacy notice', 'baukasten-new-tab' ); ?></th>
+				<td>
+					<p class="description"><strong><?php esc_html_e( 'Mention this in your privacy policy.', 'baukasten-new-tab' ); ?></strong>
+					<?php esc_html_e( 'With photos from Unsplash, every visitor\'s browser loads the photos directly from images.unsplash.com, as the Unsplash API guidelines require. That sends the visitor\'s IP address and browser details to Unsplash, Inc. (USA), without asking first. The API calls for the list of photos come from this server and carry only the access key. With photos from the media library or no photo, the page loads nothing from third parties.', 'baukasten-new-tab' ); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -260,31 +285,6 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 		</tbody>
 	</table>
 	<p><button type="button" class="button" data-baukasten-new-tab-add hidden><?php esc_html_e( 'Add a favourite', 'baukasten-new-tab' ); ?></button></p>
-
-	<h2><?php esc_html_e( 'Legal links', 'baukasten-new-tab' ); ?></h2>
-
-	<p>
-		<?php esc_html_e( 'The footer links the privacy policy, the terms and the imprint chosen for Login & Legal, named after their pages.', 'baukasten-new-tab' ); ?>
-		<?php if ( class_exists( '\Baukasten\Admin' ) ) : ?>
-			<a href="<?php echo esc_url( \Baukasten\Admin::page_url( 'login-legal-pages' ) ); ?>"><?php esc_html_e( 'Change them', 'baukasten-new-tab' ); ?></a>
-		<?php endif; ?>
-	</p>
-	<ul class="baukasten-new-tab-legal">
-		<?php foreach ( $legal as $baukasten_nt_link ) : ?>
-		<li>
-			<strong><?php echo esc_html( (string) $baukasten_nt_link['label'] ); ?></strong>:
-			<?php if ( $baukasten_nt_link['usable'] ) : ?>
-				<?php esc_html_e( 'shown', 'baukasten-new-tab' ); ?>
-			<?php elseif ( 'private' === $baukasten_nt_link['reason'] ) : ?>
-				<span class="baukasten-new-tab-warning"><?php esc_html_e( 'left out — the page is private, logged-out visitors would land on the login screen.', 'baukasten-new-tab' ); ?></span>
-			<?php elseif ( 'unpublished' === $baukasten_nt_link['reason'] ) : ?>
-				<span class="baukasten-new-tab-warning"><?php esc_html_e( 'left out — the page is not published.', 'baukasten-new-tab' ); ?></span>
-			<?php else : ?>
-				<span class="baukasten-new-tab-warning"><?php esc_html_e( 'left out — no page is chosen.', 'baukasten-new-tab' ); ?></span>
-			<?php endif; ?>
-		</li>
-		<?php endforeach; ?>
-	</ul>
 
 	<p class="submit">
 		<?php submit_button( __( 'Save changes', 'baukasten-new-tab' ), 'primary', 'submit', false ); ?>

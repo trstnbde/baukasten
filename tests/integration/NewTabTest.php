@@ -11,7 +11,7 @@ use Baukasten\ContentVisibility\Visibility;
 use Baukasten\NewTab\Backgrounds;
 use Baukasten\NewTab\Greetings;
 use Baukasten\NewTab\Holidays;
-use Baukasten\NewTab\Reading_Setting;
+use Baukasten\NewTab\Page_Setting;
 use Baukasten\NewTab\Renderer;
 use Baukasten\NewTab\REST_Controller;
 use Baukasten\NewTab\Search;
@@ -81,8 +81,8 @@ class NewTabTest extends WP_UnitTestCase {
 	public function test_published_page_is_accepted(): void {
 		$other = self::factory()->post->create( array( 'post_type' => 'page' ) );
 
-		$this->assertSame( $other, Reading_Setting::sanitize( (string) $other ) );
-		$this->assertSame( 0, Reading_Setting::sanitize( '0' ) );
+		$this->assertSame( array( $other, '' ), Page_Setting::validate( (string) $other ) );
+		$this->assertSame( array( 0, '' ), Page_Setting::validate( '0' ) );
 	}
 
 	/**
@@ -93,7 +93,10 @@ class NewTabTest extends WP_UnitTestCase {
 
 		update_option( 'page_for_posts', $posts_page );
 
-		$this->assertSame( $this->page_id, Reading_Setting::sanitize( (string) $posts_page ) );
+		$result = Page_Setting::validate( (string) $posts_page );
+
+		$this->assertSame( $this->page_id, $result[0] );
+		$this->assertNotSame( '', $result[1] );
 	}
 
 	/**
@@ -108,9 +111,12 @@ class NewTabTest extends WP_UnitTestCase {
 		);
 		$post  = self::factory()->post->create();
 
-		$this->assertSame( $this->page_id, Reading_Setting::sanitize( (string) $draft ) );
-		$this->assertSame( $this->page_id, Reading_Setting::sanitize( (string) $post ) );
-		$this->assertSame( $this->page_id, Reading_Setting::sanitize( '999999' ) );
+		foreach ( array( $draft, $post, 999999 ) as $id ) {
+			$result = Page_Setting::validate( (string) $id );
+
+			$this->assertSame( $this->page_id, $result[0] );
+			$this->assertNotSame( '', $result[1] );
+		}
 	}
 
 	/**
@@ -120,7 +126,7 @@ class NewTabTest extends WP_UnitTestCase {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $this->page_id );
 
-		$this->assertSame( $this->page_id, Reading_Setting::sanitize( (string) $this->page_id ) );
+		$this->assertSame( array( $this->page_id, '' ), Page_Setting::validate( (string) $this->page_id ) );
 	}
 
 	/**
@@ -154,8 +160,8 @@ class NewTabTest extends WP_UnitTestCase {
 	 * The page list flags the new tab page and no other.
 	 */
 	public function test_post_state(): void {
-		$states = Reading_Setting::post_state( array(), get_post( $this->page_id ) );
-		$other  = Reading_Setting::post_state( array(), get_post( self::factory()->post->create( array( 'post_type' => 'page' ) ) ) );
+		$states = Page_Setting::post_state( array(), get_post( $this->page_id ) );
+		$other  = Page_Setting::post_state( array(), get_post( self::factory()->post->create( array( 'post_type' => 'page' ) ) ) );
 
 		$this->assertArrayHasKey( 'baukasten_new_tab', $states );
 		$this->assertSame( array(), $other );
@@ -457,28 +463,7 @@ class NewTabTest extends WP_UnitTestCase {
 
 		Settings::save( $settings );
 
-		update_option(
-			\Baukasten\NewTab\Unsplash::OPTION_POOL,
-			array(
-				'fetched' => time(),
-				'query'   => 'wallpapers,nature|landscape',
-				'photos'  => array(
-					array(
-						'id'      => 'abc',
-						'raw'     => 'https://images.unsplash.com/photo-1?ixid=x',
-						'width'   => 100,
-						'height'  => 100,
-						'color'   => '#336699',
-						'alt'     => '',
-						'name'    => 'Ada',
-						'profile' => 'https://unsplash.com/@ada',
-						'link'    => 'https://unsplash.com/photos/abc',
-					),
-				),
-			)
-		);
-
-		$_COOKIE['baukasten_consent'] = base64_encode( wp_json_encode( array( 'categories' => array( 'functional' ) ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+		$this->seed_pool();
 
 		$this->go_to( get_permalink( $this->page_id ) );
 		Renderer::take_over();
@@ -488,6 +473,7 @@ class NewTabTest extends WP_UnitTestCase {
 		$html = (string) ob_get_clean();
 
 		$this->assertStringContainsString( 'id="bk-config"', $html );
+		$this->assertStringContainsString( 'images.unsplash.com', $html );
 		$this->assertStringNotContainsString( self::KEY, $html );
 		$this->assertStringNotContainsString( self::KEY, (string) wp_json_encode( Renderer::view() ) );
 
@@ -511,35 +497,112 @@ class NewTabTest extends WP_UnitTestCase {
 			$this->assertSame( 200, $response->get_status(), $route );
 			$this->assertStringNotContainsString( self::KEY, (string) wp_json_encode( $response->get_data() ), $route );
 		}
-
-		unset( $_COOKIE['baukasten_consent'] );
 	}
 
 	/**
-	 * Without consent, nothing is hotlinked: no photo, no Unsplash in the policy.
+	 * Puts one photo into the Unsplash pool.
 	 */
-	public function test_no_unsplash_without_consent(): void {
+	private function seed_pool(): void {
+		update_option(
+			\Baukasten\NewTab\Unsplash::OPTION_POOL,
+			array(
+				'fetched' => time(),
+				'query'   => 'wallpapers,nature|landscape',
+				'photos'  => array(
+					array(
+						'id'      => 'abc',
+						'raw'     => 'https://images.unsplash.com/photo-1?ixid=x',
+						'width'   => 100,
+						'height'  => 100,
+						'color'   => '#336699',
+						'alt'     => '',
+						'name'    => 'Ada',
+						'profile' => 'https://unsplash.com/@ada',
+						'link'    => 'https://unsplash.com/photos/abc',
+					),
+				),
+			)
+		);
+	}
+
+	/**
+	 * Unsplash is only allowed by the policy, and only fetched, in its own mode.
+	 */
+	public function test_unsplash_only_in_its_mode(): void {
 		update_option( Settings::OPTION_KEY, self::KEY );
+		$this->seed_pool();
 
 		$settings               = Settings::all();
 		$settings['background'] = 'unsplash';
 
 		Settings::save( $settings );
 
-		unset( $_COOKIE['baukasten_consent'] );
-
 		$background = Backgrounds::initial();
 
 		$this->assertSame( 'unsplash', $background['mode'] );
-		$this->assertFalse( $background['allowed'] );
-		$this->assertNull( $background['photo'] );
-		$this->assertSame( array(), Backgrounds::for_rest()['items'] );
+		$this->assertNotNull( $background['photo'] );
+		$this->assertCount( 1, Backgrounds::for_rest()['items'] );
 
 		$this->go_to( get_permalink( $this->page_id ) );
 		Renderer::take_over();
 
-		$this->assertStringContainsString( 'images.unsplash.com', Renderer::content_security_policy( array_merge( Renderer::view(), array( 'background' => array( 'mode' => 'unsplash' ) ) ) ) );
-		$this->assertStringNotContainsString( 'images.unsplash.com', Renderer::content_security_policy( array_merge( Renderer::view(), array( 'background' => array( 'mode' => 'media' ) ) ) ) );
+		$view = Renderer::view();
+
+		$this->assertStringContainsString( 'images.unsplash.com', Renderer::content_security_policy( $view ) );
+		$this->assertStringNotContainsString( 'images.unsplash.com', Renderer::content_security_policy( array_merge( $view, array( 'background' => array( 'mode' => 'media' ) ) ) ) );
+	}
+
+	/**
+	 * The greeting can be switched off, and its holidays separately.
+	 */
+	public function test_greeting_settings(): void {
+		$day      = new DateTimeImmutable( '2027-10-02', wp_timezone() );
+		$settings = Settings::all();
+
+		$this->assertSame( 'rosh_hashanah', Greetings::for_day( $day )['holiday'] );
+
+		$settings['greeting_holidays'] = false;
+		Settings::save( $settings );
+
+		$this->assertSame( '', Greetings::for_day( $day )['holiday'] );
+		$this->assertNotSame( '', Greetings::for_day( $day )['text'] );
+
+		$settings['greeting'] = false;
+		Settings::save( $settings );
+
+		$this->assertSame( '', Greetings::for_day( $day )['text'] );
+	}
+
+	/**
+	 * Own greetings replace the built-in pool, but not the holidays.
+	 */
+	public function test_custom_greetings(): void {
+		$settings                    = Settings::all();
+		$settings['greeting_custom'] = "Eins\n\n  Zwei  \nEins";
+
+		Settings::save( $settings );
+
+		$this->assertSame( array( 'Eins', 'Zwei' ), Greetings::pool()['random'] );
+		$this->assertContains( Greetings::for_day( new DateTimeImmutable( '2027-06-15', wp_timezone() ) )['text'], array( 'Eins', 'Zwei' ) );
+		$this->assertSame( 'rosh_hashanah', Greetings::for_day( new DateTimeImmutable( '2027-10-02', wp_timezone() ) )['holiday'] );
+	}
+
+	/**
+	 * Suggestions always come from Startpage.
+	 */
+	public function test_suggestions_come_from_startpage(): void {
+		$this->assertSame( 'www.startpage.com', wp_parse_url( Suggest::provider_url( 'linux' ), PHP_URL_HOST ) );
+		$this->assertStringContainsString( 'q=linux', Suggest::provider_url( 'linux' ) );
+	}
+
+	/**
+	 * The page's icon is the site's, or WordPress's own.
+	 */
+	public function test_icon_is_the_site_icon(): void {
+		$this->go_to( get_permalink( $this->page_id ) );
+		Renderer::take_over();
+
+		$this->assertStringEndsWith( '/favicon.ico', Renderer::view()['icon'] );
 	}
 
 	/**

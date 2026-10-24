@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  *   License, which allows exactly that and asks for no credit (credit is
  *   welcome, and the image caption is where it goes). No API is involved, so
  *   the hotlinking rule does not apply, and no address leaves the site.
- * - `unsplash`: the API pool, hotlinked, behind consent. See `Unsplash`.
+ * - `unsplash`: the API pool, hotlinked. See `Unsplash`.
  * - `off`: a gradient in the page's own colours.
  *
  * In every mode the page paints a colour first — the photo's dominant colour
@@ -243,9 +243,7 @@ final class Backgrounds {
 	 *
 	 * For the library this is the image itself, so the HTML can carry a
 	 * complete `<img srcset>`. For Unsplash it is a photo from the pool the
-	 * script sizes for the screen — only when consent is already given, and
-	 * only from a pool that is there: a stale pool is refreshed by the
-	 * script's next call, not while the page waits.
+	 * script sizes for the screen.
 	 *
 	 * @return array<string, mixed> `mode`, `color`, and `media` or `photo`.
 	 */
@@ -273,15 +271,14 @@ final class Backgrounds {
 		}
 
 		if ( 'unsplash' === $mode ) {
-			$allowed = Consent::allowed();
-			$photos  = $allowed ? Unsplash::pool( false ) : array();
-			$photo   = array() !== $photos ? self::for_unsplash( $photos[ wp_rand( 0, count( $photos ) - 1 ) ] ) : null;
+			$photos = Unsplash::pool();
+			$photo  = array() !== $photos ? self::for_unsplash( $photos[ wp_rand( 0, count( $photos ) - 1 ) ] ) : null;
 
 			return array(
-				'mode'    => 'unsplash',
-				'allowed' => $allowed,
-				'color'   => null !== $photo && '' !== $photo['color'] ? (string) $photo['color'] : self::FALLBACK_COLOR,
-				'photo'   => $photo,
+				'mode'  => 'unsplash',
+				'count' => count( $photos ),
+				'color' => null !== $photo && '' !== $photo['color'] ? (string) $photo['color'] : self::FALLBACK_COLOR,
+				'photo' => $photo,
 			);
 		}
 
@@ -306,7 +303,7 @@ final class Backgrounds {
 			);
 		}
 
-		if ( 'unsplash' === $mode && Consent::allowed() ) {
+		if ( 'unsplash' === $mode ) {
 			return array(
 				'mode'  => 'unsplash',
 				'items' => array_map( array( __CLASS__, 'for_unsplash' ), Unsplash::pool() ),

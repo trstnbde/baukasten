@@ -1,18 +1,16 @@
 /*
  * Baukasten New Tab Page.
  *
- * One file for the page and the address interstitial. Fira Sans in three
+ * One file for the page and the address interstitial. Noto Sans in two
  * weights, Latin first and Latin Extended only when a character needs it.
  * The colour of the photo arrives as --bk-dominant from a hashed inline
  * style, so it paints before this file's background rules ever matter.
  */
 
-@font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/fira-sans-latin-400.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url(../fonts/fira-sans-latin-500.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url(../fonts/fira-sans-latin-600.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/fira-sans-latin-ext-400.woff2) format("woff2"); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url(../fonts/fira-sans-latin-ext-500.woff2) format("woff2"); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: "Fira Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url(../fonts/fira-sans-latin-ext-600.woff2) format("woff2"); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Noto Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/noto-sans-latin-400.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Noto Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url(../fonts/noto-sans-latin-600.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Noto Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/noto-sans-latin-ext-400.woff2) format("woff2"); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Noto Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url(../fonts/noto-sans-latin-ext-600.woff2) format("woff2"); unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
 :root {
 	--bk-dominant: #2b2a33;
@@ -27,7 +25,7 @@
 	--bk-hover: #ebebef;
 	--bk-accent: #50fa7b;
 	--bk-focus: #0061e0;
-	--bk-font: "Fira Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	--bk-font: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 	color-scheme: dark;
 }
 
@@ -261,7 +259,7 @@ a { color: inherit; }
 	border: 0;
 	background: none;
 	color: inherit;
-	font: 500 16px var(--bk-font);
+	font: 400 16px var(--bk-font);
 	caret-color: var(--bk-accent);
 	outline: none;
 	-webkit-appearance: none;
@@ -293,7 +291,7 @@ a { color: inherit; }
 	background: var(--bk-box);
 	color: var(--bk-box-text);
 	box-shadow: 0 12px 28px rgba(0, 0, 0, .3);
-	font-weight: 500;
+	font-weight: 400;
 }
 .bk-engines[hidden], .bk-suggestions[hidden] { display: none; }
 .bk-engines { top: 50px; left: 0; width: 288px; border: 1px solid var(--bk-line); border-radius: 8px; }
@@ -307,7 +305,7 @@ a { color: inherit; }
 	cursor: default;
 }
 .bk-suggestions li { display: block; overflow: hidden; line-height: 26px; text-overflow: ellipsis; white-space: nowrap; }
-.bk-suggestions b { font-weight: 600; }
+.bk-suggestions b { font-weight: 400; }
 .bk-engines__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bk-engines__head { padding: 8px 16px 6px; color: var(--bk-box-muted); font-size: 12.5px; font-weight: 400; }
 .bk-engines__option[aria-checked="true"] .bk-engines__name { font-weight: 600; }
@@ -330,19 +328,9 @@ a { color: inherit; }
 .bk-footer a { opacity: .85; text-decoration: none; }
 .bk-footer a:hover { opacity: 1; text-decoration: underline; }
 .bk-footer__legal { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-left: auto; }
-.bk-consent {
-	padding: 5px 10px;
-	border: 1px solid currentColor;
-	border-radius: 4px;
-	background: var(--bk-glass);
-	color: inherit;
-	font: inherit;
-	cursor: pointer;
-}
-.bk-consent[hidden] { display: none; }
 
 /* The address interstitial. */
-.bk-address__link { margin: 0 0 16px; font: 500 18px var(--bk-font); word-break: break-all; text-align: center; }
+.bk-address__link { margin: 0 0 16px; font: 400 18px var(--bk-font); word-break: break-all; text-align: center; }
 .bk-address__back { margin: 0; font-size: 13px; opacity: .8; }
 
 @media (max-width: 600px) {

@@ -17,7 +17,7 @@ Six WordPress plugins and one block theme in one repository, each with its own r
 | `baukasten-business-cards` | A digital business card on its own short link, in one of three designs. Also requires Contact Form 7. |
 | `baukasten-2fa` | A second factor answered from the admin bar of another signed-in session. Also requires the Two Factor plugin. |
 | `baukasten-form-privacy` | Contact Form 7 and Flamingo without the leaks. Also requires Contact Form 7. |
-| `baukasten-new-tab` | A browser start page: one page, chosen under Settings → Reading, served without the theme, with search, a favourites bar, a greeting that knows ten holidays and a background from the media library or, after consent, Unsplash. |
+| `baukasten-new-tab` | A browser start page: one page, chosen on its own tab, served without the theme, with search, a favourites bar, a greeting that knows ten holidays and a background from the media library or, after consent, Unsplash. |
 | `baukasten-tt5-fork` | The theme, "Baukasten Theme: TT5 Fork": a standalone fork of Twenty Twenty-Five 1.5 with the design systems Organic (default), Modernist and Nocturne as styles. Version 1.5, following the parent it was forked from. See [`theme/TT5-FORK.md`](theme/TT5-FORK.md). |
 
 The addons are separate plugins because they are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a settings screen.

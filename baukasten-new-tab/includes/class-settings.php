@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Three options, kept apart on purpose:
  *
  * - `baukasten_new_tab_page`: which page it is. Registered in the `reading`
- *   group by `Reading_Setting`, next to the homepage and the posts page.
+ *   group by `Page_Setting`, next to the homepage and the posts page.
  * - `baukasten_new_tab_settings`: everything else, autoloaded, because the
  *   page reads it on every request.
  * - `baukasten_new_tab_unsplash_key`: the Unsplash access key, not autoloaded,
@@ -43,11 +43,6 @@ final class Settings {
 	 * Background modes.
 	 */
 	const BACKGROUNDS = array( 'media', 'unsplash', 'off' );
-
-	/**
-	 * Suggestion providers.
-	 */
-	const SUGGESTERS = array( 'google', 'duckduckgo', 'brave', 'off' );
 
 	/**
 	 * Orientations the Unsplash API accepts, plus `any`.
@@ -129,7 +124,6 @@ final class Settings {
 		return array(
 			'default_engine'       => 'startpage',
 			'engines'              => self::default_engines(),
-			'suggest'              => 'google',
 			'background'           => 'media',
 			'media_ids'            => array(),
 			'unsplash_query'       => 'wallpapers,nature',
@@ -137,6 +131,9 @@ final class Settings {
 			'unsplash_app_name'    => '',
 			'interval'             => 10,
 			'favorites'            => array(),
+			'greeting'             => true,
+			'greeting_holidays'    => true,
+			'greeting_custom'      => '',
 		);
 	}
 

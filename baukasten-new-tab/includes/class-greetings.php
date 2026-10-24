@@ -42,8 +42,15 @@ final class Greetings {
 	 * @return array{text: string, holiday: string} Text, and the holiday key or an empty string.
 	 */
 	public static function for_day( \DateTimeImmutable $day ): array {
+		if ( ! (bool) Settings::get( 'greeting' ) ) {
+			return array(
+				'text'    => '',
+				'holiday' => '',
+			);
+		}
+
 		$greetings = self::pool();
-		$holiday   = Holidays::for_week( $day );
+		$holiday   = (bool) Settings::get( 'greeting_holidays' ) ? Holidays::for_week( $day ) : null;
 
 		/**
 		 * Filters the holiday whose greeting the page shows.
@@ -102,7 +109,25 @@ final class Greetings {
 			);
 		}
 
-		return self::$loaded[ $locale ];
+		$pool   = self::$loaded[ $locale ];
+		$custom = self::custom();
+
+		if ( array() !== $custom ) {
+			$pool['random'] = $custom;
+		}
+
+		return $pool;
+	}
+
+	/**
+	 * The site owner's own greetings, one per line.
+	 *
+	 * @return string[] Greetings; empty when none are set.
+	 */
+	public static function custom(): array {
+		$lines = preg_split( '/\R/u', (string) Settings::get( 'greeting_custom' ) );
+
+		return array_values( array_unique( array_filter( array_map( 'trim', (array) $lines ), static fn( string $line ): bool => '' !== $line ) ) );
 	}
 
 	/**

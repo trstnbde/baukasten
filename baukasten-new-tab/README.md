@@ -14,9 +14,9 @@ An addon for [Baukasten - Privacy Toolkit](../baukasten). It replaces the standa
 
 ## How the page is chosen
 
-Like the homepage: **Settings → Reading → New tab page**, a `wp_dropdown_pages()` field registered in the `reading` group (`baukasten_new_tab_page`). Core prints it at the end of that table and it stays there; moving it next to "Homepage" would mean JavaScript reaching into core's markup.
+On the addon's tab, **Settings → Baukasten → New Tab Page → Page**, with a `wp_dropdown_pages()` field (option `baukasten_new_tab_page`). It is no longer a field on Settings → Reading: the tab holds every setting of the addon.
 
-- Only a published page. The posts page is refused (its posts would disappear); the homepage is allowed, then the new tab page is the homepage.
+- Only a published page. The posts page is refused (its posts would disappear) with a message and the old choice stays; the homepage is allowed, then the new tab page is the homepage. `Page_Setting::validate()` decides.
 - The page carries the post state "New tab page" in the page list and a notice in both editors.
 - Trashing, deleting or unpublishing it resets the option, as core does for `page_on_front`.
 - The tab can create a page ("New Tab", slug `start`) if that slug is free.
@@ -36,19 +36,19 @@ Headers: a Content Security Policy without `unsafe-inline` (the two inline style
 - a search is forwarded (303) to the engine's host, which comes from the settings;
 - an address is **not** forwarded — `templates/address.php` shows a link instead. A page that forwards `?q=<host>` would be an open redirect on this site's domain.
 
-Suggestions: `GET /wp-json/baukasten-new-tab/v1/suggest?q=`, asking Google (`client=firefox`), DuckDuckGo or Brave from the server. Ten minutes in a transient, `Cache-Control: private, max-age=300`, 60 requests a minute per `wp_hash( REMOTE_ADDR )` (the address itself is never stored), `q` up to 120 characters. The browser aborts stale requests and waits 110 ms.
+Suggestions: `GET /wp-json/baukasten-new-tab/v1/suggest?q=`. The server asks Startpage (`osuggestions`, in the site's language) and passes the answer on; there is no setting for the provider. Ten minutes in a transient, `Cache-Control: private, max-age=300`, 60 requests a minute per `wp_hash( REMOTE_ADDR )` (the address itself is never stored), `q` up to 120 characters. The browser aborts stale requests and waits 110 ms.
 
 ## Backgrounds
 
-| Mode | Source | Consent |
-|---|---|---|
-| `media` (default) | images chosen in the media dialog, served as `<img srcset sizes>` | no |
-| `unsplash` | API pool of 30 in the option `baukasten_new_tab_unsplash_pool`, three hours; hotlinked photos at screen size | yes |
-| `off` | gradient | – |
+| Mode | Source |
+|---|---|
+| `media` (default) | images chosen in the media dialog, served as `<img srcset sizes>` |
+| `unsplash` | API pool of 30 in the option `baukasten_new_tab_unsplash_pool`, three hours; hotlinked photos at screen size |
+| `off` | gradient |
 
 The dominant colour is computed once from the smallest size of each image (GD, then Imagick) and stored in `_baukasten_new_tab_color`.
 
-Unsplash needs consent in the category the Consent Blocking Engine uses for external resources (`external_default`, usually `functional`). The page reads the decision on the server (it is never cached) and renders the right mode. The button posts the **previous categories plus the new one** to `/baukasten-consent/v1/consent`, because that route replaces the stored selection. Without the engine, a cookie of the addon's own is used.
+Unsplash photos are hotlinked from images.unsplash.com, as the API guidelines require, and **there is no consent step**: the visitor's browser contacts Unsplash on every visit in that mode, which sends the IP address and browser details to Unsplash, Inc. (USA). The tab says so in a privacy notice and the site owner has to name it in the privacy policy. With the media library or no photo, the page loads nothing from third parties.
 
 The access key lives in `baukasten_new_tab_unsplash_key` (not autoloaded) and is read only by the request that calls the API. It is in no HTML and no REST answer; a test checks both.
 
@@ -57,6 +57,8 @@ The access key lives in `baukasten_new_tab_unsplash_key` (not autoloaded) and is
 Titles, addresses and optional icon addresses, `http`/`https` only. On saving and weekly (WP-Cron `baukasten/new_tab/refresh_icons`) the server fetches each icon — `<link rel="icon">`, then `/favicon.ico` — with a 3 s timeout, at most 100 KB, accepted by magic bytes (PNG, ICO, GIF, JPEG, WebP; **no SVG**, which would be executable when opened directly from `uploads/`), and stores it under `uploads/baukasten-new-tab/icons/`. Without one the bar draws a monogram.
 
 ## Greetings and holidays
+
+Settings (tab → Greeting): show a greeting at all, show holiday greetings, and an own list (one per line) that replaces the built-in pool of 52 nerdy business greetings. The holiday greetings stay.
 
 `data/greetings-<locale>.php` with the keys `random` and `holidays`, chosen by `determine_locale()` with `en_US` as the fallback. Jokes are localised, not translated, so they are not in the `.po` file.
 
@@ -78,11 +80,15 @@ A holiday owns the ISO week its anchor falls into (`o`/`W`, site time zone). Two
 
 ## Fonts
 
-Fira Sans 400, 500 and 600, `latin` and `latin-ext` as WOFF2 in `assets/fonts/`, SIL Open Font License 1.1 (`OFL-Fira-Sans.txt`). Only 600-latin is preloaded.
+Noto Sans 400 and 600, `latin` and `latin-ext` as WOFF2 in `assets/fonts/`, SIL Open Font License 1.1 (`OFL-Noto-Sans.txt`). Only 600-latin is preloaded.
 
 ## Sources of the script and stylesheet
 
 `assets/src/new-tab.js` and `assets/src/new-tab.css` are minified into `assets/js/` and `assets/css/` (esbuild; commands in the developer guide). The sources are not shipped.
+
+## Icon, footer
+
+The page's own icon is the site icon (`get_site_icon_url()`), or `/favicon.ico`, which WordPress answers with its own icon. The footer links are the site's standard — the privacy policy and, with Login Legal Pages, terms and imprint — and there is nothing to set.
 
 ## Hooks
 

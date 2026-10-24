@@ -10,14 +10,14 @@ namespace Baukasten\NewTab;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Asks the chosen provider for suggestions, on behalf of the browser.
+ * Asks Startpage for suggestions, on behalf of the browser.
  *
  * The browser talks to this site only. The provider learns what was typed,
  * because it cannot suggest otherwise, but not who typed it: the request
  * comes from the server, without the visitor's address, cookies or user
  * agent. That is the whole reason for the detour.
  *
- * All three providers answer in the OpenSearch suggestion format,
+ * Startpage answers in the OpenSearch suggestion format,
  * `["query", ["suggestion", …]]` (checked on 24 October 2026).
  */
 final class Suggest {
@@ -53,51 +53,25 @@ final class Suggest {
 	const RATE_PREFIX = 'baukasten_new_tab_rl_';
 
 	/**
-	 * The provider URL for a query.
+	 * The Startpage URL for a query.
 	 *
-	 * @param string $provider Provider id.
-	 * @param string $query    What was typed.
-	 * @return string URL, or an empty string when suggestions are off.
+	 * `osuggestions` is the endpoint behind Startpage's own search box; it
+	 * answers in the OpenSearch format. `lui` is the language of the
+	 * suggestions, taken from the site's locale.
+	 *
+	 * @param string $query What was typed.
+	 * @return string URL.
 	 */
-	public static function provider_url( string $provider, string $query ): string {
-		$locale   = determine_locale();
-		$language = strtolower( (string) strtok( $locale, '_' ) );
-		$region   = strtolower( (string) substr( (string) strstr( $locale, '_' ), 1, 2 ) );
-		$region   = '' !== $region ? $region : $language;
+	public static function provider_url( string $query ): string {
+		$language = 'de' === strtolower( (string) strtok( determine_locale(), '_' ) ) ? 'deutsch' : 'english';
 
-		switch ( $provider ) {
-			case 'google':
-				return add_query_arg(
-					array(
-						'client' => 'firefox',
-						'hl'     => $language,
-						'ie'     => 'utf-8',
-						'oe'     => 'utf-8',
-						'q'      => rawurlencode( $query ),
-					),
-					'https://suggestqueries.google.com/complete/search'
-				);
-
-			case 'duckduckgo':
-				return add_query_arg(
-					array(
-						'kl'   => $region . '-' . $language,
-						'type' => 'list',
-						'q'    => rawurlencode( $query ),
-					),
-					'https://duckduckgo.com/ac/'
-				);
-
-			case 'brave':
-				return add_query_arg(
-					array(
-						'q' => rawurlencode( $query ),
-					),
-					'https://search.brave.com/api/suggest'
-				);
-		}
-
-		return '';
+		return add_query_arg(
+			array(
+				'q'   => rawurlencode( $query ),
+				'lui' => $language,
+			),
+			'https://www.startpage.com/osuggestions'
+		);
 	}
 
 	/**
@@ -107,14 +81,12 @@ final class Suggest {
 	 * @return string[] Suggestions; empty when off, unknown or failed.
 	 */
 	public static function lookup( string $query ): array {
-		$provider = (string) Settings::get( 'suggest' );
-		$url      = self::provider_url( $provider, $query );
-
-		if ( '' === $url || '' === trim( $query ) ) {
+		if ( '' === trim( $query ) ) {
 			return array();
 		}
 
-		$cache_key = self::TRANSIENT_PREFIX . md5( $provider . '|' . determine_locale() . '|' . $query );
+		$url       = self::provider_url( $query );
+		$cache_key = self::TRANSIENT_PREFIX . md5( determine_locale() . '|' . $query );
 		$cached    = get_transient( $cache_key );
 
 		if ( is_array( $cached ) ) {

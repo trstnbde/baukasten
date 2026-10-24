@@ -42,12 +42,11 @@ require_once __DIR__ . '/includes/class-holidays.php';
 require_once __DIR__ . '/includes/class-greetings.php';
 require_once __DIR__ . '/includes/class-search.php';
 require_once __DIR__ . '/includes/class-suggest.php';
-require_once __DIR__ . '/includes/class-consent.php';
 require_once __DIR__ . '/includes/class-unsplash.php';
 require_once __DIR__ . '/includes/class-backgrounds.php';
 require_once __DIR__ . '/includes/class-favicons.php';
 require_once __DIR__ . '/includes/class-legal-links.php';
-require_once __DIR__ . '/includes/class-reading-setting.php';
+require_once __DIR__ . '/includes/class-page-setting.php';
 require_once __DIR__ . '/includes/class-rest-controller.php';
 require_once __DIR__ . '/includes/class-renderer.php';
 require_once __DIR__ . '/includes/class-settings-tab.php';
@@ -60,7 +59,7 @@ require_once __DIR__ . '/includes/class-settings-tab.php';
 function boot(): void {
 	add_action( 'init', __NAMESPACE__ . '\load_textdomain', 1 );
 
-	Reading_Setting::register();
+	Page_Setting::register();
 	Renderer::register();
 	REST_Controller::register();
 	Favicons::register();

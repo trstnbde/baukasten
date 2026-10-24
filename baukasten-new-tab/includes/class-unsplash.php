@@ -22,7 +22,8 @@ defined( 'ABSPATH' ) || exit;
  * guidelines require for every photo obtained through the API: each view is
  * credited to the photographer that way. A proxy would hide the visitor's
  * address from Unsplash, but it would also break that rule, and Unsplash
- * withdraws API access for it. Hence the consent switch instead.
+ * withdraws API access for it. The settings tab says so to the site owner,
+ * who has to mention it in the privacy policy.
  */
 final class Unsplash {
 

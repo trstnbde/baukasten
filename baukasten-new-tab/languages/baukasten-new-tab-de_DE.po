@@ -40,282 +40,276 @@ msgstr "Torsten B."
 msgid "https://github.com/trstnbde"
 msgstr "https://github.com/trstnbde"
 
-#: admin/views/settings-tab.php:38
-msgid "A page of the site that works as the start page of a browser: search with a choice of engines, a favourites bar, a greeting and a background. It is served without the theme, and makes no request to a third party unless a visitor agrees to photos from Unsplash."
-msgstr "Eine Seite der Website, die als Startseite eines Browsers dient: Suche mit wählbarer Suchmaschine, Favoritenleiste, Gruß und Hintergrund. Sie wird ohne das Theme ausgeliefert und fragt keinen Dritten an, es sei denn, ein Besucher stimmt Fotos von Unsplash zu."
+#: admin/views/settings-tab.php:37
+msgid "A page of the site that works as the start page of a browser: search with a choice of engines, a favourites bar, a greeting and a background. It is served without the theme and makes no request to a third party, except when the background is set to photos from Unsplash."
+msgstr "Eine Seite der Website, die als Startseite eines Browsers dient: Suche mit wählbarer Suchmaschine, Favoritenleiste, Gruß und Hintergrund. Sie wird ohne das Theme ausgeliefert und fragt keinen Dritten an, außer wenn der Hintergrund auf Fotos von Unsplash steht."
 
-#: admin/views/settings-tab.php:41
-msgid "Page"
-msgstr "Seite"
+#: admin/views/settings-tab.php:42
+msgid "No page is selected yet. Choose one below, or let this plugin create one."
+msgstr "Es ist noch keine Seite ausgewählt. Wähle unten eine aus oder lass das Plugin eine anlegen."
 
 #: admin/views/settings-tab.php:46
-#: includes/class-reading-setting.php:86
-#: includes/class-reading-setting.php:200
-msgid "New tab page"
-msgstr "Neuer-Tab-Seite"
-
-#: admin/views/settings-tab.php:52
-msgid "Open the page"
-msgstr "Seite öffnen"
-
-#: admin/views/settings-tab.php:53
-msgid "Choose another page under Settings → Reading"
-msgstr "Andere Seite unter Einstellungen → Lesen wählen"
-
-#: admin/views/settings-tab.php:56
-msgid "This page is also the homepage, so the address of the site opens it."
-msgstr "Diese Seite ist auch die Homepage, die Adresse der Website öffnet sie also."
-
-#: admin/views/settings-tab.php:59
-msgid "No page is selected. The choice is made under Settings → Reading, like the homepage."
-msgstr "Es ist keine Seite ausgewählt. Die Auswahl erfolgt unter Einstellungen → Lesen, wie bei der Homepage."
-
-#: admin/views/settings-tab.php:63
 msgid "Create page and select it"
 msgstr "Seite anlegen und auswählen"
 
-#: admin/views/settings-tab.php:64
-msgid "Settings → Reading"
-msgstr "Einstellungen → Lesen"
-
 #. translators: %s: page slug.
-#: admin/views/settings-tab.php:70
+#: admin/views/settings-tab.php:51
 #, php-format
 msgid "Creates a published page called \"New Tab\" at /%s/, if that address is free."
 msgstr "Legt eine veröffentlichte Seite „Neuer Tab“ unter /%s/ an, wenn diese Adresse frei ist."
 
-#: admin/views/settings-tab.php:79
+#: admin/views/settings-tab.php:64
+msgid "Page"
+msgstr "Seite"
+
+#: admin/views/settings-tab.php:69
+#: includes/class-page-setting.php:84
+msgid "New tab page"
+msgstr "Neuer-Tab-Seite"
+
+#: admin/views/settings-tab.php:77
+msgid "— Select —"
+msgstr "— Auswählen —"
+
+#: admin/views/settings-tab.php:84
+msgid "Open the page"
+msgstr "Seite öffnen"
+
+#: admin/views/settings-tab.php:86
+msgid "This page shows search, favourites and a greeting instead of its content. It cannot be the posts page. It may be the homepage."
+msgstr "Diese Seite zeigt Suche, Favoriten und einen Gruß statt ihres Inhalts. Es darf nicht die Beitragsseite sein, die Homepage aber schon."
+
+#: admin/views/settings-tab.php:88
+msgid "This page is also the homepage, so the address of the site opens it."
+msgstr "Diese Seite ist auch die Homepage, die Adresse der Website öffnet sie also."
+
+#: admin/views/settings-tab.php:93
 msgid "Who can open it"
 msgstr "Wer sie öffnen kann"
 
-#: admin/views/settings-tab.php:82
+#: admin/views/settings-tab.php:96
 msgid "Decided per page, with the public/private switch of Content Visibility."
 msgstr "Wird je Seite mit dem Öffentlich/Privat-Schalter von Content Visibility entschieden."
 
-#: admin/views/settings-tab.php:84
+#: admin/views/settings-tab.php:98
 msgid "Private: only logged-in users see it, everybody else is sent to the login screen."
 msgstr "Privat: Nur angemeldete Nutzer sehen sie, alle anderen werden zum Login geschickt."
 
-#: admin/views/settings-tab.php:86
+#: admin/views/settings-tab.php:100
 msgid "Public: anybody with the address sees it."
 msgstr "Öffentlich: Jeder mit der Adresse sieht sie."
 
-#: admin/views/settings-tab.php:89
+#: admin/views/settings-tab.php:103
 msgid "Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private."
 msgstr "Umschalten im Seiteneditor unter Sichtbarkeit. Eine öffentliche Seite zeigt ihre Favoriten allen – und Favoriten können Adressen verraten, die privat bleiben sollen."
 
-#: admin/views/settings-tab.php:91
+#: admin/views/settings-tab.php:105
 msgid "Content Visibility"
 msgstr "Content Visibility"
 
-#: admin/views/settings-tab.php:103
-#: templates/new-tab.php:98
+#: admin/views/settings-tab.php:113
+msgid "Greeting"
+msgstr "Gruß"
+
+#: admin/views/settings-tab.php:118
+msgid "Show a greeting"
+msgstr "Gruß anzeigen"
+
+#: admin/views/settings-tab.php:120
+msgid "A line above the search box, picked at random on every visit"
+msgstr "Eine Zeile über dem Suchfeld, bei jedem Aufruf zufällig gewählt"
+
+#: admin/views/settings-tab.php:121
+msgid "On a holiday, in the week it falls in, show its own greeting"
+msgstr "An einem Feiertag in der Woche, in die er fällt, den eigenen Gruß zeigen"
+
+#: admin/views/settings-tab.php:122
+msgid "Carnival in Cologne, Easter, Eid al-Fitr, Europe Day, Eid al-Adha, Rosh Hashanah, Yom Kippur, German Unity Day, Christmas and New Year's Eve."
+msgstr "Kölner Karneval, Ostern, Eid al-Fitr, Europatag, Eid al-Adha, Rosch ha-Schana, Jom Kippur, Tag der Deutschen Einheit, Weihnachten und Silvester."
+
+#: admin/views/settings-tab.php:126
+msgid "Your own greetings"
+msgstr "Eigene Grüße"
+
+#: admin/views/settings-tab.php:129
+msgid "One per line. If there are any, they replace the built-in ones (52 nerdy business greetings); the holiday greetings stay. The same greeting does not come back within three visits."
+msgstr "Einer pro Zeile. Sind welche eingetragen, ersetzen sie die eingebauten (52 nerdige Business-Grüße); die Feiertagsgrüße bleiben. Derselbe Gruß kommt nicht innerhalb von drei Aufrufen wieder."
+
+#: admin/views/settings-tab.php:135
+#: templates/new-tab.php:101
 msgid "Search"
 msgstr "Suche"
 
-#: admin/views/settings-tab.php:105
+#: admin/views/settings-tab.php:137
 msgid "The menu in the search box offers the engines that are switched on; the choice is remembered per browser. Typing @ and a shortcut in front of the terms searches one engine once. {q} in an address stands for the search terms."
 msgstr "Das Menü im Suchfeld bietet die eingeschalteten Suchmaschinen an; die Wahl merkt sich der Browser. Ein @ mit Kürzel vor dem Suchbegriff sucht einmalig mit dieser Suchmaschine. {q} in einer Adresse steht für den Suchbegriff."
 
-#: admin/views/settings-tab.php:110
+#: admin/views/settings-tab.php:142
 msgid "On"
 msgstr "An"
 
-#: admin/views/settings-tab.php:111
+#: admin/views/settings-tab.php:143
 msgid "Default"
 msgstr "Standard"
 
-#: admin/views/settings-tab.php:112
+#: admin/views/settings-tab.php:144
 msgid "Name"
 msgstr "Name"
 
-#: admin/views/settings-tab.php:113
+#: admin/views/settings-tab.php:145
 msgid "Shortcut"
 msgstr "Kürzel"
 
-#: admin/views/settings-tab.php:114
-#: admin/views/settings-tab.php:246
-#: admin/views/settings-tab.php:255
+#: admin/views/settings-tab.php:146
+#: admin/views/settings-tab.php:271
+#: admin/views/settings-tab.php:280
 msgid "Address"
 msgstr "Adresse"
 
-#: admin/views/settings-tab.php:133
-#: admin/views/settings-tab.php:136
-#: templates/new-tab.php:100
+#: admin/views/settings-tab.php:165
+#: templates/new-tab.php:103
 msgid "Suggestions"
 msgstr "Vorschläge"
 
-#: admin/views/settings-tab.php:139
-msgid "Google"
-msgstr "Google"
+#: admin/views/settings-tab.php:167
+msgid "From Startpage, asked for by the server: Startpage sees what is typed, but not who typed it. Answers are cached for ten minutes."
+msgstr "Von Startpage, vom Server abgefragt: Startpage sieht, was getippt wird, aber nicht, wer es tippt. Antworten werden zehn Minuten zwischengespeichert."
 
-#: admin/views/settings-tab.php:140
-msgid "DuckDuckGo"
-msgstr "DuckDuckGo"
-
-#: admin/views/settings-tab.php:141
-msgid "Brave"
-msgstr "Brave"
-
-#: admin/views/settings-tab.php:142
-msgid "Off"
-msgstr "Aus"
-
-#: admin/views/settings-tab.php:148
-msgid "The server asks the provider, not the browser: the provider sees what is typed, but not who typed it. Answers are cached for ten minutes."
-msgstr "Der Server fragt den Anbieter, nicht der Browser: Der Anbieter sieht, was getippt wird, aber nicht, wer es tippt. Antworten werden zehn Minuten zwischengespeichert."
-
-#: admin/views/settings-tab.php:155
+#: admin/views/settings-tab.php:173
 msgid "Background"
 msgstr "Hintergrund"
 
-#: admin/views/settings-tab.php:160
-#: admin/views/settings-tab.php:163
+#: admin/views/settings-tab.php:178
+#: admin/views/settings-tab.php:181
 msgid "Source"
 msgstr "Quelle"
 
-#: admin/views/settings-tab.php:164
+#: admin/views/settings-tab.php:182
 msgid "Images from the media library"
 msgstr "Bilder aus der Mediathek"
 
-#: admin/views/settings-tab.php:165
-msgid "Photos from the Unsplash API, after consent"
-msgstr "Fotos von der Unsplash-API, nach Einwilligung"
+#: admin/views/settings-tab.php:183
+msgid "Photos from the Unsplash API"
+msgstr "Fotos von der Unsplash-API"
 
-#: admin/views/settings-tab.php:166
+#: admin/views/settings-tab.php:184
 msgid "None, a gradient"
 msgstr "Keiner, ein Farbverlauf"
 
-#: admin/views/settings-tab.php:171
+#: admin/views/settings-tab.php:189
 msgid "Library images"
 msgstr "Bilder aus der Mediathek"
 
-#: admin/views/settings-tab.php:180
+#: admin/views/settings-tab.php:198
 msgid "Choose images"
 msgstr "Bilder auswählen"
 
-#: admin/views/settings-tab.php:181
+#: admin/views/settings-tab.php:199
 msgid "Choosing images needs JavaScript."
 msgstr "Die Bildauswahl braucht JavaScript."
 
-#: admin/views/settings-tab.php:184
+#: admin/views/settings-tab.php:202
 msgid "One is picked at random on every page load. Meant for photos downloaded from unsplash.com: the Unsplash License allows that and asks for no credit, but credit is welcome — write it into the image caption, which the page shows in its footer. An empty caption shows nothing."
 msgstr "Bei jedem Aufruf wird eines zufällig gewählt. Gedacht für Fotos von unsplash.com: Die Unsplash-Lizenz erlaubt das und verlangt keine Nennung, sie ist aber erwünscht – schreib sie in die Bildunterschrift, die die Seite im Footer zeigt. Eine leere Bildunterschrift zeigt nichts."
 
-#: admin/views/settings-tab.php:189
+#: admin/views/settings-tab.php:207
 msgid "Unsplash access key"
 msgstr "Unsplash Access Key"
 
-#: admin/views/settings-tab.php:191
+#: admin/views/settings-tab.php:209
 msgid "Stored — leave empty to keep it"
 msgstr "Gespeichert – leer lassen, um ihn zu behalten"
 
-#: admin/views/settings-tab.php:193
+#: admin/views/settings-tab.php:211
 msgid "Delete the stored key"
 msgstr "Gespeicherten Schlüssel löschen"
 
-#: admin/views/settings-tab.php:195
-msgid "The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser. Photos are hotlinked from images.unsplash.com, as the API guidelines require, so the page asks visitors first and shows the photographer's name."
-msgstr "Der Access Key einer Anwendung auf unsplash.com/developers. Er bleibt auf dem Server und erreicht nie einen Browser. Die Fotos werden, wie die API-Richtlinien es verlangen, direkt von images.unsplash.com geladen; darum fragt die Seite die Besucher vorher und nennt den Fotografen."
+#: admin/views/settings-tab.php:213
+msgid "The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser."
+msgstr "Der Access Key einer Anwendung auf unsplash.com/developers. Er bleibt auf dem Server und erreicht nie einen Browser."
 
-#: admin/views/settings-tab.php:199
+#: admin/views/settings-tab.php:217
+msgid "Privacy notice"
+msgstr "Datenschutzhinweis"
+
+#: admin/views/settings-tab.php:219
+msgid "Mention this in your privacy policy."
+msgstr "Nenne das in deiner Datenschutzerklärung."
+
+#: admin/views/settings-tab.php:220
+msgid "With photos from Unsplash, every visitor's browser loads the photos directly from images.unsplash.com, as the Unsplash API guidelines require. That sends the visitor's IP address and browser details to Unsplash, Inc. (USA), without asking first. The API calls for the list of photos come from this server and carry only the access key. With photos from the media library or no photo, the page loads nothing from third parties."
+msgstr "Bei Fotos von Unsplash lädt der Browser jedes Besuchers die Fotos direkt von images.unsplash.com, wie es die Unsplash-API-Richtlinien verlangen. Dabei gehen die IP-Adresse und Browserdaten des Besuchers ohne vorherige Nachfrage an Unsplash, Inc. (USA). Die API-Aufrufe für die Fotoliste kommen von diesem Server und enthalten nur den Access Key. Bei Fotos aus der Mediathek oder ohne Foto lädt die Seite nichts von Dritten."
+
+#: admin/views/settings-tab.php:224
 msgid "Unsplash search terms"
 msgstr "Unsplash-Suchbegriffe"
 
-#: admin/views/settings-tab.php:203
+#: admin/views/settings-tab.php:228
 msgid "Orientation"
 msgstr "Ausrichtung"
 
-#: admin/views/settings-tab.php:208
+#: admin/views/settings-tab.php:233
 msgid "Landscape"
 msgstr "Querformat"
 
-#: admin/views/settings-tab.php:209
+#: admin/views/settings-tab.php:234
 msgid "Portrait"
 msgstr "Hochformat"
 
-#: admin/views/settings-tab.php:210
+#: admin/views/settings-tab.php:235
 msgid "Square"
 msgstr "Quadratisch"
 
-#: admin/views/settings-tab.php:211
+#: admin/views/settings-tab.php:236
 msgid "Any"
 msgstr "Beliebig"
 
-#: admin/views/settings-tab.php:221
+#: admin/views/settings-tab.php:246
 msgid "Application name"
 msgstr "Anwendungsname"
 
-#: admin/views/settings-tab.php:224
+#: admin/views/settings-tab.php:249
 msgid "As registered at Unsplash; used as utm_source in the links to the photographer."
 msgstr "Wie bei Unsplash registriert; wird als utm_source in den Links zum Fotografen verwendet."
 
-#: admin/views/settings-tab.php:228
+#: admin/views/settings-tab.php:253
 msgid "Change every"
 msgstr "Wechseln alle"
 
-#: admin/views/settings-tab.php:231
+#: admin/views/settings-tab.php:256
 msgid "minutes"
 msgstr "Minuten"
 
-#: admin/views/settings-tab.php:232
+#: admin/views/settings-tab.php:257
 msgid "0 changes the background only when the page is loaded. A hidden tab does not change."
 msgstr "0 wechselt den Hintergrund nur beim Laden der Seite. Ein verborgener Tab wechselt nicht."
 
-#: admin/views/settings-tab.php:238
-#: templates/new-tab.php:63
+#: admin/views/settings-tab.php:263
+#: templates/new-tab.php:64
 msgid "Favourites"
 msgstr "Favoriten"
 
-#: admin/views/settings-tab.php:240
+#: admin/views/settings-tab.php:265
 msgid "The bar at the top. What does not fit moves into the » menu. Icons are fetched by the server when saving and once a week, and served from this site; without one, the bar draws the first letter."
 msgstr "Die Leiste oben. Was nicht passt, wandert ins »-Menü. Symbole holt der Server beim Speichern und einmal pro Woche und liefert sie von dieser Website aus; ohne Symbol zeigt die Leiste den ersten Buchstaben."
 
-#: admin/views/settings-tab.php:245
-#: admin/views/settings-tab.php:254
+#: admin/views/settings-tab.php:270
+#: admin/views/settings-tab.php:279
 msgid "Title"
 msgstr "Titel"
 
-#: admin/views/settings-tab.php:247
-#: admin/views/settings-tab.php:256
+#: admin/views/settings-tab.php:272
+#: admin/views/settings-tab.php:281
 msgid "Icon address (optional)"
 msgstr "Symbol-Adresse (optional)"
 
-#: admin/views/settings-tab.php:248
+#: admin/views/settings-tab.php:273
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: admin/views/settings-tab.php:262
+#: admin/views/settings-tab.php:287
 msgid "Add a favourite"
 msgstr "Favorit hinzufügen"
-
-#: admin/views/settings-tab.php:264
-msgid "Legal links"
-msgstr "Rechtslinks"
-
-#: admin/views/settings-tab.php:267
-msgid "The footer links the privacy policy, the terms and the imprint chosen for Login & Legal, named after their pages."
-msgstr "Der Footer verlinkt die Datenschutzerklärung, die Nutzungsbedingungen und das Impressum, die für Login & Legal gewählt sind, benannt nach ihren Seiten."
-
-#: admin/views/settings-tab.php:269
-msgid "Change them"
-msgstr "Ändern"
-
-#: admin/views/settings-tab.php:277
-msgid "shown"
-msgstr "angezeigt"
-
-#: admin/views/settings-tab.php:279
-msgid "left out — the page is private, logged-out visitors would land on the login screen."
-msgstr "ausgelassen – die Seite ist privat, abgemeldete Besucher landeten auf dem Login."
-
-#: admin/views/settings-tab.php:281
-msgid "left out — the page is not published."
-msgstr "ausgelassen – die Seite ist nicht veröffentlicht."
-
-#: admin/views/settings-tab.php:283
-msgid "left out — no page is chosen."
-msgstr "ausgelassen – es ist keine Seite gewählt."
 
 #: admin/views/settings-tab.php:290
 msgid "Save changes"
@@ -333,92 +327,62 @@ msgstr "Cache leeren"
 msgid "Forgets the Unsplash photo pool and the cached suggestions."
 msgstr "Vergisst den Unsplash-Fotopool und die zwischengespeicherten Vorschläge."
 
-#: includes/class-legal-links.php:49
-#: includes/class-legal-links.php:58
+#: includes/class-legal-links.php:50
+#: includes/class-legal-links.php:59
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: includes/class-legal-links.php:63
+#: includes/class-legal-links.php:64
 msgid "Terms of Service"
 msgstr "Nutzungsbedingungen"
 
-#: includes/class-legal-links.php:68
+#: includes/class-legal-links.php:69
 msgid "Imprint"
 msgstr "Impressum"
 
-#: includes/class-reading-setting.php:70
-msgid "The page shown as the new tab page."
-msgstr "Die Seite, die als Neuer-Tab-Seite angezeigt wird."
-
-#: includes/class-reading-setting.php:107
-msgid "— Select —"
-msgstr "— Auswählen —"
-
-#. translators: %s: link to the New Tab Page tab.
-#: includes/class-reading-setting.php:120
-#, php-format
-msgid "This page shows search, favourites and a greeting instead of its content. Settings under %s."
-msgstr "Diese Seite zeigt Suche, Favoriten und einen Gruß statt ihres Inhalts. Einstellungen unter %s."
-
-#: includes/class-reading-setting.php:124
-msgid "Baukasten → New Tab Page"
-msgstr "Baukasten → New Tab Page"
-
-#: includes/class-reading-setting.php:128
-msgid "This page shows search, favourites and a greeting instead of its content."
-msgstr "Diese Seite zeigt Suche, Favoriten und einen Gruß statt ihres Inhalts."
-
-#: includes/class-reading-setting.php:136
-msgid "It is also the homepage, so the address of the site opens it."
-msgstr "Sie ist auch die Homepage, die Adresse der Website öffnet sie also."
-
-#: includes/class-reading-setting.php:162
+#: includes/class-page-setting.php:63
 msgid "The new tab page has to be a published page. The previous choice was kept."
 msgstr "Die Neuer-Tab-Seite muss eine veröffentlichte Seite sein. Die bisherige Auswahl wurde beibehalten."
 
-#: includes/class-reading-setting.php:168
+#: includes/class-page-setting.php:67
 msgid "The posts page cannot be the new tab page as well: its posts would no longer be shown. The previous choice was kept."
 msgstr "Die Beitragsseite kann nicht zugleich die Neuer-Tab-Seite sein: Ihre Beiträge würden nicht mehr angezeigt. Die bisherige Auswahl wurde beibehalten."
 
-#: includes/class-reading-setting.php:212
+#: includes/class-page-setting.php:96
 msgid "You are editing the new tab page. Its content is not shown."
 msgstr "Du bearbeitest die Neuer-Tab-Seite. Ihr Inhalt wird nicht angezeigt."
 
 #. translators: %s: search engine name.
-#: includes/class-renderer.php:264
-#: templates/new-tab.php:81
+#: includes/class-renderer.php:280
+#: templates/new-tab.php:84
 #, php-format
 msgid "Search engine: %s"
 msgstr "Suchmaschine: %s"
 
 #. translators: %s: search engine name.
-#: includes/class-renderer.php:266
-#: templates/new-tab.php:96
+#: includes/class-renderer.php:282
+#: templates/new-tab.php:99
 #, php-format
 msgid "Search with %s or enter address"
 msgstr "Mit %s suchen oder Adresse eingeben"
 
 #. translators: %s: search engine name.
-#: includes/class-renderer.php:268
+#: includes/class-renderer.php:284
 #, php-format
 msgid "Search with %s"
 msgstr "Mit %s suchen"
 
-#: includes/class-renderer.php:269
-#: templates/new-tab.php:70
+#: includes/class-renderer.php:285
+#: templates/new-tab.php:71
 msgid "More favourites"
 msgstr "Weitere Favoriten"
 
 #. translators: 1: photographer, linked. 2: "Unsplash", linked.
-#: includes/class-renderer.php:271
-#: templates/new-tab.php:115
+#: includes/class-renderer.php:287
+#: templates/new-tab.php:116
 #, php-format
 msgid "Photo: %1$s on %2$s"
 msgstr "Foto: %1$s auf %2$s"
-
-#: includes/class-renderer.php:272
-msgid "The choice could not be saved. Please try again."
-msgstr "Die Auswahl konnte nicht gespeichert werden. Bitte versuche es erneut."
 
 #: includes/class-rest-controller.php:83
 msgid "No new tab page is selected."
@@ -465,8 +429,8 @@ msgid "Remove this image"
 msgstr "Dieses Bild entfernen"
 
 #: includes/class-settings-tab.php:159
-#: includes/class-settings-tab.php:330
-#: includes/class-settings-tab.php:380
+#: includes/class-settings-tab.php:346
+#: includes/class-settings-tab.php:396
 msgid "You are not allowed to change these settings."
 msgstr "Du darfst diese Einstellungen nicht ändern."
 
@@ -490,85 +454,85 @@ msgstr "Mindestens eine Suchmaschine muss eingeschaltet bleiben. Startpage blieb
 msgid "The default search engine has to be one that is switched on."
 msgstr "Die Standard-Suchmaschine muss eine eingeschaltete sein."
 
-#: includes/class-settings-tab.php:254
+#: includes/class-settings-tab.php:270
 msgid "That does not look like an Unsplash access key (20 to 100 letters, digits, - or _). The stored key was kept."
 msgstr "Das sieht nicht wie ein Unsplash Access Key aus (20 bis 100 Buchstaben, Ziffern, - oder _). Der gespeicherte Schlüssel wurde beibehalten."
 
 #. translators: %s: the address as entered.
-#: includes/class-settings-tab.php:278
+#: includes/class-settings-tab.php:294
 #, php-format
 msgid "The favourite \"%s\" was left out: only http and https addresses work."
 msgstr "Der Favorit „%s“ wurde ausgelassen: Nur http- und https-Adressen funktionieren."
 
 #. translators: %d: maximum number of favourites.
-#: includes/class-settings-tab.php:285
+#: includes/class-settings-tab.php:301
 #, php-format
 msgid "Only the first %d favourites were kept."
 msgstr "Nur die ersten %d Favoriten wurden übernommen."
 
-#: includes/class-settings-tab.php:308
-#: includes/class-settings-tab.php:316
+#: includes/class-settings-tab.php:324
+#: includes/class-settings-tab.php:332
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: includes/class-settings-tab.php:313
+#: includes/class-settings-tab.php:329
 msgid "Settings saved, with exceptions:"
 msgstr "Einstellungen gespeichert, mit Ausnahmen:"
 
-#: includes/class-settings-tab.php:336
+#: includes/class-settings-tab.php:352
 msgid "A new tab page is already selected."
 msgstr "Es ist bereits eine Neuer-Tab-Seite ausgewählt."
 
 #. translators: 1: page title. 2: slug.
-#: includes/class-settings-tab.php:346
+#: includes/class-settings-tab.php:362
 #, php-format
 msgid "The page \"%1$s\" already uses the address /%2$s/. Select it under Settings → Reading, or choose another page there."
 msgstr "Die Seite „%1$s“ verwendet die Adresse /%2$s/ bereits. Wähle sie unter Einstellungen → Lesen aus oder wähle dort eine andere Seite."
 
-#: includes/class-settings-tab.php:357
+#: includes/class-settings-tab.php:373
 msgid "New Tab"
 msgstr "Neuer Tab"
 
-#: includes/class-settings-tab.php:365
+#: includes/class-settings-tab.php:381
 msgid "The page could not be created."
 msgstr "Die Seite konnte nicht angelegt werden."
 
-#: includes/class-settings-tab.php:370
+#: includes/class-settings-tab.php:386
 msgid "Page created and selected as the new tab page."
 msgstr "Seite angelegt und als Neuer-Tab-Seite ausgewählt."
 
-#: includes/class-settings-tab.php:388
+#: includes/class-settings-tab.php:404
 msgid "Cache emptied. The next page load fetches a new photo pool."
 msgstr "Cache geleert. Der nächste Seitenaufruf holt einen neuen Fotopool."
 
-#: includes/class-unsplash.php:145
+#: includes/class-unsplash.php:146
 msgid "Unsplash answered with something that is not a list of photos."
 msgstr "Unsplash hat mit etwas geantwortet, das keine Fotoliste ist."
 
-#: includes/class-unsplash.php:170
+#: includes/class-unsplash.php:171
 msgid "No access key is stored."
 msgstr "Es ist kein Access Key gespeichert."
 
 #. translators: 1: requests left this hour. 2: requests allowed per hour.
-#: includes/class-unsplash.php:190
+#: includes/class-unsplash.php:191
 #, php-format
 msgid "Connected to Unsplash. %1$s of %2$s requests left this hour."
 msgstr "Mit Unsplash verbunden. %1$s von %2$s Anfragen in dieser Stunde übrig."
 
-#: includes/class-unsplash.php:191
+#: includes/class-unsplash.php:192
 msgid "Connected to Unsplash."
 msgstr "Mit Unsplash verbunden."
 
-#: includes/class-unsplash.php:223
+#: includes/class-unsplash.php:224
 msgid "Unsplash refused the access key (401). Check that it is the Access Key, not the Secret Key."
 msgstr "Unsplash hat den Access Key abgelehnt (401). Prüfe, dass es der Access Key ist, nicht der Secret Key."
 
-#: includes/class-unsplash.php:225
+#: includes/class-unsplash.php:226
 msgid "Unsplash refused the request (403). The hourly rate limit may be used up."
 msgstr "Unsplash hat die Anfrage abgelehnt (403). Das Stundenlimit könnte aufgebraucht sein."
 
 #. translators: %d: HTTP status code.
-#: includes/class-unsplash.php:228
+#: includes/class-unsplash.php:229
 #, php-format
 msgid "Unsplash answered with HTTP status %d."
 msgstr "Unsplash hat mit HTTP-Status %d geantwortet."
@@ -581,22 +545,18 @@ msgstr "Diese Adresse öffnen?"
 msgid "Back to the new tab page"
 msgstr "Zurück zur Neuer-Tab-Seite"
 
-#: templates/new-tab.php:85
+#: templates/new-tab.php:88
 msgid "Search engine"
 msgstr "Suchmaschine"
 
-#: templates/new-tab.php:86
+#: templates/new-tab.php:89
 msgid "Search with"
 msgstr "Suchen mit"
 
-#: templates/new-tab.php:95
+#: templates/new-tab.php:98
 msgid "Search or enter address"
 msgstr "Suchbegriff oder Adresse eingeben"
 
-#: templates/new-tab.php:109
-msgid "Load photos from Unsplash"
-msgstr "Fotos von Unsplash laden"
-
-#: templates/new-tab.php:126
+#: templates/new-tab.php:127
 msgid "Legal"
 msgstr "Rechtliches"

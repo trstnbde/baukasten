@@ -13,7 +13,7 @@ Five plugins and one theme live in this repository, each with its own release. T
 | [`baukasten-business-cards`](baukasten-business-cards) | Baukasten Addon: Business Cards | 50 | A digital business card on its own short link, built for a phone and detached from the theme, with a vCard download, a QR code and a contact form that mails the card's owner. |
 | [`baukasten-2fa`](baukasten-2fa) | Baukasten Addon: Two-Factor Approval | 60 | A second factor that asks another already signed-in session to confirm the login from its admin bar. Needs the Two Factor plugin as well as the core. |
 | [`baukasten-form-privacy`](baukasten-form-privacy) | Baukasten Addon: Form Privacy | 70 | Contact Form 7 and Flamingo without the leaks: assets only where a form is, no IP address, no address book, a retention period, an exporter, and spam protection without a third party. |
-| [`baukasten-new-tab`](baukasten-new-tab) | Baukasten Addon: New Tab Page | 80 | Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting that knows the holidays, and a background from the media library or, after consent, Unsplash. Chosen under *Settings → Reading* like the homepage. |
+| [`baukasten-new-tab`](baukasten-new-tab) | Baukasten Addon: New Tab Page | 80 | Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting that knows the holidays, and a background from the media library or, after consent, Unsplash. Chosen on its own tab in *Settings → Baukasten*. |
 
 | Directory | Theme | Version | What it does |
 |---|---|---|---|

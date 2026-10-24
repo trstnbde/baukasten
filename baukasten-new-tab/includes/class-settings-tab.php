@@ -214,8 +214,24 @@ final class Settings_Tab {
 			$errors[] = __( 'The default search engine has to be one that is switched on.', 'baukasten-new-tab' );
 		}
 
-		$suggest             = isset( $_POST['suggest'] ) ? sanitize_key( wp_unslash( (string) $_POST['suggest'] ) ) : $old['suggest'];
-		$settings['suggest'] = in_array( $suggest, Settings::SUGGESTERS, true ) ? $suggest : $old['suggest'];
+		// The page.
+		if ( isset( $_POST['page_id'] ) ) {
+			list( $page_id, $problem ) = Page_Setting::validate( absint( wp_unslash( (string) $_POST['page_id'] ) ) );
+
+			if ( '' !== $problem ) {
+				$errors[] = $problem;
+			}
+
+			update_option( Settings::OPTION_PAGE, $page_id );
+		}
+
+		// Greetings.
+		$settings['greeting']          = ! empty( $_POST['greeting'] );
+		$settings['greeting_holidays'] = ! empty( $_POST['greeting_holidays'] );
+
+		$custom                      = isset( $_POST['greeting_custom'] ) ? sanitize_textarea_field( wp_unslash( (string) $_POST['greeting_custom'] ) ) : '';
+		$custom                      = array_map( static fn( string $line ): string => mb_substr( trim( $line ), 0, 160 ), (array) preg_split( '/\R/u', $custom ) );
+		$settings['greeting_custom'] = implode( "\n", array_slice( array_values( array_filter( $custom ) ), 0, 200 ) );
 
 		// Background.
 		$mode                   = isset( $_POST['background'] ) ? sanitize_key( wp_unslash( (string) $_POST['background'] ) ) : $old['background'];
@@ -440,7 +456,6 @@ final class Settings_Tab {
 		$has_key    = '' !== Settings::unsplash_key();
 		$is_private = 0 < $page_id && Legal_Links::is_private( $page_id );
 		$is_front   = 0 < $page_id && 'page' === get_option( 'show_on_front' ) && (int) get_option( 'page_on_front' ) === $page_id;
-		$legal      = Legal_Links::candidates();
 		$media      = array();
 
 		foreach ( (array) $settings['media_ids'] as $media_id ) {

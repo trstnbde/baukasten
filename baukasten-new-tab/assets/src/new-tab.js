@@ -2,7 +2,7 @@
  * Baukasten New Tab Page.
  *
  * Everything the page does in the browser: the engine menu, the search with
- * suggestions, the favourites overflow, the background, the consent switch
+ * suggestions, the favourites overflow, the background, the photo credit
  * and the greeting's memory. The page works without it — the form is a GET
  * the server answers — so every part here only improves on what is there.
  *
@@ -833,7 +833,7 @@
 	}() );
 
 	/* ------------------------------------------------------------------
-	 * Background: reveal, rotate, Unsplash sizing and consent.
+	 * Background: reveal, rotate, Unsplash sizing.
 	 * ------------------------------------------------------------------ */
 
 	( function background() {
@@ -841,8 +841,7 @@
 		var container = doc.querySelector( '.bk-bg' );
 		var image = container ? container.querySelector( '.bk-bg__img' ) : null;
 		var credit = doc.querySelector( '.bk-footer__credit' );
-		var consentButton = doc.querySelector( '.bk-consent' );
-		var items = null;
+				var items = null;
 		var current = settings.photo || null;
 		var position = -1;
 		var timer = 0;
@@ -1037,13 +1036,13 @@
 		}
 
 		function canRotate() {
-			return settings.mode === 'media' ? settings.count > 1 : settings.mode === 'unsplash' && settings.allowed;
+			return settings.mode === 'media' ? settings.count > 1 : settings.mode === 'unsplash';
 		}
 
 		// The first picture.
 		if ( settings.mode === 'media' && image.getAttribute( 'src' ) ) {
 			reveal( image );
-		} else if ( settings.mode === 'unsplash' && settings.allowed ) {
+		} else if ( settings.mode === 'unsplash' ) {
 			if ( settings.photo && settings.photo.raw ) {
 				image.src = unsplashUrl( settings.photo.raw );
 				image.hidden = false;
@@ -1054,7 +1053,7 @@
 		}
 
 		// A resized window gets a photo cut for its new size.
-		if ( settings.mode === 'unsplash' && settings.allowed ) {
+		if ( settings.mode === 'unsplash' ) {
 			var resizeTimer = 0;
 
 			window.addEventListener( 'resize', function () {
@@ -1078,57 +1077,5 @@
 				}
 			} );
 		}
-
-		/* Consent: add the category to whatever was allowed before. */
-
-		if ( ! consentButton || settings.mode !== 'unsplash' ) {
-			return;
-		}
-
-		var consent = config.consent || {};
-
-		consentButton.hidden = false;
-
-		function granted() {
-			settings.allowed = true;
-			consentButton.hidden = true;
-			change();
-			schedule();
-		}
-
-		consentButton.addEventListener( 'click', function () {
-			consentButton.disabled = true;
-
-			if ( ! consent.engine ) {
-				doc.cookie = ( consent.cookie || 'baukasten_new_tab_unsplash' ) + '=1; max-age=31536000; path=/; SameSite=Lax' + ( window.location.protocol === 'https:' ? '; Secure' : '' );
-				granted();
-
-				return;
-			}
-
-			getJson( consent.state ).then( function ( state ) {
-				var allowed = state && Array.isArray( state.allowed ) ? state.allowed.slice() : [];
-
-				if ( allowed.indexOf( consent.category ) === -1 ) {
-					allowed.push( consent.category );
-				}
-
-				return window.fetch( consent.save, {
-					method: 'POST',
-					credentials: 'same-origin',
-					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-					body: JSON.stringify( { categories: allowed } ),
-				} );
-			} ).then( function ( response ) {
-				if ( ! response.ok ) {
-					throw new Error( 'HTTP ' + response.status );
-				}
-
-				granted();
-			} ).catch( function () {
-				consentButton.disabled = false;
-				consentButton.title = i18n.consentFail || '';
-			} );
-		} );
 	}() );
 }() );
