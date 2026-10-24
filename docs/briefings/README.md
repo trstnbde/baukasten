@@ -24,4 +24,6 @@ They are kept as written. What was decided on top of them the same day, and wher
 
 A later brief, written on 24 October 2026, is kept the same way: [04-briefing-baukasten-new-tab.md](04-briefing-baukasten-new-tab.md), the Baukasten Addon: New Tab Page (protocol: [`../acceptance/new-tab.md`](../acceptance/new-tab.md)).
 
+A second one, also of 24 October 2026: [05-briefing-passwortschutz.md](05-briefing-passwortschutz.md), passwords on cards and the new tab page and the admin bar link (protocol: [`../acceptance/password-protection.md`](../acceptance/password-protection.md)).
+
 Protocols of what was checked are in [`../acceptance/`](../acceptance).

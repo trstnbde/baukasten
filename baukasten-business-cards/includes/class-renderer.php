@@ -80,6 +80,7 @@ final class Renderer {
 		add_action( 'wp', array( __CLASS__, 'detach' ) );
 		add_filter( 'template_include', array( __CLASS__, 'use_card_template' ), 99 );
 		add_filter( 'post_password_required', array( __CLASS__, 'let_members_in' ), 10, 2 );
+		add_action( 'template_redirect', array( __CLASS__, 'send_lock_headers' ), 1 );
 	}
 
 	/**
@@ -153,7 +154,6 @@ final class Renderer {
 			// The lock page is not a card: no name in the tab, nothing for a
 			// search engine, and nothing for a cache to keep.
 			add_filter( 'wp_robots', 'wp_robots_no_robots' );
-			add_filter( 'wp_headers', array( __CLASS__, 'lock_headers' ) );
 		}
 
 		// After every theme and plugin has had its say. `wp_enqueue_scripts`
@@ -187,6 +187,24 @@ final class Renderer {
 		$parts = array_map( 'strval', (array) $parts );
 
 		return isset( $parts['title'] ) ? array( 'title' => $parts['title'] ) : $parts;
+	}
+
+	/**
+	 * Sends the lock page's headers.
+	 *
+	 * On `template_redirect`: `WP::send_headers()` has run by the time the
+	 * query says this is a card, so the `wp_headers` filter would be too late.
+	 *
+	 * @return void
+	 */
+	public static function send_lock_headers(): void {
+		if ( ! self::is_locked() || headers_sent() ) {
+			return;
+		}
+
+		foreach ( self::lock_headers( array() ) as $name => $value ) {
+			header( $name . ': ' . $value );
+		}
 	}
 
 	/**
