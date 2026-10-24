@@ -1,0 +1,35 @@
+/* Baukasten New Tab Page: the admin bar node on a phone-sized screen. */
+
+#wpadminbar #wp-admin-bar-baukasten-new-tab .ab-icon:before {
+	font-size: 20px;
+	top: 2px;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar #wp-admin-bar-baukasten-new-tab {
+		display: block;
+	}
+
+	#wpadminbar #wp-admin-bar-baukasten-new-tab > .ab-item {
+		width: 52px;
+		padding: 0;
+		text-align: center;
+	}
+
+	#wpadminbar #wp-admin-bar-baukasten-new-tab .ab-icon {
+		width: 52px;
+		height: 46px;
+		margin: 0;
+		padding: 0;
+	}
+
+	#wpadminbar #wp-admin-bar-baukasten-new-tab .ab-icon:before {
+		font-size: 32px;
+		line-height: 46px;
+		top: 0;
+	}
+
+	#wpadminbar #wp-admin-bar-baukasten-new-tab .ab-label {
+		display: none;
+	}
+}

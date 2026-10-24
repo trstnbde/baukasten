@@ -83,6 +83,7 @@ final class Settings_Tab {
 		$slug_taken   = self::page_with_slug( $slug );
 		$privacy_page = (int) get_option( 'wp_page_for_privacy_policy', 0 );
 		$rate_limit   = Rate_Limit::settings();
+		$postpass     = Rate_Limit::postpass_settings();
 
 		require PLUGIN_DIR . 'admin/views/settings-tab.php';
 	}
@@ -130,6 +131,12 @@ final class Settings_Tab {
 			$rate_limit = map_deep( wp_unslash( $_POST['rate_limit'] ), 'sanitize_text_field' );
 
 			update_option( Rate_Limit::OPTION, Rate_Limit::sanitize( (array) $rate_limit ), true );
+		}
+
+		if ( isset( $_POST['postpass_limit'] ) && is_array( $_POST['postpass_limit'] ) ) {
+			$postpass = map_deep( wp_unslash( $_POST['postpass_limit'] ), 'sanitize_text_field' );
+
+			update_option( Rate_Limit::OPTION_POSTPASS, Rate_Limit::sanitize_postpass( (array) $postpass ), true );
 		}
 
 		self::redirect_back( __( 'Settings saved.', 'baukasten' ) );

@@ -87,6 +87,12 @@ final class REST_Controller {
 			return new \WP_Error( 'baukasten_new_tab_private', __( 'The new tab page is available to logged-in users only.', 'baukasten-new-tab' ), array( 'status' => rest_authorization_required_code() ) );
 		}
 
+		// The cookie travels with a same-origin fetch, so this is the check the
+		// page itself makes. A signed-in user passes, like on the page.
+		if ( post_password_required( $page_id ) ) {
+			return new \WP_Error( 'baukasten_new_tab_locked', __( 'This page is password protected.', 'baukasten-new-tab' ), array( 'status' => 401 ) );
+		}
+
 		return true;
 	}
 

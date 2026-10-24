@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: baukasten
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,10 @@ With photos from the media library or none, the page makes no request to a third
 
 Whoever the page's visibility allows. Switch it private with Content Visibility and logged-out visitors are sent to the login screen. Favourites can give away addresses that are meant to stay private, so think before leaving it public.
 
+= Can I protect the page with a password? =
+
+Yes, with WordPress's own "Password protected" visibility. A visitor who is not signed in then sees a password form and nothing else — no favourites, no search, no suggestions. Signed-in users see the page without the password. Passwords are rate limited by Baukasten.
+
 = Can the page also be the homepage? =
 
 Yes. Choose the same page under Homepage and New tab page.
@@ -72,10 +76,18 @@ Settings, stored icons, the photo pool and caches are deleted. The page and the 
 
 == Changelog ==
 
+= 1.0.1 =
+* A password protected new tab page shows a password form and nothing else until the password is entered: no favourites, no search, no suggestions.
+* The admin bar links to the new tab page for every signed-in user.
+* Signed-in users see a protected new tab page without the password, whatever their role.
+
 = 1.0.0 =
 * First release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Makes a password on the new tab page work, and adds a link to the page in the admin bar.
 
 = 1.0.0 =
 First release.

@@ -9,6 +9,7 @@
  * @var array<string, mixed> $settings   Settings, completed with the defaults.
  * @var bool                 $has_key    Whether an Unsplash access key is stored.
  * @var bool                 $is_private Whether Content Visibility keeps the page from logged-out visitors.
+ * @var bool                 $is_protected Whether the page has a password.
  * @var bool                 $is_front   Whether the page is also the homepage.
  * @var array<int, string>   $media      Thumbnail URL per selected attachment.
  */
@@ -96,11 +97,13 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 						<?php esc_html_e( 'Decided per page, with the public/private switch of Content Visibility.', 'baukasten-new-tab' ); ?>
 					<?php elseif ( $is_private ) : ?>
 						<?php esc_html_e( 'Private: only logged-in users see it, everybody else is sent to the login screen.', 'baukasten-new-tab' ); ?>
+					<?php elseif ( $is_protected ) : ?>
+						<?php esc_html_e( 'Password protected: visitors who are not signed in see only a password form until they enter the password. Signed-in users see the page without it.', 'baukasten-new-tab' ); ?>
 					<?php else : ?>
 						<?php esc_html_e( 'Public: anybody with the address sees it.', 'baukasten-new-tab' ); ?>
 					<?php endif; ?>
 					<p class="description">
-						<?php esc_html_e( 'Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private.', 'baukasten-new-tab' ); ?>
+						<?php esc_html_e( 'Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private. A password protects them.', 'baukasten-new-tab' ); ?>
 						<?php if ( '' !== $baukasten_nt_cv_tab ) : ?>
 							<a href="<?php echo esc_url( $baukasten_nt_cv_tab ); ?>"><?php esc_html_e( 'Content Visibility', 'baukasten-new-tab' ); ?></a>
 						<?php endif; ?>

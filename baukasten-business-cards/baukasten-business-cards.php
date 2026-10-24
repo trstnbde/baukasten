@@ -3,7 +3,7 @@
  * Plugin Name:       Baukasten Addon: Business Cards
  * Plugin URI:        https://github.com/trstnbde/baukasten
  * Description:       Digital business cards as a custom post type, served on their own short URL and detached from the active theme.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      8.1
@@ -23,7 +23,7 @@ namespace Baukasten\BusinessCards;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION    = '1.0.0';
+const VERSION    = '1.0.1';
 const TEXTDOMAIN = 'baukasten-business-cards';
 
 /**

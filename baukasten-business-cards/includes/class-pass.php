@@ -113,6 +113,12 @@ final class Pass {
 			return;
 		}
 
+		// A locked card hands out no file. The request falls through to the
+		// card, which shows the password form.
+		if ( post_password_required( $post ) ) {
+			return;
+		}
+
 		/*
 		 * The authorisation rule, and the reason this is not an
 		 * `?attachment_id=` route: the id is read from the card being viewed and

@@ -34,6 +34,12 @@ defined( 'ABSPATH' ) || exit;
  *
  * Password reset requests are limited separately, to three per hour and
  * address, because each one sends an email.
+ *
+ * So are the passwords of protected posts. WordPress checks that password only
+ * when the page is shown, and `wp-login.php?action=postpass` sets the cookie
+ * whatever was typed, so a protected page or card could be guessed without
+ * limit. Every submission to `postpass` counts, right or wrong: ten per
+ * address in fifteen minutes by default, then fifteen minutes of 429.
  */
 final class Rate_Limit {
 
@@ -66,6 +72,21 @@ final class Rate_Limit {
 	 * Password reset requests allowed per address and hour.
 	 */
 	const RESET_LIMIT = 3;
+
+	/**
+	 * Option holding the limit for post passwords.
+	 */
+	const OPTION_POSTPASS = 'baukasten_login_postpass_limit';
+
+	/**
+	 * Transient prefix of the post password counter.
+	 */
+	const PREFIX_POSTPASS = 'baukasten_login_pp_';
+
+	/**
+	 * Transient prefix of an active post password lockout.
+	 */
+	const PREFIX_POSTPASS_LOCK = 'baukasten_login_pplock_';
 
 	/**
 	 * Error code of a refused attempt.
@@ -113,11 +134,48 @@ final class Rate_Limit {
 	}
 
 	/**
+	 * The limit for post passwords, merged over its defaults.
+	 *
+	 * @return array{enabled: bool, threshold: int, window: int, lockout: int} Settings, times in minutes.
+	 */
+	public static function postpass_settings(): array {
+		$stored = get_option( self::OPTION_POSTPASS, array() );
+
+		return self::sanitize_postpass(
+			array_merge(
+				array(
+					'enabled'   => true,
+					'threshold' => 10,
+					'window'    => 15,
+					'lockout'   => 15,
+				),
+				is_array( $stored ) ? $stored : array()
+			)
+		);
+	}
+
+	/**
+	 * Normalises the settings of the post password limit.
+	 *
+	 * @param array<string, mixed> $input Raw settings.
+	 * @return array{enabled: bool, threshold: int, window: int, lockout: int} Settings.
+	 */
+	public static function sanitize_postpass( array $input ): array {
+		return array(
+			'enabled'   => ! empty( $input['enabled'] ),
+			'threshold' => min( 100, max( 1, absint( $input['threshold'] ?? 10 ) ) ),
+			'window'    => min( 1440, max( 1, absint( $input['window'] ?? 15 ) ) ),
+			'lockout'   => min( 1440, max( 1, absint( $input['lockout'] ?? 15 ) ) ),
+		);
+	}
+
+	/**
 	 * Registers the hooks.
 	 *
 	 * @return void
 	 */
 	public static function register(): void {
+		add_action( 'login_form_postpass', array( __CLASS__, 'limit_post_passwords' ), 0 );
 		add_action( 'wp_login_failed', array( __CLASS__, 'record_failure' ) );
 		add_action( 'application_password_failed_authentication', array( __CLASS__, 'record_failure' ) );
 		add_filter( 'authenticate', array( __CLASS__, 'refuse_when_locked' ), 100, 3 );
@@ -236,6 +294,78 @@ final class Rate_Limit {
 		}
 
 		set_transient( self::PREFIX_RESET . $key, $count + 1, HOUR_IN_SECONDS );
+	}
+
+	/**
+	 * Counts a post password submission, and refuses it past the limit.
+	 *
+	 * Runs on `login_form_postpass`, before `wp-login.php` sets the cookie.
+	 * Only a submission counts; opening the form does not.
+	 *
+	 * @return void
+	 */
+	public static function limit_post_passwords(): void {
+		$settings = self::postpass_settings();
+		$key      = self::key();
+
+		// Only a submission: core ignores a request without the field.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( ! $settings['enabled'] || '' === $key || ! isset( $_POST['post_password'] ) ) {
+			return;
+		}
+
+		if ( self::postpass_locked_until( $key ) > 0 ) {
+			self::refuse_post_password();
+		}
+
+		$count = (int) get_transient( self::PREFIX_POSTPASS . $key ) + 1;
+
+		if ( $count <= $settings['threshold'] ) {
+			set_transient( self::PREFIX_POSTPASS . $key, $count, $settings['window'] * MINUTE_IN_SECONDS );
+
+			return;
+		}
+
+		delete_transient( self::PREFIX_POSTPASS . $key );
+
+		$duration = $settings['lockout'] * MINUTE_IN_SECONDS;
+
+		set_transient( self::PREFIX_POSTPASS_LOCK . $key, time() + $duration, $duration );
+
+		self::refuse_post_password();
+	}
+
+	/**
+	 * When the post password lockout of an address ends.
+	 *
+	 * @param string $key Hashed address.
+	 * @return int Unix timestamp, or 0 when it is not locked out.
+	 */
+	public static function postpass_locked_until( string $key ): int {
+		$until = (int) get_transient( self::PREFIX_POSTPASS_LOCK . $key );
+
+		return $until > time() ? $until : 0;
+	}
+
+	/**
+	 * Ends the request with a 429.
+	 *
+	 * The same message whether the password was right or not.
+	 *
+	 * @return void
+	 */
+	private static function refuse_post_password(): void {
+		nocache_headers();
+
+		if ( ! headers_sent() ) {
+			header( 'X-Robots-Tag: noindex, nofollow' );
+		}
+
+		wp_die(
+			esc_html__( 'Too many password attempts. Please try again later.', 'baukasten' ),
+			esc_html__( 'Too many attempts', 'baukasten' ),
+			array( 'response' => 429 )
+		);
 	}
 
 	/**

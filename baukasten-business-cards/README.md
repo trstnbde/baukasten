@@ -41,6 +41,17 @@ A design that starts dark does **not** follow the system back out into light. No
 
 All 54 combinations — three designs × three card settings × three switch states × two system settings — are asserted by reading the computed background, not by eye.
 
+## Password protection
+
+WordPress's "Password protected" visibility works on a card. A card renders its fields itself, outside the theme, so core's content filter never gets the chance; `Renderer::is_locked()` (`is_card_route() && post_password_required()`) does it instead:
+
+- `templates/card-locked.php`: the card's design (`card.css`, skin, light/dark), a heading, core's password form with its error message after a wrong password, and the legal links. Nothing of the card: no name, photo, fields, QR code or script. Generic title, `X-Robots-Tag: noindex, nofollow`, `Cache-Control: no-store, private`.
+- `?action=vcf` and `?action=pkpass` return no file for a locked card; the request falls through to the lock page.
+- `Forms::refuse_locked_card()` fails a Contact Form 7 submission whose `_wpcf7_container_post` is a locked card: no mail, no Flamingo entry.
+- A signed-in user, whatever the role, passes (`post_password_required` filter, cards only). Cards are outside Content Visibility, so *Private* does not apply.
+
+The form posts to `/login/?action=postpass`, which Baukasten rate limits. Core sets the cookie `wp-postpass_…` for ten days.
+
 ## The address
 
 The slug is assigned once, in `wp_insert_post_data`, and never rewritten. Two things make that work:

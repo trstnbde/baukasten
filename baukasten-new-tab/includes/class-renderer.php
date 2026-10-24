@@ -60,6 +60,36 @@ final class Renderer {
 		add_action( 'wp', array( __CLASS__, 'detach' ) );
 		add_action( 'template_redirect', array( __CLASS__, 'take_over' ), 1 );
 		add_filter( 'template_include', array( __CLASS__, 'use_template' ), 99 );
+		add_filter( 'post_password_required', array( __CLASS__, 'let_members_in' ), 10, 2 );
+	}
+
+	/**
+	 * Lets a signed-in user past the page's password.
+	 *
+	 * Every role, but only for the new tab page: any other post keeps the core
+	 * rule.
+	 *
+	 * @param mixed $required Whether a password is required.
+	 * @param mixed $post     The post.
+	 * @return bool Whether a password is required.
+	 */
+	public static function let_members_in( $required, $post ): bool {
+		if ( ! $required || ! is_user_logged_in() ) {
+			return (bool) $required;
+		}
+
+		$post = get_post( $post );
+
+		return ! ( $post instanceof \WP_Post && 0 < Settings::page_id() && Settings::page_id() === (int) $post->ID );
+	}
+
+	/**
+	 * Whether this request is the page while its password is still missing.
+	 *
+	 * @return bool True for the lock page.
+	 */
+	public static function is_locked(): bool {
+		return self::is_new_tab() && post_password_required( Settings::page_id() );
 	}
 
 	/**
@@ -101,6 +131,17 @@ final class Renderer {
 	 */
 	public static function take_over(): void {
 		if ( ! self::is_new_tab() ) {
+			return;
+		}
+
+		if ( self::is_locked() ) {
+			// Nothing is searched, forwarded or looked up for a visitor who has
+			// not entered the password: the favourites would give away
+			// addresses, and the search would be a free redirect.
+			self::$view = self::build_locked_view();
+
+			self::send_headers( self::$view );
+
 			return;
 		}
 
@@ -177,7 +218,13 @@ final class Renderer {
 			return (string) $template;
 		}
 
-		$file = PLUGIN_DIR . ( '' !== self::$address ? 'templates/address.php' : 'templates/new-tab.php' );
+		$file = PLUGIN_DIR . 'templates/new-tab.php';
+
+		if ( self::is_locked() ) {
+			$file = PLUGIN_DIR . 'templates/locked.php';
+		} elseif ( '' !== self::$address ) {
+			$file = PLUGIN_DIR . 'templates/address.php';
+		}
 
 		/**
 		 * Filters the template the New Tab Page is rendered with.
@@ -228,6 +275,33 @@ final class Renderer {
 	 */
 	public static function address(): string {
 		return self::$address;
+	}
+
+	/**
+	 * What the lock page shows.
+	 *
+	 * No favourites, no greeting, no background and no script; the same
+	 * keys as the page itself where the policy and the template read them.
+	 *
+	 * @return array<string, mixed> View.
+	 */
+	private static function build_locked_view(): array {
+		$page_id = Settings::page_id();
+
+		return array(
+			'page_id'    => $page_id,
+			'locked'     => true,
+			'title'      => trim( wp_strip_all_tags( (string) get_post_field( 'post_title', $page_id ) ) ),
+			'lang'       => (string) get_bloginfo( 'language' ),
+			'action'     => (string) get_permalink( $page_id ),
+			'background' => array( 'mode' => 'off' ),
+			'legal'      => Legal_Links::all(),
+			'style'      => '',
+			'nojs_style' => '',
+			'css'        => self::asset( 'assets/css/new-tab.css' ),
+			'font'       => plugin_url( 'assets/fonts/noto-sans-sc-latin.woff2' ),
+			'icon'       => get_site_icon_url( 32, home_url( '/favicon.ico' ) ),
+		);
 	}
 
 	/**
@@ -360,10 +434,12 @@ final class Renderer {
 		$style = array_merge(
 			$own,
 			array(
-				self::hash( (string) $view['style'] ),
-				self::hash( (string) $view['nojs_style'] ),
+				'' !== (string) $view['style'] ? self::hash( (string) $view['style'] ) : '',
+				'' !== (string) $view['nojs_style'] ? self::hash( (string) $view['nojs_style'] ) : '',
 			)
 		);
+
+		$style = array_values( array_filter( $style ) );
 
 		$directives = array(
 			'default-src'     => $own,

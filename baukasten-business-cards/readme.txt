@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: baukasten, contact-form-7
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -149,6 +149,11 @@ The network logos in `includes/class-icons.php` are path data, not files. Linked
 
 == Changelog ==
 
+= 1.0.1 =
+* Fix: a password protected card no longer shows its fields, vCard or Wallet pass before the password is entered. It shows a lock page in the card's design with the password form, nothing else.
+* Fix: the contact form refuses submissions from a locked card.
+* Signed-in users see a protected card without the password, whatever their role.
+
 = 1.0.0 =
 
 * First release.
@@ -158,6 +163,9 @@ The network logos in `includes/class-icons.php` are path data, not files. Linked
 * Works with the Form Privacy addon, which then decides where Contact Form 7 loads.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Fixes a leak: a card protected with a password showed its contact details to everybody. Update now if you use card passwords.
 
 = 1.0.0 =
 First release.

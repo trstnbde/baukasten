@@ -863,3 +863,30 @@ body.bkbc {
 		transition: none !important;
 	}
 }
+
+/* The lock page of a password protected card. */
+.bkbc-locked { display: grid; gap: 20px; padding-block: 48px; }
+.bkbc-locked__title { margin: 0; font-family: var(--bkbc-font-heading); font-weight: var(--bkbc-font-heading-weight); font-size: clamp(1.4rem, 5vw, 1.9rem); line-height: 1.2; }
+.bkbc-locked .post-password-form p { margin: 0 0 12px; }
+.bkbc-locked .post-password-form label { display: grid; gap: 6px; font-weight: 600; }
+.bkbc-locked .post-password-form input[type="password"] {
+	width: 100%;
+	padding: 12px 14px;
+	border: 1px solid var(--bkbc-divider);
+	border-radius: var(--bkbc-radius-sm);
+	background: var(--bkbc-surface);
+	color: var(--bkbc-text);
+	font: inherit;
+}
+.bkbc-locked .post-password-form input[type="submit"] {
+	padding: 12px 20px;
+	border: 0;
+	border-radius: var(--bkbc-radius-sm);
+	background: var(--bkbc-accent);
+	color: var(--bkbc-on-accent);
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+.bkbc-locked .post-password-form input[type="submit"]:hover { background: var(--bkbc-accent-strong); }
+.bkbc-locked .post-password-form-invalid-password p { color: inherit; font-weight: 600; }

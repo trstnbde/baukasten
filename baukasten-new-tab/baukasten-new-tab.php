@@ -3,7 +3,7 @@
  * Plugin Name:       Baukasten Addon: New Tab Page
  * Plugin URI:        https://github.com/trstnbde/baukasten
  * Description:       Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting and a background, detached from the theme and without third-party requests.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.5
  * Tested up to:      7.1
  * Requires PHP:      8.1
@@ -23,7 +23,7 @@ namespace Baukasten\NewTab;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION    = '1.0.0';
+const VERSION    = '1.0.1';
 const TEXTDOMAIN = 'baukasten-new-tab';
 
 /**
@@ -47,6 +47,7 @@ require_once __DIR__ . '/includes/class-backgrounds.php';
 require_once __DIR__ . '/includes/class-favicons.php';
 require_once __DIR__ . '/includes/class-legal-links.php';
 require_once __DIR__ . '/includes/class-page-setting.php';
+require_once __DIR__ . '/includes/class-admin-bar.php';
 require_once __DIR__ . '/includes/class-rest-controller.php';
 require_once __DIR__ . '/includes/class-renderer.php';
 require_once __DIR__ . '/includes/class-settings-tab.php';
@@ -60,6 +61,7 @@ function boot(): void {
 	add_action( 'init', __NAMESPACE__ . '\load_textdomain', 1 );
 
 	Page_Setting::register();
+	Admin_Bar::register();
 	Renderer::register();
 	REST_Controller::register();
 	Favicons::register();

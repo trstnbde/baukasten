@@ -338,7 +338,7 @@ msgstr "Dieses Plugin setzt selbst genau ein Cookie: %s. Es enthält die Entsche
 
 #: features/consent-blocking-engine/admin/views/settings-tab.php:459
 #: features/content-visibility/admin/views/settings-tab.php:115
-#: features/login-legal-pages/admin/views/settings-tab.php:298
+#: features/login-legal-pages/admin/views/settings-tab.php:340
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
@@ -586,7 +586,7 @@ msgstr "Consent"
 
 #: features/consent-blocking-engine/includes/class-settings-tab.php:152
 #: features/content-visibility/includes/class-settings-tab.php:120
-#: features/login-legal-pages/includes/class-settings-tab.php:135
+#: features/login-legal-pages/includes/class-settings-tab.php:142
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
@@ -606,7 +606,7 @@ msgstr "Härtung angewendet: %1$d von %2$d Schritten haben etwas geändert."
 
 #: features/consent-blocking-engine/includes/class-settings-tab.php:263
 #: features/content-visibility/includes/class-settings-tab.php:187
-#: features/login-legal-pages/includes/class-settings-tab.php:98
+#: features/login-legal-pages/includes/class-settings-tab.php:99
 msgid "You are not allowed to change these settings."
 msgstr "Du hast keine Berechtigung, diese Einstellungen zu ändern."
 
@@ -787,129 +787,157 @@ msgid_plural "%s entries were marked public."
 msgstr[0] "%s Eintrag wurde auf öffentlich gesetzt."
 msgstr[1] "%s Einträge wurden auf öffentlich gesetzt."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:23
+#: features/login-legal-pages/admin/views/settings-tab.php:24
 msgid "The login screen links to your privacy policy, terms and imprint, and is served from a readable address. Its WordPress header and the link back to the site are removed."
 msgstr "Die Login-Seite verlinkt Datenschutzerklärung, Nutzungsbedingungen und Impressum und liegt unter einer lesbaren Adresse. Ihr WordPress-Header und der Link zurück zur Website sind entfernt."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:34
+#: features/login-legal-pages/admin/views/settings-tab.php:35
 msgid "Some selected pages are not reachable for logged-out visitors:"
 msgstr "Einige der ausgewählten Seiten sind für abgemeldete Besucher nicht erreichbar:"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:44
+#: features/login-legal-pages/admin/views/settings-tab.php:45
 msgid "A visitor following one of those links from the login screen is sent straight back to the login form. Legal pages should normally be publicly visible."
 msgstr "Wer einem dieser Links von der Anmeldeseite aus folgt, landet direkt wieder im Anmeldeformular. Rechtliche Seiten sollten normalerweise öffentlich sichtbar sein."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:57
+#: features/login-legal-pages/admin/views/settings-tab.php:58
 msgid "Legal pages"
 msgstr "Rechtliche Seiten"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:61
+#: features/login-legal-pages/admin/views/settings-tab.php:62
 msgid "These pages are linked below the login form. A link only appears once a published page is selected."
 msgstr "Diese Seiten werden unter dem Login-Formular verlinkt. Ein Link erscheint erst, sobald eine veröffentlichte Seite ausgewählt ist."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:69
+#: features/login-legal-pages/admin/views/settings-tab.php:70
 msgid "Privacy policy"
 msgstr "Datenschutzerklärung"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:76
+#: features/login-legal-pages/admin/views/settings-tab.php:77
 msgid "No page selected."
 msgstr "Keine Seite ausgewählt."
 
 #. translators: %s: link to the privacy settings screen.
-#: features/login-legal-pages/admin/views/settings-tab.php:84
+#: features/login-legal-pages/admin/views/settings-tab.php:85
 #, php-format
 msgid "WordPress stores this one itself, on <a href=\"%s\">Settings &rsaquo; Privacy</a>. Shown as the first link."
 msgstr "Diese verwaltet WordPress selbst, unter <a href=\"%s\">Einstellungen &rsaquo; Datenschutz</a>. Erscheint als erster Link."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:96
+#: features/login-legal-pages/admin/views/settings-tab.php:97
 msgid "Terms of service"
 msgstr "Nutzungsbedingungen"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:108
-#: features/login-legal-pages/admin/views/settings-tab.php:132
+#: features/login-legal-pages/admin/views/settings-tab.php:109
+#: features/login-legal-pages/admin/views/settings-tab.php:133
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:116
+#: features/login-legal-pages/admin/views/settings-tab.php:117
 msgid "Shown as the second link."
 msgstr "Erscheint als zweiter Link."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:122
+#: features/login-legal-pages/admin/views/settings-tab.php:123
 #: features/login-legal-pages/includes/class-legal-pages.php:157
 msgid "Imprint"
 msgstr "Impressum"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:140
+#: features/login-legal-pages/admin/views/settings-tab.php:141
 msgid "Shown as the third link."
 msgstr "Erscheint als dritter Link."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:146
-#: features/login-legal-pages/admin/views/settings-tab.php:187
+#: features/login-legal-pages/admin/views/settings-tab.php:147
+#: features/login-legal-pages/admin/views/settings-tab.php:188
 msgid "Login address"
 msgstr "Login-Adresse"
 
 #. translators: %s: link to the permalink settings screen.
-#: features/login-legal-pages/admin/views/settings-tab.php:155
+#: features/login-legal-pages/admin/views/settings-tab.php:156
 #, php-format
 msgid "The login address needs pretty permalinks. Until they are switched on under <a href=\"%s\">Settings &rsaquo; Permalinks</a>, the login screen stays on <code>wp-login.php</code>."
 msgstr "Die Login-Adresse braucht sprechende Permalinks. Solange sie unter <a href=\"%s\">Einstellungen &rsaquo; Permalinks</a> nicht eingeschaltet sind, bleibt die Login-Seite auf <code>wp-login.php</code>."
 
 #. translators: %s: post title.
-#: features/login-legal-pages/admin/views/settings-tab.php:174
+#: features/login-legal-pages/admin/views/settings-tab.php:175
 #, php-format
 msgid "The content “%s” uses the same address and cannot be opened while the login screen answers there. Pick a different login address, or change that content's permalink."
 msgstr "Der Inhalt „%s“ nutzt dieselbe Adresse und kann nicht geöffnet werden, solange dort die Login-Seite antwortet. Wähle eine andere Login-Adresse oder ändere den Permalink dieses Inhalts."
 
 #. translators: %s: the login URL.
-#: features/login-legal-pages/admin/views/settings-tab.php:205
+#: features/login-legal-pages/admin/views/settings-tab.php:206
 #, php-format
 msgid "Every login link and form now points at %s. Opening wp-login.php redirects there; it is not blocked, so nobody can be locked out."
 msgstr "Jeder Login-Link und jedes Formular zeigt jetzt auf %s. Der Aufruf von wp-login.php leitet dorthin weiter; blockiert wird nichts, es kann sich also niemand aussperren."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:211
+#: features/login-legal-pages/admin/views/settings-tab.php:212
 msgid "A readable address is not a security feature. The rate limit below is."
 msgstr "Eine lesbare Adresse ist keine Sicherheitsfunktion. Das Rate-Limit unten schon."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:218
+#: features/login-legal-pages/admin/views/settings-tab.php:219
 msgid "Failed sign-ins"
 msgstr "Fehlgeschlagene Anmeldungen"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:222
+#: features/login-legal-pages/admin/views/settings-tab.php:223
 msgid "Counts failed sign-ins per IP address — on this login address, on wp-login.php, over XML-RPC and with application passwords alike — and refuses every attempt from that address for a while once the limit is reached, even with the correct password. Each further lockout within a day doubles the wait, up to 24 hours. Addresses are only stored hashed, and never per user name, so nobody can lock another user out."
 msgstr "Zählt fehlgeschlagene Anmeldungen pro IP-Adresse – über diese Login-Adresse, über wp-login.php, über XML-RPC und mit Anwendungspasswörtern gleichermaßen – und weist nach Erreichen des Limits eine Zeit lang jeden Versuch von dieser Adresse ab, auch mit dem richtigen Passwort. Jede weitere Sperre innerhalb eines Tages verdoppelt die Wartezeit, höchstens bis 24 Stunden. Adressen werden nur gehasht gespeichert und nie pro Benutzername gesperrt, damit niemand einen anderen Benutzer aussperren kann."
 
-#: features/login-legal-pages/admin/views/settings-tab.php:232
+#: features/login-legal-pages/admin/views/settings-tab.php:233
 msgid "Rate limit"
 msgstr "Rate-Limit"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:243
+#: features/login-legal-pages/admin/views/settings-tab.php:244
 msgid "Lock out an address after repeated failed sign-ins"
 msgstr "Adresse nach wiederholten Fehlversuchen sperren"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:249
+#: features/login-legal-pages/admin/views/settings-tab.php:250
 msgid "Failed attempts"
 msgstr "Fehlversuche"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:261
+#: features/login-legal-pages/admin/views/settings-tab.php:262
+#: features/login-legal-pages/admin/views/settings-tab.php:323
 msgid "within"
 msgstr "innerhalb von"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:269
+#: features/login-legal-pages/admin/views/settings-tab.php:270
+#: features/login-legal-pages/admin/views/settings-tab.php:324
 msgid "Window in minutes"
 msgstr "Zeitfenster in Minuten"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:272
-#: features/login-legal-pages/admin/views/settings-tab.php:289
+#: features/login-legal-pages/admin/views/settings-tab.php:273
+#: features/login-legal-pages/admin/views/settings-tab.php:290
+#: features/login-legal-pages/admin/views/settings-tab.php:325
+#: features/login-legal-pages/admin/views/settings-tab.php:334
 msgid "minutes"
 msgstr "Minuten"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:277
+#: features/login-legal-pages/admin/views/settings-tab.php:278
 msgid "First lockout"
 msgstr "Erste Sperre"
 
-#: features/login-legal-pages/admin/views/settings-tab.php:291
+#: features/login-legal-pages/admin/views/settings-tab.php:292
 msgid "Password reset requests are limited as well, to three per address and hour."
 msgstr "Anfragen zum Zurücksetzen des Passworts sind ebenfalls begrenzt, auf drei pro Adresse und Stunde."
+
+#: features/login-legal-pages/admin/views/settings-tab.php:299
+msgid "Passwords of protected pages"
+msgstr "Passwörter geschützter Seiten"
+
+#: features/login-legal-pages/admin/views/settings-tab.php:302
+msgid "A page or card protected with a password can be guessed at without limit, because WordPress checks the password only when the page is shown. This counts every password submitted per IP address, right or wrong, and answers with HTTP 429 once the limit is reached. Addresses are only stored hashed."
+msgstr "Eine mit Passwort geschützte Seite oder Karte lässt sich unbegrenzt erraten, weil WordPress das Passwort erst beim Anzeigen der Seite prüft. Gezählt wird jedes eingegebene Passwort je IP-Adresse, richtig oder falsch; ab dem Limit antwortet die Seite mit HTTP 429. Adressen werden nur gehasht gespeichert."
+
+#: features/login-legal-pages/admin/views/settings-tab.php:308
+msgid "Limit"
+msgstr "Begrenzung"
+
+#: features/login-legal-pages/admin/views/settings-tab.php:313
+msgid "Refuse further attempts from an address"
+msgstr "Weitere Versuche einer Adresse abweisen"
+
+#: features/login-legal-pages/admin/views/settings-tab.php:319
+msgid "Attempts"
+msgstr "Versuche"
+
+#: features/login-legal-pages/admin/views/settings-tab.php:330
+msgid "Lockout"
+msgstr "Sperre"
 
 #: features/login-legal-pages/includes/class-legal-pages.php:149
 msgid "Privacy Policy"
@@ -923,11 +951,19 @@ msgstr "Nutzungsbedingungen"
 msgid "Legal"
 msgstr "Rechtliches"
 
-#: features/login-legal-pages/includes/class-rate-limit.php:231
+#: features/login-legal-pages/includes/class-rate-limit.php:289
 msgid "Too many password reset requests. Please try again later."
 msgstr "Zu viele Anfragen zum Zurücksetzen des Passworts. Bitte versuche es später erneut."
 
-#: features/login-legal-pages/includes/class-rate-limit.php:255
+#: features/login-legal-pages/includes/class-rate-limit.php:365
+msgid "Too many password attempts. Please try again later."
+msgstr "Zu viele Passwortversuche. Bitte versuche es später erneut."
+
+#: features/login-legal-pages/includes/class-rate-limit.php:366
+msgid "Too many attempts"
+msgstr "Zu viele Versuche"
+
+#: features/login-legal-pages/includes/class-rate-limit.php:385
 msgid "Too many failed login attempts. Please try again later."
 msgstr "Zu viele fehlgeschlagene Anmeldeversuche. Bitte versuche es später erneut."
 

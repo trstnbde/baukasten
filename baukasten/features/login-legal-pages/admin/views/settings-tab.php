@@ -11,6 +11,7 @@
  * @var string   $slug_taken   Title of a published post using the same slug.
  * @var int      $privacy_page ID of the privacy policy page, or 0.
  * @var array{enabled: bool, threshold: int, window: int, lockout: int} $rate_limit Rate limit settings.
+ * @var array{enabled: bool, threshold: int, window: int, lockout: int} $postpass   Post password limit settings.
  */
 
 namespace Baukasten\LoginLegalPages;
@@ -290,6 +291,47 @@ defined( 'ABSPATH' ) || exit;
 					<p class="description">
 						<?php esc_html_e( 'Password reset requests are limited as well, to three per address and hour.', 'baukasten' ); ?>
 					</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2><?php esc_html_e( 'Passwords of protected pages', 'baukasten' ); ?></h2>
+
+	<p>
+		<?php esc_html_e( 'A page or card protected with a password can be guessed at without limit, because WordPress checks the password only when the page is shown. This counts every password submitted per IP address, right or wrong, and answers with HTTP 429 once the limit is reached. Addresses are only stored hashed.', 'baukasten' ); ?>
+	</p>
+
+	<table class="form-table" role="presentation">
+		<tbody>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Limit', 'baukasten' ); ?></th>
+				<td>
+					<input type="hidden" name="postpass_limit[enabled]" value="0" />
+					<label for="baukasten-llp-postpass-enabled">
+						<input type="checkbox" id="baukasten-llp-postpass-enabled" name="postpass_limit[enabled]" value="1" <?php checked( $postpass['enabled'] ); ?> />
+						<?php esc_html_e( 'Refuse further attempts from an address', 'baukasten' ); ?>
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="baukasten-llp-postpass-threshold"><?php esc_html_e( 'Attempts', 'baukasten' ); ?></label>
+				</th>
+				<td>
+					<input type="number" class="small-text" id="baukasten-llp-postpass-threshold" name="postpass_limit[threshold]" min="1" max="100" value="<?php echo esc_attr( (string) $postpass['threshold'] ); ?>" />
+					<?php esc_html_e( 'within', 'baukasten' ); ?>
+					<input type="number" class="small-text" id="baukasten-llp-postpass-window" name="postpass_limit[window]" min="1" max="1440" aria-label="<?php esc_attr_e( 'Window in minutes', 'baukasten' ); ?>" value="<?php echo esc_attr( (string) $postpass['window'] ); ?>" />
+					<?php esc_html_e( 'minutes', 'baukasten' ); ?>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">
+					<label for="baukasten-llp-postpass-lockout"><?php esc_html_e( 'Lockout', 'baukasten' ); ?></label>
+				</th>
+				<td>
+					<input type="number" class="small-text" id="baukasten-llp-postpass-lockout" name="postpass_limit[lockout]" min="1" max="1440" value="<?php echo esc_attr( (string) $postpass['lockout'] ); ?>" />
+					<?php esc_html_e( 'minutes', 'baukasten' ); ?>
 				</td>
 			</tr>
 		</tbody>

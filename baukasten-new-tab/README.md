@@ -86,6 +86,16 @@ Noto Sans, semi-condensed (width 87.5 %, weights 400 to 600 as one variable inst
 
 `assets/src/new-tab.js` and `assets/src/new-tab.css` are minified into `assets/js/` and `assets/css/` (esbuild; commands in the developer guide). The sources are not shipped.
 
+## Password and admin bar
+
+WordPress's "Password protected" visibility works on the page. `Renderer::is_locked()` is `is_new_tab() && post_password_required()`; a locked request gets `templates/locked.php` — a form from `get_the_password_form()` — and `take_over()` neither searches, forwards nor builds the view with favourites, greetings or backgrounds. The REST routes answer 401 while the password is missing; the cookie travels with the page's own `fetch()`. The lock page carries no inline style, so its policy has no hashes.
+
+A signed-in user passes, whatever the role, through the `post_password_required` filter — for this page only. Content Visibility's *Private* still wins: the guard runs first and sends a logged-out visitor to the login.
+
+The password form posts to `/login/?action=postpass`; Baukasten counts every submission per address and answers 429 after ten in fifteen minutes (settings on the Login & Legal tab).
+
+`Admin_Bar` adds the node `baukasten-new-tab` (priority 35) for every signed-in user with the `read` capability when the page is published, in the front end and in `wp-admin`. `assets/css/admin-bar.css` keeps it in the bar below 783 px, where WordPress hides every node it does not know. On the page itself there is no bar.
+
 ## Icon, footer
 
 The page's own icon is the site icon (`get_site_icon_url()`), or `/favicon.ico`, which WordPress answers with its own icon. The footer links are the site's standard — the privacy policy and, with Login Legal Pages, terms and imprint — and there is nothing to set.

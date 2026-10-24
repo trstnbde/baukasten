@@ -349,3 +349,12 @@ a { color: inherit; }
 	.bk-badge, .bk-cursor { forced-color-adjust: none; }
 	.bk-search__box { border: 1px solid CanvasText; }
 }
+
+/* The lock page. */
+.bk-lock-form { width: 100%; max-width: 420px; padding: 20px; border-radius: 8px; background: var(--bk-box); color: var(--bk-box-text); box-shadow: 0 4px 14px rgba(0, 0, 0, .2); }
+.bk-lock-form p { margin: 0 0 12px; }
+.bk-lock-form p:last-child { margin-bottom: 0; }
+.bk-lock-form label { display: grid; gap: 6px; }
+.bk-lock-form input[type="password"] { width: 100%; padding: 10px 12px; border: 1px solid var(--bk-line); border-radius: 6px; background: transparent; color: inherit; font: 400 16px var(--bk-font); }
+.bk-lock-form input[type="submit"] { margin-top: 8px; padding: 9px 18px; border: 0; border-radius: 6px; background: #6573ff; color: #fff; font: 600 15px var(--bk-font); cursor: pointer; }
+.bk-lock-form .post-password-form-invalid-password p { font-weight: 600; }

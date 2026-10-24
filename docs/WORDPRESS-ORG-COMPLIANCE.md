@@ -8,12 +8,12 @@ Current plugins:
 
 | | Slug | Version | Requires WP | Requires PHP |
 |---|---|---|---|---|
-| Baukasten - Privacy Toolkit (with Consent Blocking Engine, Content Visibility and Login Legal Pages built in) | `baukasten` | 1.0.0 | 6.5 | 8.1 |
+| Baukasten - Privacy Toolkit (with Consent Blocking Engine, Content Visibility and Login Legal Pages built in) | `baukasten` | 1.0.1 | 6.5 | 8.1 |
 | Baukasten Addon: Multi-Domain Landingpage | `baukasten-multi-domain` | 1.0.0 | 6.5 | 8.0 |
-| Baukasten Addon: Business Cards | `baukasten-business-cards` | 1.0.0 | 6.5 | 8.1 |
+| Baukasten Addon: Business Cards | `baukasten-business-cards` | 1.0.1 | 6.5 | 8.1 |
 | Baukasten Addon: Two-Factor Approval | `baukasten-2fa` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Form Privacy | `baukasten-form-privacy` | 1.0.0 | 6.5 | 8.1 |
-| Baukasten Addon: New Tab Page | `baukasten-new-tab` | 1.0.0 | 6.5 | 8.1 |
+| Baukasten Addon: New Tab Page | `baukasten-new-tab` | 1.0.1 | 6.5 | 8.1 |
 
 The slugs in that table are the slugs these plugins must end up with. WordPress.org does not read them from here — it derives the slug from the `Plugin Name` header, and none of the six derives correctly. What follows was written when there were seven plugins; "addon" there includes the three that are now part of the core. See [RELEASING.md](RELEASING.md); it is a one-shot correction at submission time.
 

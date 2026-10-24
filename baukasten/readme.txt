@@ -4,7 +4,7 @@ Tags: privacy, gdpr, consent, login, hardening
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,9 @@ Its options, the visibility flags and the consent log table are removed. Export 
 
 == Changelog ==
 
+= 1.0.1 =
+* Login: passwords of protected pages and cards are rate limited, ten attempts per address in fifteen minutes by default, with its own settings on the Login & Legal tab.
+
 = 1.0.0 =
 * The overview lists the addon Baukasten Addon: New Tab Page.
 * Login Legal Pages: the links under the login form are named after the pages they open, such as "Haftungsausschluss".
@@ -146,6 +149,9 @@ Its options, the visibility flags and the consent log table are removed. Export 
 * Addons are ordinary WordPress plugins with `Requires Plugins: baukasten`, registered through `baukasten/register_addons`.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Adds a rate limit for the passwords of protected pages and cards. Update together with Business Cards and New Tab Page 1.0.1.
 
 = 1.0.0 =
 Consent Blocking Engine, Content Visibility and Login Legal Pages are now built in. The old plugins are deactivated automatically; remove their folders by FTP, not from the Plugins screen, or their uninstall routine deletes your data.

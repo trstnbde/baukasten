@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten Addon: Business Cards 1.0.0\n"
+"Project-Id-Version: Baukasten Addon: Business Cards 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-business-cards\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-28T13:27:30+02:00\n"
+"POT-Creation-Date: 2026-10-24T18:38:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten-business-cards\n"
 
 #. Plugin Name of the plugin
 #: baukasten-business-cards.php
-#: includes/class-forms.php:146
+#: includes/class-forms.php:160
 msgid "Baukasten Addon: Business Cards"
 msgstr ""
 
@@ -200,60 +200,64 @@ msgid "Cards are deliberately outside Content Visibility: a card is a link you h
 msgstr ""
 
 #. translators: %d: form ID.
-#: includes/class-forms.php:336
+#: includes/class-forms.php:350
 #, php-format
 msgid "Form %d"
 msgstr ""
 
+#: includes/class-forms.php:578
+msgid "This card is protected by a password."
+msgstr ""
+
 #. translators: 1: opening link tag to the privacy policy. 2: closing link tag. 3: opening link tag to the terms. 4: closing link tag.
-#: includes/class-forms.php:564
+#: includes/class-forms.php:617
 #, php-format
 msgid "I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to the processing of my personal data."
 msgstr ""
 
-#: includes/class-forms.php:572
+#: includes/class-forms.php:625
 msgid "Name"
 msgstr ""
 
-#: includes/class-forms.php:575
+#: includes/class-forms.php:628
 #: includes/class-meta-boxes.php:436
 #: templates/partials/contact.php:19
 #: templates/partials/quick-actions.php:61
 msgid "Email"
 msgstr ""
 
-#: includes/class-forms.php:578
+#: includes/class-forms.php:631
 msgid "Message"
 msgstr ""
 
-#: includes/class-forms.php:587
+#: includes/class-forms.php:640
 msgid "Send message"
 msgstr ""
 
 #. translators: [_bkbc_card_title] is a mail tag, keep it as it is.
-#: includes/class-forms.php:619
+#: includes/class-forms.php:672
 msgid "Card: [_bkbc_card_title]"
 msgstr ""
 
-#: includes/class-forms.php:622
+#: includes/class-forms.php:675
 msgid "Sent from a business card at [_url]"
 msgstr ""
 
-#: includes/class-forms.php:623
+#: includes/class-forms.php:676
 msgid "Consent given: [email-consent]"
 msgstr ""
 
 #. translators: %s: the site title mail tag.
-#: includes/class-forms.php:630
+#: includes/class-forms.php:683
 #, php-format
 msgid "Business card enquiry via %s"
 msgstr ""
 
-#: includes/class-forms.php:769
+#: includes/class-forms.php:840
 msgid "This form is missing its consent checkbox and cannot be submitted. Please use one of the other ways to get in touch."
 msgstr ""
 
-#: includes/class-forms.php:788
+#: includes/class-forms.php:859
 msgid "Consent to the processing of your personal data is required."
 msgstr ""
 
@@ -682,6 +686,10 @@ msgctxt "navigation link block description"
 msgid "A link to a card."
 msgstr ""
 
+#: includes/class-renderer.php:184
+msgid "Protected card"
+msgstr ""
+
 #: includes/class-settings-tab.php:79
 msgid "Business Cards"
 msgstr ""
@@ -724,6 +732,10 @@ msgstr ""
 
 #: includes/class-skins.php:53
 msgid "Nocturne"
+msgstr ""
+
+#: templates/card-locked.php:49
+msgid "This card is password protected"
 msgstr ""
 
 #: templates/partials/actions.php:33

@@ -466,13 +466,14 @@ final class Settings_Tab {
 	 * @return void
 	 */
 	public static function render(): void {
-		$page_id    = Settings::page_id();
-		$page       = 0 < $page_id ? get_post( $page_id ) : null;
-		$settings   = Settings::all();
-		$has_key    = '' !== Settings::unsplash_key();
-		$is_private = 0 < $page_id && Legal_Links::is_private( $page_id );
-		$is_front   = 0 < $page_id && 'page' === get_option( 'show_on_front' ) && (int) get_option( 'page_on_front' ) === $page_id;
-		$media      = array();
+		$page_id      = Settings::page_id();
+		$page         = 0 < $page_id ? get_post( $page_id ) : null;
+		$settings     = Settings::all();
+		$has_key      = '' !== Settings::unsplash_key();
+		$is_private   = 0 < $page_id && Legal_Links::is_private( $page_id );
+		$is_protected = $page instanceof \WP_Post && '' !== (string) $page->post_password;
+		$is_front     = 0 < $page_id && 'page' === get_option( 'show_on_front' ) && (int) get_option( 'page_on_front' ) === $page_id;
+		$media        = array();
 
 		foreach ( (array) $settings['media_ids'] as $media_id ) {
 			$thumb = wp_get_attachment_image_src( (int) $media_id, 'thumbnail' );

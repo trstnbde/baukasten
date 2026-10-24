@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten Addon: New Tab Page 1.0.0\n"
+"Project-Id-Version: Baukasten Addon: New Tab Page 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-new-tab\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-24T12:03:11+00:00\n"
+"POT-Creation-Date: 2026-10-24T18:38:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten-new-tab\n"
@@ -39,339 +39,352 @@ msgstr ""
 msgid "https://github.com/trstnbde"
 msgstr ""
 
-#: admin/views/settings-tab.php:37
+#: admin/views/settings-tab.php:38
 msgid "A page of the site that works as the start page of a browser: search with a choice of engines, a favourites bar, a greeting and a background. It is served without the theme and makes no request to a third party, except when the background is set to photos from Unsplash."
 msgstr ""
 
-#: admin/views/settings-tab.php:42
+#: admin/views/settings-tab.php:43
 msgid "No page is selected yet. Choose one below, or let this plugin create one."
 msgstr ""
 
-#: admin/views/settings-tab.php:46
+#: admin/views/settings-tab.php:47
 msgid "Create page and select it"
 msgstr ""
 
 #. translators: %s: page slug.
-#: admin/views/settings-tab.php:51
+#: admin/views/settings-tab.php:52
 #, php-format
 msgid "Creates a published page called \"New Tab\" at /%s/, if that address is free."
 msgstr ""
 
-#: admin/views/settings-tab.php:64
+#: admin/views/settings-tab.php:65
 msgid "Page"
 msgstr ""
 
-#: admin/views/settings-tab.php:69
+#: admin/views/settings-tab.php:70
 #: includes/class-page-setting.php:84
 msgid "New tab page"
 msgstr ""
 
-#: admin/views/settings-tab.php:77
+#: admin/views/settings-tab.php:78
 msgid "— Select —"
 msgstr ""
 
-#: admin/views/settings-tab.php:84
+#: admin/views/settings-tab.php:85
 msgid "Open the page"
 msgstr ""
 
-#: admin/views/settings-tab.php:86
+#: admin/views/settings-tab.php:87
 msgid "This page shows search, favourites and a greeting instead of its content. It cannot be the posts page. It may be the homepage."
 msgstr ""
 
-#: admin/views/settings-tab.php:88
+#: admin/views/settings-tab.php:89
 msgid "This page is also the homepage, so the address of the site opens it."
 msgstr ""
 
-#: admin/views/settings-tab.php:93
+#: admin/views/settings-tab.php:94
 msgid "Who can open it"
 msgstr ""
 
-#: admin/views/settings-tab.php:96
+#: admin/views/settings-tab.php:97
 msgid "Decided per page, with the public/private switch of Content Visibility."
 msgstr ""
 
-#: admin/views/settings-tab.php:98
+#: admin/views/settings-tab.php:99
 msgid "Private: only logged-in users see it, everybody else is sent to the login screen."
 msgstr ""
 
-#: admin/views/settings-tab.php:100
-msgid "Public: anybody with the address sees it."
+#: admin/views/settings-tab.php:101
+msgid "Password protected: visitors who are not signed in see only a password form until they enter the password. Signed-in users see the page without it."
 msgstr ""
 
 #: admin/views/settings-tab.php:103
-msgid "Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private."
+msgid "Public: anybody with the address sees it."
 msgstr ""
 
-#: admin/views/settings-tab.php:105
+#: admin/views/settings-tab.php:106
+msgid "Switch it in the page editor, under Visibility. A public page shows its favourites to everybody — and favourites can give away addresses that are meant to stay private. A password protects them."
+msgstr ""
+
+#: admin/views/settings-tab.php:108
 msgid "Content Visibility"
 msgstr ""
 
-#: admin/views/settings-tab.php:113
+#: admin/views/settings-tab.php:116
 msgid "Greeting"
 msgstr ""
 
-#: admin/views/settings-tab.php:118
+#: admin/views/settings-tab.php:121
 msgid "Show a greeting"
 msgstr ""
 
-#: admin/views/settings-tab.php:120
+#: admin/views/settings-tab.php:123
 msgid "A line above the search box"
 msgstr ""
 
-#: admin/views/settings-tab.php:121
+#: admin/views/settings-tab.php:124
 msgid "On a holiday, in the week it falls in, show its own greeting"
 msgstr ""
 
-#: admin/views/settings-tab.php:122
+#: admin/views/settings-tab.php:125
 msgid "Carnival in Cologne, Easter, Eid al-Fitr, Europe Day, Eid al-Adha, Rosh Hashanah, Yom Kippur, German Unity Day, Christmas and New Year's Eve."
 msgstr ""
 
-#: admin/views/settings-tab.php:126
+#: admin/views/settings-tab.php:129
 msgid "Greetings"
 msgstr ""
 
-#: admin/views/settings-tab.php:129
+#: admin/views/settings-tab.php:132
 msgid "One per line, picked at random. These are the built-in greetings: edit, add or delete lines. Clearing the field restores them."
 msgstr ""
 
-#: admin/views/settings-tab.php:133
+#: admin/views/settings-tab.php:136
 msgid "Holiday greetings"
 msgstr ""
 
-#: admin/views/settings-tab.php:137
+#: admin/views/settings-tab.php:140
 msgid "Carnival in Cologne"
 msgstr ""
 
-#: admin/views/settings-tab.php:138
+#: admin/views/settings-tab.php:141
 msgid "Easter"
 msgstr ""
 
-#: admin/views/settings-tab.php:139
+#: admin/views/settings-tab.php:142
 msgid "Eid al-Fitr"
 msgstr ""
 
-#: admin/views/settings-tab.php:140
+#: admin/views/settings-tab.php:143
 msgid "Europe Day"
 msgstr ""
 
-#: admin/views/settings-tab.php:141
+#: admin/views/settings-tab.php:144
 msgid "Eid al-Adha"
 msgstr ""
 
-#: admin/views/settings-tab.php:142
+#: admin/views/settings-tab.php:145
 msgid "Rosh Hashanah"
 msgstr ""
 
-#: admin/views/settings-tab.php:143
+#: admin/views/settings-tab.php:146
 msgid "Yom Kippur"
 msgstr ""
 
-#: admin/views/settings-tab.php:144
+#: admin/views/settings-tab.php:147
 msgid "German Unity Day"
 msgstr ""
 
-#: admin/views/settings-tab.php:145
+#: admin/views/settings-tab.php:148
 msgid "Christmas"
 msgstr ""
 
-#: admin/views/settings-tab.php:146
+#: admin/views/settings-tab.php:149
 msgid "New Year's Eve"
 msgstr ""
 
-#: admin/views/settings-tab.php:158
+#: admin/views/settings-tab.php:161
 msgid "Shown in the week the holiday falls in. {hebrew_year}, {unity_years} and {next_year} are replaced by the year. Clearing a field restores the built-in greeting. Yom Kippur is a day of fasting: keep it respectful."
 msgstr ""
 
-#: admin/views/settings-tab.php:164
+#: admin/views/settings-tab.php:167
 #: templates/new-tab.php:101
 msgid "Search"
 msgstr ""
 
-#: admin/views/settings-tab.php:166
+#: admin/views/settings-tab.php:169
 msgid "The menu in the search box offers the engines that are switched on; the choice is remembered per browser. Typing @ and a shortcut in front of the terms searches one engine once. {q} in an address stands for the search terms."
 msgstr ""
 
-#: admin/views/settings-tab.php:171
+#: admin/views/settings-tab.php:174
 msgid "On"
 msgstr ""
 
-#: admin/views/settings-tab.php:172
+#: admin/views/settings-tab.php:175
 msgid "Default"
 msgstr ""
 
-#: admin/views/settings-tab.php:173
+#: admin/views/settings-tab.php:176
 msgid "Name"
 msgstr ""
 
-#: admin/views/settings-tab.php:174
+#: admin/views/settings-tab.php:177
 msgid "Shortcut"
 msgstr ""
 
-#: admin/views/settings-tab.php:175
-#: admin/views/settings-tab.php:300
-#: admin/views/settings-tab.php:309
+#: admin/views/settings-tab.php:178
+#: admin/views/settings-tab.php:303
+#: admin/views/settings-tab.php:312
 msgid "Address"
 msgstr ""
 
-#: admin/views/settings-tab.php:194
+#: admin/views/settings-tab.php:197
 #: templates/new-tab.php:103
 msgid "Suggestions"
 msgstr ""
 
-#: admin/views/settings-tab.php:196
+#: admin/views/settings-tab.php:199
 msgid "From Startpage, asked for by the server: Startpage sees what is typed, but not who typed it. Answers are cached for ten minutes."
 msgstr ""
 
-#: admin/views/settings-tab.php:202
+#: admin/views/settings-tab.php:205
 msgid "Background"
 msgstr ""
 
-#: admin/views/settings-tab.php:207
 #: admin/views/settings-tab.php:210
+#: admin/views/settings-tab.php:213
 msgid "Source"
 msgstr ""
 
-#: admin/views/settings-tab.php:211
+#: admin/views/settings-tab.php:214
 msgid "Images from the media library"
 msgstr ""
 
-#: admin/views/settings-tab.php:212
+#: admin/views/settings-tab.php:215
 msgid "Photos from the Unsplash API"
 msgstr ""
 
-#: admin/views/settings-tab.php:213
+#: admin/views/settings-tab.php:216
 msgid "None, a gradient"
 msgstr ""
 
-#: admin/views/settings-tab.php:218
+#: admin/views/settings-tab.php:221
 msgid "Library images"
 msgstr ""
 
-#: admin/views/settings-tab.php:227
+#: admin/views/settings-tab.php:230
 msgid "Choose images"
 msgstr ""
 
-#: admin/views/settings-tab.php:228
+#: admin/views/settings-tab.php:231
 msgid "Choosing images needs JavaScript."
 msgstr ""
 
-#: admin/views/settings-tab.php:231
+#: admin/views/settings-tab.php:234
 msgid "One is picked at random on every page load. Meant for photos downloaded from unsplash.com: the Unsplash License allows that and asks for no credit, but credit is welcome — write it into the image caption, which the page shows in its footer. An empty caption shows nothing."
 msgstr ""
 
-#: admin/views/settings-tab.php:236
+#: admin/views/settings-tab.php:239
 msgid "Unsplash access key"
 msgstr ""
 
-#: admin/views/settings-tab.php:238
+#: admin/views/settings-tab.php:241
 msgid "Stored — leave empty to keep it"
 msgstr ""
 
-#: admin/views/settings-tab.php:240
+#: admin/views/settings-tab.php:243
 msgid "Delete the stored key"
 msgstr ""
 
-#: admin/views/settings-tab.php:242
+#: admin/views/settings-tab.php:245
 msgid "The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser."
 msgstr ""
 
-#: admin/views/settings-tab.php:246
+#: admin/views/settings-tab.php:249
 msgid "Privacy notice"
 msgstr ""
 
-#: admin/views/settings-tab.php:248
+#: admin/views/settings-tab.php:251
 msgid "Mention this in your privacy policy."
 msgstr ""
 
-#: admin/views/settings-tab.php:249
+#: admin/views/settings-tab.php:252
 msgid "With photos from Unsplash, every visitor's browser loads the photos directly from images.unsplash.com, as the Unsplash API guidelines require. That sends the visitor's IP address and browser details to Unsplash, Inc. (USA), without asking first. The API calls for the list of photos come from this server and carry only the access key. With photos from the media library or no photo, the page loads nothing from third parties."
 msgstr ""
 
-#: admin/views/settings-tab.php:253
+#: admin/views/settings-tab.php:256
 msgid "Unsplash search terms"
 msgstr ""
 
-#: admin/views/settings-tab.php:257
+#: admin/views/settings-tab.php:260
 msgid "Orientation"
 msgstr ""
 
-#: admin/views/settings-tab.php:262
+#: admin/views/settings-tab.php:265
 msgid "Landscape"
 msgstr ""
 
-#: admin/views/settings-tab.php:263
+#: admin/views/settings-tab.php:266
 msgid "Portrait"
 msgstr ""
 
-#: admin/views/settings-tab.php:264
+#: admin/views/settings-tab.php:267
 msgid "Square"
 msgstr ""
 
-#: admin/views/settings-tab.php:265
+#: admin/views/settings-tab.php:268
 msgid "Any"
 msgstr ""
 
-#: admin/views/settings-tab.php:275
+#: admin/views/settings-tab.php:278
 msgid "Application name"
 msgstr ""
 
-#: admin/views/settings-tab.php:278
+#: admin/views/settings-tab.php:281
 msgid "As registered at Unsplash; used as utm_source in the links to the photographer."
 msgstr ""
 
-#: admin/views/settings-tab.php:282
+#: admin/views/settings-tab.php:285
 msgid "Change every"
 msgstr ""
 
-#: admin/views/settings-tab.php:285
+#: admin/views/settings-tab.php:288
 msgid "minutes"
 msgstr ""
 
-#: admin/views/settings-tab.php:286
+#: admin/views/settings-tab.php:289
 msgid "0 changes the background only when the page is loaded. A hidden tab does not change."
 msgstr ""
 
-#: admin/views/settings-tab.php:292
+#: admin/views/settings-tab.php:295
 #: templates/new-tab.php:64
 msgid "Favourites"
 msgstr ""
 
-#: admin/views/settings-tab.php:294
+#: admin/views/settings-tab.php:297
 msgid "The bar at the top. What does not fit moves into the » menu. Icons are fetched by the server when saving and once a week, and served from this site; without one, the bar draws the first letter."
 msgstr ""
 
-#: admin/views/settings-tab.php:299
-#: admin/views/settings-tab.php:308
+#: admin/views/settings-tab.php:302
+#: admin/views/settings-tab.php:311
 msgid "Title"
 msgstr ""
 
-#: admin/views/settings-tab.php:301
-#: admin/views/settings-tab.php:310
+#: admin/views/settings-tab.php:304
+#: admin/views/settings-tab.php:313
 msgid "Icon address (optional)"
 msgstr ""
 
-#: admin/views/settings-tab.php:302
+#: admin/views/settings-tab.php:305
 msgid "Order"
 msgstr ""
 
-#: admin/views/settings-tab.php:316
+#: admin/views/settings-tab.php:319
 msgid "Add a favourite"
 msgstr ""
 
-#: admin/views/settings-tab.php:319
+#: admin/views/settings-tab.php:322
 msgid "Save changes"
 msgstr ""
 
-#: admin/views/settings-tab.php:320
+#: admin/views/settings-tab.php:323
 msgid "Save and test the Unsplash connection"
 msgstr ""
 
-#: admin/views/settings-tab.php:327
+#: admin/views/settings-tab.php:330
 msgid "Empty the cache"
 msgstr ""
 
-#: admin/views/settings-tab.php:328
+#: admin/views/settings-tab.php:331
 msgid "Forgets the Unsplash photo pool and the cached suggestions."
+msgstr ""
+
+#: includes/class-admin-bar.php:71
+#: includes/class-settings-tab.php:389
+msgid "New Tab"
+msgstr ""
+
+#: includes/class-admin-bar.php:74
+msgid "Open the new tab page"
 msgstr ""
 
 #: includes/class-legal-links.php:50
@@ -395,37 +408,41 @@ msgstr ""
 msgid "The posts page cannot be the new tab page as well: its posts would no longer be shown. The previous choice was kept."
 msgstr ""
 
-#: includes/class-page-setting.php:96
+#: includes/class-page-setting.php:97
 msgid "You are editing the new tab page. Its content is not shown."
 msgstr ""
 
+#: includes/class-page-setting.php:100
+msgid "It is password protected: visitors who are not signed in see only the password form until they enter it."
+msgstr ""
+
 #. translators: %s: search engine name.
-#: includes/class-renderer.php:280
+#: includes/class-renderer.php:354
 #: templates/new-tab.php:84
 #, php-format
 msgid "Search engine: %s"
 msgstr ""
 
 #. translators: %s: search engine name.
-#: includes/class-renderer.php:282
+#: includes/class-renderer.php:356
 #: templates/new-tab.php:99
 #, php-format
 msgid "Search with %s or enter address"
 msgstr ""
 
 #. translators: %s: search engine name.
-#: includes/class-renderer.php:284
+#: includes/class-renderer.php:358
 #, php-format
 msgid "Search with %s"
 msgstr ""
 
-#: includes/class-renderer.php:285
+#: includes/class-renderer.php:359
 #: templates/new-tab.php:71
 msgid "More favourites"
 msgstr ""
 
 #. translators: 1: photographer, linked. 2: "Unsplash", linked.
-#: includes/class-renderer.php:287
+#: includes/class-renderer.php:361
 #: templates/new-tab.php:116
 #, php-format
 msgid "Photo: %1$s on %2$s"
@@ -439,7 +456,11 @@ msgstr ""
 msgid "The new tab page is available to logged-in users only."
 msgstr ""
 
-#: includes/class-rest-controller.php:105
+#: includes/class-rest-controller.php:93
+msgid "This page is password protected."
+msgstr ""
+
+#: includes/class-rest-controller.php:111
 msgid "Too many suggestion requests. Please wait a minute."
 msgstr ""
 
@@ -536,10 +557,6 @@ msgstr ""
 msgid "The page \"%1$s\" already uses the address /%2$s/. Select it under Settings → Reading, or choose another page there."
 msgstr ""
 
-#: includes/class-settings-tab.php:389
-msgid "New Tab"
-msgstr ""
-
 #: includes/class-settings-tab.php:397
 msgid "The page could not be created."
 msgstr ""
@@ -592,6 +609,15 @@ msgstr ""
 msgid "Back to the new tab page"
 msgstr ""
 
+#: templates/locked.php:36
+msgid "This page is password protected"
+msgstr ""
+
+#: templates/locked.php:44
+#: templates/new-tab.php:127
+msgid "Legal"
+msgstr ""
+
 #: templates/new-tab.php:88
 msgid "Search engine"
 msgstr ""
@@ -602,8 +628,4 @@ msgstr ""
 
 #: templates/new-tab.php:98
 msgid "Search or enter address"
-msgstr ""
-
-#: templates/new-tab.php:127
-msgid "Legal"
 msgstr ""

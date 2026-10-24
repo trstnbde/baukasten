@@ -90,10 +90,17 @@ final class Page_Setting {
 	/**
 	 * The notice text in the editor.
 	 *
+	 * @param \WP_Post|null $post The page being edited.
 	 * @return string Notice.
 	 */
-	private static function notice_text(): string {
-		return __( 'You are editing the new tab page. Its content is not shown.', 'baukasten-new-tab' );
+	private static function notice_text( ?\WP_Post $post = null ): string {
+		$text = __( 'You are editing the new tab page. Its content is not shown.', 'baukasten-new-tab' );
+
+		if ( $post instanceof \WP_Post && '' !== (string) $post->post_password ) {
+			$text .= ' ' . __( 'It is password protected: visitors who are not signed in see only the password form until they enter it.', 'baukasten-new-tab' );
+		}
+
+		return $text;
 	}
 
 	/**
@@ -109,7 +116,7 @@ final class Page_Setting {
 
 		printf(
 			'<div class="notice notice-warning inline"><p>%s</p></div>',
-			esc_html( self::notice_text() )
+			esc_html( self::notice_text( $post ) )
 		);
 	}
 
@@ -135,7 +142,7 @@ final class Page_Setting {
 
 		wp_add_inline_script(
 			self::EDITOR_HANDLE,
-			'window.baukastenNewTabNotice = ' . wp_json_encode( self::notice_text(), JSON_HEX_TAG | JSON_HEX_AMP ) . ';',
+			'window.baukastenNewTabNotice = ' . wp_json_encode( self::notice_text( $post ), JSON_HEX_TAG | JSON_HEX_AMP ) . ';',
 			'before'
 		);
 	}

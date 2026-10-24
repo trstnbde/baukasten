@@ -43,12 +43,12 @@ One tag, one ZIP, one GitHub release per plugin or theme:
 
 | Tag | ZIP |
 |---|---|
-| `baukasten-1.0.0` | `baukasten-1.0.0.zip` |
+| `baukasten-1.0.1` | `baukasten-1.0.1.zip` |
 | `baukasten-multi-domain-1.0.0` | `baukasten-multi-domain-1.0.0.zip` |
-| `baukasten-business-cards-1.0.0` | `baukasten-business-cards-1.0.0.zip` |
+| `baukasten-business-cards-1.0.1` | `baukasten-business-cards-1.0.1.zip` |
 | `baukasten-2fa-1.0.0` | `baukasten-2fa-1.0.0.zip` |
 | `baukasten-form-privacy-1.0.0` | `baukasten-form-privacy-1.0.0.zip` |
-| `baukasten-new-tab-1.0.0` | `baukasten-new-tab-1.0.0.zip` |
+| `baukasten-new-tab-1.0.1` | `baukasten-new-tab-1.0.1.zip` |
 | `baukasten-tt5-fork-1.5` | `baukasten-tt5-fork-1.5.zip` |
 
 Plugins: *Plugins → Add New → Upload Plugin*. Theme: *Appearance → Themes → Add New → Upload Theme*.

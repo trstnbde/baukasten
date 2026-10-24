@@ -17,7 +17,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: baukasten-business-cards.php
-#: includes/class-forms.php:146
+#: includes/class-forms.php:160
 msgid "Baukasten Addon: Business Cards"
 msgstr "Baukasten Addon: Business Cards"
 
@@ -201,60 +201,64 @@ msgid "Cards are deliberately outside Content Visibility: a card is a link you h
 msgstr "Karten sind bewusst von Content Visibility ausgenommen: Eine Karte ist ein Link, den du jemandem gibst, der nicht angemeldet ist."
 
 #. translators: %d: form ID.
-#: includes/class-forms.php:336
+#: includes/class-forms.php:350
 #, php-format
 msgid "Form %d"
 msgstr "Formular %d"
 
+#: includes/class-forms.php:578
+msgid "This card is protected by a password."
+msgstr "Diese Karte ist passwortgeschützt."
+
 #. translators: 1: opening link tag to the privacy policy. 2: closing link tag. 3: opening link tag to the terms. 4: closing link tag.
-#: includes/class-forms.php:564
+#: includes/class-forms.php:617
 #, php-format
 msgid "I have read the %1$sprivacy policy%2$s and the %3$sterms%4$s and consent to the processing of my personal data."
 msgstr "Ich habe die %1$sDatenschutzerklärung%2$s und die %3$sNutzungsbedingungen%4$s gelesen und willige in die Verarbeitung meiner personenbezogenen Daten ein."
 
-#: includes/class-forms.php:572
+#: includes/class-forms.php:625
 msgid "Name"
 msgstr "Name"
 
-#: includes/class-forms.php:575
+#: includes/class-forms.php:628
 #: includes/class-meta-boxes.php:436
 #: templates/partials/contact.php:19
 #: templates/partials/quick-actions.php:61
 msgid "Email"
 msgstr "E-Mail"
 
-#: includes/class-forms.php:578
+#: includes/class-forms.php:631
 msgid "Message"
 msgstr "Nachricht"
 
-#: includes/class-forms.php:587
+#: includes/class-forms.php:640
 msgid "Send message"
 msgstr "Nachricht senden"
 
 #. translators: [_bkbc_card_title] is a mail tag, keep it as it is.
-#: includes/class-forms.php:619
+#: includes/class-forms.php:672
 msgid "Card: [_bkbc_card_title]"
 msgstr "Karte: [_bkbc_card_title]"
 
-#: includes/class-forms.php:622
+#: includes/class-forms.php:675
 msgid "Sent from a business card at [_url]"
 msgstr "Gesendet von einer Visitenkarte unter [_url]"
 
-#: includes/class-forms.php:623
+#: includes/class-forms.php:676
 msgid "Consent given: [email-consent]"
 msgstr "Erteilte Einwilligung: [email-consent]"
 
 #. translators: %s: the site title mail tag.
-#: includes/class-forms.php:630
+#: includes/class-forms.php:683
 #, php-format
 msgid "Business card enquiry via %s"
 msgstr "Anfrage über eine Visitenkarte auf %s"
 
-#: includes/class-forms.php:769
+#: includes/class-forms.php:840
 msgid "This form is missing its consent checkbox and cannot be submitted. Please use one of the other ways to get in touch."
 msgstr "Diesem Formular fehlt die Einwilligungs-Checkbox, es lässt sich deshalb nicht absenden. Bitte nutze einen der anderen Kontaktwege."
 
-#: includes/class-forms.php:788
+#: includes/class-forms.php:859
 msgid "Consent to the processing of your personal data is required."
 msgstr "Die Einwilligung in die Verarbeitung deiner personenbezogenen Daten ist erforderlich."
 
@@ -683,6 +687,10 @@ msgctxt "navigation link block description"
 msgid "A link to a card."
 msgstr "Ein Link auf eine Visitenkarte."
 
+#: includes/class-renderer.php:184
+msgid "Protected card"
+msgstr "Geschützte Karte"
+
 #: includes/class-settings-tab.php:79
 msgid "Business Cards"
 msgstr "Visitenkarten"
@@ -726,6 +734,10 @@ msgstr "Industry"
 #: includes/class-skins.php:53
 msgid "Nocturne"
 msgstr "Nocturne"
+
+#: templates/card-locked.php:49
+msgid "This card is password protected"
+msgstr "Diese Karte ist passwortgeschützt"
 
 #: templates/partials/actions.php:33
 msgid "Save contact (.vcf)"

@@ -224,6 +224,14 @@ Every one of these cost time. They are listed so they cost it once.
 
 **Never run `phpcbf` from the repository root.** Without a ruleset next to it, it falls back to the PEAR standard and rewrites every PHP, JS and CSS file it is pointed at. Run it from inside the plugin directory, or pass `--standard=<plugin>/phpcs.xml.dist`.
 
+**A template that prints fields itself never meets the post password.** Core enforces it in `the_content` (the form replaces the content) and on a few other reads, not at the front door. Business Cards and New Tab Page render outside the theme, so a "Password protected" page or card showed everything to everybody until each renderer asked `post_password_required()` itself. The same goes for every side door of such a page: files (`?action=vcf`, `?action=pkpass`), REST routes and form endpoints. The cookie travels with a same-origin `fetch()`, so the check is the same there.
+
+**`wp-login.php?action=postpass` does not check the password.** It sets the cookie to the hash of whatever was typed and redirects; the check happens when the page is shown. A limit on login failures never sees a wrong guess, so `Rate_Limit` counts submissions to `postpass` itself, right or wrong.
+
+**`login_post` rewrites the password form's action to `/login/?action=postpass`.** That is `Login_URL::filter_site_url()` working as designed; the test `test_password_form_posts_to_the_login_address` keeps it so.
+
+**WordPress hides unknown admin bar nodes below 783 px.** A node added with `admin_bar_menu` needs its own CSS to stay in the phone-sized bar (`assets/css/admin-bar.css` in New Tab Page).
+
 ---
 
 ## 6. Where things are
@@ -251,7 +259,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-The five addons are at 1.0.0, the core at 1.0.0 and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
+The addons and the core are at 1.0.0, except Business Cards, New Tab Page and the core at 1.0.1 (passwords), and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
 
 The procedure lives in [`RELEASING.md`](RELEASING.md). For the day the directory submission is
 taken up again it also holds the one irreversible step: **WordPress.org derives the directory slug

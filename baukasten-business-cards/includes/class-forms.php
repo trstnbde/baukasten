@@ -103,6 +103,7 @@ final class Forms {
 	 */
 	public static function register(): void {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'match_assets_to_card' ), 20 );
+		add_filter( 'wpcf7_validate', array( __CLASS__, 'refuse_locked_card' ), 5, 2 );
 		add_filter( 'wpcf7_validate', array( __CLASS__, 'require_consent' ), 20, 2 );
 		add_filter( 'wpcf7_form_elements', array( __CLASS__, 'localise_consent_links' ) );
 		add_filter( 'wpcf7_special_mail_tags', array( __CLASS__, 'card_mail_tags' ), 10, 3 );
@@ -376,6 +377,16 @@ final class Forms {
 			return;
 		}
 
+		if ( Renderer::is_locked() ) {
+			// No form on the lock page, so none of Contact Form 7's files.
+			foreach ( self::CF7_HANDLES as $handle ) {
+				wp_dequeue_script( $handle );
+				wp_dequeue_style( $handle );
+			}
+
+			return;
+		}
+
 		$card = Fields::load( get_queried_object_id() );
 
 		if ( isset( $card['cf7_form_id'] ) ) {
@@ -539,6 +550,35 @@ final class Forms {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Refuses a submission from a card whose password has not been entered.
+	 *
+	 * The form is only printed on an unlocked card, but its endpoint is
+	 * Contact Form 7's REST route, which answers anybody who names a card in
+	 * `_wpcf7_container_post`. The cookie travels with the request, so the
+	 * check is the one the page itself makes. A refused submission sends no
+	 * mail and, being a validation failure, is not stored by Flamingo either.
+	 *
+	 * @param mixed $result The validation result.
+	 * @param mixed $tags   The form's tags.
+	 * @return mixed The validation result.
+	 */
+	public static function refuse_locked_card( $result, $tags ) {
+		$card_id = self::submitted_from_card();
+
+		if ( 0 >= $card_id || ! post_password_required( $card_id ) || ! is_object( $result ) || ! method_exists( $result, 'invalidate' ) ) {
+			return $result;
+		}
+
+		$tag = is_array( $tags ) && isset( $tags[0] ) ? $tags[0] : null;
+
+		if ( null !== $tag ) {
+			$result->invalidate( $tag, __( 'This card is protected by a password.', 'baukasten-business-cards' ) );
+		}
+
+		return $result;
 	}
 
 	/**

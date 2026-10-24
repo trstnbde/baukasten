@@ -79,6 +79,39 @@ final class Renderer {
 	public static function register(): void {
 		add_action( 'wp', array( __CLASS__, 'detach' ) );
 		add_filter( 'template_include', array( __CLASS__, 'use_card_template' ), 99 );
+		add_filter( 'post_password_required', array( __CLASS__, 'let_members_in' ), 10, 2 );
+	}
+
+	/**
+	 * Lets a signed-in user past a card's password.
+	 *
+	 * Every role, but only for cards: any other post keeps the core rule. The
+	 * password protects a card from the people who were not given it, and a
+	 * user who is signed in to this site is not one of them.
+	 *
+	 * @param mixed $required Whether a password is required.
+	 * @param mixed $post     The post.
+	 * @return bool Whether a password is required.
+	 */
+	public static function let_members_in( $required, $post ): bool {
+		if ( ! $required || ! is_user_logged_in() ) {
+			return (bool) $required;
+		}
+
+		$post = get_post( $post );
+
+		return ! ( $post instanceof \WP_Post && Post_Type::POST_TYPE === $post->post_type );
+	}
+
+	/**
+	 * Whether the current request is a card whose password is still missing.
+	 *
+	 * @return bool True for the lock page.
+	 */
+	public static function is_locked(): bool {
+		$card = get_queried_object();
+
+		return self::is_card_route() && $card instanceof \WP_Post && post_password_required( $card );
 	}
 
 	/**
@@ -116,6 +149,13 @@ final class Renderer {
 
 		add_filter( 'document_title_parts', array( __CLASS__, 'title_parts' ) );
 
+		if ( self::is_locked() ) {
+			// The lock page is not a card: no name in the tab, nothing for a
+			// search engine, and nothing for a cache to keep.
+			add_filter( 'wp_robots', 'wp_robots_no_robots' );
+			add_filter( 'wp_headers', array( __CLASS__, 'lock_headers' ) );
+		}
+
 		// After every theme and plugin has had its say. `wp_enqueue_scripts`
 		// runs from `wp_head` priority 1, well before styles are printed or
 		// inlined, so a dequeue here still takes effect.
@@ -140,9 +180,28 @@ final class Renderer {
 	 * @return array<string, string> Title parts.
 	 */
 	public static function title_parts( $parts ): array {
+		if ( self::is_locked() ) {
+			return array( 'title' => __( 'Protected card', 'baukasten-business-cards' ) );
+		}
+
 		$parts = array_map( 'strval', (array) $parts );
 
 		return isset( $parts['title'] ) ? array( 'title' => $parts['title'] ) : $parts;
+	}
+
+	/**
+	 * Headers of the lock page.
+	 *
+	 * @param mixed $headers Headers WordPress is about to send.
+	 * @return array<string, string> Headers.
+	 */
+	public static function lock_headers( $headers ): array {
+		$headers = array_map( 'strval', (array) $headers );
+
+		$headers['X-Robots-Tag']  = 'noindex, nofollow';
+		$headers['Cache-Control'] = 'no-store, private';
+
+		return $headers;
 	}
 
 	/**
@@ -160,7 +219,7 @@ final class Renderer {
 			return (string) $template;
 		}
 
-		$card_template = PLUGIN_DIR . 'templates/card-view.php';
+		$card_template = PLUGIN_DIR . ( self::is_locked() ? 'templates/card-locked.php' : 'templates/card-view.php' );
 
 		/**
 		 * Filters the template a card is rendered with.
@@ -210,6 +269,11 @@ final class Renderer {
 			array( self::HANDLE ),
 			VERSION
 		);
+
+		if ( self::is_locked() ) {
+			// A form and nothing else: none of the card's scripts.
+			return;
+		}
 
 		$needs_script = isset( $card['show_qr_modal'] ) || isset( $card['show_theme_toggle'] );
 

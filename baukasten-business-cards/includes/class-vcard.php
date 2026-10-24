@@ -83,6 +83,12 @@ final class VCard {
 			return;
 		}
 
+		// A locked card hands out no file. The request falls through to the
+		// card, which shows the password form.
+		if ( post_password_required( $post ) ) {
+			return;
+		}
+
 		$card = Fields::load( $post->ID );
 
 		if ( ! isset( $card['enable_vcf'] ) ) {
