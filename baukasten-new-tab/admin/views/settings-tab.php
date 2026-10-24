@@ -117,16 +117,45 @@ $baukasten_nt_cv_tab = class_exists( '\Baukasten\Admin' ) ? \Baukasten\Admin::pa
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Show a greeting', 'baukasten-new-tab' ); ?></th>
 				<td>
-					<label><input type="checkbox" name="greeting" value="1" <?php checked( ! empty( $settings['greeting'] ) ); ?> /> <?php esc_html_e( 'A line above the search box, picked at random on every visit', 'baukasten-new-tab' ); ?></label><br />
+					<label><input type="checkbox" name="greeting" value="1" <?php checked( ! empty( $settings['greeting'] ) ); ?> /> <?php esc_html_e( 'A line above the search box', 'baukasten-new-tab' ); ?></label><br />
 					<label><input type="checkbox" name="greeting_holidays" value="1" <?php checked( ! empty( $settings['greeting_holidays'] ) ); ?> /> <?php esc_html_e( 'On a holiday, in the week it falls in, show its own greeting', 'baukasten-new-tab' ); ?></label>
 					<p class="description"><?php esc_html_e( 'Carnival in Cologne, Easter, Eid al-Fitr, Europe Day, Eid al-Adha, Rosh Hashanah, Yom Kippur, German Unity Day, Christmas and New Year\'s Eve.', 'baukasten-new-tab' ); ?></p>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row"><label for="baukasten-new-tab-greeting-custom"><?php esc_html_e( 'Your own greetings', 'baukasten-new-tab' ); ?></label></th>
+				<th scope="row"><label for="baukasten-new-tab-greeting-custom"><?php esc_html_e( 'Greetings', 'baukasten-new-tab' ); ?></label></th>
 				<td>
-					<textarea id="baukasten-new-tab-greeting-custom" name="greeting_custom" rows="6" class="large-text" maxlength="20000"><?php echo esc_textarea( (string) $settings['greeting_custom'] ); ?></textarea>
-					<p class="description"><?php esc_html_e( 'One per line. If there are any, they replace the built-in ones (52 nerdy business greetings); the holiday greetings stay. The same greeting does not come back within three visits.', 'baukasten-new-tab' ); ?></p>
+					<textarea id="baukasten-new-tab-greeting-custom" name="greeting_custom" rows="12" class="large-text" maxlength="30000"><?php echo esc_textarea( implode( "\n", Greetings::pool()['random'] ) ); ?></textarea>
+					<p class="description"><?php esc_html_e( 'One per line, picked at random. These are the built-in greetings: edit, add or delete lines. Clearing the field restores them.', 'baukasten-new-tab' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Holiday greetings', 'baukasten-new-tab' ); ?></th>
+				<td>
+					<?php
+					$baukasten_nt_holiday_names = array(
+						'carnival_cologne' => __( 'Carnival in Cologne', 'baukasten-new-tab' ),
+						'easter'           => __( 'Easter', 'baukasten-new-tab' ),
+						'eid_al_fitr'      => __( 'Eid al-Fitr', 'baukasten-new-tab' ),
+						'europe_day'       => __( 'Europe Day', 'baukasten-new-tab' ),
+						'eid_al_adha'      => __( 'Eid al-Adha', 'baukasten-new-tab' ),
+						'rosh_hashanah'    => __( 'Rosh Hashanah', 'baukasten-new-tab' ),
+						'yom_kippur'       => __( 'Yom Kippur', 'baukasten-new-tab' ),
+						'german_unity'     => __( 'German Unity Day', 'baukasten-new-tab' ),
+						'christmas'        => __( 'Christmas', 'baukasten-new-tab' ),
+						'new_years_eve'    => __( 'New Year\'s Eve', 'baukasten-new-tab' ),
+					);
+					$baukasten_nt_holiday_texts = Greetings::pool()['holidays'];
+					?>
+					<table class="baukasten-new-tab-holidays">
+						<?php foreach ( $baukasten_nt_holiday_names as $baukasten_nt_key => $baukasten_nt_name ) : ?>
+						<tr>
+							<th scope="row"><label for="baukasten-new-tab-holiday-<?php echo esc_attr( $baukasten_nt_key ); ?>"><?php echo esc_html( $baukasten_nt_name ); ?></label></th>
+							<td><input type="text" class="large-text" id="baukasten-new-tab-holiday-<?php echo esc_attr( $baukasten_nt_key ); ?>" name="greeting_holiday_texts[<?php echo esc_attr( $baukasten_nt_key ); ?>]" value="<?php echo esc_attr( (string) ( $baukasten_nt_holiday_texts[ $baukasten_nt_key ] ?? '' ) ); ?>" maxlength="200" /></td>
+						</tr>
+						<?php endforeach; ?>
+					</table>
+					<p class="description"><?php esc_html_e( 'Shown in the week the holiday falls in. {hebrew_year}, {unity_years} and {next_year} are replaced by the year. Clearing a field restores the built-in greeting. Yom Kippur is a day of fasting: keep it respectful.', 'baukasten-new-tab' ); ?></p>
 				</td>
 			</tr>
 		</tbody>

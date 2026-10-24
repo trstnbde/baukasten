@@ -17,7 +17,7 @@ A browser start page is opened dozens of times a day and has one job. This addon
 
 The page is served from its own template. No theme, no block CSS, no admin bar, no tracking script, a Content Security Policy without `unsafe-inline`, and a font that lives on your server.
 
-* **Search** with a menu of engines — Startpage (default), Brave, Google AI mode, Perplexity, Yandex — each editable and switchable. `@sp`, `@b`, `@g`, `@p` and `@y` followed by a space search one engine once. Addresses such as `heise.de` or `localhost:8080` open directly; `Alt` or `Ctrl` with `Enter` opens a new tab; `/` focuses the field.
+* **Search** with a menu of engines — Startpage (default), Brave, Google AI mode, Perplexity, Yandex — each editable and switchable. `@s`, `@b`, `@g`, `@p` and `@y` followed by a space search one engine once. Addresses such as `heise.de` or `localhost:8080` open directly; `Alt` or `Ctrl` with `Enter` opens a new tab; `/` focuses the field.
 * **Suggestions** from Startpage, asked for by your server, so Startpage sees what was typed but not who typed it.
 * **Favourites bar** in the style of the Firefox bookmarks toolbar. What does not fit moves into a » menu. Icons are fetched by the server and served from your site.
 * **Background** from your media library (default), from Unsplash, or a plain gradient.

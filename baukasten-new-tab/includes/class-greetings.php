@@ -85,6 +85,31 @@ final class Greetings {
 	 * @return array{random: string[], holidays: array<string, string>} Random pool and holiday greetings.
 	 */
 	public static function pool(): array {
+		$pool = self::preset();
+
+		$custom = self::custom();
+
+		if ( array() !== $custom ) {
+			$pool['random'] = $custom;
+		}
+
+		$texts = (array) Settings::get( 'greeting_holiday_texts' );
+
+		foreach ( Holidays::KEYS as $key ) {
+			if ( isset( $texts[ $key ] ) && '' !== trim( (string) $texts[ $key ] ) ) {
+				$pool['holidays'][ $key ] = trim( (string) $texts[ $key ] );
+			}
+		}
+
+		return $pool;
+	}
+
+	/**
+	 * The built-in greetings of the current locale, before any edit.
+	 *
+	 * @return array{random: string[], holidays: array<string, string>} Random pool and holiday greetings.
+	 */
+	public static function preset(): array {
 		$locale = determine_locale();
 
 		if ( ! isset( self::$loaded[ $locale ] ) ) {
@@ -109,20 +134,15 @@ final class Greetings {
 			);
 		}
 
-		$pool   = self::$loaded[ $locale ];
-		$custom = self::custom();
-
-		if ( array() !== $custom ) {
-			$pool['random'] = $custom;
-		}
-
-		return $pool;
+		return self::$loaded[ $locale ];
 	}
 
 	/**
-	 * The site owner's own greetings, one per line.
+	 * The edited list of greetings, one per line.
 	 *
-	 * @return string[] Greetings; empty when none are set.
+	 * Empty while the presets are untouched.
+	 *
+	 * @return string[] Greetings; empty when the presets are in use.
 	 */
 	public static function custom(): array {
 		$lines = preg_split( '/\R/u', (string) Settings::get( 'greeting_custom' ) );

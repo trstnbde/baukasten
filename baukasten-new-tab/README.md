@@ -80,7 +80,7 @@ A holiday owns the ISO week its anchor falls into (`o`/`W`, site time zone). Two
 
 ## Fonts
 
-Noto Sans 400 and 600, `latin` and `latin-ext` as WOFF2 in `assets/fonts/`, SIL Open Font License 1.1 (`OFL-Noto-Sans.txt`). Only 600-latin is preloaded.
+Noto Sans, semi-condensed (width 87.5 %, weights 400 to 600 as one variable instance made from the variable font with fontTools), `latin` and `latin-ext` as WOFF2 in `assets/fonts/`, SIL Open Font License 1.1 (`OFL-Noto-Sans.txt`). Only 600-latin is preloaded.
 
 ## Sources of the script and stylesheet
 

@@ -588,6 +588,26 @@ class NewTabTest extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A holiday greeting can be edited; an empty text restores the preset.
+	 */
+	public function test_edited_holiday_greeting(): void {
+		$settings                           = Settings::all();
+		$settings['greeting_holiday_texts'] = array( 'rosh_hashanah' => 'Eigener Gruß {hebrew_year}' );
+
+		Settings::save( $settings );
+
+		$this->assertSame( 'Eigener Gruß 5788', Greetings::for_day( new DateTimeImmutable( '2027-10-02', wp_timezone() ) )['text'] );
+		$this->assertSame( Greetings::preset()['holidays']['easter'], Greetings::pool()['holidays']['easter'] );
+	}
+
+	/**
+	 * Startpage's shortcut is s.
+	 */
+	public function test_startpage_shortcut(): void {
+		$this->assertSame( 'startpage', Search::parse( '@s linux', 'brave' )['engine'] );
+	}
+
+	/**
 	 * Suggestions always come from Startpage.
 	 */
 	public function test_suggestions_come_from_startpage(): void {

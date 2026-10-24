@@ -307,7 +307,7 @@ final class Renderer {
 			'nojs_style' => self::NOJS_STYLE,
 			'css'        => self::asset( 'assets/css/new-tab.css' ),
 			'js'         => self::asset( 'assets/js/new-tab.js' ),
-			'font'       => plugin_url( 'assets/fonts/noto-sans-latin-600.woff2' ),
+			'font'       => plugin_url( 'assets/fonts/noto-sans-sc-latin.woff2' ),
 			'icon'       => get_site_icon_url( 32, home_url( '/favicon.ico' ) ),
 		);
 	}

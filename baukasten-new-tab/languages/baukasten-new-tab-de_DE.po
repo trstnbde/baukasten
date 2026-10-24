@@ -116,8 +116,8 @@ msgid "Show a greeting"
 msgstr "Gruß anzeigen"
 
 #: admin/views/settings-tab.php:120
-msgid "A line above the search box, picked at random on every visit"
-msgstr "Eine Zeile über dem Suchfeld, bei jedem Aufruf zufällig gewählt"
+msgid "A line above the search box"
+msgstr "Eine Zeile über dem Suchfeld"
 
 #: admin/views/settings-tab.php:121
 msgid "On a holiday, in the week it falls in, show its own greeting"
@@ -128,202 +128,250 @@ msgid "Carnival in Cologne, Easter, Eid al-Fitr, Europe Day, Eid al-Adha, Rosh H
 msgstr "Kölner Karneval, Ostern, Eid al-Fitr, Europatag, Eid al-Adha, Rosch ha-Schana, Jom Kippur, Tag der Deutschen Einheit, Weihnachten und Silvester."
 
 #: admin/views/settings-tab.php:126
-msgid "Your own greetings"
-msgstr "Eigene Grüße"
+msgid "Greetings"
+msgstr "Grüße"
 
 #: admin/views/settings-tab.php:129
-msgid "One per line. If there are any, they replace the built-in ones (52 nerdy business greetings); the holiday greetings stay. The same greeting does not come back within three visits."
-msgstr "Einer pro Zeile. Sind welche eingetragen, ersetzen sie die eingebauten (52 nerdige Business-Grüße); die Feiertagsgrüße bleiben. Derselbe Gruß kommt nicht innerhalb von drei Aufrufen wieder."
+msgid "One per line, picked at random. These are the built-in greetings: edit, add or delete lines. Clearing the field restores them."
+msgstr "Einer pro Zeile, zufällig gewählt. Das sind die eingebauten Grüße: Zeilen ändern, ergänzen oder löschen. Leeren des Felds stellt sie wieder her."
 
-#: admin/views/settings-tab.php:135
+#: admin/views/settings-tab.php:133
+msgid "Holiday greetings"
+msgstr "Feiertagsgrüße"
+
+#: admin/views/settings-tab.php:137
+msgid "Carnival in Cologne"
+msgstr "Kölner Karneval"
+
+#: admin/views/settings-tab.php:138
+msgid "Easter"
+msgstr "Ostern"
+
+#: admin/views/settings-tab.php:139
+msgid "Eid al-Fitr"
+msgstr "Eid al-Fitr"
+
+#: admin/views/settings-tab.php:140
+msgid "Europe Day"
+msgstr "Europatag"
+
+#: admin/views/settings-tab.php:141
+msgid "Eid al-Adha"
+msgstr "Eid al-Adha"
+
+#: admin/views/settings-tab.php:142
+msgid "Rosh Hashanah"
+msgstr "Rosch ha-Schana"
+
+#: admin/views/settings-tab.php:143
+msgid "Yom Kippur"
+msgstr "Jom Kippur"
+
+#: admin/views/settings-tab.php:144
+msgid "German Unity Day"
+msgstr "Tag der Deutschen Einheit"
+
+#: admin/views/settings-tab.php:145
+msgid "Christmas"
+msgstr "Weihnachten"
+
+#: admin/views/settings-tab.php:146
+msgid "New Year's Eve"
+msgstr "Silvester"
+
+#: admin/views/settings-tab.php:158
+msgid "Shown in the week the holiday falls in. {hebrew_year}, {unity_years} and {next_year} are replaced by the year. Clearing a field restores the built-in greeting. Yom Kippur is a day of fasting: keep it respectful."
+msgstr "Wird in der Woche gezeigt, in die der Feiertag fällt. {hebrew_year}, {unity_years} und {next_year} werden durch die Jahreszahl ersetzt. Ein geleertes Feld stellt den eingebauten Gruß wieder her. Jom Kippur ist ein Fastentag: bitte respektvoll bleiben."
+
+#: admin/views/settings-tab.php:164
 #: templates/new-tab.php:101
 msgid "Search"
 msgstr "Suche"
 
-#: admin/views/settings-tab.php:137
+#: admin/views/settings-tab.php:166
 msgid "The menu in the search box offers the engines that are switched on; the choice is remembered per browser. Typing @ and a shortcut in front of the terms searches one engine once. {q} in an address stands for the search terms."
 msgstr "Das Menü im Suchfeld bietet die eingeschalteten Suchmaschinen an; die Wahl merkt sich der Browser. Ein @ mit Kürzel vor dem Suchbegriff sucht einmalig mit dieser Suchmaschine. {q} in einer Adresse steht für den Suchbegriff."
 
-#: admin/views/settings-tab.php:142
+#: admin/views/settings-tab.php:171
 msgid "On"
 msgstr "An"
 
-#: admin/views/settings-tab.php:143
+#: admin/views/settings-tab.php:172
 msgid "Default"
 msgstr "Standard"
 
-#: admin/views/settings-tab.php:144
+#: admin/views/settings-tab.php:173
 msgid "Name"
 msgstr "Name"
 
-#: admin/views/settings-tab.php:145
+#: admin/views/settings-tab.php:174
 msgid "Shortcut"
 msgstr "Kürzel"
 
-#: admin/views/settings-tab.php:146
-#: admin/views/settings-tab.php:271
-#: admin/views/settings-tab.php:280
+#: admin/views/settings-tab.php:175
+#: admin/views/settings-tab.php:300
+#: admin/views/settings-tab.php:309
 msgid "Address"
 msgstr "Adresse"
 
-#: admin/views/settings-tab.php:165
+#: admin/views/settings-tab.php:194
 #: templates/new-tab.php:103
 msgid "Suggestions"
 msgstr "Vorschläge"
 
-#: admin/views/settings-tab.php:167
+#: admin/views/settings-tab.php:196
 msgid "From Startpage, asked for by the server: Startpage sees what is typed, but not who typed it. Answers are cached for ten minutes."
 msgstr "Von Startpage, vom Server abgefragt: Startpage sieht, was getippt wird, aber nicht, wer es tippt. Antworten werden zehn Minuten zwischengespeichert."
 
-#: admin/views/settings-tab.php:173
+#: admin/views/settings-tab.php:202
 msgid "Background"
 msgstr "Hintergrund"
 
-#: admin/views/settings-tab.php:178
-#: admin/views/settings-tab.php:181
+#: admin/views/settings-tab.php:207
+#: admin/views/settings-tab.php:210
 msgid "Source"
 msgstr "Quelle"
 
-#: admin/views/settings-tab.php:182
+#: admin/views/settings-tab.php:211
 msgid "Images from the media library"
 msgstr "Bilder aus der Mediathek"
 
-#: admin/views/settings-tab.php:183
+#: admin/views/settings-tab.php:212
 msgid "Photos from the Unsplash API"
 msgstr "Fotos von der Unsplash-API"
 
-#: admin/views/settings-tab.php:184
+#: admin/views/settings-tab.php:213
 msgid "None, a gradient"
 msgstr "Keiner, ein Farbverlauf"
 
-#: admin/views/settings-tab.php:189
+#: admin/views/settings-tab.php:218
 msgid "Library images"
 msgstr "Bilder aus der Mediathek"
 
-#: admin/views/settings-tab.php:198
+#: admin/views/settings-tab.php:227
 msgid "Choose images"
 msgstr "Bilder auswählen"
 
-#: admin/views/settings-tab.php:199
+#: admin/views/settings-tab.php:228
 msgid "Choosing images needs JavaScript."
 msgstr "Die Bildauswahl braucht JavaScript."
 
-#: admin/views/settings-tab.php:202
+#: admin/views/settings-tab.php:231
 msgid "One is picked at random on every page load. Meant for photos downloaded from unsplash.com: the Unsplash License allows that and asks for no credit, but credit is welcome — write it into the image caption, which the page shows in its footer. An empty caption shows nothing."
 msgstr "Bei jedem Aufruf wird eines zufällig gewählt. Gedacht für Fotos von unsplash.com: Die Unsplash-Lizenz erlaubt das und verlangt keine Nennung, sie ist aber erwünscht – schreib sie in die Bildunterschrift, die die Seite im Footer zeigt. Eine leere Bildunterschrift zeigt nichts."
 
-#: admin/views/settings-tab.php:207
+#: admin/views/settings-tab.php:236
 msgid "Unsplash access key"
 msgstr "Unsplash Access Key"
 
-#: admin/views/settings-tab.php:209
+#: admin/views/settings-tab.php:238
 msgid "Stored — leave empty to keep it"
 msgstr "Gespeichert – leer lassen, um ihn zu behalten"
 
-#: admin/views/settings-tab.php:211
+#: admin/views/settings-tab.php:240
 msgid "Delete the stored key"
 msgstr "Gespeicherten Schlüssel löschen"
 
-#: admin/views/settings-tab.php:213
+#: admin/views/settings-tab.php:242
 msgid "The Access Key of an application at unsplash.com/developers. It stays on the server and never reaches a browser."
 msgstr "Der Access Key einer Anwendung auf unsplash.com/developers. Er bleibt auf dem Server und erreicht nie einen Browser."
 
-#: admin/views/settings-tab.php:217
+#: admin/views/settings-tab.php:246
 msgid "Privacy notice"
 msgstr "Datenschutzhinweis"
 
-#: admin/views/settings-tab.php:219
+#: admin/views/settings-tab.php:248
 msgid "Mention this in your privacy policy."
 msgstr "Nenne das in deiner Datenschutzerklärung."
 
-#: admin/views/settings-tab.php:220
+#: admin/views/settings-tab.php:249
 msgid "With photos from Unsplash, every visitor's browser loads the photos directly from images.unsplash.com, as the Unsplash API guidelines require. That sends the visitor's IP address and browser details to Unsplash, Inc. (USA), without asking first. The API calls for the list of photos come from this server and carry only the access key. With photos from the media library or no photo, the page loads nothing from third parties."
 msgstr "Bei Fotos von Unsplash lädt der Browser jedes Besuchers die Fotos direkt von images.unsplash.com, wie es die Unsplash-API-Richtlinien verlangen. Dabei gehen die IP-Adresse und Browserdaten des Besuchers ohne vorherige Nachfrage an Unsplash, Inc. (USA). Die API-Aufrufe für die Fotoliste kommen von diesem Server und enthalten nur den Access Key. Bei Fotos aus der Mediathek oder ohne Foto lädt die Seite nichts von Dritten."
 
-#: admin/views/settings-tab.php:224
+#: admin/views/settings-tab.php:253
 msgid "Unsplash search terms"
 msgstr "Unsplash-Suchbegriffe"
 
-#: admin/views/settings-tab.php:228
+#: admin/views/settings-tab.php:257
 msgid "Orientation"
 msgstr "Ausrichtung"
 
-#: admin/views/settings-tab.php:233
+#: admin/views/settings-tab.php:262
 msgid "Landscape"
 msgstr "Querformat"
 
-#: admin/views/settings-tab.php:234
+#: admin/views/settings-tab.php:263
 msgid "Portrait"
 msgstr "Hochformat"
 
-#: admin/views/settings-tab.php:235
+#: admin/views/settings-tab.php:264
 msgid "Square"
 msgstr "Quadratisch"
 
-#: admin/views/settings-tab.php:236
+#: admin/views/settings-tab.php:265
 msgid "Any"
 msgstr "Beliebig"
 
-#: admin/views/settings-tab.php:246
+#: admin/views/settings-tab.php:275
 msgid "Application name"
 msgstr "Anwendungsname"
 
-#: admin/views/settings-tab.php:249
+#: admin/views/settings-tab.php:278
 msgid "As registered at Unsplash; used as utm_source in the links to the photographer."
 msgstr "Wie bei Unsplash registriert; wird als utm_source in den Links zum Fotografen verwendet."
 
-#: admin/views/settings-tab.php:253
+#: admin/views/settings-tab.php:282
 msgid "Change every"
 msgstr "Wechseln alle"
 
-#: admin/views/settings-tab.php:256
+#: admin/views/settings-tab.php:285
 msgid "minutes"
 msgstr "Minuten"
 
-#: admin/views/settings-tab.php:257
+#: admin/views/settings-tab.php:286
 msgid "0 changes the background only when the page is loaded. A hidden tab does not change."
 msgstr "0 wechselt den Hintergrund nur beim Laden der Seite. Ein verborgener Tab wechselt nicht."
 
-#: admin/views/settings-tab.php:263
+#: admin/views/settings-tab.php:292
 #: templates/new-tab.php:64
 msgid "Favourites"
 msgstr "Favoriten"
 
-#: admin/views/settings-tab.php:265
+#: admin/views/settings-tab.php:294
 msgid "The bar at the top. What does not fit moves into the » menu. Icons are fetched by the server when saving and once a week, and served from this site; without one, the bar draws the first letter."
 msgstr "Die Leiste oben. Was nicht passt, wandert ins »-Menü. Symbole holt der Server beim Speichern und einmal pro Woche und liefert sie von dieser Website aus; ohne Symbol zeigt die Leiste den ersten Buchstaben."
 
-#: admin/views/settings-tab.php:270
-#: admin/views/settings-tab.php:279
+#: admin/views/settings-tab.php:299
+#: admin/views/settings-tab.php:308
 msgid "Title"
 msgstr "Titel"
 
-#: admin/views/settings-tab.php:272
-#: admin/views/settings-tab.php:281
+#: admin/views/settings-tab.php:301
+#: admin/views/settings-tab.php:310
 msgid "Icon address (optional)"
 msgstr "Symbol-Adresse (optional)"
 
-#: admin/views/settings-tab.php:273
+#: admin/views/settings-tab.php:302
 msgid "Order"
 msgstr "Reihenfolge"
 
-#: admin/views/settings-tab.php:287
+#: admin/views/settings-tab.php:316
 msgid "Add a favourite"
 msgstr "Favorit hinzufügen"
 
-#: admin/views/settings-tab.php:290
+#: admin/views/settings-tab.php:319
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: admin/views/settings-tab.php:291
+#: admin/views/settings-tab.php:320
 msgid "Save and test the Unsplash connection"
 msgstr "Speichern und Unsplash-Verbindung testen"
 
-#: admin/views/settings-tab.php:298
+#: admin/views/settings-tab.php:327
 msgid "Empty the cache"
 msgstr "Cache leeren"
 
-#: admin/views/settings-tab.php:299
+#: admin/views/settings-tab.php:328
 msgid "Forgets the Unsplash photo pool and the cached suggestions."
 msgstr "Vergisst den Unsplash-Fotopool und die zwischengespeicherten Vorschläge."
 
@@ -429,8 +477,8 @@ msgid "Remove this image"
 msgstr "Dieses Bild entfernen"
 
 #: includes/class-settings-tab.php:159
-#: includes/class-settings-tab.php:346
-#: includes/class-settings-tab.php:396
+#: includes/class-settings-tab.php:362
+#: includes/class-settings-tab.php:412
 msgid "You are not allowed to change these settings."
 msgstr "Du darfst diese Einstellungen nicht ändern."
 
@@ -454,54 +502,54 @@ msgstr "Mindestens eine Suchmaschine muss eingeschaltet bleiben. Startpage blieb
 msgid "The default search engine has to be one that is switched on."
 msgstr "Die Standard-Suchmaschine muss eine eingeschaltete sein."
 
-#: includes/class-settings-tab.php:270
+#: includes/class-settings-tab.php:286
 msgid "That does not look like an Unsplash access key (20 to 100 letters, digits, - or _). The stored key was kept."
 msgstr "Das sieht nicht wie ein Unsplash Access Key aus (20 bis 100 Buchstaben, Ziffern, - oder _). Der gespeicherte Schlüssel wurde beibehalten."
 
 #. translators: %s: the address as entered.
-#: includes/class-settings-tab.php:294
+#: includes/class-settings-tab.php:310
 #, php-format
 msgid "The favourite \"%s\" was left out: only http and https addresses work."
 msgstr "Der Favorit „%s“ wurde ausgelassen: Nur http- und https-Adressen funktionieren."
 
 #. translators: %d: maximum number of favourites.
-#: includes/class-settings-tab.php:301
+#: includes/class-settings-tab.php:317
 #, php-format
 msgid "Only the first %d favourites were kept."
 msgstr "Nur die ersten %d Favoriten wurden übernommen."
 
-#: includes/class-settings-tab.php:324
-#: includes/class-settings-tab.php:332
+#: includes/class-settings-tab.php:340
+#: includes/class-settings-tab.php:348
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
-#: includes/class-settings-tab.php:329
+#: includes/class-settings-tab.php:345
 msgid "Settings saved, with exceptions:"
 msgstr "Einstellungen gespeichert, mit Ausnahmen:"
 
-#: includes/class-settings-tab.php:352
+#: includes/class-settings-tab.php:368
 msgid "A new tab page is already selected."
 msgstr "Es ist bereits eine Neuer-Tab-Seite ausgewählt."
 
 #. translators: 1: page title. 2: slug.
-#: includes/class-settings-tab.php:362
+#: includes/class-settings-tab.php:378
 #, php-format
 msgid "The page \"%1$s\" already uses the address /%2$s/. Select it under Settings → Reading, or choose another page there."
 msgstr "Die Seite „%1$s“ verwendet die Adresse /%2$s/ bereits. Wähle sie unter Einstellungen → Lesen aus oder wähle dort eine andere Seite."
 
-#: includes/class-settings-tab.php:373
+#: includes/class-settings-tab.php:389
 msgid "New Tab"
 msgstr "Neuer Tab"
 
-#: includes/class-settings-tab.php:381
+#: includes/class-settings-tab.php:397
 msgid "The page could not be created."
 msgstr "Die Seite konnte nicht angelegt werden."
 
-#: includes/class-settings-tab.php:386
+#: includes/class-settings-tab.php:402
 msgid "Page created and selected as the new tab page."
 msgstr "Seite angelegt und als Neuer-Tab-Seite ausgewählt."
 
-#: includes/class-settings-tab.php:404
+#: includes/class-settings-tab.php:420
 msgid "Cache emptied. The next page load fetches a new photo pool."
 msgstr "Cache geleert. Der nächste Seitenaufruf holt einen neuen Fotopool."
 

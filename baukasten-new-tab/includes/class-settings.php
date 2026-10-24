@@ -80,7 +80,7 @@ final class Settings {
 			'startpage'  => array(
 				'badge'    => 'S',
 				'label'    => 'Startpage',
-				'shortcut' => 'sp',
+				'shortcut' => 's',
 				'template' => 'https://www.startpage.com/sp/search?query={q}&cat=web&language=deutsch&lui=deutsch',
 				'enabled'  => true,
 			),
@@ -122,18 +122,19 @@ final class Settings {
 	 */
 	public static function defaults(): array {
 		return array(
-			'default_engine'       => 'startpage',
-			'engines'              => self::default_engines(),
-			'background'           => 'media',
-			'media_ids'            => array(),
-			'unsplash_query'       => 'wallpapers,nature',
-			'unsplash_orientation' => 'landscape',
-			'unsplash_app_name'    => '',
-			'interval'             => 10,
-			'favorites'            => array(),
-			'greeting'             => true,
-			'greeting_holidays'    => true,
-			'greeting_custom'      => '',
+			'default_engine'         => 'startpage',
+			'engines'                => self::default_engines(),
+			'background'             => 'media',
+			'media_ids'              => array(),
+			'unsplash_query'         => 'wallpapers,nature',
+			'unsplash_orientation'   => 'landscape',
+			'unsplash_app_name'      => '',
+			'interval'               => 10,
+			'favorites'              => array(),
+			'greeting'               => true,
+			'greeting_holidays'      => true,
+			'greeting_custom'        => '',
+			'greeting_holiday_texts' => array(),
 		);
 	}
 

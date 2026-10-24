@@ -35,3 +35,7 @@
 @media (max-width: 782px) {
 	.baukasten-new-tab-engines .large-text { min-width: 0; }
 }
+
+.baukasten-new-tab-holidays { width: 100%; max-width: 50em; border-collapse: collapse; }
+.baukasten-new-tab-holidays th { width: 12em; padding: 4px 8px 4px 0; font-weight: 400; text-align: left; }
+.baukasten-new-tab-holidays td { padding: 4px 0; }

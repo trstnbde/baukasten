@@ -229,9 +229,25 @@ final class Settings_Tab {
 		$settings['greeting']          = ! empty( $_POST['greeting'] );
 		$settings['greeting_holidays'] = ! empty( $_POST['greeting_holidays'] );
 
-		$custom                      = isset( $_POST['greeting_custom'] ) ? sanitize_textarea_field( wp_unslash( (string) $_POST['greeting_custom'] ) ) : '';
-		$custom                      = array_map( static fn( string $line ): string => mb_substr( trim( $line ), 0, 160 ), (array) preg_split( '/\R/u', $custom ) );
-		$settings['greeting_custom'] = implode( "\n", array_slice( array_values( array_filter( $custom ) ), 0, 200 ) );
+		$preset = Greetings::preset();
+		$custom = isset( $_POST['greeting_custom'] ) ? sanitize_textarea_field( wp_unslash( (string) $_POST['greeting_custom'] ) ) : '';
+		$custom = array_values( array_unique( array_filter( array_map( static fn( string $line ): string => mb_substr( trim( $line ), 0, 160 ), (array) preg_split( '/\R/u', $custom ) ) ) ) );
+
+		// Untouched presets are not stored, so an update of them still reaches this site.
+		$settings['greeting_custom'] = $custom === $preset['random'] ? '' : implode( "\n", array_slice( $custom, 0, 200 ) );
+
+		$posted_texts = isset( $_POST['greeting_holiday_texts'] ) && is_array( $_POST['greeting_holiday_texts'] ) ? wp_unslash( $_POST['greeting_holiday_texts'] ) : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Sanitised field by field below.
+		$texts        = array();
+
+		foreach ( Holidays::KEYS as $key ) {
+			$text = isset( $posted_texts[ $key ] ) ? mb_substr( sanitize_text_field( (string) $posted_texts[ $key ] ), 0, 200 ) : '';
+
+			if ( '' !== $text && ( $preset['holidays'][ $key ] ?? '' ) !== $text ) {
+				$texts[ $key ] = $text;
+			}
+		}
+
+		$settings['greeting_holiday_texts'] = $texts;
 
 		// Background.
 		$mode                   = isset( $_POST['background'] ) ? sanitize_key( wp_unslash( (string) $_POST['background'] ) ) : $old['background'];
