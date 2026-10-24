@@ -266,7 +266,7 @@ final class Search {
 	/**
 	 * The engines as the page's script sees them.
 	 *
-	 * @return array<int, array{id: string, label: string, shortcut: string, template: string}> Engines in menu order.
+	 * @return array<int, array{id: string, badge: string, label: string, shortcut: string, template: string}> Engines in menu order.
 	 */
 	public static function for_script(): array {
 		$engines = array();
@@ -274,6 +274,7 @@ final class Search {
 		foreach ( Settings::active_engines() as $id => $engine ) {
 			$engines[] = array(
 				'id'       => $id,
+				'badge'    => $engine['badge'],
 				'label'    => $engine['label'],
 				'shortcut' => $engine['shortcut'],
 				'template' => $engine['template'],

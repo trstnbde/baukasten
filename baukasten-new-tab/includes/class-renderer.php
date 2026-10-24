@@ -159,7 +159,7 @@ final class Renderer {
 		header( 'Cache-Control: no-store, private' );
 		header( 'X-Robots-Tag: noindex, nofollow' );
 
-		if ( wp_safe_redirect( $url, 302, 'Baukasten New Tab Page' ) ) {
+		if ( wp_safe_redirect( $url, 303, 'Baukasten New Tab Page' ) ) {
 			exit;
 		}
 	}
@@ -261,11 +261,15 @@ final class Renderer {
 			),
 			'i18n'          => array(
 				/* translators: %s: search engine name. */
-				'engine'      => __( 'Search engine: %s', 'baukasten-new-tab' ),
-				'more'        => __( 'More favourites', 'baukasten-new-tab' ),
+				'engine'           => __( 'Search engine: %s', 'baukasten-new-tab' ),
+				/* translators: %s: search engine name. */
+				'placeholder'      => __( 'Search with %s or enter address', 'baukasten-new-tab' ),
+				/* translators: %s: search engine name. */
+				'placeholderShort' => __( 'Search with %s', 'baukasten-new-tab' ),
+				'more'             => __( 'More favourites', 'baukasten-new-tab' ),
 				/* translators: 1: photographer, linked. 2: "Unsplash", linked. */
-				'photoBy'     => __( 'Photo: %1$s on %2$s', 'baukasten-new-tab' ),
-				'consentFail' => __( 'The choice could not be saved. Please try again.', 'baukasten-new-tab' ),
+				'photoBy'          => __( 'Photo: %1$s on %2$s', 'baukasten-new-tab' ),
+				'consentFail'      => __( 'The choice could not be saved. Please try again.', 'baukasten-new-tab' ),
 			),
 		);
 

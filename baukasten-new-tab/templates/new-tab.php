@@ -20,11 +20,11 @@ $baukasten_nt_media      = isset( $baukasten_nt_background['media'] ) ? (array) 
 $baukasten_nt_photo      = isset( $baukasten_nt_background['photo'] ) ? (array) $baukasten_nt_background['photo'] : array();
 $baukasten_nt_engines    = (array) $baukasten_nt_view['engines'];
 $baukasten_nt_engine     = (string) $baukasten_nt_view['engine'];
-$baukasten_nt_label      = '';
+$baukasten_nt_current    = $baukasten_nt_engines[0];
 
 foreach ( $baukasten_nt_engines as $baukasten_nt_candidate ) {
 	if ( $baukasten_nt_candidate['id'] === $baukasten_nt_engine ) {
-		$baukasten_nt_label = (string) $baukasten_nt_candidate['label'];
+		$baukasten_nt_current = $baukasten_nt_candidate;
 	}
 }
 
@@ -78,13 +78,14 @@ Renderer::start_compression();
 
 	<form class="bk-search" role="search" method="get" action="<?php echo esc_url( (string) $baukasten_nt_view['action'] ); ?>">
 		<div class="bk-search__box">
-			<button type="button" class="bk-engine" aria-haspopup="listbox" aria-expanded="false" aria-controls="bk-engines">
-				<span class="bk-engine__label"><?php echo esc_html( $baukasten_nt_label ); ?></span>
+			<button type="button" class="bk-engine" aria-haspopup="listbox" aria-expanded="false" aria-controls="bk-engines" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: search engine name. */ __( 'Search engine: %s', 'baukasten-new-tab' ), $baukasten_nt_current['label'] ) ); ?>">
+				<span class="bk-badge bk-badge--<?php echo esc_attr( (string) $baukasten_nt_current['id'] ); ?>" aria-hidden="true"><?php echo esc_html( (string) $baukasten_nt_current['badge'] ); ?></span>
 				<svg class="bk-engine__chevron" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
 			</button>
 			<ul class="bk-engines" id="bk-engines" role="listbox" aria-label="<?php esc_attr_e( 'Search engine', 'baukasten-new-tab' ); ?>" tabindex="-1" hidden>
+				<li class="bk-engines__head" role="presentation"><?php esc_html_e( 'Search with', 'baukasten-new-tab' ); ?></li>
 				<?php foreach ( $baukasten_nt_engines as $baukasten_nt_candidate ) : ?>
-				<li class="bk-engines__option" role="option" id="bk-engine-<?php echo esc_attr( (string) $baukasten_nt_candidate['id'] ); ?>" data-engine="<?php echo esc_attr( (string) $baukasten_nt_candidate['id'] ); ?>" aria-selected="<?php echo $baukasten_nt_candidate['id'] === $baukasten_nt_engine ? 'true' : 'false'; ?>"><?php echo esc_html( (string) $baukasten_nt_candidate['label'] ); ?>
+				<li class="bk-engines__option" role="option" id="bk-engine-<?php echo esc_attr( (string) $baukasten_nt_candidate['id'] ); ?>" data-engine="<?php echo esc_attr( (string) $baukasten_nt_candidate['id'] ); ?>" aria-selected="false" aria-checked="<?php echo $baukasten_nt_candidate['id'] === $baukasten_nt_engine ? 'true' : 'false'; ?>"><span class="bk-badge bk-badge--<?php echo esc_attr( (string) $baukasten_nt_candidate['id'] ); ?>" aria-hidden="true"><?php echo esc_html( (string) $baukasten_nt_candidate['badge'] ); ?></span><span class="bk-engines__name"><?php echo esc_html( (string) $baukasten_nt_candidate['label'] ); ?></span>
 					<?php
 					if ( '' !== $baukasten_nt_candidate['shortcut'] ) :
 						?>
@@ -92,7 +93,7 @@ Renderer::start_compression();
 				<?php endforeach; ?>
 			</ul>
 			<label class="bk-sr" for="bk-q"><?php esc_html_e( 'Search or enter address', 'baukasten-new-tab' ); ?></label>
-			<input class="bk-search__input" id="bk-q" name="q" type="search" maxlength="<?php echo esc_attr( (string) Search::MAX_LENGTH ); ?>" placeholder="<?php esc_attr_e( 'Search or enter address', 'baukasten-new-tab' ); ?>" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" autofocus role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bk-suggestions">
+			<input class="bk-search__input" id="bk-q" name="q" type="search" maxlength="<?php echo esc_attr( (string) Search::MAX_LENGTH ); ?>" placeholder="<?php echo esc_attr( sprintf( /* translators: %s: search engine name. */ __( 'Search with %s or enter address', 'baukasten-new-tab' ), $baukasten_nt_current['label'] ) ); ?>" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" autofocus role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bk-suggestions">
 			<input type="hidden" name="e" value="<?php echo esc_attr( $baukasten_nt_engine ); ?>">
 			<button type="submit" class="bk-search__submit"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M6.5 1a5.5 5.5 0 014.38 8.83l3.9 3.9-1.06 1.06-3.9-3.9A5.5 5.5 0 116.5 1zm0 1.5a4 4 0 100 8 4 4 0 000-8z" fill="currentColor"/></svg><span class="bk-sr"><?php esc_html_e( 'Search', 'baukasten-new-tab' ); ?></span></button>
 		</div>

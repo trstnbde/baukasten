@@ -78,35 +78,40 @@ final class Settings {
 	 * for whether its language parameter actually changes the interface; see
 	 * the plugin README.
 	 *
-	 * @return array<string, array{label: string, shortcut: string, template: string, enabled: bool}> Engines keyed by id.
+	 * @return array<string, array{badge: string, label: string, shortcut: string, template: string, enabled: bool}> Engines keyed by id.
 	 */
 	public static function default_engines(): array {
 		return array(
 			'startpage'  => array(
+				'badge'    => 'S',
 				'label'    => 'Startpage',
 				'shortcut' => 'sp',
 				'template' => 'https://www.startpage.com/sp/search?query={q}&cat=web&language=deutsch&lui=deutsch',
 				'enabled'  => true,
 			),
 			'brave'      => array(
+				'badge'    => 'B',
 				'label'    => 'Brave',
 				'shortcut' => 'b',
 				'template' => 'https://search.brave.com/search?q={q}&source=web&lang=de&country=de',
 				'enabled'  => true,
 			),
 			'google_ai'  => array(
+				'badge'    => 'G',
 				'label'    => 'Google KI-Modus',
 				'shortcut' => 'g',
 				'template' => 'https://www.google.com/search?q={q}&udm=50&hl=de&gl=de',
 				'enabled'  => true,
 			),
 			'perplexity' => array(
+				'badge'    => 'P',
 				'label'    => 'Perplexity',
 				'shortcut' => 'p',
 				'template' => 'https://www.perplexity.ai/search?q={q}',
 				'enabled'  => true,
 			),
 			'yandex'     => array(
+				'badge'    => 'Y',
 				'label'    => 'Yandex',
 				'shortcut' => 'y',
 				'template' => 'https://yandex.com/search/?text={q}&lang=de',
@@ -127,7 +132,7 @@ final class Settings {
 			'suggest'              => 'google',
 			'background'           => 'media',
 			'media_ids'            => array(),
-			'unsplash_query'       => 'wallpapers, nature',
+			'unsplash_query'       => 'wallpapers,nature',
 			'unsplash_orientation' => 'landscape',
 			'unsplash_app_name'    => '',
 			'interval'             => 10,
@@ -210,7 +215,7 @@ final class Settings {
 	/**
 	 * The engines that are switched on, in menu order.
 	 *
-	 * @return array<string, array{label: string, shortcut: string, template: string, enabled: bool}> Engines keyed by id.
+	 * @return array<string, array{badge: string, label: string, shortcut: string, template: string, enabled: bool}> Engines keyed by id.
 	 */
 	public static function active_engines(): array {
 		$active = array_filter(
@@ -248,7 +253,7 @@ final class Settings {
 	 * same ids in the same order.
 	 *
 	 * @param array<string, mixed> $stored Stored engines.
-	 * @return array<string, array{label: string, shortcut: string, template: string, enabled: bool}> Complete list.
+	 * @return array<string, array{badge: string, label: string, shortcut: string, template: string, enabled: bool}> Complete list.
 	 */
 	private static function complete_engines( array $stored ): array {
 		$engines = array();
@@ -257,6 +262,7 @@ final class Settings {
 			$engine = isset( $stored[ $id ] ) && is_array( $stored[ $id ] ) ? $stored[ $id ] : array();
 
 			$engines[ $id ] = array(
+				'badge'    => $default['badge'],
 				'label'    => isset( $engine['label'] ) && '' !== $engine['label'] ? (string) $engine['label'] : $default['label'],
 				'shortcut' => isset( $engine['shortcut'] ) ? (string) $engine['shortcut'] : $default['shortcut'],
 				'template' => isset( $engine['template'] ) && '' !== $engine['template'] ? (string) $engine['template'] : $default['template'],
