@@ -22,4 +22,6 @@ They are kept as written. What was decided on top of them the same day, and wher
 - **No local test server.** Development still happens locally; testing happens on the live site and in CI. Deployment is by SSH rather than by the site owner uploading ZIPs.
 - **WordPress.org submission is on hold**, so recommendation 15 (`Update URI`) is in place for all five plugins.
 
+A later brief, written on 24 October 2026, is kept the same way: [04-briefing-baukasten-new-tab.md](04-briefing-baukasten-new-tab.md), the Baukasten Addon: New Tab Page (protocol: [`../acceptance/new-tab.md`](../acceptance/new-tab.md)).
+
 Protocols of what was checked are in [`../acceptance/`](../acceptance).

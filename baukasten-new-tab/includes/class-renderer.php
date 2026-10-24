@@ -283,7 +283,8 @@ final class Renderer {
 
 		return array(
 			'page_id'    => $page_id,
-			'title'      => trim( wp_strip_all_tags( get_the_title( $page_id ) ) ),
+			// The raw title, not get_the_title(): a typography plugin puts soft hyphens in the latter, and a tab title is not the place for them.
+			'title'      => trim( wp_strip_all_tags( (string) get_post_field( 'post_title', $page_id ) ) ),
 			'lang'       => (string) get_bloginfo( 'language' ),
 			'action'     => (string) get_permalink( $page_id ),
 			'greeting'   => $greeting,
@@ -328,10 +329,17 @@ final class Renderer {
 	/**
 	 * Builds the Content Security Policy.
 	 *
-	 * @param array<string, mixed> $view View.
+	 * Sent as a header and, without `frame-ancestors`, as a `<meta>` tag as
+	 * well: servers that set their own `Content-Security-Policy` header for the
+	 * whole site (this one does, for `frame-ancestors`) replace ours instead of
+	 * adding to it, and only a policy in the document survives that. Policies
+	 * add up, so the stricter of the two applies.
+	 *
+	 * @param array<string, mixed> $view     View.
+	 * @param bool                 $for_meta Whether it is for a `<meta>` tag.
 	 * @return string Policy.
 	 */
-	public static function content_security_policy( array $view ): string {
+	public static function content_security_policy( array $view, bool $for_meta = false ): string {
 		$own = array_merge( array( "'self'" ), self::extra_origins() );
 		$img = array_merge( $own, array( 'data:' ) );
 
@@ -359,6 +367,11 @@ final class Renderer {
 			'base-uri'        => array( "'none'" ),
 			'object-src'      => array( "'none'" ),
 		);
+
+		if ( $for_meta ) {
+			// A policy in a <meta> tag cannot carry these, and browsers warn when it tries.
+			unset( $directives['frame-ancestors'] );
+		}
 
 		$policy = array();
 

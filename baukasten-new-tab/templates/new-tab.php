@@ -36,6 +36,7 @@ Renderer::start_compression();
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="<?php echo esc_attr( Renderer::content_security_policy( $baukasten_nt_view, true ) ); ?>">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark light">
 <title><?php echo esc_html( (string) $baukasten_nt_view['title'] ); ?></title>
