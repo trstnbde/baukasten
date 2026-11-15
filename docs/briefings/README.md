@@ -26,4 +26,6 @@ A later brief, written on 24 October 2026, is kept the same way: [04-briefing-ba
 
 A second one, also of 24 October 2026: [05-briefing-passwortschutz.md](05-briefing-passwortschutz.md), passwords on cards and the new tab page and the admin bar link (protocol: [`../acceptance/password-protection.md`](../acceptance/password-protection.md)).
 
+A third, of 15 November 2026: [06-briefing-wishlist.md](06-briefing-wishlist.md), the Baukasten Addon: Wishlist (protocol: [`../acceptance/wishlist.md`](../acceptance/wishlist.md)).
+
 Protocols of what was checked are in [`../acceptance/`](../acceptance).
