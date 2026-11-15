@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: baukasten
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,9 @@ Yes, with "Show: All wishes" or "Already bought". The list starts with the wishe
 
 == Changelog ==
 
+= 1.0.2 =
+* When the Undo message times out after a report made with the mouse, the page no longer scrolls up to the filters. Keyboard users keep a visible focus, without a jump.
+
 = 1.0.1 =
 * A list starts with the wishes still wanted, so a reported wish leaves it. Blocks and shortcodes that chose "All wishes" explicitly keep it.
 * After a report that hides the wish, the message offers Undo for ten seconds, and pauses while it has the pointer or the keyboard focus.
@@ -67,6 +70,9 @@ Yes, with "Show: All wishes" or "Already bought". The list starts with the wishe
 * First release.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+The list no longer jumps to its filters when the Undo message disappears.
 
 = 1.0.1 =
 Bought wishes leave the list for guests, with Undo in the message right after a report.

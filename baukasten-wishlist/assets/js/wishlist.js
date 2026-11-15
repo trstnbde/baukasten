@@ -346,19 +346,24 @@
 		this.focusFallback();
 	};
 
-	/** Somewhere sensible outside every card: the status filter, else the title. */
-	Wishlist.prototype.focusFallback = function () {
+	/**
+	 * Somewhere sensible outside every card: the status filter, else the title.
+	 *
+	 * @param {Object} options Passed to focus(); `{ preventScroll: true }`
+	 *                         keeps the page where the visitor is reading.
+	 */
+	Wishlist.prototype.focusFallback = function ( options ) {
 		var status = this.controls ? this.controls.querySelector( 'select[data-control="status"]' ) : null;
 
 		if ( isShown( status ) ) {
-			status.focus();
+			status.focus( options );
 
 			return;
 		}
 
 		if ( this.title ) {
 			this.title.setAttribute( 'tabindex', '-1' );
-			this.title.focus();
+			this.title.focus( options );
 		}
 	};
 
@@ -489,9 +494,10 @@
 				}
 
 				// Taken back under "Already bought": the card leaves this view,
-				// and the focus must not leave with it.
+				// and the focus must not leave with it. Only a keyboard user is
+				// taken up to the filters; a mouse user stays where they are.
 				if ( ! focused || focused === document.body || item.contains( focused ) ) {
-					self.focusFallback();
+					self.focusFallback( { preventScroll: ! keyboardFocus( focused ) } );
 				}
 
 				self.leave( item );
@@ -654,9 +660,16 @@
 			return;
 		}
 
-		// The focus must not stay on a button that is about to vanish.
+		// The focus must not stay on a button that is about to vanish. A
+		// mouse user, whose focus the script put there, simply loses it: the
+		// page stays where it is. A keyboard user gets a visible focus back,
+		// without a scroll, since the toast sat fixed over the reading position.
 		if ( ! keepFocus && toast.contains( document.activeElement ) ) {
-			this.focusFallback();
+			if ( keyboardFocus( document.activeElement ) ) {
+				this.focusFallback( { preventScroll: true } );
+			} else {
+				document.activeElement.blur();
+			}
 		}
 
 		window.clearTimeout( this.toastTimer );
@@ -791,6 +804,8 @@
 		// Re-appending a focused card drops its focus; note it to restore it.
 		var active = document.activeElement;
 		var activeItem = active && active.closest ? active.closest( '.baukasten-wl-item' ) : null;
+		// Measured now: re-appending drops the focus, and with it :focus-visible.
+		var activeByKeyboard = keyboardFocus( active );
 		var sorted = this.items.slice().sort( this.compare.bind( this ) );
 		var shown = 0;
 
@@ -808,7 +823,7 @@
 
 		if ( activeItem ) {
 			if ( activeItem.hidden ) {
-				this.focusFallback();
+				this.focusFallback( { preventScroll: ! activeByKeyboard } );
 			} else if ( document.activeElement !== active && isShown( active ) ) {
 				active.focus( { preventScroll: true } );
 			}
@@ -846,7 +861,7 @@
 		if ( 0 === mine.length || ! this.container ) {
 			if ( this.notice ) {
 				if ( this.notice.contains( document.activeElement ) ) {
-					this.focusFallback();
+					this.focusFallback( { preventScroll: ! keyboardFocus( document.activeElement ) } );
 				}
 
 				this.notice.hidden = true;
