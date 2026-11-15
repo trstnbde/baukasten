@@ -4,7 +4,7 @@ Tags: privacy, gdpr, consent, login, hardening
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Baukasten is a privacy toolkit in one plugin. Everything is configured on one sc
 * **Content Visibility** — a public/private switch for every post, page and public custom post type. Private content is readable by logged-in users only, regardless of their role.
 * **Login Legal Pages** — links to your privacy policy, terms and imprint on the login screen, a readable `/login/` address, and a rate limit on failed sign-ins.
 
-All three are always on. More features come as separate addon plugins, which add their own tabs to the same screen: Multi-Domain Landingpage, Business Cards, Two-Factor Approval, Form Privacy and New Tab Page.
+All three are always on. More features come as separate addon plugins, which add their own tabs to the same screen: Multi-Domain Landingpage, Business Cards, Two-Factor Approval, Form Privacy, New Tab Page and Wishlist.
 
 = Consent: what it blocks =
 
@@ -128,6 +128,9 @@ Its options, the visibility flags and the consent log table are removed. Export 
 
 == Changelog ==
 
+= 1.0.2 =
+* The addon overview lists Wishlist.
+
 = 1.0.1 =
 * Login: passwords of protected pages and cards are rate limited, ten attempts per address in fifteen minutes by default, with its own settings on the Login & Legal tab.
 
@@ -149,6 +152,9 @@ Its options, the visibility flags and the consent log table are removed. Export 
 * Addons are ordinary WordPress plugins with `Requires Plugins: baukasten`, registered through `baukasten/register_addons`.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Lists the Wishlist addon on the overview tab.
 
 = 1.0.1 =
 Adds a rate limit for the passwords of protected pages and cards. Update together with Business Cards and New Tab Page 1.0.1.

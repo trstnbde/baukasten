@@ -34,6 +34,7 @@ Separate plugins that declare `Requires Plugins: baukasten` and add a tab:
 | [`baukasten-2fa`](../baukasten-2fa) | 60 | A second factor approved from another signed-in session. |
 | [`baukasten-form-privacy`](../baukasten-form-privacy) | 70 | Contact Form 7 and Flamingo without the leaks. |
 | [`baukasten-new-tab`](../baukasten-new-tab) | 80 | A page that works as the browser start page. |
+| [`baukasten-wishlist`](../baukasten-wishlist) | 90 | Wishlists where guests mark anonymously what they bought. |
 
 ## What the core provides
 

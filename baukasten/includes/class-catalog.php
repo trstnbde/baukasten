@@ -114,6 +114,12 @@ final class Catalog {
 				'description' => __( 'Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting and a background, detached from the theme and without third-party requests.', 'baukasten' ),
 				'position'    => 80,
 			),
+			'wishlist'           => array(
+				'slug'        => 'baukasten-wishlist',
+				'title'       => 'Baukasten Addon: Wishlist',
+				'description' => __( 'Wishlists for birthdays and other occasions: wishes with image, quantity, price, priority and shop link in a page or post, where guests mark anonymously what they bought.', 'baukasten' ),
+				'position'    => 90,
+			),
 		);
 	}
 

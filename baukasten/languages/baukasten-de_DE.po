@@ -1015,19 +1015,23 @@ msgstr "Contact Form 7 ohne Datenlecks: seine Dateien nur dort, wo ein Formular 
 msgid "Turns one page into a browser start page: search with a choice of engines, a favourites bar, a greeting and a background, detached from the theme and without third-party requests."
 msgstr "Macht eine Seite zur Startseite des Browsers: Suche mit wählbarer Suchmaschine, Favoritenleiste, Gruß und Hintergrund, vom Theme abgekoppelt und ohne Anfragen an Dritte."
 
-#: includes/class-catalog.php:250
+#: includes/class-catalog.php:120
+msgid "Wishlists for birthdays and other occasions: wishes with image, quantity, price, priority and shop link in a page or post, where guests mark anonymously what they bought."
+msgstr "Wunschlisten für Geburtstage und andere Anlässe: Wünsche mit Bild, Menge, Preis, Priorität und Shop-Link in einer Seite oder einem Beitrag, wo Gäste anonym markieren, was sie gekauft haben."
+
+#: includes/class-catalog.php:256
 msgid "Included"
 msgstr "Enthalten"
 
-#: includes/class-catalog.php:253
+#: includes/class-catalog.php:259
 msgid "Active"
 msgstr "Aktiv"
 
-#: includes/class-catalog.php:256
+#: includes/class-catalog.php:262
 msgid "Installed, not active"
 msgstr "Installiert, nicht aktiv"
 
-#: includes/class-catalog.php:259
+#: includes/class-catalog.php:265
 msgid "Not installed"
 msgstr "Nicht installiert"
 

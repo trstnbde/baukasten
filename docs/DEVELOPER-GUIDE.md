@@ -18,6 +18,7 @@ Six WordPress plugins and one block theme in one repository, each with its own r
 | `baukasten-2fa` | A second factor answered from the admin bar of another signed-in session. Also requires the Two Factor plugin. |
 | `baukasten-form-privacy` | Contact Form 7 and Flamingo without the leaks. Also requires Contact Form 7. |
 | `baukasten-new-tab` | A browser start page: one page, chosen on its own tab, served without the theme, with search, a favourites bar, a greeting that knows ten holidays and a background from the media library or, after consent, Unsplash. |
+| `baukasten-wishlist` | Wishlists for an occasion: two post types (lists and wishes), a block and a shortcode that put a list in any page or post, sorting and filtering in the browser, and anonymous purchase reports through its own REST routes, undoable only from the reporting browser. |
 | `baukasten-tt5-fork` | The theme, "Baukasten Theme: TT5 Fork": a standalone fork of Twenty Twenty-Five 1.5 with the design systems Organic (default), Modernist and Nocturne as styles. Version 1.5, following the parent it was forked from. See [`theme/TT5-FORK.md`](theme/TT5-FORK.md). |
 
 The addons are separate plugins because they are wanted in different combinations and update on different schedules. They live in one repository because they share conventions, tooling and a settings screen.
@@ -53,7 +54,7 @@ add_action( 'baukasten/register_addons', static function (): void {
 } );
 ```
 
-Tab positions in use: 10 Content Visibility, 20 Login Legal Pages, 30 Consent Blocking Engine (all three built into the core), 40 Multi-Domain, 50 Business Cards, 60 Two-Factor Approval, 70 Form Privacy, 80 New Tab Page. A new addon starts at 90.
+Tab positions in use: 10 Content Visibility, 20 Login Legal Pages, 30 Consent Blocking Engine (all three built into the core), 40 Multi-Domain, 50 Business Cards, 60 Two-Factor Approval, 70 Form Privacy, 80 New Tab Page, 90 Wishlist. A new addon starts at 100.
 
 Every addon header also carries `Update URI: https://github.com/trstnbde/baukasten` while the plugins are not in the WordPress.org directory. Without it WordPress asks wordpress.org for updates to our slugs, and whoever registers one of them first would be offered to every site running ours.
 
@@ -259,7 +260,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-The addons and the core are at 1.0.0, except Business Cards, New Tab Page and the core at 1.0.1 (passwords), and the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
+The addons are at 1.0.0, except Business Cards and New Tab Page at 1.0.1 (passwords); the core is at 1.0.2 (it lists Wishlist), the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
 
 The procedure lives in [`RELEASING.md`](RELEASING.md). For the day the directory submission is
 taken up again it also holds the one irreversible step: **WordPress.org derives the directory slug
