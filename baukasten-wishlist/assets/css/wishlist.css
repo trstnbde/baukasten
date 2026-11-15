@@ -183,10 +183,19 @@
 	background: #fff;
 }
 
-.baukasten-wl-item__media img {
+.baukasten-wl-item__media {
+	overflow: hidden;
+}
+
+/* Absolute, so a portrait photo with its own width and height attributes
+   cannot stretch the 4:3 frame, whatever the theme does to images. */
+.baukasten-wl .baukasten-wl-item__media img {
+	position: absolute;
+	inset: 0;
 	display: block;
 	width: 100%;
-	height: 100%;
+	height: 100% !important;
+	max-width: none;
 	object-fit: contain;
 }
 
@@ -392,6 +401,11 @@
 	.baukasten-wl__control {
 		flex: 1 1 calc(50% - 0.5rem);
 		min-width: 0;
+	}
+
+	/* The sort labels are the longest; give them the whole row. */
+	.baukasten-wl__control:first-child {
+		flex-basis: 100%;
 	}
 
 	.baukasten-wl__count {
