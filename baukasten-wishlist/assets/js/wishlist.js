@@ -196,7 +196,7 @@
 		this.readUrl();
 		this.bind();
 		this.items.forEach( this.paint.bind( this ) );
-		this.apply();
+		this.apply( { notice: true } );
 		this.countdown();
 		this.refresh();
 	}
@@ -285,7 +285,7 @@
 
 				select.addEventListener( 'change', function () {
 					self.filters[ name ] = select.value;
-					self.apply();
+					self.apply( { notice: true } );
 					self.writeUrl();
 				} );
 			} );
@@ -845,7 +845,16 @@
 		return true;
 	};
 
-	Wishlist.prototype.apply = function () {
+	/**
+	 * Sorts and filters the cards.
+	 *
+	 * @param {Object} options `{ notice: true }` lets the note for returning
+	 *                         guests appear. Only on load, on a filter change
+	 *                         and on refresh: right after a report the toast
+	 *                         offers the way back, and a note appearing above
+	 *                         the cards would push them down under the pointer.
+	 */
+	Wishlist.prototype.apply = function ( options ) {
 		if ( ! this.container ) {
 			return;
 		}
@@ -893,7 +902,7 @@
 			this.count.textContent = format( strings.shown, number( shown ), number( this.items.length ) );
 		}
 
-		this.updateNotice();
+		this.updateNotice( !! ( options && options.notice ) );
 	};
 
 	/* ---------- Returning guests ---------- */
@@ -902,7 +911,7 @@
 	 * Points a returning guest to the wishes they reported, when the filter
 	 * hides them.
 	 */
-	Wishlist.prototype.updateNotice = function () {
+	Wishlist.prototype.updateNotice = function ( mayAppear ) {
 		var mine = this.items.filter( function ( item ) {
 			return item.hidden && isDone( item ) && tokensFor( item.getAttribute( 'data-id' ) ).length > 0;
 		} );
@@ -916,6 +925,12 @@
 				this.notice.hidden = true;
 			}
 
+			return;
+		}
+
+		// Not there yet: only appears where that is allowed. Already there:
+		// keeps its place and only counts again.
+		if ( ! mayAppear && ( ! this.notice || this.notice.hidden ) ) {
 			return;
 		}
 
@@ -951,7 +966,7 @@
 			self.filters.priority = '';
 			self.filters.price = '';
 			self.syncSelects();
-			self.apply();
+			self.apply( { notice: true } );
 			self.writeUrl();
 
 			var first = self.items.filter( function ( item ) {
@@ -1017,7 +1032,7 @@
 					self.paint( item );
 				} );
 
-				self.apply();
+				self.apply( { notice: true } );
 			} )
 			.catch( function () {
 				// The printed state stays; reporting still works.
