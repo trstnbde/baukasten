@@ -30,6 +30,7 @@ tests_add_filter(
 		require_once $plugins . 'baukasten-business-cards/baukasten-business-cards.php';
 		require_once $plugins . 'baukasten-form-privacy/baukasten-form-privacy.php';
 		require_once $plugins . 'baukasten-new-tab/baukasten-new-tab.php';
+		require_once $plugins . 'baukasten-wishlist/baukasten-wishlist.php';
 	}
 );
 

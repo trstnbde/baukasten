@@ -8,7 +8,8 @@
 		"./baukasten",
 		"./baukasten-business-cards",
 		"./baukasten-form-privacy",
-		"./baukasten-new-tab"
+		"./baukasten-new-tab",
+		"./baukasten-wishlist"
 	],
 	"mappings": {
 		"wp-content/baukasten-tests": "./tests"

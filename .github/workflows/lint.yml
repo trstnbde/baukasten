@@ -24,6 +24,7 @@ jobs:
           - baukasten-2fa
           - baukasten-form-privacy
           - baukasten-new-tab
+          - baukasten-wishlist
 
     steps:
       - name: Check out the repository
