@@ -100,3 +100,34 @@ Neu in CI (PHPUnit):
 - `rest_allowed_cors_headers` enthält den Header.
 - Standardstatus `open`; ein ausdrückliches `filter="all"` bleibt erhalten.
 - Gruppierte Sortierung im PHP-Renderer.
+
+## Nachtrag: Version 1.1.0 (15. November 2026)
+
+Auf bundeshub.de ausgerollt. Backups: `~/baukasten-backups/2026-11-15-4/` vor dem ersten und `2026-11-15-5/` vor dem zweiten Deploy. CI: 121 Tests grün. Getestet wurde in Torstens Chrome (eingeloggt, eigener Tab) und mit Playwright in Handy-Emulation. Jede Testmeldung wurde sofort zurückgenommen; am Ende zeigt `GET /lists/319` alle 10 Wünsche offen.
+
+**Gemeldeter Fehler „Ja, gekauft“ auf Handys: Ursache gefunden.** Liegt „Hab ich gekauft“ am unteren Bildschirmrand, öffnete sich die Rückfrage *unterhalb* des sichtbaren Bereichs. Gemessen auf dem iPhone 14 (Emulation): Button bei 712–752 px, Viewport 664 px hoch. Gleichzeitig verschwand „Hab ich gekauft“, und der Toast einer früheren Meldung deckte den unteren Rand ab. Für Gäste sah es aus, als passiere nichts.
+
+**Behoben in 1.1.0:**
+- Die Rückfrage öffnet an der Stelle des Buttons und wird mit Abstand zum Toast in den sichtbaren Bereich gescrollt.
+- Der Toast nimmt Taps nur noch auf seinem Button an und pausiert nur bei echter Maus.
+- Fehler stehen zusätzlich in der Karte.
+- Tippziele sind mindestens 44 px groß.
+- Kopfzeile als Chips ohne inneren Umbruch, Countdown einzeilig.
+
+| Kriterium | Ergebnis |
+|---|---|
+| Touch, 320/360/390/412/430 px (Playwright, lokal; 45 Prüfungen) | ✅ Countdown einzeilig; kein horizontales Scrollen; Rückfrage vollständig sichtbar und frei vom Toast, auch bei der zweiten Meldung; `elementFromPoint` trifft „Ja, gekauft“; Toast verschwindet nach 10 s auch nach Taps |
+| Desktop live (Chrome) | ✅ Block weit (5 Karten je Zeile); Buttons auf jeder Karte am selben Platz; Rückfrage unter dem Mauszeiger; Karte blendet aus; Toast mit „Rückgängig“ |
+| Tastatur live (Chrome) | ✅ Enter öffnet die Rückfrage, Enter meldet; Fokus sichtbar auf „Rückgängig“; Toast über 11 s pausiert; Enter nimmt zurück, Fokus auf „Hab ich gekauft“ der Karte |
+| Wiederkehrender Gast live | ✅ Hinweis erst nach dem Neuladen (nicht direkt nach der Meldung, kein Layoutsprung); „Anzeigen“ setzt `?wl319_status=done`; „Meine Meldung zurücknehmen“; Server danach ohne Meldung |
+| Netzwerk live | ✅ nur bundeshub.de; Bilder in 300 px bzw. 480 px statt 768 px |
+| Konsole live | ✅ nichts vom Plugin; nur die ViewTransition-Exception von Theme und Editor |
+| Admin live | ✅ Sortierung nach Preis (alle 10, auch ohne Preis); Schnellbearbeitung vorbefüllt und speichert („Hoch“, dann zurück auf „Mittel“); Kopfbild-Box oben; „Eingebunden auf“ in Liste und Tab |
+| Lokal: Desktop, Tastatur, Scrollen | ✅ 65 + 24 Prüfungen |
+
+**Abweichung:** `wp media regenerate` hat die neue Bildgröße für alle 18 Bilder der Mediathek erzeugt statt nur für die Bilder der Wünsche, weil die ID-Abfrage leer blieb. Dabei kam je Bild eine Datei hinzu, nichts wurde überschrieben oder gelöscht.
+
+**Offen:**
+1. Torsten tippt die Meldung einmal auf seinem eigenen Handy durch. Safari auf iOS ließ sich hier nicht ausführen; die Emulation läuft mit Chromium.
+2. Die Seite „Wunschliste“ bindet Liste 319 ebenfalls ein; Torsten prüft, ob das gewollt ist.
+3. Merge, Tags (`baukasten-1.0.2`, `baukasten-wishlist-1.1.0`) und Releases nach Freigabe.
