@@ -4,16 +4,17 @@
  *
  * @package Baukasten\Wishlist
  *
- * @var \WP_Post                         $baukasten_wl_list     The list.
- * @var array<string, string>            $baukasten_wl_fields   Its fields.
- * @var array<int, array<string, mixed>> $baukasten_wl_items    Its wishes, sorted.
- * @var array<string, mixed>             $baukasten_wl_args     Display arguments.
- * @var bool                             $baukasten_wl_open     Whether it takes reports.
- * @var array<string, string>            $baukasten_wl_sorts    Sort key to label.
- * @var array<string, string>            $baukasten_wl_statuses Status key to label.
- * @var array<int, string>               $baukasten_wl_prios    Priority to label.
- * @var int[]                            $baukasten_wl_prices   Price filter bounds.
- * @var int|null                         $baukasten_wl_days     Days until the date.
+ * @var \WP_Post                         $baukasten_wl_list       The list.
+ * @var array<string, string>            $baukasten_wl_fields     Its fields.
+ * @var array<int, array<string, mixed>> $baukasten_wl_items      Its wishes, sorted.
+ * @var array<string, mixed>             $baukasten_wl_args       Display arguments.
+ * @var bool                             $baukasten_wl_open       Whether it takes reports.
+ * @var array<string, string>            $baukasten_wl_sorts      Sort key to label, only orders that change something.
+ * @var array<string, string>            $baukasten_wl_statuses   Status key to label.
+ * @var array<int, string>               $baukasten_wl_prios      Priority to label.
+ * @var int                              $baukasten_wl_prio_count Number of different priorities on the list.
+ * @var int[]                            $baukasten_wl_prices     Price filter bounds; empty for none.
+ * @var int|null                         $baukasten_wl_days       Days until the date.
  */
 
 namespace Baukasten\Wishlist;
@@ -34,16 +35,6 @@ if ( '' !== $baukasten_wl_fields['date'] ) {
 	}
 }
 
-$baukasten_wl_meta = array_filter(
-	array(
-		'' !== $baukasten_wl_fields['person']
-			/* translators: %s: name of the person the list is for. */
-			? sprintf( __( 'For %s', 'baukasten-wishlist' ), $baukasten_wl_fields['person'] )
-			: '',
-		$baukasten_wl_fields['occasion'],
-	)
-);
-
 $baukasten_wl_countdown = '';
 
 if ( null !== $baukasten_wl_days && 0 <= $baukasten_wl_days ) {
@@ -55,6 +46,18 @@ if ( null !== $baukasten_wl_days && 0 <= $baukasten_wl_days ) {
 		/* translators: %s: number of days. */
 		$baukasten_wl_countdown = sprintf( __( 'in %s days', 'baukasten-wishlist' ), number_format_i18n( $baukasten_wl_days ) );
 	}
+}
+
+// Facts under the title, each kept on one line.
+$baukasten_wl_facts = array();
+
+if ( '' !== $baukasten_wl_fields['person'] ) {
+	/* translators: %s: name of the person the list is for. */
+	$baukasten_wl_facts[] = sprintf( __( 'For %s', 'baukasten-wishlist' ), $baukasten_wl_fields['person'] );
+}
+
+if ( '' !== $baukasten_wl_fields['occasion'] ) {
+	$baukasten_wl_facts[] = $baukasten_wl_fields['occasion'];
 }
 
 ?>
@@ -71,22 +74,34 @@ if ( null !== $baukasten_wl_days && 0 <= $baukasten_wl_days ) {
 	<header class="baukasten-wl__header<?php echo 0 < $baukasten_wl_header ? ' has-image' : ''; ?>">
 		<?php if ( 0 < $baukasten_wl_header ) : ?>
 			<div class="baukasten-wl__banner">
-				<?php echo wp_get_attachment_image( $baukasten_wl_header, 'large', false, array( 'alt' => '' ) ); ?>
+				<?php
+				echo wp_get_attachment_image(
+					$baukasten_wl_header,
+					'large',
+					false,
+					array(
+						'alt'           => '',
+						'loading'       => 'eager',
+						'fetchpriority' => 'high',
+					)
+				);
+				?>
 			</div>
 		<?php endif; ?>
 		<div class="baukasten-wl__heading">
 			<h2 class="baukasten-wl__title" id="<?php echo esc_attr( $baukasten_wl_id . '-title' ); ?>"><?php echo esc_html( $baukasten_wl_title ); ?></h2>
-			<?php if ( array() !== $baukasten_wl_meta || '' !== $baukasten_wl_date ) : ?>
-				<p class="baukasten-wl__meta">
-					<?php echo esc_html( implode( ' · ', $baukasten_wl_meta ) ); ?>
+			<?php if ( array() !== $baukasten_wl_facts || '' !== $baukasten_wl_date ) : ?>
+				<ul class="baukasten-wl__facts" role="list">
+					<?php foreach ( $baukasten_wl_facts as $baukasten_wl_fact ) : ?>
+						<li><?php echo esc_html( $baukasten_wl_fact ); ?></li>
+					<?php endforeach; ?>
 					<?php if ( '' !== $baukasten_wl_date ) : ?>
-						<?php echo array() !== $baukasten_wl_meta ? ' · ' : ''; ?>
-						<time datetime="<?php echo esc_attr( $baukasten_wl_fields['date'] ); ?>"><?php echo esc_html( $baukasten_wl_date ); ?></time>
-						<?php if ( '' !== $baukasten_wl_countdown ) : ?>
-							<span class="baukasten-wl__countdown"><?php echo esc_html( $baukasten_wl_countdown ); ?></span>
-						<?php endif; ?>
+						<li><time datetime="<?php echo esc_attr( $baukasten_wl_fields['date'] ); ?>"><?php echo esc_html( $baukasten_wl_date ); ?></time></li>
 					<?php endif; ?>
-				</p>
+					<?php if ( '' !== $baukasten_wl_countdown ) : ?>
+						<li class="baukasten-wl__countdown"><?php echo esc_html( $baukasten_wl_countdown ); ?></li>
+					<?php endif; ?>
+				</ul>
 			<?php endif; ?>
 			<?php if ( '' !== $baukasten_wl_fields['intro'] ) : ?>
 				<div class="baukasten-wl__intro"><?php echo wp_kses_post( wpautop( esc_html( $baukasten_wl_fields['intro'] ) ) ); ?></div>
@@ -102,13 +117,10 @@ if ( null !== $baukasten_wl_days && 0 <= $baukasten_wl_days ) {
 	<?php else : ?>
 		<?php if ( $baukasten_wl_args['controls'] ) : ?>
 			<div class="baukasten-wl__controls" hidden>
-				<label class="baukasten-wl__control">
+				<label class="baukasten-wl__control baukasten-wl__control--sort">
 					<span><?php esc_html_e( 'Sort', 'baukasten-wishlist' ); ?></span>
 					<select data-control="sort">
 						<?php foreach ( $baukasten_wl_sorts as $baukasten_wl_key => $baukasten_wl_label ) : ?>
-							<?php if ( ! $baukasten_wl_show_price && str_starts_with( $baukasten_wl_key, 'price' ) ) : ?>
-								<?php continue; ?>
-							<?php endif; ?>
 							<option value="<?php echo esc_attr( $baukasten_wl_key ); ?>" <?php selected( $baukasten_wl_args['sort'], $baukasten_wl_key ); ?>><?php echo esc_html( $baukasten_wl_label ); ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -121,16 +133,18 @@ if ( null !== $baukasten_wl_days && 0 <= $baukasten_wl_days ) {
 						<?php endforeach; ?>
 					</select>
 				</label>
-				<label class="baukasten-wl__control">
-					<span><?php esc_html_e( 'Priority', 'baukasten-wishlist' ); ?></span>
-					<select data-control="priority">
-						<option value=""><?php esc_html_e( 'Any', 'baukasten-wishlist' ); ?></option>
-						<?php foreach ( $baukasten_wl_prios as $baukasten_wl_key => $baukasten_wl_label ) : ?>
-							<option value="<?php echo esc_attr( (string) $baukasten_wl_key ); ?>"><?php echo esc_html( $baukasten_wl_label ); ?></option>
-						<?php endforeach; ?>
-					</select>
-				</label>
-				<?php if ( $baukasten_wl_show_price && array() !== $baukasten_wl_prices ) : ?>
+				<?php if ( 1 < $baukasten_wl_prio_count ) : ?>
+					<label class="baukasten-wl__control">
+						<span><?php esc_html_e( 'Priority', 'baukasten-wishlist' ); ?></span>
+						<select data-control="priority">
+							<option value=""><?php esc_html_e( 'Any', 'baukasten-wishlist' ); ?></option>
+							<?php foreach ( $baukasten_wl_prios as $baukasten_wl_key => $baukasten_wl_label ) : ?>
+								<option value="<?php echo esc_attr( (string) $baukasten_wl_key ); ?>"><?php echo esc_html( $baukasten_wl_label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</label>
+				<?php endif; ?>
+				<?php if ( array() !== $baukasten_wl_prices ) : ?>
 					<label class="baukasten-wl__control">
 						<span><?php esc_html_e( 'Price', 'baukasten-wishlist' ); ?></span>
 						<select data-control="price">
@@ -139,19 +153,19 @@ if ( null !== $baukasten_wl_days && 0 <= $baukasten_wl_days ) {
 								<option value="<?php echo esc_attr( (string) $baukasten_wl_step ); ?>">
 									<?php
 									/* translators: %s: a price such as "25 €". */
-									echo esc_html( sprintf( __( 'up to %s', 'baukasten-wishlist' ), Settings::format_price( (string) $baukasten_wl_step ) ) );
+									echo esc_html( sprintf( __( 'up to %s', 'baukasten-wishlist' ), number_format_i18n( $baukasten_wl_step ) . "\u{00A0}" . Settings::currency() ) );
 									?>
 								</option>
 							<?php endforeach; ?>
 						</select>
 					</label>
 				<?php endif; ?>
-				<p class="baukasten-wl__count" aria-live="polite"></p>
 			</div>
+			<p class="baukasten-wl__count" aria-live="polite" hidden></p>
 		<?php endif; ?>
 
 		<ul class="baukasten-wl__items" role="list">
-			<?php foreach ( $baukasten_wl_items as $baukasten_wl_item ) : ?>
+			<?php foreach ( $baukasten_wl_items as $baukasten_wl_index => $baukasten_wl_item ) : ?>
 				<?php require __DIR__ . '/item.php'; ?>
 			<?php endforeach; ?>
 		</ul>

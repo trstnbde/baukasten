@@ -29,6 +29,12 @@ final class Post_Types {
 	const ITEM_TYPE = 'baukasten_wish_item';
 
 	/**
+	 * Image size of a card: wide enough for a card on a phone at twice the
+	 * pixel density of its CSS width on a desktop, never cropped.
+	 */
+	const IMAGE_SIZE = 'baukasten-wishlist-card';
+
+	/**
 	 * Registers the hooks.
 	 *
 	 * @return void
@@ -36,6 +42,7 @@ final class Post_Types {
 	public static function register(): void {
 		add_action( 'init', array( __CLASS__, 'register_post_types' ), 5 );
 		add_action( 'after_setup_theme', array( __CLASS__, 'thumbnails' ), 20 );
+		add_action( 'init', array( __CLASS__, 'image_size' ) );
 		add_filter( 'baukasten/content_visibility/post_types', array( __CLASS__, 'leave_to_the_page' ) );
 	}
 
@@ -135,6 +142,18 @@ final class Post_Types {
 		}
 
 		add_theme_support( 'post-thumbnails', array( self::LIST_TYPE, self::ITEM_TYPE ) );
+	}
+
+	/**
+	 * Registers the card image size.
+	 *
+	 * Existing images get it with `wp media regenerate --image_size=baukasten-wishlist-card`;
+	 * until then the browser picks a larger size from the srcset.
+	 *
+	 * @return void
+	 */
+	public static function image_size(): void {
+		add_image_size( self::IMAGE_SIZE, 480, 480, false );
 	}
 
 	/**

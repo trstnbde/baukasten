@@ -83,7 +83,107 @@ final class Items {
 		);
 		// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 
-		return array_values( array_filter( $posts, static fn( $post ) => $post instanceof \WP_Post ) );
+		$posts = array_values( array_filter( $posts, static fn( $post ) => $post instanceof \WP_Post ) );
+
+		self::prime_images( $posts );
+
+		return $posts;
+	}
+
+	/**
+	 * Loads the attachments of all product images in one query.
+	 *
+	 * Without it, every card asks for its image's post and meta on its own.
+	 *
+	 * @param \WP_Post[] $posts Wishes.
+	 * @return void
+	 */
+	private static function prime_images( array $posts ): void {
+		$ids = array_filter( array_map( static fn( \WP_Post $post ) => (int) get_post_thumbnail_id( $post ), $posts ) );
+
+		if ( array() !== $ids ) {
+			_prime_post_caches( array_values( array_unique( $ids ) ), false, true );
+		}
+	}
+
+	/**
+	 * Pages and posts that show a list, through the block or the shortcode.
+	 *
+	 * @param int $list_id List post ID.
+	 * @return \WP_Post[] Posts, newest first.
+	 */
+	public static function embedded_on( int $list_id ): array {
+		static $cache = array();
+
+		if ( isset( $cache[ $list_id ] ) ) {
+			return $cache[ $list_id ];
+		}
+
+		global $wpdb;
+
+		// A cheap pre-filter in SQL; the exact match is made below.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- cached per request; no API searches post content.
+		$ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->posts} WHERE post_type NOT IN ('revision', 'attachment', %s, %s) AND post_status IN ('publish', 'draft', 'pending', 'private', 'future') AND ( post_content LIKE %s OR post_content LIKE %s ) ORDER BY post_date DESC LIMIT 50",
+				Post_Types::LIST_TYPE,
+				Post_Types::ITEM_TYPE,
+				'%' . $wpdb->esc_like( 'wp:baukasten/wishlist' ) . '%',
+				'%' . $wpdb->esc_like( '[' . Shortcode::TAG ) . '%'
+			)
+		);
+
+		$found = array();
+
+		foreach ( array_map( 'intval', (array) $ids ) as $id ) {
+			$post = get_post( $id );
+
+			if ( $post instanceof \WP_Post && in_array( $list_id, self::lists_in( $post->post_content ), true ) ) {
+				$found[] = $post;
+			}
+		}
+
+		$cache[ $list_id ] = $found;
+
+		return $found;
+	}
+
+	/**
+	 * The list IDs a piece of content shows.
+	 *
+	 * @param string $content Post content.
+	 * @return int[] List IDs.
+	 */
+	public static function lists_in( string $content ): array {
+		$ids = array();
+
+		if ( has_blocks( $content ) ) {
+			$walk = static function ( array $blocks ) use ( &$walk, &$ids ): void {
+				foreach ( $blocks as $block ) {
+					if ( Block::NAME === $block['blockName'] && ! empty( $block['attrs']['listId'] ) ) {
+						$ids[] = (int) $block['attrs']['listId'];
+					}
+
+					if ( ! empty( $block['innerBlocks'] ) ) {
+						$walk( $block['innerBlocks'] );
+					}
+				}
+			};
+
+			$walk( parse_blocks( $content ) );
+		}
+
+		if ( preg_match_all( '/' . get_shortcode_regex( array( Shortcode::TAG ) ) . '/', $content, $matches, PREG_SET_ORDER ) ) {
+			foreach ( $matches as $match ) {
+				$atts = shortcode_parse_atts( $match[3] );
+
+				if ( is_array( $atts ) && isset( $atts['id'] ) ) {
+					$ids[] = absint( $atts['id'] );
+				}
+			}
+		}
+
+		return array_values( array_unique( array_filter( $ids ) ) );
 	}
 
 	/**
@@ -100,6 +200,9 @@ final class Items {
 		$data = array(
 			'id'        => $item->ID,
 			'title'     => get_the_title( $item ),
+			// Unfiltered, for sorting: typography plugins add soft hyphens to
+			// the displayed title.
+			'raw_title' => $item->post_title,
 			'image'     => (int) get_post_thumbnail_id( $item ),
 			'quantity'  => $quantity,
 			'bought'    => min( $bought, $quantity ),

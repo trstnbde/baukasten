@@ -59,6 +59,33 @@ final class Renderer {
 	const DEFAULT_STATUS = 'open';
 
 	/**
+	 * The sort orders that change something on this list.
+	 *
+	 * "As arranged" only when the wishes have different positions, and the
+	 * price orders only when prices are shown. The order the list starts with
+	 * is always offered, so the select can show it.
+	 *
+	 * @param array<int, array<string, mixed>> $items       Wish data.
+	 * @param string                           $current     Sort the list starts with.
+	 * @param bool                             $show_prices Whether prices are shown.
+	 * @return array<string, string> Key to label.
+	 */
+	public static function visible_sorts( array $items, string $current, bool $show_prices ): array {
+		$options = self::sort_options();
+		$orders  = count( array_unique( array_column( $items, 'order' ) ) );
+
+		foreach ( array_keys( $options ) as $key ) {
+			$useless = ( 'order' === $key && $orders < 2 ) || ( ! $show_prices && str_starts_with( $key, 'price' ) );
+
+			if ( $useless && $key !== $current ) {
+				unset( $options[ $key ] );
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Status filters the page offers.
 	 *
 	 * @return array<string, string> Key to label.
@@ -130,16 +157,17 @@ final class Renderer {
 
 		Assets::enqueue();
 
-		$baukasten_wl_list     = $list;
-		$baukasten_wl_fields   = $fields;
-		$baukasten_wl_items    = $items;
-		$baukasten_wl_args     = $args;
-		$baukasten_wl_open     = $open;
-		$baukasten_wl_sorts    = self::sort_options();
-		$baukasten_wl_statuses = self::status_options();
-		$baukasten_wl_prios    = Fields::priorities();
-		$baukasten_wl_prices   = self::price_steps( $items );
-		$baukasten_wl_days     = self::days_until( $fields['date'] );
+		$baukasten_wl_list       = $list;
+		$baukasten_wl_fields     = $fields;
+		$baukasten_wl_items      = $items;
+		$baukasten_wl_args       = $args;
+		$baukasten_wl_open       = $open;
+		$baukasten_wl_sorts      = self::visible_sorts( $items, $args['sort'], '1' === $fields['show_prices'] );
+		$baukasten_wl_statuses   = self::status_options();
+		$baukasten_wl_prios      = Fields::priorities();
+		$baukasten_wl_prio_count = count( array_unique( array_column( $items, 'priority' ) ) );
+		$baukasten_wl_prices     = '1' === $fields['show_prices'] ? self::price_steps( $items ) : array();
+		$baukasten_wl_days       = self::days_until( $fields['date'] );
 
 		ob_start();
 		require PLUGIN_DIR . 'templates/list.php';
@@ -191,7 +219,7 @@ final class Renderer {
 						}
 						break;
 					case 'title':
-						$result = strcasecmp( remove_accents( (string) $a['title'] ), remove_accents( (string) $b['title'] ) );
+						$result = strcasecmp( remove_accents( (string) ( $a['raw_title'] ?? $a['title'] ) ), remove_accents( (string) ( $b['raw_title'] ?? $b['title'] ) ) );
 						break;
 					default:
 						$result = 0;

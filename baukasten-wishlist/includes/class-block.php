@@ -84,8 +84,10 @@ final class Block {
 						'type'    => 'boolean',
 						'default' => true,
 					),
+					// Wide by default: a grid of cards needs more than a text column.
 					'align'        => array(
-						'type' => 'string',
+						'type'    => 'string',
+						'default' => 'wide',
 					),
 				),
 				'editor_script_handles' => array( self::EDITOR_HANDLE ),
@@ -117,8 +119,8 @@ final class Block {
 			return '';
 		}
 
-		$align = isset( $attributes['align'] ) && in_array( $attributes['align'], array( 'wide', 'full' ), true )
-			? ' align' . $attributes['align']
+		$align = in_array( $attributes['align'] ?? 'wide', array( 'wide', 'full' ), true )
+			? ' align' . ( $attributes['align'] ?? 'wide' )
 			: '';
 
 		return '<div class="wp-block-baukasten-wishlist' . esc_attr( $align ) . '">' . $markup . '</div>';

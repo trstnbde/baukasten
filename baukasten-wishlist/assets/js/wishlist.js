@@ -266,6 +266,10 @@
 		if ( this.controls ) {
 			this.controls.hidden = false;
 
+			if ( this.count ) {
+				this.count.hidden = false;
+			}
+
 			this.selects().forEach( function ( select ) {
 				var name = select.getAttribute( 'data-control' );
 				var wanted = self.filters[ name ];
@@ -307,9 +311,22 @@
 		var ask = item.querySelector( '[data-action="ask"]' );
 
 		if ( 'ask' === action && confirm ) {
+			var yes = confirm.querySelector( '[data-action="claim"]' );
+
+			this.showError( item, '' );
 			confirm.hidden = false;
 			ask.hidden = true;
-			this.focus( confirm.querySelector( '[data-action="claim"]' ) );
+
+			// The question opens where the button was. On a phone it can
+			// still reach below the screen or under the toast; bring all of
+			// it into view (its scroll margin leaves room for the toast).
+			if ( confirm.scrollIntoView ) {
+				confirm.scrollIntoView( { block: 'nearest', behavior: reducedMotion() ? 'auto' : 'smooth' } );
+			}
+
+			if ( isShown( yes ) ) {
+				yes.focus( { preventScroll: true } );
+			}
 
 			return;
 		}
@@ -323,6 +340,7 @@
 		}
 
 		if ( 'claim' === action ) {
+			this.showError( item, '' );
 			this.claim( item, button );
 
 			return;
@@ -439,7 +457,7 @@
 
 				self.settle( item, button );
 				self.apply();
-				self.fail( error );
+				self.fail( error, item );
 				self.focus( item.querySelector( '[data-action="ask"]' ) );
 
 				if ( 409 === error.status ) {
@@ -478,7 +496,7 @@
 					self.refresh();
 				}
 
-				self.fail( error );
+				self.fail( error, item );
 			} )
 			.then( function () {
 				var focused = document.activeElement;
@@ -504,7 +522,22 @@
 			} );
 	};
 
-	Wishlist.prototype.fail = function ( error ) {
+	/**
+	 * Shows or clears the error line of a card.
+	 *
+	 * @param {HTMLElement} item    The card.
+	 * @param {string}      message Text; empty clears it.
+	 */
+	Wishlist.prototype.showError = function ( item, message ) {
+		var line = item.querySelector( '.baukasten-wl-item__error' );
+
+		if ( line ) {
+			line.textContent = message || '';
+			line.hidden = ! message;
+		}
+	};
+
+	Wishlist.prototype.fail = function ( error, item ) {
 		var message = strings.error;
 
 		if ( 409 === error.status ) {
@@ -513,6 +546,12 @@
 			message = strings.tooMany;
 		} else if ( 403 === error.status ) {
 			message = strings.closed;
+		}
+
+		// In the card as well as in the toast: on a phone the toast can be
+		// out of sight, and nothing else would say why nothing happened.
+		if ( item ) {
+			this.showError( item, message );
 		}
 
 		this.say( message );
@@ -585,11 +624,19 @@
 		// Pause while the pointer or the keyboard focus is on the toast. A
 		// focus that followed a mouse click does not count, or the toast
 		// would never leave for a mouse user.
-		toast.addEventListener( 'mouseenter', function () {
+		toast.addEventListener( 'pointerenter', function ( event ) {
+			if ( 'mouse' !== event.pointerType ) {
+				return;
+			}
+
 			self.toastHover = true;
 			window.clearTimeout( self.toastTimer );
 		} );
-		toast.addEventListener( 'mouseleave', function () {
+		toast.addEventListener( 'pointerleave', function ( event ) {
+			if ( 'mouse' !== event.pointerType ) {
+				return;
+			}
+
 			self.toastHover = false;
 			self.scheduleToast();
 		} );
@@ -713,10 +760,12 @@
 			if ( done ) {
 				status.textContent = strings.done;
 			} else if ( 1 === quantity ) {
-				status.textContent = strings.oneLeft;
+				status.textContent = '';
 			} else {
 				status.textContent = format( strings.remaining, number( remaining ), number( quantity ) );
 			}
+
+			status.hidden = '' === status.textContent;
 		}
 
 		if ( ask ) {

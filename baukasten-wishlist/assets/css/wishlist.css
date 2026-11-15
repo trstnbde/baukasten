@@ -3,20 +3,28 @@
  *
  * Inherits the theme's font and colours; only the accent comes from the
  * list. Tints are mixed from the text colour, so the list reads on a light
- * and on a dark theme alike.
+ * and on a dark theme alike. Every colour-mix() has a plain fallback before
+ * it for browsers without it (Safari before 16.2).
  */
 
 .baukasten-wl {
 	--baukasten-wl-accent: #c2416b;
-	--baukasten-wl-ink: currentColor;
+	--baukasten-wl-on-accent: #fff;
+	--baukasten-wl-line: rgb(0 0 0 / 0.14);
 	--baukasten-wl-line: color-mix(in srgb, currentColor 14%, transparent);
+	--baukasten-wl-tint: rgb(0 0 0 / 0.04);
 	--baukasten-wl-tint: color-mix(in srgb, currentColor 4%, transparent);
+	--baukasten-wl-soft: rgb(194 65 107 / 0.12);
 	--baukasten-wl-soft: color-mix(in srgb, var(--baukasten-wl-accent) 12%, transparent);
+	--baukasten-wl-done: #1d7a46;
 	--baukasten-wl-radius: 14px;
+	--baukasten-wl-gap: 1rem;
+	--baukasten-wl-tap: 2.75rem;
 
 	position: relative;
 	margin-block: 1.5rem;
-	container-type: inline-size;
+	hyphens: manual;
+	-webkit-text-size-adjust: 100%;
 }
 
 .baukasten-wl *,
@@ -59,30 +67,52 @@
 }
 
 .baukasten-wl__heading {
-	padding: 1.25rem 1.25rem 1.375rem;
+	padding: 1.25rem clamp(1rem, 4vw, 1.75rem) 1.375rem;
 }
 
 .baukasten-wl .baukasten-wl__title {
 	margin: 0;
 	font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
 	line-height: 1.15;
+	overflow-wrap: break-word;
 }
 
-.baukasten-wl__meta {
-	margin: 0.5rem 0 0;
+/* Person, occasion, date and countdown: each a chip that never breaks
+   inside, the row wraps between them. */
+.baukasten-wl .baukasten-wl__facts {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.375rem 0.5rem;
+	margin: 0.625rem 0 0;
+	padding: 0;
+	list-style: none;
 	font-size: 0.95rem;
-	opacity: 0.85;
 }
 
-.baukasten-wl__countdown {
-	display: inline-block;
-	margin-inline-start: 0.375rem;
-	padding: 0.1em 0.6em;
+.baukasten-wl__facts li {
+	margin: 0;
+	white-space: nowrap;
+}
+
+.baukasten-wl__facts li + li::before {
+	content: "·";
+	margin-inline-end: 0.5rem;
+	opacity: 0.6;
+}
+
+.baukasten-wl .baukasten-wl__countdown {
+	padding: 0.15em 0.65em;
 	border-radius: 999px;
 	background: var(--baukasten-wl-accent);
-	color: #fff;
-	font-size: 0.85em;
-	font-weight: 600;
+	color: var(--baukasten-wl-on-accent);
+	font-size: 0.875em;
+	font-weight: 700;
+	line-height: 1.4;
+}
+
+.baukasten-wl__facts li.baukasten-wl__countdown::before {
+	content: none;
 }
 
 .baukasten-wl__intro {
@@ -102,7 +132,7 @@
 .baukasten-wl__nothing,
 .baukasten-wl-notice {
 	margin: 0.75rem 0 0;
-	padding: 0.75rem 1rem;
+	padding: 0.875rem 1rem;
 	border: 1px dashed var(--baukasten-wl-line);
 	border-radius: 10px;
 }
@@ -112,17 +142,22 @@
 .baukasten-wl__controls {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: end;
-	gap: 0.75rem 1rem;
-	margin-bottom: 1rem;
+	gap: 0.75rem;
+	margin-bottom: 0.5rem;
 }
 
 .baukasten-wl__control {
 	display: flex;
+	flex: 1 1 9rem;
 	flex-direction: column;
 	gap: 0.25rem;
-	min-width: 9.5rem;
+	min-width: 0;
 	font-size: 0.85rem;
+}
+
+/* The sort labels are the longest. */
+.baukasten-wl__control--sort {
+	flex: 2 1 14rem;
 }
 
 .baukasten-wl__control span {
@@ -130,14 +165,16 @@
 }
 
 .baukasten-wl__control select {
-	min-height: 2.5rem;
+	width: 100%;
+	min-height: var(--baukasten-wl-tap);
 	padding: 0.375rem 2rem 0.375rem 0.625rem;
 	border: 1px solid var(--baukasten-wl-line);
 	border-radius: 8px;
 	background-color: var(--baukasten-wl-tint);
 	color: inherit;
 	font: inherit;
-	font-size: 0.95rem;
+	font-size: 1rem; /* 16px or more: iOS does not zoom into the field. */
+	text-overflow: ellipsis;
 }
 
 .baukasten-wl__control select option {
@@ -145,17 +182,22 @@
 	background: #fff;
 }
 
-.baukasten-wl__count {
-	margin: 0 0 0 auto;
+.baukasten-wl .baukasten-wl__count {
+	margin: 0 0 1rem;
 	font-size: 0.85rem;
+	text-align: end;
 	opacity: 0.75;
 }
 
 /* ---------- Returning guests ---------- */
 
-.baukasten-wl__mine {
+.baukasten-wl .baukasten-wl__mine {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.25rem 0.75rem;
 	margin: 0 0 1rem;
-	padding: 0.75rem 1rem;
+	padding: 0.625rem 1rem;
 	border-radius: 10px;
 	background: var(--baukasten-wl-soft);
 	font-size: 0.95rem;
@@ -165,8 +207,8 @@
 
 .baukasten-wl .baukasten-wl__items {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+	gap: var(--baukasten-wl-gap);
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -183,63 +225,90 @@
 	transition: opacity 0.25s ease;
 }
 
+.baukasten-wl-item.is-top {
+	border-color: var(--baukasten-wl-accent);
+}
+
 /* On its way out after a report: fades, then the filter hides it. */
 .baukasten-wl-item.is-leaving {
 	opacity: 0;
 }
 
-.baukasten-wl-item.is-priority-1 {
-	border-color: color-mix(in srgb, var(--baukasten-wl-accent) 55%, transparent);
-}
-
 .baukasten-wl-item__media {
 	position: relative;
+	overflow: hidden;
 	aspect-ratio: 4 / 3;
 	background: #fff;
 }
 
-.baukasten-wl-item__media {
-	overflow: hidden;
+/* Safari before 15 has no aspect-ratio. */
+@supports not (aspect-ratio: 1) {
+	.baukasten-wl-item__media {
+		height: 0;
+		padding-top: 75%;
+	}
 }
 
 /* Absolute, so a portrait photo with its own width and height attributes
-   cannot stretch the 4:3 frame, whatever the theme does to images. */
+   cannot stretch the frame, whatever the theme does to images. */
 .baukasten-wl .baukasten-wl-item__media img {
 	position: absolute;
 	inset: 0;
+	top: 0;
+	left: 0;
 	display: block;
 	width: 100%;
 	height: 100% !important;
 	max-width: none;
+	padding: 0.5rem;
 	object-fit: contain;
 }
 
 .baukasten-wl-item__placeholder {
-	display: block;
+	position: absolute;
+	inset: 0;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 	background:
-		radial-gradient(circle at 30% 35%, color-mix(in srgb, var(--baukasten-wl-accent) 30%, transparent) 0 18%, transparent 19%),
-		radial-gradient(circle at 70% 65%, color-mix(in srgb, var(--baukasten-wl-accent) 18%, transparent) 0 24%, transparent 25%),
+		radial-gradient(circle at 30% 35%, rgb(194 65 107 / 0.3) 0 18%, transparent 19%),
+		radial-gradient(circle at 70% 65%, rgb(194 65 107 / 0.18) 0 24%, transparent 25%),
 		var(--baukasten-wl-soft);
+}
+
+.baukasten-wl-item__top,
+.baukasten-wl-item__badge {
+	position: absolute;
+	top: 0.75rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	font-size: 0.8rem;
+	font-weight: 700;
+	line-height: 1.4;
+	white-space: nowrap;
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
+}
+
+.baukasten-wl-item__top {
+	left: 0.75rem;
+	background: var(--baukasten-wl-accent);
+	color: var(--baukasten-wl-on-accent);
 }
 
 .baukasten-wl-item__badge {
 	display: none;
-	position: absolute;
-	inset-block-start: 0.75rem;
-	inset-inline-end: 0.75rem;
-	padding: 0.25rem 0.75rem;
-	border-radius: 999px;
-	background: #1d7a46;
+	right: 0.75rem;
+	background: var(--baukasten-wl-done);
 	color: #fff;
-	font-size: 0.8rem;
-	font-weight: 700;
-	box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
 }
 
 .baukasten-wl-item.is-done .baukasten-wl-item__badge {
 	display: block;
+}
+
+.baukasten-wl-item.is-done .baukasten-wl-item__top {
+	display: none;
 }
 
 .baukasten-wl-item.is-done .baukasten-wl-item__media img,
@@ -260,23 +329,11 @@
 	margin: 0;
 }
 
-.baukasten-wl-item__priority {
-	font-size: 0.75rem;
-	font-weight: 700;
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
-	opacity: 0.7;
-}
-
-.baukasten-wl-item.is-priority-1 .baukasten-wl-item__priority {
-	color: var(--baukasten-wl-accent);
-	opacity: 1;
-}
-
 .baukasten-wl .baukasten-wl-item__title {
 	margin: 0;
-	font-size: 1.1rem;
+	font-size: 1.05rem;
 	line-height: 1.3;
+	overflow-wrap: anywhere;
 }
 
 .baukasten-wl-item__note {
@@ -284,9 +341,17 @@
 	opacity: 0.8;
 }
 
+.baukasten-wl .baukasten-wl-item__facts {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0.75rem;
+}
+
 .baukasten-wl-item__price {
 	font-size: 1.05rem;
 	font-weight: 700;
+	white-space: nowrap;
 }
 
 .baukasten-wl-item__status {
@@ -294,25 +359,47 @@
 }
 
 .baukasten-wl-item.is-done .baukasten-wl-item__status {
-	color: #1d7a46;
+	color: var(--baukasten-wl-done);
 	font-weight: 600;
 }
 
+/* The foot of the card: shop link, then the one button, in the same place
+   on every card. */
 .baukasten-wl-item__actions {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 0.5rem 0.75rem;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 0.5rem;
 	margin-top: auto;
-	padding-top: 0.5rem;
+	padding-top: 0.75rem;
 }
 
+.baukasten-wl .baukasten-wl-shop__arrow {
+	margin-inline-start: 0.3em;
+	text-decoration: none;
+}
+
+.baukasten-wl .baukasten-wl-shop {
+	align-self: flex-start;
+	display: inline-flex;
+	align-items: center;
+	min-height: var(--baukasten-wl-tap);
+	color: inherit;
+	font-size: 0.95rem;
+	font-weight: 600;
+	text-decoration: underline;
+	text-decoration-color: var(--baukasten-wl-accent);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
+}
+
+/* Scrolled into view with room for the toast at the bottom of the screen. */
 .baukasten-wl-item__confirm {
-	margin-top: 0.5rem;
 	padding: 0.75rem;
 	border-radius: 10px;
 	background: var(--baukasten-wl-soft);
 	font-size: 0.9rem;
+	scroll-margin-block: 1rem 7rem;
 }
 
 .baukasten-wl-item__confirm p {
@@ -320,10 +407,16 @@
 }
 
 .baukasten-wl-item__confirm-actions {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 0.5rem 0.75rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+	gap: 0.5rem;
+}
+
+.baukasten-wl .baukasten-wl-item__error {
+	margin: 0;
+	color: #b3261e;
+	font-size: 0.9rem;
+	font-weight: 600;
 }
 
 /* ---------- Buttons ---------- */
@@ -332,27 +425,38 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 2.5rem;
+	width: 100%;
+	min-height: var(--baukasten-wl-tap);
+	margin: 0;
 	padding: 0.5rem 1rem;
 	border: 2px solid var(--baukasten-wl-accent);
 	border-radius: 999px;
 	background: transparent;
 	color: inherit;
 	font: inherit;
-	font-size: 0.9rem;
-	font-weight: 600;
+	font-size: 0.95rem;
+	font-weight: 700;
 	line-height: 1.2;
+	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
 .baukasten-wl .baukasten-wl-button--claim {
 	background: var(--baukasten-wl-accent);
-	color: #fff;
+	color: var(--baukasten-wl-on-accent);
 }
 
-.baukasten-wl .baukasten-wl-button:hover {
-	filter: brightness(0.92);
+.baukasten-wl .baukasten-wl-button--ghost {
+	border-color: var(--baukasten-wl-line);
+}
+
+.baukasten-wl .baukasten-wl-button:active {
+	transform: translateY(1px);
 }
 
 .baukasten-wl .baukasten-wl-button:disabled,
@@ -362,20 +466,38 @@
 }
 
 .baukasten-wl .baukasten-wl-link {
-	padding: 0.25rem 0;
+	align-self: center;
+	min-height: var(--baukasten-wl-tap);
+	padding: 0.25rem 0.5rem;
 	border: 0;
 	background: none;
 	color: inherit;
 	font: inherit;
-	font-size: 0.85rem;
+	font-size: 0.9rem;
 	text-decoration: underline;
 	text-underline-offset: 0.2em;
 	cursor: pointer;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Hover only where there is a real hover: on a phone a tap would otherwise
+   leave the button looking pressed. */
+@media (hover: hover) {
+	.baukasten-wl .baukasten-wl-button:hover {
+		filter: brightness(0.92);
+	}
+
+	.baukasten-wl .baukasten-wl-shop:hover {
+		text-decoration-thickness: 3px;
+	}
 }
 
 .baukasten-wl .baukasten-wl-button:focus-visible,
 .baukasten-wl .baukasten-wl-link:focus-visible,
-.baukasten-wl__control select:focus-visible {
+.baukasten-wl .baukasten-wl-shop:focus-visible,
+.baukasten-wl__control select:focus-visible,
+.baukasten-wl .baukasten-wl__title:focus-visible {
 	outline: 3px solid var(--baukasten-wl-accent);
 	outline-offset: 2px;
 }
@@ -385,8 +507,10 @@
 .baukasten-wl__toast {
 	position: fixed;
 	z-index: 100000;
-	inset-inline: 1rem;
-	inset-block-end: 1rem;
+	right: 1rem;
+	bottom: 1rem;
+	bottom: max(1rem, calc(env(safe-area-inset-bottom) + 0.5rem));
+	left: 1rem;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -394,7 +518,7 @@
 	gap: 0.5rem 1rem;
 	max-width: 30rem;
 	margin: 0 auto;
-	padding: 0.75rem 0.875rem 0.75rem 1.125rem;
+	padding: 0.625rem 0.75rem 0.625rem 1.125rem;
 	border-radius: 12px;
 	background: #1e1e1e;
 	color: #fff;
@@ -411,9 +535,9 @@
 	transform: none;
 }
 
-/* Only a toast with a button takes the pointer, so a plain message never
-   blocks what is under it. */
-.baukasten-wl__toast.has-action.is-visible {
+/* Only the button takes taps; the rest of the toast lets them through to
+   the page below. */
+.baukasten-wl__toast.has-action.is-visible .baukasten-wl__toast-action {
 	pointer-events: auto;
 }
 
@@ -424,19 +548,23 @@
 
 .baukasten-wl .baukasten-wl__toast-action {
 	flex: 0 0 auto;
-	min-height: 2.5rem;
+	min-height: var(--baukasten-wl-tap);
 	padding: 0.375rem 1rem;
 	border: 2px solid #fff;
 	border-radius: 999px;
 	background: transparent;
 	color: #fff;
 	font: inherit;
-	font-weight: 600;
+	font-weight: 700;
 	cursor: pointer;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
 }
 
-.baukasten-wl .baukasten-wl__toast-action:hover {
-	background: rgb(255 255 255 / 0.12);
+@media (hover: hover) {
+	.baukasten-wl .baukasten-wl__toast-action:hover {
+		background: rgb(255 255 255 / 0.12);
+	}
 }
 
 .baukasten-wl .baukasten-wl__toast-action:focus-visible {
@@ -449,21 +577,28 @@
 	.baukasten-wl__toast {
 		transition: none;
 	}
+
+	.baukasten-wl .baukasten-wl-button:active {
+		transform: none;
+	}
 }
 
-@container (max-width: 34rem) {
+/* ---------- Phones ---------- */
+
+@media (max-width: 40rem) {
 	.baukasten-wl__control {
-		flex: 1 1 calc(50% - 0.5rem);
-		min-width: 0;
+		flex-basis: calc(50% - 0.375rem);
 	}
 
-	/* The sort labels are the longest; give them the whole row. */
-	.baukasten-wl__control:first-child {
+	.baukasten-wl__control--sort {
 		flex-basis: 100%;
 	}
 
-	.baukasten-wl__count {
-		flex-basis: 100%;
-		margin-inline-start: 0;
+	.baukasten-wl .baukasten-wl__count {
+		text-align: start;
+	}
+
+	.baukasten-wl-item__body {
+		padding: 1rem;
 	}
 }

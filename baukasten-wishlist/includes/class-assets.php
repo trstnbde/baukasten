@@ -89,7 +89,6 @@ final class Assets {
 				'i18n' => array(
 					/* translators: 1: number still wanted. 2: number wanted in all. */
 					'remaining' => __( '%1$s of %2$s still wanted', 'baukasten-wishlist' ),
-					'oneLeft'   => __( 'Still wanted', 'baukasten-wishlist' ),
 					'done'      => __( 'Already bought', 'baukasten-wishlist' ),
 					'thanks'    => __( 'Thank you! Everybody now sees that this one is taken care of.', 'baukasten-wishlist' ),
 					'undone'    => __( 'Your report was taken back.', 'baukasten-wishlist' ),

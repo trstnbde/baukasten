@@ -97,9 +97,7 @@ final class Settings {
 			return '';
 		}
 
-		$value    = (float) $price;
-		$decimals = floor( $value ) === $value ? 0 : 2;
-
-		return number_format_i18n( $value, $decimals ) . "\u{00A0}" . self::currency();
+		// Always two decimals: "13,00 €" next to "13,99 €" reads as one list.
+		return number_format_i18n( (float) $price, 2 ) . "\u{00A0}" . self::currency();
 	}
 }
