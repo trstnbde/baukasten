@@ -178,7 +178,7 @@ class WishlistTest extends WP_UnitTestCase {
 
 		// The header as the server hands it over, from $_SERVER, the way
 		// WP_REST_Server::serve_request() builds the request.
-		$headers = WP_REST_Server::get_headers( array( 'HTTP_X_BAUKASTEN_WISHLIST_TOKEN' => $token ) );
+		$headers = rest_get_server()->get_headers( array( 'HTTP_X_BAUKASTEN_WISHLIST_TOKEN' => $token ) );
 		$undo    = $this->call( 'DELETE', '/items/' . $this->item_id . '/claim', array(), $headers );
 
 		$this->assertSame( 200, $undo->get_status() );
