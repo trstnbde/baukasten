@@ -78,7 +78,7 @@ final class Block {
 					),
 					'status'       => array(
 						'type'    => 'string',
-						'default' => 'all',
+						'default' => Renderer::DEFAULT_STATUS,
 					),
 					'showControls' => array(
 						'type'    => 'boolean',
@@ -108,7 +108,7 @@ final class Block {
 			array(
 				'list'     => $attributes['listId'] ?? 0,
 				'sort'     => $attributes['sort'] ?? 'priority',
-				'status'   => $attributes['status'] ?? 'all',
+				'status'   => $attributes['status'] ?? Renderer::DEFAULT_STATUS,
 				'controls' => $attributes['showControls'] ?? true,
 			)
 		);

@@ -104,6 +104,17 @@ final class Assets {
 					'tomorrow'  => __( 'Tomorrow', 'baukasten-wishlist' ),
 					/* translators: %s: number of days. */
 					'daysLeft'  => __( 'in %s days', 'baukasten-wishlist' ),
+					'undo'      => __( 'Undo', 'baukasten-wishlist' ),
+					'allDone'   => __( 'Everything on this list has been bought. Thank you!', 'baukasten-wishlist' ),
+					// The script picks `mineOne` for one wish and `mineOther` for
+					// more. Two forms are enough for the languages this plugin
+					// ships; a language with more would need each count's own
+					// form from PHP.
+					/* translators: %s: number of wishes. */
+					'mineOne'   => _n( 'You reported %s wish here as bought.', 'You reported %s wishes here as bought.', 1, 'baukasten-wishlist' ),
+					/* translators: %s: number of wishes. */
+					'mineOther' => _n( 'You reported %s wish here as bought.', 'You reported %s wishes here as bought.', 2, 'baukasten-wishlist' ),
+					'mineShow'  => __( 'Show them', 'baukasten-wishlist' ),
 				),
 			)
 		);

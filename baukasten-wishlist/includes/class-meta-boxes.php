@@ -185,7 +185,7 @@ final class Meta_Boxes {
 		);
 
 		echo '<p class="description">';
-		esc_html_e( 'Options: sort="priority|open|price-asc|price-desc|title|order", filter="all|open|done", controls="no" to hide sorting and filters.', 'baukasten-wishlist' );
+		esc_html_e( 'Options: sort="priority|open|price-asc|price-desc|title|order", filter="open|all|done" (default "open": bought wishes leave the list), controls="no" to hide sorting and filters.', 'baukasten-wishlist' );
 		echo '</p>';
 	}
 

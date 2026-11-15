@@ -1,7 +1,7 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten Addon: Wishlist 1.0.0\n"
+"Project-Id-Version: Baukasten Addon: Wishlist 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-wishlist\n"
 "Last-Translator: Torsten B.\n"
 "Language-Team: Deutsch\n"
@@ -263,7 +263,7 @@ msgstr "Liste hinzufügen"
 
 #: admin/views/settings-tab.php:81
 #: includes/class-post-types.php:95
-#: includes/class-renderer.php:60
+#: includes/class-renderer.php:69
 msgid "All wishes"
 msgstr "Alle Wünsche"
 
@@ -307,13 +307,13 @@ msgid "%1$s of %2$s still wanted"
 msgstr "%1$s von %2$s noch gewünscht"
 
 #: includes/class-assets.php:92
-#: includes/class-renderer.php:61
+#: includes/class-renderer.php:68
 #: templates/item.php:27
 msgid "Still wanted"
 msgstr "Noch gewünscht"
 
 #: includes/class-assets.php:93
-#: includes/class-renderer.php:62
+#: includes/class-renderer.php:70
 #: templates/item.php:25
 #: templates/item.php:67
 msgid "Already bought"
@@ -337,12 +337,12 @@ msgid "Somebody has already bought this."
 msgstr "Das hat schon jemand besorgt."
 
 #: includes/class-assets.php:98
-#: includes/class-rest-controller.php:318
+#: includes/class-rest-controller.php:392
 msgid "Too many reports from this connection. Please wait a few minutes."
 msgstr "Zu viele Meldungen von dieser Verbindung. Bitte warte ein paar Minuten."
 
 #: includes/class-assets.php:99
-#: includes/class-rest-controller.php:194
+#: includes/class-rest-controller.php:268
 #: templates/list.php:95
 msgid "This list no longer takes reports."
 msgstr "Diese Liste nimmt keine Meldungen mehr an."
@@ -374,6 +374,27 @@ msgstr "Morgen"
 #, php-format
 msgid "in %s days"
 msgstr "in %s Tagen"
+
+#: includes/class-assets.php:107
+msgid "Undo"
+msgstr "Rückgängig"
+
+#: includes/class-assets.php:108
+msgid "Everything on this list has been bought. Thank you!"
+msgstr "Alles auf dieser Liste ist besorgt. Danke!"
+
+#. translators: %s: number of wishes.
+#: includes/class-assets.php:116
+#: includes/class-assets.php:118
+#, php-format
+msgid "You reported %s wish here as bought."
+msgid_plural "You reported %s wishes here as bought."
+msgstr[0] "Du hast hier %s Wunsch als gekauft gemeldet."
+msgstr[1] "Du hast hier %s Wünsche als gekauft gemeldet."
+
+#: includes/class-assets.php:119
+msgid "Show them"
+msgstr "Anzeigen"
 
 #: includes/class-block.php:60
 #: includes/class-block.php:148
@@ -482,8 +503,8 @@ msgid "The shortcode appears once the list is saved."
 msgstr "Der Shortcode erscheint, sobald die Liste gespeichert ist."
 
 #: includes/class-meta-boxes.php:188
-msgid "Options: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"all|open|done\", controls=\"no\" to hide sorting and filters."
-msgstr "Optionen: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"all|open|done\", controls=\"no\" blendet Sortierung und Filter aus."
+msgid "Options: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"open|all|done\" (default \"open\": bought wishes leave the list), controls=\"no\" to hide sorting and filters."
+msgstr "Optionen: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"open|all|done\" (Standard \"open\": Gekauftes verschwindet aus der Liste), controls=\"no\" blendet Sortierung und Filter aus."
 
 #. translators: 1: number reported bought. 2: number wished for.
 #: includes/class-meta-boxes.php:233
@@ -508,7 +529,7 @@ msgid "You are not allowed to change this wish."
 msgstr "Du darfst diesen Wunsch nicht ändern."
 
 #: includes/class-meta-boxes.php:311
-#: includes/class-rest-controller.php:307
+#: includes/class-rest-controller.php:381
 msgid "This wish does not exist."
 msgstr "Diesen Wunsch gibt es nicht."
 
@@ -608,17 +629,25 @@ msgstr "Name"
 msgid "As arranged"
 msgstr "Wie angeordnet"
 
-#: includes/class-renderer.php:101
+#: includes/class-renderer.php:109
 msgid "Choose a wishlist to show."
 msgstr "Wähle eine Wunschliste aus."
 
-#: includes/class-renderer.php:105
+#: includes/class-renderer.php:113
 msgid "This wishlist does not exist or is not published."
 msgstr "Diese Wunschliste gibt es nicht oder sie ist nicht veröffentlicht."
 
-#: includes/class-rest-controller.php:164
+#: includes/class-rest-controller.php:204
 msgid "This report does not exist any more. Perhaps it was already taken back."
 msgstr "Diese Meldung gibt es nicht mehr. Vielleicht wurde sie schon zurückgenommen."
+
+#: includes/class-rest-controller.php:230
+msgid "The report to take back is missing."
+msgstr "Es fehlt, welche Meldung zurückgenommen werden soll."
+
+#: includes/class-rest-controller.php:238
+msgid "This report cannot be taken back from here."
+msgstr "Diese Meldung lässt sich von hier aus nicht zurücknehmen."
 
 #: includes/class-settings-tab.php:116
 msgid "Wishlist works, but its settings need the Baukasten - Privacy Toolkit plugin. Lists can still be edited under Wishlists."

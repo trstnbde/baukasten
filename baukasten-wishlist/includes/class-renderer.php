@@ -51,14 +51,22 @@ final class Renderer {
 	}
 
 	/**
+	 * The status filter a list starts with when nothing else is chosen.
+	 *
+	 * "Still wanted": once a guest reports a purchase, the wish leaves the
+	 * list for everybody, which is what keeps it from being bought twice.
+	 */
+	const DEFAULT_STATUS = 'open';
+
+	/**
 	 * Status filters the page offers.
 	 *
 	 * @return array<string, string> Key to label.
 	 */
 	public static function status_options(): array {
 		return array(
-			'all'  => __( 'All wishes', 'baukasten-wishlist' ),
 			'open' => __( 'Still wanted', 'baukasten-wishlist' ),
+			'all'  => __( 'All wishes', 'baukasten-wishlist' ),
 			'done' => __( 'Already bought', 'baukasten-wishlist' ),
 		);
 	}
@@ -71,7 +79,7 @@ final class Renderer {
 	 */
 	public static function normalise( array $args ): array {
 		$sort   = isset( $args['sort'] ) ? sanitize_key( (string) $args['sort'] ) : 'priority';
-		$status = isset( $args['status'] ) ? sanitize_key( (string) $args['status'] ) : 'all';
+		$status = isset( $args['status'] ) ? sanitize_key( (string) $args['status'] ) : self::DEFAULT_STATUS;
 
 		$controls = $args['controls'] ?? true;
 
@@ -82,7 +90,7 @@ final class Renderer {
 		return array(
 			'list'     => isset( $args['list'] ) ? absint( $args['list'] ) : 0,
 			'sort'     => array_key_exists( $sort, self::sort_options() ) ? $sort : 'priority',
-			'status'   => array_key_exists( $status, self::status_options() ) ? $status : 'all',
+			'status'   => array_key_exists( $status, self::status_options() ) ? $status : self::DEFAULT_STATUS,
 			'controls' => (bool) $controls,
 		);
 	}
@@ -117,7 +125,7 @@ final class Renderer {
 		$list   = get_post( $list_id );
 		$fields = Fields::load_list( $list_id );
 		$items  = array_map( array( Items::class, 'data' ), Items::of_list( $list_id ) );
-		$items  = self::sorted( $items, $args['sort'] );
+		$items  = self::sorted( $items, $args['sort'], $args['status'] );
 		$open   = Claims::is_open( $list_id );
 
 		Assets::enqueue();
@@ -142,16 +150,28 @@ final class Renderer {
 	/**
 	 * Sorts wishes the way the script would.
 	 *
-	 * @param array<int, array<string, mixed>> $items Wish data.
-	 * @param string                           $sort  Sort key.
+	 * Showing every wish, the bought ones go after the ones still wanted in
+	 * every order; within each group the chosen order applies.
+	 *
+	 * @param array<int, array<string, mixed>> $items  Wish data.
+	 * @param string                           $sort   Sort key.
+	 * @param string                           $status Status filter.
 	 * @return array<int, array<string, mixed>> Sorted wish data.
 	 */
-	public static function sorted( array $items, string $sort ): array {
+	public static function sorted( array $items, string $sort, string $status = self::DEFAULT_STATUS ): array {
 		usort(
 			$items,
-			static function ( array $a, array $b ) use ( $sort ): int {
+			static function ( array $a, array $b ) use ( $sort, $status ): int {
 				$price_a = '' === $a['price'] ? null : (float) $a['price'];
 				$price_b = '' === $b['price'] ? null : (float) $b['price'];
+
+				if ( 'all' === $status ) {
+					$group = ( 0 >= $a['remaining'] ) <=> ( 0 >= $b['remaining'] );
+
+					if ( 0 !== $group ) {
+						return $group;
+					}
+				}
 
 				switch ( $sort ) {
 					case 'priority':

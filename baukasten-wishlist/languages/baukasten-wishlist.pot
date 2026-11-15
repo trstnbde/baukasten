@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten Addon: Wishlist 1.0.0\n"
+"Project-Id-Version: Baukasten Addon: Wishlist 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-wishlist\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-15T15:03:45+00:00\n"
+"POT-Creation-Date: 2026-11-15T18:27:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten-wishlist\n"
@@ -262,7 +262,7 @@ msgstr ""
 
 #: admin/views/settings-tab.php:81
 #: includes/class-post-types.php:95
-#: includes/class-renderer.php:60
+#: includes/class-renderer.php:69
 msgid "All wishes"
 msgstr ""
 
@@ -306,13 +306,13 @@ msgid "%1$s of %2$s still wanted"
 msgstr ""
 
 #: includes/class-assets.php:92
-#: includes/class-renderer.php:61
+#: includes/class-renderer.php:68
 #: templates/item.php:27
 msgid "Still wanted"
 msgstr ""
 
 #: includes/class-assets.php:93
-#: includes/class-renderer.php:62
+#: includes/class-renderer.php:70
 #: templates/item.php:25
 #: templates/item.php:67
 msgid "Already bought"
@@ -336,12 +336,12 @@ msgid "Somebody has already bought this."
 msgstr ""
 
 #: includes/class-assets.php:98
-#: includes/class-rest-controller.php:318
+#: includes/class-rest-controller.php:392
 msgid "Too many reports from this connection. Please wait a few minutes."
 msgstr ""
 
 #: includes/class-assets.php:99
-#: includes/class-rest-controller.php:194
+#: includes/class-rest-controller.php:268
 #: templates/list.php:95
 msgid "This list no longer takes reports."
 msgstr ""
@@ -372,6 +372,27 @@ msgstr ""
 #: templates/list.php:56
 #, php-format
 msgid "in %s days"
+msgstr ""
+
+#: includes/class-assets.php:107
+msgid "Undo"
+msgstr ""
+
+#: includes/class-assets.php:108
+msgid "Everything on this list has been bought. Thank you!"
+msgstr ""
+
+#. translators: %s: number of wishes.
+#: includes/class-assets.php:116
+#: includes/class-assets.php:118
+#, php-format
+msgid "You reported %s wish here as bought."
+msgid_plural "You reported %s wishes here as bought."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-assets.php:119
+msgid "Show them"
 msgstr ""
 
 #: includes/class-block.php:60
@@ -481,7 +502,7 @@ msgid "The shortcode appears once the list is saved."
 msgstr ""
 
 #: includes/class-meta-boxes.php:188
-msgid "Options: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"all|open|done\", controls=\"no\" to hide sorting and filters."
+msgid "Options: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"open|all|done\" (default \"open\": bought wishes leave the list), controls=\"no\" to hide sorting and filters."
 msgstr ""
 
 #. translators: 1: number reported bought. 2: number wished for.
@@ -507,7 +528,7 @@ msgid "You are not allowed to change this wish."
 msgstr ""
 
 #: includes/class-meta-boxes.php:311
-#: includes/class-rest-controller.php:307
+#: includes/class-rest-controller.php:381
 msgid "This wish does not exist."
 msgstr ""
 
@@ -607,16 +628,24 @@ msgstr ""
 msgid "As arranged"
 msgstr ""
 
-#: includes/class-renderer.php:101
+#: includes/class-renderer.php:109
 msgid "Choose a wishlist to show."
 msgstr ""
 
-#: includes/class-renderer.php:105
+#: includes/class-renderer.php:113
 msgid "This wishlist does not exist or is not published."
 msgstr ""
 
-#: includes/class-rest-controller.php:164
+#: includes/class-rest-controller.php:204
 msgid "This report does not exist any more. Perhaps it was already taken back."
+msgstr ""
+
+#: includes/class-rest-controller.php:230
+msgid "The report to take back is missing."
+msgstr ""
+
+#: includes/class-rest-controller.php:238
+msgid "This report cannot be taken back from here."
 msgstr ""
 
 #: includes/class-settings-tab.php:116

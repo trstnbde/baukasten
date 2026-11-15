@@ -101,11 +101,16 @@ class WishlistTest extends WP_UnitTestCase {
 	 *
 	 * @param string               $method HTTP method.
 	 * @param string               $path   Path below the namespace.
-	 * @param array<string, mixed> $query  Query parameters.
+	 * @param array<string, mixed> $query   Query parameters.
+	 * @param array<string, string> $headers Request headers.
 	 * @return WP_REST_Response Response.
 	 */
-	private function call( string $method, string $path, array $query = array() ): WP_REST_Response {
+	private function call( string $method, string $path, array $query = array(), array $headers = array() ): WP_REST_Response {
 		$request = new WP_REST_Request( $method, '/' . REST_Controller::NAMESPACE . $path );
+
+		foreach ( $headers as $name => $value ) {
+			$request->set_header( $name, $value );
+		}
 
 		foreach ( $query as $key => $value ) {
 			$request->set_query_params( array_merge( $request->get_query_params(), array( $key => $value ) ) );
@@ -163,6 +168,79 @@ class WishlistTest extends WP_UnitTestCase {
 		$this->assertSame( 200, $undo->get_status() );
 		$this->assertSame( 2, $undo->get_data()['remaining'] );
 		$this->assertSame( 404, $this->call( 'DELETE', '/items/' . $this->item_id . '/claim', array( 'token' => $token ) )->get_status(), 'A token works once.' );
+	}
+
+	public function test_the_token_travels_in_a_header(): void {
+		$token = $this->call( 'POST', '/items/' . $this->item_id . '/claim' )->get_data()['token'];
+
+		$wrong = $this->call( 'DELETE', '/items/' . $this->item_id . '/claim', array(), array( REST_Controller::TOKEN_HEADER => str_repeat( 'b', 32 ) ) );
+		$this->assertSame( 404, $wrong->get_status() );
+
+		// The header as the server hands it over, from $_SERVER, the way
+		// WP_REST_Server::serve_request() builds the request.
+		$headers = WP_REST_Server::get_headers( array( 'HTTP_X_BAUKASTEN_WISHLIST_TOKEN' => $token ) );
+		$undo    = $this->call( 'DELETE', '/items/' . $this->item_id . '/claim', array(), $headers );
+
+		$this->assertSame( 200, $undo->get_status() );
+		$this->assertSame( 2, $undo->get_data()['remaining'] );
+		$this->assertSame( array( 'id', 'quantity', 'bought', 'remaining' ), array_keys( $undo->get_data() ) );
+	}
+
+	public function test_the_header_wins_over_the_query_parameter(): void {
+		$token = $this->call( 'POST', '/items/' . $this->item_id . '/claim' )->get_data()['token'];
+
+		$response = $this->call(
+			'DELETE',
+			'/items/' . $this->item_id . '/claim',
+			array( 'token' => str_repeat( 'c', 32 ) ),
+			array( REST_Controller::TOKEN_HEADER => $token )
+		);
+
+		$this->assertSame( 200, $response->get_status() );
+	}
+
+	public function test_a_missing_or_malformed_token_is_refused(): void {
+		$this->call( 'POST', '/items/' . $this->item_id . '/claim' );
+
+		$this->assertSame( 400, $this->call( 'DELETE', '/items/' . $this->item_id . '/claim' )->get_status() );
+		$this->assertSame( 400, $this->call( 'DELETE', '/items/' . $this->item_id . '/claim', array(), array( REST_Controller::TOKEN_HEADER => 'nope' ) )->get_status() );
+		$this->assertSame( 1, Claims::count( $this->item_id ) );
+	}
+
+	public function test_the_token_header_is_allowed_through_cors(): void {
+		$this->assertContains( REST_Controller::TOKEN_HEADER, apply_filters( 'rest_allowed_cors_headers', array( 'Content-Type' ), new WP_REST_Request() ) );
+	}
+
+	public function test_lists_start_with_the_wishes_still_wanted(): void {
+		$this->call( 'POST', '/items/' . $this->item_id . '/claim' );
+		$this->call( 'POST', '/items/' . $this->item_id . '/claim' );
+		$this->wish( 'Picture book', 1, '9.99', 3 );
+
+		$default = do_shortcode( Shortcode::for_list( $this->list_id ) );
+
+		$this->assertStringContainsString( 'data-status="open"', $default );
+		$this->assertMatchesRegularExpression( '/data-id="' . $this->item_id . '"[^>]*\shidden/s', $default, 'The bought wish starts hidden.' );
+
+		$all = do_shortcode( '[baukasten_wishlist id="' . $this->list_id . '" filter="all"]' );
+
+		$this->assertStringContainsString( 'data-status="all"', $all );
+		$this->assertDoesNotMatchRegularExpression( '/data-id="' . $this->item_id . '"[^>]*\shidden/s', $all, 'An explicit "all" keeps it.' );
+
+		$block = WP_Block_Type_Registry::get_instance()->get_registered( 'baukasten/wishlist' );
+
+		$this->assertSame( 'open', $block->attributes['status']['default'] );
+	}
+
+	public function test_showing_all_puts_bought_wishes_last_in_every_order(): void {
+		$items = array(
+			array( 'title' => 'Bought cheap', 'price' => '1.00', 'priority' => 1, 'remaining' => 0, 'order' => 0 ),
+			array( 'title' => 'Open dear', 'price' => '50.00', 'priority' => 3, 'remaining' => 1, 'order' => 1 ),
+			array( 'title' => 'Open cheap', 'price' => '5.00', 'priority' => 2, 'remaining' => 2, 'order' => 2 ),
+		);
+
+		$this->assertSame( array( 'Open cheap', 'Open dear', 'Bought cheap' ), array_column( Renderer::sorted( $items, 'price-asc', 'all' ), 'title' ) );
+		$this->assertSame( array( 'Open cheap', 'Open dear', 'Bought cheap' ), array_column( Renderer::sorted( $items, 'priority', 'all' ), 'title' ) );
+		$this->assertSame( 'Bought cheap', array_column( Renderer::sorted( $items, 'price-asc', 'done' ), 'title' )[0], 'Only "all" groups.' );
 	}
 
 	public function test_no_token_is_stored_in_the_clear(): void {

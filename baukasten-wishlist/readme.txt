@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: baukasten
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,9 +17,10 @@ A wishlist is one occasion for one person — a second birthday, Christmas, a we
 
 * **Lists** with a title, the person, the occasion, a date with a countdown, an introduction, a header image and an accent colour. As many as you like, each on its own page or several on one.
 * **Wishes** with a name, a product image, a quantity, an approximate price, a priority (high, medium, low), a shop address and a short note.
+* **Bought wishes leave the list.** A list starts with the wishes still wanted; guests can switch to all wishes or to the ones already bought.
 * **Sorting** by priority, by what is still wanted, by price either way, by name, or in your own order; **filters** by status, priority and price. The choice is kept in the address, so a filtered list can be shared.
 * **Anonymous reports.** One click, no name, no account. A wish wanted three times counts down one at a time.
-* **Undo from the same browser.** The reporting browser keeps a random token; only that browser can take the report back. You can reset any wish, or a whole list, in the admin.
+* **Undo from the same browser.** Right after a report the message offers Undo; later, the list points a returning guest to the wishes they reported. Only the reporting browser holds the token that takes a report back. You can reset any wish, or a whole list, in the admin.
 * **Close after the day**, if you want: the list stays visible, but takes no more reports.
 * Works with any theme: the list inherits fonts and colours and adds only its accent.
 
@@ -46,14 +47,29 @@ Nothing, ultimately — the list is meant for people you sent the link to. A rat
 
 = What is the shortcode? =
 
-`[baukasten_wishlist id="123"]`, with the list's ID. Options: `sort="priority|open|price-asc|price-desc|title|order"`, `filter="all|open|done"`, `controls="no"`.
+`[baukasten_wishlist id="123"]`, with the list's ID. Options: `sort="priority|open|price-asc|price-desc|title|order"`, `filter="open|all|done"` (default `open`), `controls="no"`.
+
+= Can guests see the bought wishes? =
+
+Yes, with "Show: All wishes" or "Already bought". The list starts with the wishes still wanted; to start with all of them, choose "All wishes" under "Shows at first" in the block's settings, or write `filter="all"` in the shortcode.
 
 == Changelog ==
+
+= 1.0.1 =
+* A list starts with the wishes still wanted, so a reported wish leaves it. Blocks and shortcodes that chose "All wishes" explicitly keep it.
+* After a report that hides the wish, the message offers Undo for ten seconds, and pauses while it has the pointer or the keyboard focus.
+* A returning guest whose reported wishes are filtered out gets a note above the list that shows them.
+* Showing all wishes, the bought ones come after the ones still wanted in every order.
+* The token that takes a report back travels in the `X-Baukasten-Wishlist-Token` header instead of the address. `?token=` still works for pages cached with 1.0.0.
+* The focus never lands inside a hidden wish.
 
 = 1.0.0 =
 * First release.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Bought wishes leave the list for guests, with Undo in the message right after a report.
 
 = 1.0.0 =
 First release.

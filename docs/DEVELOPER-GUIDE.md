@@ -260,7 +260,7 @@ Each plugin also carries its own `README.md` (how it works, and its known gaps) 
 
 ## 7. Releasing
 
-The addons are at 1.0.0, except Business Cards and New Tab Page at 1.0.1 (passwords); the core is at 1.0.2 (it lists Wishlist), the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
+The addons are at 1.0.0, except Business Cards and New Tab Page at 1.0.1 (passwords) and Wishlist at 1.0.1; the core is at 1.0.2 (it lists Wishlist), the theme at 1.5, each released on GitHub; publishing to WordPress.org is on hold.
 
 The procedure lives in [`RELEASING.md`](RELEASING.md). For the day the directory submission is
 taken up again it also holds the one irreversible step: **WordPress.org derives the directory slug

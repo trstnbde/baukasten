@@ -10,7 +10,9 @@ namespace Baukasten\Wishlist;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * `[baukasten_wishlist id="12" sort="priority" filter="open" controls="no"]`
+ * `[baukasten_wishlist id="12" sort="priority" filter="all" controls="no"]`
+ *
+ * `filter` defaults to `open`, so bought wishes leave the list.
  *
  * For the classic editor, widgets and anywhere a block cannot go.
  */
@@ -41,7 +43,7 @@ final class Shortcode {
 			array(
 				'id'       => '0',
 				'sort'     => 'priority',
-				'filter'   => 'all',
+				'filter'   => Renderer::DEFAULT_STATUS,
 				'controls' => 'yes',
 			),
 			is_array( $atts ) ? $atts : array(),

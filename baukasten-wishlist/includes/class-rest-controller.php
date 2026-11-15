@@ -13,6 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * `GET  /baukasten-wishlist/v1/lists/<id>`        what is bought, per wish
  * `POST /baukasten-wishlist/v1/items/<id>/claim`   report one purchase
  * `DELETE /baukasten-wishlist/v1/items/<id>/claim` take one back, with its token
+ *                                                  in the X-Baukasten-Wishlist-Token header
  *
  * Public, because guests are not logged in, and without a nonce, because a
  * cached page would carry an expired one. What stands in for it: reports
@@ -34,12 +35,43 @@ final class REST_Controller {
 	const RATE_PREFIX = 'baukasten_wishlist_rl_';
 
 	/**
+	 * Header that carries the token of a report to take back.
+	 *
+	 * A header rather than `?token=`: a query string ends up in access logs,
+	 * proxy logs and the browser's history; a header does not.
+	 */
+	const TOKEN_HEADER = 'X-Baukasten-Wishlist-Token';
+
+	/**
+	 * Shape of a token.
+	 */
+	const TOKEN_PATTERN = '^[a-f0-9]{32}$';
+
+	/**
 	 * Registers the hooks.
 	 *
 	 * @return void
 	 */
 	public static function register(): void {
 		add_action( 'rest_api_init', array( __CLASS__, 'register_routes' ) );
+		add_filter( 'rest_allowed_cors_headers', array( __CLASS__, 'allow_token_header' ) );
+	}
+
+	/**
+	 * Lets the token header through a CORS preflight.
+	 *
+	 * The page calls its own site, so the browser sends no preflight. Under
+	 * Multi-Domain, though, a page can be served from another domain than the
+	 * REST URL; a custom header then needs the preflight to allow it.
+	 *
+	 * @param mixed $headers Allowed request headers.
+	 * @return string[] Headers.
+	 */
+	public static function allow_token_header( $headers ): array {
+		$headers   = array_map( 'strval', (array) $headers );
+		$headers[] = self::TOKEN_HEADER;
+
+		return array_values( array_unique( $headers ) );
 	}
 
 	/**
@@ -82,10 +114,12 @@ final class REST_Controller {
 					'permission_callback' => '__return_true',
 					'args'                => array(
 						'id'    => $id,
+						// Deprecated: the header replaces it. Still read, for a page
+						// cached with the 1.0.0 script.
 						'token' => array(
 							'type'     => 'string',
-							'required' => true,
-							'pattern'  => '^[a-f0-9]{32}$',
+							'required' => false,
+							'pattern'  => self::TOKEN_PATTERN,
 						),
 					),
 				),
@@ -158,7 +192,13 @@ final class REST_Controller {
 			return self::rate_limited();
 		}
 
-		if ( ! Claims::unclaim( $item['id'], (string) $request->get_param( 'token' ) ) ) {
+		$token = self::token( $request );
+
+		if ( is_wp_error( $token ) ) {
+			return $token;
+		}
+
+		if ( ! Claims::unclaim( $item['id'], $token ) ) {
 			return new \WP_Error(
 				'baukasten_wishlist_unknown_report',
 				__( 'This report does not exist any more. Perhaps it was already taken back.', 'baukasten-wishlist' ),
@@ -167,6 +207,40 @@ final class REST_Controller {
 		}
 
 		return self::fresh( self::item_state( $item['id'] ) );
+	}
+
+	/**
+	 * The token of the report to take back.
+	 *
+	 * From the header first, then from the deprecated query parameter.
+	 *
+	 * @param \WP_REST_Request $request The request.
+	 * @return string|\WP_Error Token, or a 400 error.
+	 */
+	private static function token( \WP_REST_Request $request ) {
+		$token = trim( (string) $request->get_header( self::TOKEN_HEADER ) );
+
+		if ( '' === $token ) {
+			$token = (string) $request->get_param( 'token' );
+		}
+
+		if ( '' === $token ) {
+			return new \WP_Error(
+				'baukasten_wishlist_no_token',
+				__( 'The report to take back is missing.', 'baukasten-wishlist' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		if ( 1 !== preg_match( '/' . self::TOKEN_PATTERN . '/', $token ) ) {
+			return new \WP_Error(
+				'baukasten_wishlist_bad_token',
+				__( 'This report cannot be taken back from here.', 'baukasten-wishlist' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		return $token;
 	}
 
 	/**

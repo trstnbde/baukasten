@@ -39,18 +39,21 @@ No name, no account, no address is stored. The token (32 hex characters) goes ba
 |---|---|
 | `GET /wp-json/baukasten-wishlist/v1/lists/<id>` | `{ open, items: { <id>: { quantity, bought, remaining } } }` — counts only, no titles |
 | `POST /wp-json/baukasten-wishlist/v1/items/<id>/claim` | 201 `{ token, id, quantity, bought, remaining }`; 409 fully bought; 403 closed; 404 unknown, draft, or list not published |
-| `DELETE /wp-json/baukasten-wishlist/v1/items/<id>/claim?token=` | 200 with the new state; 404 unknown token |
+| `DELETE /wp-json/baukasten-wishlist/v1/items/<id>/claim` with header `X-Baukasten-Wishlist-Token: <token>` | 200 with the new state; 404 unknown token; 400 missing or malformed. `?token=` is still read when the header is missing (pages cached with 1.0.0) |
 
-Public, without a nonce — a cached page would carry an expired one, and guests are not logged in. The browser sends no cookies (`credentials: 'omit'`). POST and DELETE count against a fixed window per hashed address (`baukasten_wishlist_rate_limit`, default 20 per 10 minutes, 0 off) and answer 429 beyond it. The address hash comes from `Baukasten\LoginLegalPages\Rate_Limit::key()` when the core has it, so `baukasten/login/client_ip` applies here too. Every answer carries `Cache-Control: no-store`.
+Public, without a nonce — a cached page would carry an expired one, and guests are not logged in. The browser sends no cookies (`credentials: 'omit'`). POST and DELETE count against a fixed window per hashed address (`baukasten_wishlist_rate_limit`, default 20 per 10 minutes, 0 off) and answer 429 beyond it. The address hash comes from `Baukasten\LoginLegalPages\Rate_Limit::key()` when the core has it, so `baukasten/login/client_ip` applies here too. Every answer carries `Cache-Control: no-store`. The page calls its own origin without credentials, so the custom header needs no preflight; for a page served from another domain (Multi-Domain) the header is added to `rest_allowed_cors_headers`.
 
 ## Output
 
 `Renderer::render()` is shared by the block `baukasten/wishlist` (dynamic, `render_callback`, editor script `assets/js/block-editor.js` against the `wp.*` globals without a build step, preview through `ServerSideRender`) and the shortcode `[baukasten_wishlist id="" sort="" filter="" controls=""]`.
 
+- A list starts filtered to the wishes still wanted (`Renderer::DEFAULT_STATUS = 'open'`, also the block attribute's and the shortcode's default), so a reported wish leaves it. A block or shortcode that stores `all` keeps it. Showing all, bought wishes sort after open ones in every order, on the server and in the script.
 - The server prints every wish in the chosen order with its state, so the list reads without JavaScript. Buttons and controls carry `hidden` until the script shows them.
 - Inside a post that still asks for its password the shortcode prints nothing (trap 28); WordPress already withholds the content of such a post, this covers widgets and template parts.
 - An unpublished list prints nothing for visitors and a note for editors.
 - `assets/js/wishlist.js` sorts and filters on `data-*` attributes, keeps the choice in the address (`?wl<id>_sort=` …), refreshes the counts from the state route on load, and announces results in a live region.
+- A report that the filter hides fades the card out (instantly with `prefers-reduced-motion`) and shows a toast with an Undo button for 10 s, paused on hover and on keyboard focus. The focus goes to that button; after Undo, to the card's "I bought this". It never goes into a hidden card: the fallback is the status filter, then the list's title.
+- A returning guest whose reported, bought wishes are filtered out sees "You reported n wishes here as bought. Show them" above the list; the button switches to "Already bought" and clears the other filters.
 - `assets/css/wishlist.css` inherits the theme's font and colours, mixes tints from `currentColor`, and takes the accent from `--baukasten-wl-accent`. No fonts, no third-party requests.
 - Assets are registered on `init` and enqueued from inside the render, so they load only where a list is shown — before `wp_head` in a block theme, in the footer in a classic one.
 

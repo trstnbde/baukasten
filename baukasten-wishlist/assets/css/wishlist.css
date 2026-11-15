@@ -151,6 +151,16 @@
 	opacity: 0.75;
 }
 
+/* ---------- Returning guests ---------- */
+
+.baukasten-wl__mine {
+	margin: 0 0 1rem;
+	padding: 0.75rem 1rem;
+	border-radius: 10px;
+	background: var(--baukasten-wl-soft);
+	font-size: 0.95rem;
+}
+
 /* ---------- Items ---------- */
 
 .baukasten-wl .baukasten-wl__items {
@@ -170,7 +180,12 @@
 	border: 1px solid var(--baukasten-wl-line);
 	border-radius: var(--baukasten-wl-radius);
 	background: var(--baukasten-wl-tint);
-	transition: opacity 0.2s ease;
+	transition: opacity 0.25s ease;
+}
+
+/* On its way out after a report: fades, then the filter hides it. */
+.baukasten-wl-item.is-leaving {
+	opacity: 0;
 }
 
 .baukasten-wl-item.is-priority-1 {
@@ -340,7 +355,8 @@
 	filter: brightness(0.92);
 }
 
-.baukasten-wl .baukasten-wl-button:disabled {
+.baukasten-wl .baukasten-wl-button:disabled,
+.baukasten-wl [aria-disabled="true"] {
 	opacity: 0.6;
 	cursor: progress;
 }
@@ -371,9 +387,14 @@
 	z-index: 100000;
 	inset-inline: 1rem;
 	inset-block-end: 1rem;
-	max-width: 28rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem 1rem;
+	max-width: 30rem;
 	margin: 0 auto;
-	padding: 0.875rem 1.125rem;
+	padding: 0.75rem 0.875rem 0.75rem 1.125rem;
 	border-radius: 12px;
 	background: #1e1e1e;
 	color: #fff;
@@ -388,6 +409,39 @@
 .baukasten-wl__toast.is-visible {
 	opacity: 1;
 	transform: none;
+}
+
+/* Only a toast with a button takes the pointer, so a plain message never
+   blocks what is under it. */
+.baukasten-wl__toast.has-action.is-visible {
+	pointer-events: auto;
+}
+
+.baukasten-wl .baukasten-wl__toast-text {
+	flex: 1 1 12rem;
+	margin: 0;
+}
+
+.baukasten-wl .baukasten-wl__toast-action {
+	flex: 0 0 auto;
+	min-height: 2.5rem;
+	padding: 0.375rem 1rem;
+	border: 2px solid #fff;
+	border-radius: 999px;
+	background: transparent;
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.baukasten-wl .baukasten-wl__toast-action:hover {
+	background: rgb(255 255 255 / 0.12);
+}
+
+.baukasten-wl .baukasten-wl__toast-action:focus-visible {
+	outline: 3px solid #fff;
+	outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {

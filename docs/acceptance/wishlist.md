@@ -59,3 +59,44 @@ Screenshots (nicht im Repo, weil ein Testbild ein Porträt zeigt): `docs/accepta
 2. **Echte Wünsche** für Leni eintragen; die drei Testwünsche (Entwurf) danach löschen.
 3. Die Seite `/wunschliste-leni/` ist öffentlich und nicht im Menü. Ob sie zusätzlich ein Passwort bekommen soll, entscheidet Torsten.
 4. Merge, Tags (`baukasten-1.0.2`, `baukasten-wishlist-1.0.0`, einzeln gepusht) und Releases nach Freigabe.
+
+## Nachtrag: Version 1.0.1 (15. November 2026)
+
+Befund: Gemeldete Wünsche blieben in der Liste sichtbar, weil Listen mit dem Filter „Alle Wünsche“ starteten. Neu in 1.0.1:
+
+- Listen starten mit „Noch gewünscht“, für Block, Shortcode und Renderer gleich.
+- Nach einer Meldung blendet die Karte aus, und der Toast bietet zehn Sekunden lang „Rückgängig“.
+- Wiederkehrende Gäste sehen einen Hinweis auf ihre ausgeblendeten Meldungen.
+- Bei „Alle Wünsche“ stehen besorgte Wünsche in jeder Sortierung am Ende.
+- Das Token reist im Header `X-Baukasten-Wishlist-Token` statt in der URL.
+
+**Nicht auf bundeshub.de getestet** (auf Torstens Wunsch keine Testmeldungen gegen die Live-Seite) und noch nicht ausgerollt. Geprüft wurde lokal:
+
+- Die echten Templates werden per PHP-CLI gerendert, mit deutschen Strings aus der `.po` und der Konfiguration aus `Assets::enqueue()`.
+- Ein Node-Server bildet die drei REST-Routen im Speicher nach.
+- Playwright steuert dagegen ein headless Chrome.
+- Ergebnis: 64 von 64 Prüfungen bestanden.
+
+| Kriterium | Ergebnis |
+|---|---|
+| Standardfilter „Noch gewünscht“, besorgter Wunsch serverseitig `hidden` | ✅ |
+| Melden blendet Karte aus (`is-leaving`, 250 ms) | ✅; mit `prefers-reduced-motion` sofort |
+| Toast mit „Rückgängig“ | ✅ `aria-hidden` nur am Text; Zeiger nur mit Button; 10 s sichtbar; pausiert bei Hover und bei Tastaturfokus |
+| Fokus nach Meldung | ✅ Toast-Button, wenn die Karte verschwindet, sonst „Meine Meldung zurücknehmen“ |
+| Fokus nach Rückgängig | ✅ „Hab ich gekauft“ der wieder sichtbaren Karte |
+| Fokus nie in einer versteckten Karte | ✅ laufend überwacht, keine Verletzung; Ersatzfokus ist der Filter „Anzeigen“, dann der Listentitel |
+| Token im Header | ✅ kein `token` in der URL; keine Cookies an der REST-API, obwohl ein Cookie im Browser lag |
+| Hinweis nach Neuladen, Singular und Plural | ✅ „Anzeigen“ setzt „Bereits besorgt“, leert die anderen Filter, schreibt `wl<id>_status=done` in die URL und fokussiert „Meine Meldung zurücknehmen“ |
+| Sortierung bei „Alle Wünsche“ | ✅ Besorgtes zuletzt, bei Preis auf- und absteigend und bei Name |
+| Tastatur ohne Maus | ✅ Tab, Enter, Rückfrage, Toast, Rückgängig und Abbrechen |
+| Konsole, mobil 390 px | ✅ keine Fehler, kein horizontales Scrollen |
+
+Ein Fehler wurde dabei gefunden und behoben: `disabled` am fokussierten Button warf den Fokus auf `<body>`. Jetzt markiert `aria-disabled` den laufenden Request, und ein Busy-Schutz verhindert Doppelklicks.
+
+Neu in CI (PHPUnit):
+
+- Header aus `$_SERVER` über `WP_REST_Server::get_headers()`; der Header gewinnt gegen den Query-Parameter.
+- 400 bei fehlendem oder kaputtem Token.
+- `rest_allowed_cors_headers` enthält den Header.
+- Standardstatus `open`; ein ausdrückliches `filter="all"` bleibt erhalten.
+- Gruppierte Sortierung im PHP-Renderer.
