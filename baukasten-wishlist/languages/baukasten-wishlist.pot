@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Baukasten Addon: Wishlist 1.0.1\n"
+"Project-Id-Version: Baukasten Addon: Wishlist 1.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-wishlist\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-15T18:27:34+00:00\n"
+"POT-Creation-Date: 2026-11-15T21:05:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: baukasten-wishlist\n"
@@ -40,9 +40,10 @@ msgid "https://github.com/trstnbde"
 msgstr ""
 
 #: admin/views/item-box.php:20
+#: admin/views/quick-edit.php:20
 #: admin/views/settings-tab.php:30
-#: includes/class-block.php:149
-#: includes/class-list-tables.php:135
+#: includes/class-block.php:151
+#: includes/class-list-tables.php:192
 msgid "List"
 msgstr ""
 
@@ -52,7 +53,7 @@ msgid "There is no list yet."
 msgstr ""
 
 #: admin/views/item-box.php:25
-#: includes/class-block.php:152
+#: includes/class-block.php:154
 msgid "Create a list"
 msgstr ""
 
@@ -61,6 +62,7 @@ msgid "— Choose —"
 msgstr ""
 
 #: admin/views/item-box.php:38
+#: admin/views/quick-edit.php:28
 msgid "Quantity"
 msgstr ""
 
@@ -70,8 +72,9 @@ msgstr ""
 
 #: admin/views/item-box.php:45
 #: admin/views/list-items.php:30
-#: includes/class-list-tables.php:137
-#: templates/list.php:135
+#: admin/views/quick-edit.php:32
+#: includes/class-list-tables.php:194
+#: templates/list.php:149
 msgid "Price"
 msgstr ""
 
@@ -81,8 +84,9 @@ msgstr ""
 
 #: admin/views/item-box.php:53
 #: admin/views/list-items.php:29
-#: includes/class-list-tables.php:136
-#: templates/list.php:125
+#: admin/views/quick-edit.php:37
+#: includes/class-list-tables.php:193
+#: templates/list.php:138
 msgid "Priority"
 msgstr ""
 
@@ -103,7 +107,7 @@ msgid "A short hint such as a size or colour. Optional."
 msgstr ""
 
 #: admin/views/item-box.php:78
-msgid "The product image is the featured image, in the sidebar."
+msgid "The product image is the featured image, at the top of the sidebar. The order \"As arranged\" on the page follows the field \"Order\" in the sidebar: lower numbers first."
 msgstr ""
 
 #: admin/views/list-box.php:18
@@ -115,7 +119,7 @@ msgid "Whose list it is, such as \"Leni\". Shown as \"For Leni\"."
 msgstr ""
 
 #: admin/views/list-box.php:25
-#: includes/class-list-tables.php:46
+#: includes/class-list-tables.php:85
 #: includes/class-meta-boxes.php:73
 msgid "Occasion"
 msgstr ""
@@ -171,36 +175,36 @@ msgid "Save the list as a draft first, then add its wishes here."
 msgstr ""
 
 #: admin/views/list-items.php:22
-#: includes/class-post-types.php:101
+#: includes/class-post-types.php:108
 msgid "No wishes yet."
 msgstr ""
 
 #: admin/views/list-items.php:27
-#: includes/class-list-tables.php:129
+#: includes/class-list-tables.php:186
 msgid "Image"
 msgstr ""
 
 #: admin/views/list-items.php:28
-#: includes/class-post-types.php:93
+#: includes/class-post-types.php:100
 msgid "Wish"
 msgstr ""
 
 #: admin/views/list-items.php:31
-#: includes/class-list-tables.php:138
-#: includes/class-meta-boxes.php:85
+#: includes/class-list-tables.php:195
+#: includes/class-meta-boxes.php:86
 msgid "Bought"
 msgstr ""
 
 #. translators: 1: number bought. 2: number wished for.
 #: admin/views/list-items.php:51
-#: includes/class-list-tables.php:191
+#: includes/class-list-tables.php:264
 #, php-format
 msgid "%1$s of %2$s"
 msgstr ""
 
 #: admin/views/list-items.php:62
-#: includes/class-post-types.php:96
-#: includes/class-post-types.php:97
+#: includes/class-post-types.php:103
+#: includes/class-post-types.php:104
 msgid "Add wish"
 msgstr ""
 
@@ -218,21 +222,21 @@ msgid "Lists"
 msgstr ""
 
 #: admin/views/settings-tab.php:27
-#: includes/class-post-types.php:55
-#: includes/class-post-types.php:57
+#: includes/class-post-types.php:62
+#: includes/class-post-types.php:64
 msgid "Wishlists"
 msgstr ""
 
 #: admin/views/settings-tab.php:32
-#: includes/class-list-tables.php:47
-#: includes/class-post-types.php:92
-#: includes/class-post-types.php:94
+#: includes/class-list-tables.php:86
+#: includes/class-post-types.php:99
+#: includes/class-post-types.php:101
 msgid "Wishes"
 msgstr ""
 
 #: admin/views/settings-tab.php:33
-#: includes/class-list-tables.php:48
-#: includes/class-meta-boxes.php:184
+#: includes/class-list-tables.php:88
+#: includes/class-meta-boxes.php:219
 msgid "Shortcode"
 msgstr ""
 
@@ -240,164 +244,164 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
+#: admin/views/settings-tab.php:52
+#: includes/class-list-tables.php:155
+msgid "Not shown yet"
+msgstr ""
+
 #. translators: 1: number of wishes. 2: things bought. 3: things wished for.
-#: admin/views/settings-tab.php:51
+#: admin/views/settings-tab.php:60
 #, php-format
 msgid "%1$s (%2$s of %3$s bought)"
 msgstr ""
 
-#: admin/views/settings-tab.php:64
+#: admin/views/settings-tab.php:73
 msgid "Mark every wish on this list as not bought again? Guests who reported a purchase can no longer take it back."
 msgstr ""
 
-#: admin/views/settings-tab.php:69
+#: admin/views/settings-tab.php:78
 msgid "Reset purchases"
 msgstr ""
 
-#: admin/views/settings-tab.php:80
-#: includes/class-post-types.php:59
-#: includes/class-post-types.php:60
+#: admin/views/settings-tab.php:89
+#: includes/class-post-types.php:66
+#: includes/class-post-types.php:67
 msgid "Add list"
 msgstr ""
 
-#: admin/views/settings-tab.php:81
-#: includes/class-post-types.php:95
-#: includes/class-renderer.php:69
+#: admin/views/settings-tab.php:90
+#: includes/class-post-types.php:102
+#: includes/class-renderer.php:96
 msgid "All wishes"
 msgstr ""
 
-#: admin/views/settings-tab.php:84
+#: admin/views/settings-tab.php:93
 msgid "Settings"
 msgstr ""
 
-#: admin/views/settings-tab.php:93
+#: admin/views/settings-tab.php:102
 msgid "Currency"
 msgstr ""
 
-#: admin/views/settings-tab.php:96
+#: admin/views/settings-tab.php:105
 msgid "Printed after every price, such as \"€\" or \"CHF\"."
 msgstr ""
 
-#: admin/views/settings-tab.php:100
+#: admin/views/settings-tab.php:109
 msgid "Reports per connection"
 msgstr ""
 
-#: admin/views/settings-tab.php:103
+#: admin/views/settings-tab.php:112
 msgid "How many purchases one address may report or take back within ten minutes, so nobody can tick off a whole list for fun. 0 switches the limit off. The address is only used as a hash and never stored."
 msgstr ""
 
-#: admin/views/settings-tab.php:109
+#: admin/views/settings-tab.php:118
 msgid "Save settings"
 msgstr ""
 
-#: admin/views/settings-tab.php:112
+#: admin/views/settings-tab.php:121
 msgid "Privacy"
 msgstr ""
 
-#: admin/views/settings-tab.php:115
+#: admin/views/settings-tab.php:124
 msgid "Reporting a purchase asks for no name and stores none. The reporting browser keeps a random token in its local storage so it can take the report back; the site stores only a hash of that token. The page loads nothing from other hosts. Shop links open the shop only when a visitor clicks them."
 msgstr ""
 
 #. translators: 1: number still wanted. 2: number wanted in all.
 #: includes/class-assets.php:91
-#: templates/item.php:31
+#: templates/item.php:36
 #, php-format
 msgid "%1$s of %2$s still wanted"
 msgstr ""
 
 #: includes/class-assets.php:92
-#: includes/class-renderer.php:68
-#: templates/item.php:27
-msgid "Still wanted"
-msgstr ""
-
-#: includes/class-assets.php:93
-#: includes/class-renderer.php:70
-#: templates/item.php:25
-#: templates/item.php:67
+#: includes/class-list-tables.php:259
+#: includes/class-renderer.php:97
+#: templates/item.php:32
+#: templates/item.php:79
 msgid "Already bought"
 msgstr ""
 
-#: includes/class-assets.php:94
+#: includes/class-assets.php:93
 msgid "Thank you! Everybody now sees that this one is taken care of."
 msgstr ""
 
-#: includes/class-assets.php:95
+#: includes/class-assets.php:94
 msgid "Your report was taken back."
 msgstr ""
 
-#: includes/class-assets.php:96
+#: includes/class-assets.php:95
 msgid "That did not work. Please try again in a moment."
 msgstr ""
 
-#: includes/class-assets.php:97
+#: includes/class-assets.php:96
 #: includes/class-claims.php:175
 msgid "Somebody has already bought this."
 msgstr ""
 
-#: includes/class-assets.php:98
+#: includes/class-assets.php:97
 #: includes/class-rest-controller.php:392
 msgid "Too many reports from this connection. Please wait a few minutes."
 msgstr ""
 
-#: includes/class-assets.php:99
+#: includes/class-assets.php:98
 #: includes/class-rest-controller.php:268
-#: templates/list.php:95
+#: templates/list.php:110
 msgid "This list no longer takes reports."
 msgstr ""
 
 #. translators: 1: wishes shown. 2: wishes on the list.
-#: includes/class-assets.php:101
+#: includes/class-assets.php:100
 #, php-format
 msgid "%1$s of %2$s wishes shown"
 msgstr ""
 
-#: includes/class-assets.php:102
-#: templates/list.php:158
+#: includes/class-assets.php:101
+#: templates/list.php:172
 msgid "No wish matches this filter."
 msgstr ""
 
-#: includes/class-assets.php:103
-#: templates/list.php:51
+#: includes/class-assets.php:102
+#: templates/list.php:42
 msgid "Today!"
 msgstr ""
 
-#: includes/class-assets.php:104
-#: templates/list.php:53
+#: includes/class-assets.php:103
+#: templates/list.php:44
 msgid "Tomorrow"
 msgstr ""
 
 #. translators: %s: number of days.
-#: includes/class-assets.php:106
-#: templates/list.php:56
+#: includes/class-assets.php:105
+#: templates/list.php:47
 #, php-format
 msgid "in %s days"
 msgstr ""
 
-#: includes/class-assets.php:107
+#: includes/class-assets.php:106
 msgid "Undo"
 msgstr ""
 
-#: includes/class-assets.php:108
+#: includes/class-assets.php:107
 msgid "Everything on this list has been bought. Thank you!"
 msgstr ""
 
 #. translators: %s: number of wishes.
-#: includes/class-assets.php:116
-#: includes/class-assets.php:118
+#: includes/class-assets.php:113
+#: includes/class-assets.php:115
 #, php-format
 msgid "You reported %s wish here as bought."
 msgid_plural "You reported %s wishes here as bought."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-assets.php:119
+#: includes/class-assets.php:116
 msgid "Show them"
 msgstr ""
 
 #: includes/class-block.php:60
-#: includes/class-block.php:148
-#: includes/class-post-types.php:56
+#: includes/class-block.php:150
+#: includes/class-post-types.php:63
 #: includes/class-settings-tab.php:74
 msgid "Wishlist"
 msgstr ""
@@ -406,31 +410,31 @@ msgstr ""
 msgid "Shows one wishlist, where guests can mark what they bought."
 msgstr ""
 
-#: includes/class-block.php:150
+#: includes/class-block.php:152
 msgid "Choose a list"
 msgstr ""
 
-#: includes/class-block.php:151
+#: includes/class-block.php:153
 msgid "There is no wishlist yet."
 msgstr ""
 
-#: includes/class-block.php:153
+#: includes/class-block.php:155
 msgid "Sorted by"
 msgstr ""
 
-#: includes/class-block.php:154
+#: includes/class-block.php:156
 msgid "Shows at first"
 msgstr ""
 
-#: includes/class-block.php:155
+#: includes/class-block.php:157
 msgid "Let visitors sort and filter"
 msgstr ""
 
-#: includes/class-block.php:156
+#: includes/class-block.php:158
 msgid "Wishlist settings"
 msgstr ""
 
-#: includes/class-block.php:157
+#: includes/class-block.php:159
 msgid "Edit lists and wishes"
 msgstr ""
 
@@ -450,8 +454,13 @@ msgstr ""
 msgid "Low"
 msgstr ""
 
+#: includes/class-list-tables.php:87
+#: includes/class-meta-boxes.php:190
+msgid "Shown on"
+msgstr ""
+
 #. translators: %s: number of wishes.
-#: includes/class-list-tables.php:96
+#: includes/class-list-tables.php:136
 #, php-format
 msgid "%s wish"
 msgid_plural "%s wishes"
@@ -459,17 +468,17 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: things bought. 2: things wished for.
-#: includes/class-list-tables.php:103
+#: includes/class-list-tables.php:143
 #, php-format
 msgid "%1$s of %2$s bought"
 msgstr ""
 
-#: includes/class-list-tables.php:212
+#: includes/class-list-tables.php:285
 msgid "Filter by list"
 msgstr ""
 
-#: includes/class-list-tables.php:213
-#: includes/class-post-types.php:58
+#: includes/class-list-tables.php:286
+#: includes/class-post-types.php:65
 msgid "All lists"
 msgstr ""
 
@@ -481,126 +490,136 @@ msgstr ""
 msgid "Show on a page"
 msgstr ""
 
-#: includes/class-meta-boxes.php:84
+#: includes/class-meta-boxes.php:76
+#: includes/class-post-types.php:73
+msgid "Header image"
+msgstr ""
+
+#: includes/class-meta-boxes.php:85
 msgid "Details"
 msgstr ""
 
-#: includes/class-meta-boxes.php:113
+#: includes/class-meta-boxes.php:87
+#: includes/class-post-types.php:110
+msgid "Product image"
+msgstr ""
+
+#: includes/class-meta-boxes.php:130
 msgid "Title of the list, such as \"Leni turns two\""
 msgstr ""
 
-#: includes/class-meta-boxes.php:117
+#: includes/class-meta-boxes.php:134
 msgid "Name of the product"
 msgstr ""
 
-#: includes/class-meta-boxes.php:170
+#: includes/class-meta-boxes.php:200
+msgid "Not shown on any page or post yet."
+msgstr ""
+
+#: includes/class-meta-boxes.php:205
 msgid "Add the \"Wishlist\" block to any page or post and choose this list. Or paste the shortcode:"
 msgstr ""
 
-#: includes/class-meta-boxes.php:175
+#: includes/class-meta-boxes.php:210
 msgid "The shortcode appears once the list is saved."
 msgstr ""
 
-#: includes/class-meta-boxes.php:188
+#: includes/class-meta-boxes.php:223
 msgid "Options: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"open|all|done\" (default \"open\": bought wishes leave the list), controls=\"no\" to hide sorting and filters."
 msgstr ""
 
+#: includes/class-meta-boxes.php:243
+msgid "Edit"
+msgstr ""
+
 #. translators: 1: number reported bought. 2: number wished for.
-#: includes/class-meta-boxes.php:233
+#: includes/class-meta-boxes.php:288
 #, php-format
 msgid "%1$s of %2$s reported bought."
 msgstr ""
 
-#: includes/class-meta-boxes.php:240
+#: includes/class-meta-boxes.php:295
 msgid "Guests report purchases anonymously on the page. Nobody, not even you, can see who bought what."
 msgstr ""
 
-#: includes/class-meta-boxes.php:258
+#: includes/class-meta-boxes.php:313
 msgid "Remove every reported purchase of this wish? Guests who reported one can no longer take it back."
 msgstr ""
 
-#: includes/class-meta-boxes.php:259
+#: includes/class-meta-boxes.php:314
 msgid "Reset to not bought"
 msgstr ""
 
-#: includes/class-meta-boxes.php:303
+#: includes/class-meta-boxes.php:358
 msgid "You are not allowed to change this wish."
 msgstr ""
 
-#: includes/class-meta-boxes.php:311
+#: includes/class-meta-boxes.php:366
 #: includes/class-rest-controller.php:381
 msgid "This wish does not exist."
 msgstr ""
 
-#: includes/class-meta-boxes.php:338
+#: includes/class-meta-boxes.php:393
 msgid "The wish is marked as not bought again."
 msgstr ""
 
-#: includes/class-post-types.php:61
+#: includes/class-post-types.php:68
 msgid "Edit list"
 msgstr ""
 
-#: includes/class-post-types.php:62
+#: includes/class-post-types.php:69
 msgid "New list"
 msgstr ""
 
-#: includes/class-post-types.php:63
+#: includes/class-post-types.php:70
 msgid "Search lists"
 msgstr ""
 
-#: includes/class-post-types.php:64
+#: includes/class-post-types.php:71
 msgid "No lists yet."
 msgstr ""
 
-#: includes/class-post-types.php:65
+#: includes/class-post-types.php:72
 msgid "No lists in the trash."
 msgstr ""
 
-#: includes/class-post-types.php:66
-msgid "Header image"
-msgstr ""
-
-#: includes/class-post-types.php:67
+#: includes/class-post-types.php:74
 msgid "Set header image"
 msgstr ""
 
-#: includes/class-post-types.php:68
+#: includes/class-post-types.php:75
 msgid "Remove header image"
 msgstr ""
 
-#: includes/class-post-types.php:69
+#: includes/class-post-types.php:76
 msgid "Use as header image"
 msgstr ""
 
-#: includes/class-post-types.php:98
+#: includes/class-post-types.php:105
 msgid "Edit wish"
 msgstr ""
 
-#: includes/class-post-types.php:99
+#: includes/class-post-types.php:106
 msgid "New wish"
 msgstr ""
 
-#: includes/class-post-types.php:100
+#: includes/class-post-types.php:107
 msgid "Search wishes"
 msgstr ""
 
-#: includes/class-post-types.php:102
+#: includes/class-post-types.php:109
 msgid "No wishes in the trash."
 msgstr ""
 
-#: includes/class-post-types.php:103
-msgid "Product image"
-msgstr ""
-
-#: includes/class-post-types.php:104
+#: includes/class-post-types.php:111
 msgid "Set product image"
 msgstr ""
 
-#: includes/class-post-types.php:105
+#: includes/class-post-types.php:112
 msgid "Remove product image"
 msgstr ""
 
-#: includes/class-post-types.php:106
+#: includes/class-post-types.php:113
 msgid "Use as product image"
 msgstr ""
 
@@ -628,11 +647,15 @@ msgstr ""
 msgid "As arranged"
 msgstr ""
 
-#: includes/class-renderer.php:109
+#: includes/class-renderer.php:95
+msgid "Still wanted"
+msgstr ""
+
+#: includes/class-renderer.php:136
 msgid "Choose a wishlist to show."
 msgstr ""
 
-#: includes/class-renderer.php:113
+#: includes/class-renderer.php:140
 msgid "This wishlist does not exist or is not published."
 msgstr ""
 
@@ -671,61 +694,63 @@ msgstr ""
 msgid "Every wish on \"%s\" is marked as not bought again."
 msgstr ""
 
-#. translators: %s: priority such as "High".
-#: templates/item.php:74
-#, php-format
-msgid "Priority: %s"
+#: templates/item.php:77
+msgid "Top wish"
 msgstr ""
 
-#: templates/item.php:97
+#: templates/item.php:104
 msgid "To the shop"
 msgstr ""
 
-#: templates/item.php:106
+#: templates/item.php:104
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: templates/item.php:114
 msgid "I bought this"
 msgstr ""
 
-#: templates/item.php:113
-msgid "Take my report back"
+#: templates/item.php:117
+msgid "Really bought? Everybody will see it as taken care of; nobody sees who bought it."
 msgstr ""
 
 #: templates/item.php:119
-msgid "Did you buy this? Everybody who opens the list will see it as taken care of. Nobody sees who bought it."
-msgstr ""
-
-#: templates/item.php:121
 msgid "Yes, I bought it"
 msgstr ""
 
-#: templates/item.php:122
+#: templates/item.php:120
 msgid "Cancel"
 msgstr ""
 
+#: templates/item.php:130
+msgid "Take my report back"
+msgstr ""
+
 #. translators: %s: name of the person the list is for.
-#: templates/list.php:41
+#: templates/list.php:56
 #, php-format
 msgid "For %s"
 msgstr ""
 
-#: templates/list.php:101
+#: templates/list.php:116
 msgid "There are no wishes on this list yet."
 msgstr ""
 
-#: templates/list.php:106
+#: templates/list.php:121
 msgid "Sort"
 msgstr ""
 
-#: templates/list.php:117
+#: templates/list.php:129
 msgid "Show"
 msgstr ""
 
-#: templates/list.php:127
-#: templates/list.php:137
+#: templates/list.php:140
+#: templates/list.php:151
 msgid "Any"
 msgstr ""
 
 #. translators: %s: a price such as "25 €".
-#: templates/list.php:142
+#: templates/list.php:156
 #, php-format
 msgid "up to %s"
 msgstr ""

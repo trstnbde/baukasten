@@ -5,7 +5,7 @@ Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
 Requires Plugins: baukasten
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,6 +55,18 @@ Yes, with "Show: All wishes" or "Already bought". The list starts with the wishe
 
 == Changelog ==
 
+= 1.1.0 =
+* Phones: the question "Really bought?" opens where the button was and scrolls fully into view, above the message bar; before, it could open below the screen and the button seemed to vanish.
+* Phones: the message bar no longer stays up after a tap; it pauses only for a real mouse pointer. Buttons are at least 44 pixels tall.
+* Errors show in the wish itself as well as in the message bar.
+* The header lists person, occasion, date and countdown as items that never break inside.
+* The block is wide by default, so three or four wishes fit side by side.
+* Cards: one button in the same place on every card, the shop link above it, prices always with two decimals, "Top wish" only on wishes of high priority.
+* Sorting and filters only offer what changes something: the priority filter needs more than one priority, "As arranged" different positions.
+* Faster: product images in their own size (480 pixels) and loaded together; the first image is not lazy.
+* Admin: priority and price columns sortable, Quick Edit for list, quantity, price and priority, fully bought wishes highlighted, the product image box at the top, and every list shows the pages it appears on.
+* Works in Safari before 16.2 and 15 (fallbacks for colour mixing and aspect ratio).
+
 = 1.0.2 =
 * When the Undo message times out after a report made with the mouse, the page no longer scrolls up to the filters. Keyboard users keep a visible focus, without a jump.
 
@@ -70,6 +82,9 @@ Yes, with "Show: All wishes" or "Already bought". The list starts with the wishe
 * First release.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Fixes reporting a purchase on phones, and reworks the list's layout and the admin. After updating, run `wp media regenerate --image_size=baukasten-wishlist-card` for the product images.
 
 = 1.0.2 =
 The list no longer jumps to its filters when the Undo message disappears.

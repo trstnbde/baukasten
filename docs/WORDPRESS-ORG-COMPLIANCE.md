@@ -14,7 +14,7 @@ Current plugins:
 | Baukasten Addon: Two-Factor Approval | `baukasten-2fa` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: Form Privacy | `baukasten-form-privacy` | 1.0.0 | 6.5 | 8.1 |
 | Baukasten Addon: New Tab Page | `baukasten-new-tab` | 1.0.1 | 6.5 | 8.1 |
-| Baukasten Addon: Wishlist | `baukasten-wishlist` | 1.0.2 | 6.5 | 8.1 |
+| Baukasten Addon: Wishlist | `baukasten-wishlist` | 1.1.0 | 6.5 | 8.1 |
 
 The slugs in that table are the slugs these plugins must end up with. WordPress.org does not read them from here — it derives the slug from the `Plugin Name` header, and none of the seven derives correctly. Wishlist was added on 15 November 2026 and has not been checked against the guidelines line by line yet. What follows was written when there were seven plugins; "addon" there includes the three that are now part of the core. See [RELEASING.md](RELEASING.md); it is a one-shot correction at submission time.
 

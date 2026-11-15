@@ -57,6 +57,21 @@ Public, without a nonce — a cached page would carry an expired one, and guests
 - `assets/css/wishlist.css` inherits the theme's font and colours, mixes tints from `currentColor`, and takes the accent from `--baukasten-wl-accent`. No fonts, no third-party requests.
 - Assets are registered on `init` and enqueued from inside the render, so they load only where a list is shown — before `wp_head` in a block theme, in the footer in a classic one.
 
+## Layout and phones (1.1)
+
+- The block is wide by default (`align` defaults to `wide`); cards sit in a grid of `minmax(14rem, 1fr)`.
+- Header facts (person, occasion, date, countdown) are list items that never break inside; the row wraps between them.
+- Each card ends in the same foot: the shop link, then one button. "I bought this" opens its question **in place** and scrolls it fully into view with `scroll-margin-bottom` room for the toast. In 1.0 the question could open below the screen on a phone, and the button seemed to vanish.
+- The toast takes taps only on its button and pauses only for `pointerType === 'mouse'`; a finger never holds it.
+- Tap targets are at least 44 px, `touch-action: manipulation`, hover styles only under `@media (hover: hover)`, selects at 16 px so iOS does not zoom.
+- Fallbacks for Safari before 16.2 (`color-mix()`) and 15 (`aspect-ratio`).
+- An error also shows in the card itself (`.baukasten-wl-item__error`), not only in the toast.
+- Only useful controls: the priority filter needs more than one priority, "As arranged" different positions (`Renderer::visible_sorts()`), prices always with two decimals, "Top wish" only on high priority.
+
+## Images
+
+Cards use their own size `baukasten-wishlist-card` (480 × 480, not cropped) with `sizes="(max-width: 640px) calc(100vw - 2rem), 320px"`; the first card loads eagerly with `fetchpriority="high"`. Existing images need `wp media regenerate <ids> --image_size=baukasten-wishlist-card` once. `Items::of_list()` primes the attachments of all product images in one query.
+
 ## Hooks
 
 | Hook | |
@@ -70,6 +85,9 @@ Public, without a nonce — a cached page would carry an expired one, and guests
 - **Wishlists** menu with the lists (columns: occasion, wishes and bought count, shortcode) and **Wishes** (columns: image, list, priority, price, bought; filter by list).
 - A list's screen shows its wishes with an "Add wish" link that preselects the list, and the shortcode to copy.
 - A wish's screen shows how many were reported bought and a "Reset to not bought" button (`admin-post.php?action=baukasten_wishlist_reset_item`, nonce per wish).
+- Wishes: priority and price sortable (a named `OR` meta clause keeps wishes without a price), fully bought wishes highlighted, Quick Edit for list, quantity, price and priority (`admin/views/quick-edit.php`, `assets/js/admin-quick-edit.js`; saved by `Meta_Boxes::save_item()` with the same nonce).
+- The product and header image boxes sit at the top of the sidebar.
+- Every list shows where it appears (`Items::embedded_on()`: an SQL pre-filter on `post_content`, then `parse_blocks()` and the shortcode regex), in its "Show on a page" box, a "Shown on" column and the tab.
 - **Settings → Baukasten → Wishlist**: overview of every list, "Reset purchases" per list, currency symbol (`baukasten_wishlist_currency`), rate limit.
 
 ## Uninstall

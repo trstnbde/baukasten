@@ -6,7 +6,10 @@
  */
 
 use Baukasten\Wishlist\Claims;
+use Baukasten\Wishlist\Block;
 use Baukasten\Wishlist\Fields;
+use Baukasten\Wishlist\Items;
+use Baukasten\Wishlist\Meta_Boxes;
 use Baukasten\Wishlist\Post_Types;
 use Baukasten\Wishlist\Renderer;
 use Baukasten\Wishlist\REST_Controller;
@@ -345,6 +348,109 @@ class WishlistTest extends WP_UnitTestCase {
 
 		$this->assertSame( array( 'C', 'B', 'A' ), array_column( Renderer::sorted( $items, 'price-asc' ), 'title' ) );
 		$this->assertSame( array( 'B', 'C', 'A' ), array_column( Renderer::sorted( $items, 'price-desc' ), 'title' ) );
+	}
+
+	public function test_prices_always_show_two_decimals(): void {
+		$this->assertMatchesRegularExpression( '/13[.,]00/', Settings::format_price( '13.00' ) );
+		$this->assertMatchesRegularExpression( '/13[.,]99/', Settings::format_price( '13.99' ) );
+		$this->assertSame( '', Settings::format_price( '' ) );
+	}
+
+	public function test_sorting_data_carries_the_raw_title(): void {
+		$soft = static fn( $title ) => str_replace( 'train', "tra\u{00AD}in", (string) $title );
+
+		add_filter( 'the_title', $soft );
+		$html = do_shortcode( Shortcode::for_list( $this->list_id ) );
+		remove_filter( 'the_title', $soft );
+
+		$this->assertMatchesRegularExpression( '/data-title="Wooden train"/', $html, 'No soft hyphen in the sort key.' );
+		$this->assertStringContainsString( "tra\u{00AD}in", $html, 'The displayed title keeps the typography.' );
+	}
+
+	public function test_controls_only_offer_what_divides_the_list(): void {
+		$one = do_shortcode( Shortcode::for_list( $this->list_id ) );
+
+		$this->assertStringNotContainsString( 'data-control="priority"', $one, 'One priority: no priority filter.' );
+		$this->assertStringNotContainsString( 'value="order"', $one, 'One position: no "As arranged".' );
+
+		$other = $this->wish( 'Picture book', 1, '9.99', 3 );
+		wp_update_post(
+			array(
+				'ID'         => $other,
+				'menu_order' => 5,
+			)
+		);
+
+		$two = do_shortcode( Shortcode::for_list( $this->list_id ) );
+
+		$this->assertStringContainsString( 'data-control="priority"', $two );
+		$this->assertStringContainsString( 'value="order"', $two );
+		$this->assertStringContainsString( 'baukasten-wl-item__top', $two, 'High priority gets the "Top wish" badge.' );
+		$this->assertSame( 1, substr_count( $two, 'baukasten-wl-item__top' ), 'Only the wish of high priority.' );
+	}
+
+	public function test_the_block_is_wide_by_default(): void {
+		$block = WP_Block_Type_Registry::get_instance()->get_registered( Block::NAME );
+
+		$this->assertSame( 'wide', $block->attributes['align']['default'] );
+		$this->assertStringContainsString( 'alignwide', Block::render( array( 'listId' => $this->list_id ) ) );
+		$this->assertStringNotContainsString( 'alignwide', Block::render( array( 'listId' => $this->list_id, 'align' => '' ) ) );
+	}
+
+	public function test_quick_edit_saves_only_with_the_nonce(): void {
+		$admin = self::factory()->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $admin );
+
+		$_POST = array(
+			Fields::meta_key( 'price' )    => '19,95',
+			Fields::meta_key( 'priority' ) => '3',
+		);
+		Meta_Boxes::save_item( $this->item_id, get_post( $this->item_id ) );
+		$this->assertSame( '24.90', get_post_meta( $this->item_id, Fields::meta_key( 'price' ), true ), 'Without the nonce nothing changes.' );
+
+		$_POST[ Meta_Boxes::NONCE_FIELD ] = wp_create_nonce( Meta_Boxes::NONCE_ACTION );
+		Meta_Boxes::save_item( $this->item_id, get_post( $this->item_id ) );
+
+		$this->assertSame( '19.95', get_post_meta( $this->item_id, Fields::meta_key( 'price' ), true ) );
+		$this->assertSame( '3', get_post_meta( $this->item_id, Fields::meta_key( 'priority' ), true ) );
+		$this->assertSame( '2', get_post_meta( $this->item_id, Fields::meta_key( 'quantity' ), true ), 'Fields not posted stay as they were.' );
+
+		$_POST = array();
+	}
+
+	public function test_a_list_knows_the_pages_it_is_shown_on(): void {
+		$block_page = self::factory()->post->create(
+			array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_content' => '<!-- wp:baukasten/wishlist {"listId":' . $this->list_id . '} /-->',
+			)
+		);
+		$code_page  = self::factory()->post->create(
+			array(
+				'post_type'    => 'post',
+				'post_status'  => 'draft',
+				'post_content' => 'Hi [baukasten_wishlist id="' . $this->list_id . '" filter="all"]',
+			)
+		);
+		self::factory()->post->create(
+			array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_content' => '<!-- wp:baukasten/wishlist {"listId":' . ( $this->list_id + 1000 ) . '} /-->',
+			)
+		);
+
+		$ids = array_map( static fn( $post ) => $post->ID, Items::embedded_on( $this->list_id ) );
+		sort( $ids );
+
+		$this->assertSame( array( $block_page, $code_page ), $ids );
+		$this->assertSame( array( 7, 8 ), Items::lists_in( '<!-- wp:baukasten/wishlist {"listId":7} /-->[baukasten_wishlist id=8]' ) );
+	}
+
+	public function test_cards_use_their_own_image_size(): void {
+		$this->assertArrayHasKey( Post_Types::IMAGE_SIZE, wp_get_additional_image_sizes() );
+		$this->assertSame( 480, wp_get_additional_image_sizes()[ Post_Types::IMAGE_SIZE ]['width'] );
 	}
 
 	public function test_nothing_is_shown_inside_a_locked_post(): void {
