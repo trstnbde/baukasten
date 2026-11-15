@@ -1,0 +1,401 @@
+/**
+ * Wishlist.
+ *
+ * Inherits the theme's font and colours; only the accent comes from the
+ * list. Tints are mixed from the text colour, so the list reads on a light
+ * and on a dark theme alike.
+ */
+
+.baukasten-wl {
+	--baukasten-wl-accent: #c2416b;
+	--baukasten-wl-ink: currentColor;
+	--baukasten-wl-line: color-mix(in srgb, currentColor 14%, transparent);
+	--baukasten-wl-tint: color-mix(in srgb, currentColor 4%, transparent);
+	--baukasten-wl-soft: color-mix(in srgb, var(--baukasten-wl-accent) 12%, transparent);
+	--baukasten-wl-radius: 14px;
+
+	position: relative;
+	margin-block: 1.5rem;
+	container-type: inline-size;
+}
+
+.baukasten-wl *,
+.baukasten-wl *::before,
+.baukasten-wl *::after {
+	box-sizing: border-box;
+}
+
+.baukasten-wl [hidden] {
+	display: none !important;
+}
+
+.baukasten-wl__sr {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ---------- Header ---------- */
+
+.baukasten-wl__header {
+	overflow: hidden;
+	margin-bottom: 1.25rem;
+	border-radius: var(--baukasten-wl-radius);
+	background: var(--baukasten-wl-soft);
+}
+
+.baukasten-wl__banner img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 320px;
+	object-fit: cover;
+}
+
+.baukasten-wl__heading {
+	padding: 1.25rem 1.25rem 1.375rem;
+}
+
+.baukasten-wl .baukasten-wl__title {
+	margin: 0;
+	font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
+	line-height: 1.15;
+}
+
+.baukasten-wl__meta {
+	margin: 0.5rem 0 0;
+	font-size: 0.95rem;
+	opacity: 0.85;
+}
+
+.baukasten-wl__countdown {
+	display: inline-block;
+	margin-inline-start: 0.375rem;
+	padding: 0.1em 0.6em;
+	border-radius: 999px;
+	background: var(--baukasten-wl-accent);
+	color: #fff;
+	font-size: 0.85em;
+	font-weight: 600;
+}
+
+.baukasten-wl__intro {
+	margin-top: 0.75rem;
+}
+
+.baukasten-wl__intro p {
+	margin: 0 0 0.5rem;
+}
+
+.baukasten-wl__intro p:last-child {
+	margin-bottom: 0;
+}
+
+.baukasten-wl__closed,
+.baukasten-wl__empty,
+.baukasten-wl__nothing,
+.baukasten-wl-notice {
+	margin: 0.75rem 0 0;
+	padding: 0.75rem 1rem;
+	border: 1px dashed var(--baukasten-wl-line);
+	border-radius: 10px;
+}
+
+/* ---------- Controls ---------- */
+
+.baukasten-wl__controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+	gap: 0.75rem 1rem;
+	margin-bottom: 1rem;
+}
+
+.baukasten-wl__control {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	min-width: 9.5rem;
+	font-size: 0.85rem;
+}
+
+.baukasten-wl__control span {
+	font-weight: 600;
+}
+
+.baukasten-wl__control select {
+	min-height: 2.5rem;
+	padding: 0.375rem 2rem 0.375rem 0.625rem;
+	border: 1px solid var(--baukasten-wl-line);
+	border-radius: 8px;
+	background-color: var(--baukasten-wl-tint);
+	color: inherit;
+	font: inherit;
+	font-size: 0.95rem;
+}
+
+.baukasten-wl__control select option {
+	color: #1e1e1e;
+	background: #fff;
+}
+
+.baukasten-wl__count {
+	margin: 0 0 0 auto;
+	font-size: 0.85rem;
+	opacity: 0.75;
+}
+
+/* ---------- Items ---------- */
+
+.baukasten-wl .baukasten-wl__items {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.baukasten-wl-item {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	margin: 0;
+	border: 1px solid var(--baukasten-wl-line);
+	border-radius: var(--baukasten-wl-radius);
+	background: var(--baukasten-wl-tint);
+	transition: opacity 0.2s ease;
+}
+
+.baukasten-wl-item.is-priority-1 {
+	border-color: color-mix(in srgb, var(--baukasten-wl-accent) 55%, transparent);
+}
+
+.baukasten-wl-item__media {
+	position: relative;
+	aspect-ratio: 4 / 3;
+	background: #fff;
+}
+
+.baukasten-wl-item__media img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.baukasten-wl-item__placeholder {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background:
+		radial-gradient(circle at 30% 35%, color-mix(in srgb, var(--baukasten-wl-accent) 30%, transparent) 0 18%, transparent 19%),
+		radial-gradient(circle at 70% 65%, color-mix(in srgb, var(--baukasten-wl-accent) 18%, transparent) 0 24%, transparent 25%),
+		var(--baukasten-wl-soft);
+}
+
+.baukasten-wl-item__badge {
+	display: none;
+	position: absolute;
+	inset-block-start: 0.75rem;
+	inset-inline-end: 0.75rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 999px;
+	background: #1d7a46;
+	color: #fff;
+	font-size: 0.8rem;
+	font-weight: 700;
+	box-shadow: 0 2px 6px rgb(0 0 0 / 0.2);
+}
+
+.baukasten-wl-item.is-done .baukasten-wl-item__badge {
+	display: block;
+}
+
+.baukasten-wl-item.is-done .baukasten-wl-item__media img,
+.baukasten-wl-item.is-done .baukasten-wl-item__placeholder {
+	filter: grayscale(1);
+	opacity: 0.55;
+}
+
+.baukasten-wl-item__body {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 0.375rem;
+	padding: 0.875rem 1rem 1rem;
+}
+
+.baukasten-wl-item__body > p {
+	margin: 0;
+}
+
+.baukasten-wl-item__priority {
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	opacity: 0.7;
+}
+
+.baukasten-wl-item.is-priority-1 .baukasten-wl-item__priority {
+	color: var(--baukasten-wl-accent);
+	opacity: 1;
+}
+
+.baukasten-wl .baukasten-wl-item__title {
+	margin: 0;
+	font-size: 1.1rem;
+	line-height: 1.3;
+}
+
+.baukasten-wl-item__note {
+	font-size: 0.9rem;
+	opacity: 0.8;
+}
+
+.baukasten-wl-item__price {
+	font-size: 1.05rem;
+	font-weight: 700;
+}
+
+.baukasten-wl-item__status {
+	font-size: 0.9rem;
+}
+
+.baukasten-wl-item.is-done .baukasten-wl-item__status {
+	color: #1d7a46;
+	font-weight: 600;
+}
+
+.baukasten-wl-item__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+	margin-top: auto;
+	padding-top: 0.5rem;
+}
+
+.baukasten-wl-item__confirm {
+	margin-top: 0.5rem;
+	padding: 0.75rem;
+	border-radius: 10px;
+	background: var(--baukasten-wl-soft);
+	font-size: 0.9rem;
+}
+
+.baukasten-wl-item__confirm p {
+	margin: 0 0 0.625rem;
+}
+
+.baukasten-wl-item__confirm-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 0.75rem;
+}
+
+/* ---------- Buttons ---------- */
+
+.baukasten-wl .baukasten-wl-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.5rem;
+	padding: 0.5rem 1rem;
+	border: 2px solid var(--baukasten-wl-accent);
+	border-radius: 999px;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	font-size: 0.9rem;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.baukasten-wl .baukasten-wl-button--claim {
+	background: var(--baukasten-wl-accent);
+	color: #fff;
+}
+
+.baukasten-wl .baukasten-wl-button:hover {
+	filter: brightness(0.92);
+}
+
+.baukasten-wl .baukasten-wl-button:disabled {
+	opacity: 0.6;
+	cursor: progress;
+}
+
+.baukasten-wl .baukasten-wl-link {
+	padding: 0.25rem 0;
+	border: 0;
+	background: none;
+	color: inherit;
+	font: inherit;
+	font-size: 0.85rem;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+	cursor: pointer;
+}
+
+.baukasten-wl .baukasten-wl-button:focus-visible,
+.baukasten-wl .baukasten-wl-link:focus-visible,
+.baukasten-wl__control select:focus-visible {
+	outline: 3px solid var(--baukasten-wl-accent);
+	outline-offset: 2px;
+}
+
+/* ---------- Toast ---------- */
+
+.baukasten-wl__toast {
+	position: fixed;
+	z-index: 100000;
+	inset-inline: 1rem;
+	inset-block-end: 1rem;
+	max-width: 28rem;
+	margin: 0 auto;
+	padding: 0.875rem 1.125rem;
+	border-radius: 12px;
+	background: #1e1e1e;
+	color: #fff;
+	font-size: 0.95rem;
+	box-shadow: 0 6px 24px rgb(0 0 0 / 0.25);
+	opacity: 0;
+	transform: translateY(1rem);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+	pointer-events: none;
+}
+
+.baukasten-wl__toast.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.baukasten-wl-item,
+	.baukasten-wl__toast {
+		transition: none;
+	}
+}
+
+@container (max-width: 34rem) {
+	.baukasten-wl__control {
+		flex: 1 1 calc(50% - 0.5rem);
+		min-width: 0;
+	}
+
+	.baukasten-wl__count {
+		flex-basis: 100%;
+		margin-inline-start: 0;
+	}
+}

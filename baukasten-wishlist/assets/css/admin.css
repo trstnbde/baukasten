@@ -1,0 +1,25 @@
+/* Wishlist editing screens. */
+
+.baukasten-wl-admin-form th {
+	width: 11rem;
+}
+
+.baukasten-wl-admin-items .column-image {
+	width: 56px;
+}
+
+.baukasten-wl-admin-items img,
+.column-baukasten_wl_image img {
+	width: 48px;
+	height: 48px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.wp-list-table .column-baukasten_wl_image {
+	width: 56px;
+}
+
+.baukasten-wl-admin-claims {
+	font-size: 14px;
+}

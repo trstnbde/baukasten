@@ -1,0 +1,703 @@
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Baukasten Addon: Wishlist 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/baukasten-wishlist\n"
+"Last-Translator: Torsten B.\n"
+"Language-Team: Deutsch\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-15T12:00:00+01:00\n"
+"PO-Revision-Date: 2026-11-15T12:00:00+01:00\n"
+"Language: de_DE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: baukasten-wishlist\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. Plugin Name of the plugin
+#: baukasten-wishlist.php
+msgid "Baukasten Addon: Wishlist"
+msgstr "Baukasten Addon: Wishlist"
+
+#. Plugin URI of the plugin
+#: baukasten-wishlist.php
+msgid "https://github.com/trstnbde/baukasten"
+msgstr "https://github.com/trstnbde/baukasten"
+
+#. Description of the plugin
+#: baukasten-wishlist.php
+msgid "Wishlists for birthdays and other occasions: wishes with image, quantity, price, priority and shop link, shown in a page or post, where guests mark what they bought."
+msgstr "Wunschlisten für Geburtstage und andere Anlässe: Wünsche mit Bild, Menge, Preis, Priorität und Shop-Link, gezeigt in einer Seite oder einem Beitrag, wo Gäste markieren, was sie gekauft haben."
+
+#. Author of the plugin
+#: baukasten-wishlist.php
+msgid "Torsten B."
+msgstr "Torsten B."
+
+#. Author URI of the plugin
+#: baukasten-wishlist.php
+msgid "https://github.com/trstnbde"
+msgstr "https://github.com/trstnbde"
+
+#: admin/views/item-box.php:20
+#: admin/views/settings-tab.php:30
+#: includes/class-block.php:149
+#: includes/class-list-tables.php:135
+msgid "List"
+msgstr "Liste"
+
+#: admin/views/item-box.php:24
+#: admin/views/settings-tab.php:24
+msgid "There is no list yet."
+msgstr "Es gibt noch keine Liste."
+
+#: admin/views/item-box.php:25
+#: includes/class-block.php:152
+msgid "Create a list"
+msgstr "Liste anlegen"
+
+#: admin/views/item-box.php:29
+msgid "— Choose —"
+msgstr "— Auswählen —"
+
+#: admin/views/item-box.php:38
+msgid "Quantity"
+msgstr "Menge"
+
+#: admin/views/item-box.php:41
+msgid "How many are wanted. Each guest reports one at a time."
+msgstr "Wie viele gewünscht sind. Jeder Gast meldet eins nach dem anderen."
+
+#: admin/views/item-box.php:45
+#: admin/views/list-items.php:30
+#: includes/class-list-tables.php:137
+#: templates/list.php:135
+msgid "Price"
+msgstr "Preis"
+
+#: admin/views/item-box.php:49
+msgid "Approximate price of one. Optional."
+msgstr "Ungefährer Preis pro Stück. Optional."
+
+#: admin/views/item-box.php:53
+#: admin/views/list-items.php:29
+#: includes/class-list-tables.php:136
+#: templates/list.php:125
+msgid "Priority"
+msgstr "Priorität"
+
+#: admin/views/item-box.php:63
+msgid "Shop address"
+msgstr "Shop-Adresse"
+
+#: admin/views/item-box.php:66
+msgid "Where the product can be bought. Opens in a new tab."
+msgstr "Wo es das Produkt zu kaufen gibt. Öffnet sich in einem neuen Tab."
+
+#: admin/views/item-box.php:70
+msgid "Note"
+msgstr "Hinweis"
+
+#: admin/views/item-box.php:73
+msgid "A short hint such as a size or colour. Optional."
+msgstr "Ein kurzer Hinweis, etwa Größe oder Farbe. Optional."
+
+#: admin/views/item-box.php:78
+msgid "The product image is the featured image, in the sidebar."
+msgstr "Das Produktbild ist das Beitragsbild, in der Seitenleiste."
+
+#: admin/views/list-box.php:18
+msgid "For"
+msgstr "Für"
+
+#: admin/views/list-box.php:21
+msgid "Whose list it is, such as \"Leni\". Shown as \"For Leni\"."
+msgstr "Wessen Liste es ist, etwa „Leni“. Erscheint als „Für Leni“."
+
+#: admin/views/list-box.php:25
+#: includes/class-list-tables.php:46
+#: includes/class-meta-boxes.php:73
+msgid "Occasion"
+msgstr "Anlass"
+
+#: admin/views/list-box.php:28
+msgid "Such as \"2nd birthday\", \"Christmas\" or \"Wedding\"."
+msgstr "Etwa „2. Geburtstag“, „Weihnachten“ oder „Hochzeit“."
+
+#: admin/views/list-box.php:32
+#: admin/views/settings-tab.php:31
+msgid "Date"
+msgstr "Datum"
+
+#: admin/views/list-box.php:35
+msgid "The list counts down to it. Leave empty for a list without a day."
+msgstr "Die Liste zählt die Tage bis dahin. Leer lassen für eine Liste ohne Termin."
+
+#: admin/views/list-box.php:39
+msgid "Introduction"
+msgstr "Einleitung"
+
+#: admin/views/list-box.php:42
+msgid "A few words above the wishes: sizes, what not to buy, where to send things. Plain text; blank lines start a paragraph."
+msgstr "Ein paar Worte über den Wünschen: Größen, was bitte nicht, wohin damit. Reiner Text; eine Leerzeile beginnt einen Absatz."
+
+#: admin/views/list-box.php:46
+msgid "Accent colour"
+msgstr "Akzentfarbe"
+
+#: admin/views/list-box.php:49
+msgid "Buttons, the countdown and the header tint. White text sits on it, so choose a colour that is not too light."
+msgstr "Für Buttons, den Countdown und die Tönung des Kopfs. Darauf steht weiße Schrift, also keine zu helle Farbe wählen."
+
+#: admin/views/list-box.php:53
+#: admin/views/list-box.php:56
+msgid "Options"
+msgstr "Optionen"
+
+#: admin/views/list-box.php:60
+msgid "Show prices"
+msgstr "Preise anzeigen"
+
+#: admin/views/list-box.php:66
+msgid "Stop taking reports after the date"
+msgstr "Nach dem Datum keine Meldungen mehr annehmen"
+
+#: admin/views/list-box.php:69
+msgid "The header image is the featured image of the list, in the sidebar."
+msgstr "Das Kopfbild ist das Beitragsbild der Liste, in der Seitenleiste."
+
+#: admin/views/list-items.php:19
+msgid "Save the list as a draft first, then add its wishes here."
+msgstr "Speichere die Liste zuerst als Entwurf, dann kannst du hier Wünsche hinzufügen."
+
+#: admin/views/list-items.php:22
+#: includes/class-post-types.php:101
+msgid "No wishes yet."
+msgstr "Noch keine Wünsche."
+
+#: admin/views/list-items.php:27
+#: includes/class-list-tables.php:129
+msgid "Image"
+msgstr "Bild"
+
+#: admin/views/list-items.php:28
+#: includes/class-post-types.php:93
+msgid "Wish"
+msgstr "Wunsch"
+
+#: admin/views/list-items.php:31
+#: includes/class-list-tables.php:138
+#: includes/class-meta-boxes.php:85
+msgid "Bought"
+msgstr "Gekauft"
+
+#. translators: 1: number bought. 2: number wished for.
+#: admin/views/list-items.php:51
+#: includes/class-list-tables.php:191
+#, php-format
+msgid "%1$s of %2$s"
+msgstr "%1$s von %2$s"
+
+#: admin/views/list-items.php:62
+#: includes/class-post-types.php:96
+#: includes/class-post-types.php:97
+msgid "Add wish"
+msgstr "Wunsch hinzufügen"
+
+#: admin/views/list-items.php:63
+msgid "Only published wishes appear on the page. The order \"As arranged\" follows each wish's Order field."
+msgstr "Nur veröffentlichte Wünsche erscheinen auf der Seite. Die Sortierung „Wie angeordnet“ folgt dem Feld „Reihenfolge“ jedes Wunsches."
+
+#: admin/views/settings-tab.php:18
+msgid "A wishlist is one occasion for one person: a birthday, Christmas, a wedding. Its wishes carry an image, a quantity, a price, a priority and a shop address. The \"Wishlist\" block or the shortcode shows the list in any page or post, where guests sort, filter and mark what they bought — anonymously, one click, and undoable from the same browser."
+msgstr "Eine Wunschliste ist ein Anlass für eine Person: ein Geburtstag, Weihnachten, eine Hochzeit. Ihre Wünsche haben ein Bild, eine Menge, einen Preis, eine Priorität und eine Shop-Adresse. Der Block „Wunschliste“ oder der Shortcode zeigt die Liste in einer beliebigen Seite oder einem Beitrag, wo Gäste sortieren, filtern und markieren, was sie gekauft haben – anonym, mit einem Klick und im selben Browser rückgängig zu machen."
+
+#: admin/views/settings-tab.php:21
+#: includes/class-settings-tab.php:97
+msgid "Lists"
+msgstr "Listen"
+
+#: admin/views/settings-tab.php:27
+#: includes/class-post-types.php:55
+#: includes/class-post-types.php:57
+msgid "Wishlists"
+msgstr "Wunschlisten"
+
+#: admin/views/settings-tab.php:32
+#: includes/class-list-tables.php:47
+#: includes/class-post-types.php:92
+#: includes/class-post-types.php:94
+msgid "Wishes"
+msgstr "Wünsche"
+
+#: admin/views/settings-tab.php:33
+#: includes/class-list-tables.php:48
+#: includes/class-meta-boxes.php:184
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: admin/views/settings-tab.php:34
+msgid "Actions"
+msgstr "Aktionen"
+
+#. translators: 1: number of wishes. 2: things bought. 3: things wished for.
+#: admin/views/settings-tab.php:51
+#, php-format
+msgid "%1$s (%2$s of %3$s bought)"
+msgstr "%1$s (%2$s von %3$s gekauft)"
+
+#: admin/views/settings-tab.php:64
+msgid "Mark every wish on this list as not bought again? Guests who reported a purchase can no longer take it back."
+msgstr "Alle Wünsche dieser Liste wieder als nicht gekauft markieren? Gäste, die einen Kauf gemeldet haben, können ihn dann nicht mehr zurücknehmen."
+
+#: admin/views/settings-tab.php:69
+msgid "Reset purchases"
+msgstr "Käufe zurücksetzen"
+
+#: admin/views/settings-tab.php:80
+#: includes/class-post-types.php:59
+#: includes/class-post-types.php:60
+msgid "Add list"
+msgstr "Liste hinzufügen"
+
+#: admin/views/settings-tab.php:81
+#: includes/class-post-types.php:95
+#: includes/class-renderer.php:60
+msgid "All wishes"
+msgstr "Alle Wünsche"
+
+#: admin/views/settings-tab.php:84
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: admin/views/settings-tab.php:93
+msgid "Currency"
+msgstr "Währung"
+
+#: admin/views/settings-tab.php:96
+msgid "Printed after every price, such as \"€\" or \"CHF\"."
+msgstr "Steht hinter jedem Preis, etwa „€“ oder „CHF“."
+
+#: admin/views/settings-tab.php:100
+msgid "Reports per connection"
+msgstr "Meldungen pro Verbindung"
+
+#: admin/views/settings-tab.php:103
+msgid "How many purchases one address may report or take back within ten minutes, so nobody can tick off a whole list for fun. 0 switches the limit off. The address is only used as a hash and never stored."
+msgstr "Wie viele Käufe eine Adresse innerhalb von zehn Minuten melden oder zurücknehmen darf, damit niemand zum Spaß eine ganze Liste abhakt. 0 schaltet die Grenze ab. Die Adresse wird nur als Hash verwendet und nie gespeichert."
+
+#: admin/views/settings-tab.php:109
+msgid "Save settings"
+msgstr "Einstellungen speichern"
+
+#: admin/views/settings-tab.php:112
+msgid "Privacy"
+msgstr "Datenschutz"
+
+#: admin/views/settings-tab.php:115
+msgid "Reporting a purchase asks for no name and stores none. The reporting browser keeps a random token in its local storage so it can take the report back; the site stores only a hash of that token. The page loads nothing from other hosts. Shop links open the shop only when a visitor clicks them."
+msgstr "Beim Melden eines Kaufs wird kein Name abgefragt und keiner gespeichert. Der meldende Browser legt ein zufälliges Token in seinem lokalen Speicher ab, um die Meldung zurücknehmen zu können; die Website speichert nur einen Hash davon. Die Seite lädt nichts von anderen Servern. Shop-Links öffnen den Shop erst, wenn jemand darauf klickt."
+
+#. translators: 1: number still wanted. 2: number wanted in all.
+#: includes/class-assets.php:91
+#: templates/item.php:31
+#, php-format
+msgid "%1$s of %2$s still wanted"
+msgstr "%1$s von %2$s noch gewünscht"
+
+#: includes/class-assets.php:92
+#: includes/class-renderer.php:61
+#: templates/item.php:27
+msgid "Still wanted"
+msgstr "Noch gewünscht"
+
+#: includes/class-assets.php:93
+#: includes/class-renderer.php:62
+#: templates/item.php:25
+#: templates/item.php:67
+msgid "Already bought"
+msgstr "Bereits besorgt"
+
+#: includes/class-assets.php:94
+msgid "Thank you! Everybody now sees that this one is taken care of."
+msgstr "Danke! Alle sehen jetzt, dass das besorgt ist."
+
+#: includes/class-assets.php:95
+msgid "Your report was taken back."
+msgstr "Deine Meldung wurde zurückgenommen."
+
+#: includes/class-assets.php:96
+msgid "That did not work. Please try again in a moment."
+msgstr "Das hat nicht geklappt. Bitte versuch es gleich noch einmal."
+
+#: includes/class-assets.php:97
+#: includes/class-claims.php:175
+msgid "Somebody has already bought this."
+msgstr "Das hat schon jemand besorgt."
+
+#: includes/class-assets.php:98
+#: includes/class-rest-controller.php:318
+msgid "Too many reports from this connection. Please wait a few minutes."
+msgstr "Zu viele Meldungen von dieser Verbindung. Bitte warte ein paar Minuten."
+
+#: includes/class-assets.php:99
+#: includes/class-rest-controller.php:194
+#: templates/list.php:95
+msgid "This list no longer takes reports."
+msgstr "Diese Liste nimmt keine Meldungen mehr an."
+
+#. translators: 1: wishes shown. 2: wishes on the list.
+#: includes/class-assets.php:101
+#, php-format
+msgid "%1$s of %2$s wishes shown"
+msgstr "%1$s von %2$s Wünschen angezeigt"
+
+#: includes/class-assets.php:102
+#: templates/list.php:158
+msgid "No wish matches this filter."
+msgstr "Kein Wunsch passt zu diesem Filter."
+
+#: includes/class-assets.php:103
+#: templates/list.php:51
+msgid "Today!"
+msgstr "Heute!"
+
+#: includes/class-assets.php:104
+#: templates/list.php:53
+msgid "Tomorrow"
+msgstr "Morgen"
+
+#. translators: %s: number of days.
+#: includes/class-assets.php:106
+#: templates/list.php:56
+#, php-format
+msgid "in %s days"
+msgstr "in %s Tagen"
+
+#: includes/class-block.php:60
+#: includes/class-block.php:148
+#: includes/class-post-types.php:56
+#: includes/class-settings-tab.php:74
+msgid "Wishlist"
+msgstr "Wunschliste"
+
+#: includes/class-block.php:61
+msgid "Shows one wishlist, where guests can mark what they bought."
+msgstr "Zeigt eine Wunschliste, auf der Gäste markieren können, was sie gekauft haben."
+
+#: includes/class-block.php:150
+msgid "Choose a list"
+msgstr "Liste auswählen"
+
+#: includes/class-block.php:151
+msgid "There is no wishlist yet."
+msgstr "Es gibt noch keine Wunschliste."
+
+#: includes/class-block.php:153
+msgid "Sorted by"
+msgstr "Sortiert nach"
+
+#: includes/class-block.php:154
+msgid "Shows at first"
+msgstr "Zeigt zunächst"
+
+#: includes/class-block.php:155
+msgid "Let visitors sort and filter"
+msgstr "Besucher dürfen sortieren und filtern"
+
+#: includes/class-block.php:156
+msgid "Wishlist settings"
+msgstr "Einstellungen der Wunschliste"
+
+#: includes/class-block.php:157
+msgid "Edit lists and wishes"
+msgstr "Listen und Wünsche bearbeiten"
+
+#: includes/class-claims.php:75
+msgid "The purchase could not be saved. Please try again."
+msgstr "Der Kauf konnte nicht gespeichert werden. Bitte versuch es noch einmal."
+
+#: includes/class-fields.php:284
+msgid "High"
+msgstr "Hoch"
+
+#: includes/class-fields.php:285
+msgid "Medium"
+msgstr "Mittel"
+
+#: includes/class-fields.php:286
+msgid "Low"
+msgstr "Niedrig"
+
+#. translators: %s: number of wishes.
+#: includes/class-list-tables.php:96
+#, php-format
+msgid "%s wish"
+msgid_plural "%s wishes"
+msgstr[0] "%s Wunsch"
+msgstr[1] "%s Wünsche"
+
+#. translators: 1: things bought. 2: things wished for.
+#: includes/class-list-tables.php:103
+#, php-format
+msgid "%1$s of %2$s bought"
+msgstr "%1$s von %2$s gekauft"
+
+#: includes/class-list-tables.php:212
+msgid "Filter by list"
+msgstr "Nach Liste filtern"
+
+#: includes/class-list-tables.php:213
+#: includes/class-post-types.php:58
+msgid "All lists"
+msgstr "Alle Listen"
+
+#: includes/class-meta-boxes.php:74
+msgid "Wishes on this list"
+msgstr "Wünsche auf dieser Liste"
+
+#: includes/class-meta-boxes.php:75
+msgid "Show on a page"
+msgstr "Auf einer Seite zeigen"
+
+#: includes/class-meta-boxes.php:84
+msgid "Details"
+msgstr "Details"
+
+#: includes/class-meta-boxes.php:113
+msgid "Title of the list, such as \"Leni turns two\""
+msgstr "Titel der Liste, etwa „Leni wird zwei“"
+
+#: includes/class-meta-boxes.php:117
+msgid "Name of the product"
+msgstr "Name des Produkts"
+
+#: includes/class-meta-boxes.php:170
+msgid "Add the \"Wishlist\" block to any page or post and choose this list. Or paste the shortcode:"
+msgstr "Füge den Block „Wunschliste“ in eine Seite oder einen Beitrag ein und wähle diese Liste. Oder füge den Shortcode ein:"
+
+#: includes/class-meta-boxes.php:175
+msgid "The shortcode appears once the list is saved."
+msgstr "Der Shortcode erscheint, sobald die Liste gespeichert ist."
+
+#: includes/class-meta-boxes.php:188
+msgid "Options: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"all|open|done\", controls=\"no\" to hide sorting and filters."
+msgstr "Optionen: sort=\"priority|open|price-asc|price-desc|title|order\", filter=\"all|open|done\", controls=\"no\" blendet Sortierung und Filter aus."
+
+#. translators: 1: number reported bought. 2: number wished for.
+#: includes/class-meta-boxes.php:233
+#, php-format
+msgid "%1$s of %2$s reported bought."
+msgstr "%1$s von %2$s als gekauft gemeldet."
+
+#: includes/class-meta-boxes.php:240
+msgid "Guests report purchases anonymously on the page. Nobody, not even you, can see who bought what."
+msgstr "Gäste melden Käufe anonym auf der Seite. Niemand, auch du nicht, kann sehen, wer was gekauft hat."
+
+#: includes/class-meta-boxes.php:258
+msgid "Remove every reported purchase of this wish? Guests who reported one can no longer take it back."
+msgstr "Alle gemeldeten Käufe dieses Wunsches entfernen? Gäste, die einen gemeldet haben, können ihn dann nicht mehr zurücknehmen."
+
+#: includes/class-meta-boxes.php:259
+msgid "Reset to not bought"
+msgstr "Auf „nicht gekauft“ zurücksetzen"
+
+#: includes/class-meta-boxes.php:303
+msgid "You are not allowed to change this wish."
+msgstr "Du darfst diesen Wunsch nicht ändern."
+
+#: includes/class-meta-boxes.php:311
+#: includes/class-rest-controller.php:307
+msgid "This wish does not exist."
+msgstr "Diesen Wunsch gibt es nicht."
+
+#: includes/class-meta-boxes.php:338
+msgid "The wish is marked as not bought again."
+msgstr "Der Wunsch ist wieder als nicht gekauft markiert."
+
+#: includes/class-post-types.php:61
+msgid "Edit list"
+msgstr "Liste bearbeiten"
+
+#: includes/class-post-types.php:62
+msgid "New list"
+msgstr "Neue Liste"
+
+#: includes/class-post-types.php:63
+msgid "Search lists"
+msgstr "Listen durchsuchen"
+
+#: includes/class-post-types.php:64
+msgid "No lists yet."
+msgstr "Noch keine Listen."
+
+#: includes/class-post-types.php:65
+msgid "No lists in the trash."
+msgstr "Keine Listen im Papierkorb."
+
+#: includes/class-post-types.php:66
+msgid "Header image"
+msgstr "Kopfbild"
+
+#: includes/class-post-types.php:67
+msgid "Set header image"
+msgstr "Kopfbild festlegen"
+
+#: includes/class-post-types.php:68
+msgid "Remove header image"
+msgstr "Kopfbild entfernen"
+
+#: includes/class-post-types.php:69
+msgid "Use as header image"
+msgstr "Als Kopfbild verwenden"
+
+#: includes/class-post-types.php:98
+msgid "Edit wish"
+msgstr "Wunsch bearbeiten"
+
+#: includes/class-post-types.php:99
+msgid "New wish"
+msgstr "Neuer Wunsch"
+
+#: includes/class-post-types.php:100
+msgid "Search wishes"
+msgstr "Wünsche durchsuchen"
+
+#: includes/class-post-types.php:102
+msgid "No wishes in the trash."
+msgstr "Keine Wünsche im Papierkorb."
+
+#: includes/class-post-types.php:103
+msgid "Product image"
+msgstr "Produktbild"
+
+#: includes/class-post-types.php:104
+msgid "Set product image"
+msgstr "Produktbild festlegen"
+
+#: includes/class-post-types.php:105
+msgid "Remove product image"
+msgstr "Produktbild entfernen"
+
+#: includes/class-post-types.php:106
+msgid "Use as product image"
+msgstr "Als Produktbild verwenden"
+
+#: includes/class-renderer.php:29
+msgid "Most wanted first"
+msgstr "Größte Wünsche zuerst"
+
+#: includes/class-renderer.php:30
+msgid "Still wanted first"
+msgstr "Noch offene zuerst"
+
+#: includes/class-renderer.php:31
+msgid "Price, lowest first"
+msgstr "Preis aufsteigend"
+
+#: includes/class-renderer.php:32
+msgid "Price, highest first"
+msgstr "Preis absteigend"
+
+#: includes/class-renderer.php:33
+msgid "Name"
+msgstr "Name"
+
+#: includes/class-renderer.php:34
+msgid "As arranged"
+msgstr "Wie angeordnet"
+
+#: includes/class-renderer.php:101
+msgid "Choose a wishlist to show."
+msgstr "Wähle eine Wunschliste aus."
+
+#: includes/class-renderer.php:105
+msgid "This wishlist does not exist or is not published."
+msgstr "Diese Wunschliste gibt es nicht oder sie ist nicht veröffentlicht."
+
+#: includes/class-rest-controller.php:164
+msgid "This report does not exist any more. Perhaps it was already taken back."
+msgstr "Diese Meldung gibt es nicht mehr. Vielleicht wurde sie schon zurückgenommen."
+
+#: includes/class-settings-tab.php:116
+msgid "Wishlist works, but its settings need the Baukasten - Privacy Toolkit plugin. Lists can still be edited under Wishlists."
+msgstr "Wishlist funktioniert, aber für die Einstellungen wird das Plugin Baukasten - Privacy Toolkit gebraucht. Listen lassen sich weiterhin unter Wunschlisten bearbeiten."
+
+#: includes/class-settings-tab.php:127
+#: includes/class-settings-tab.php:148
+msgid "You are not allowed to change these settings."
+msgstr "Du darfst diese Einstellungen nicht ändern."
+
+#: includes/class-settings-tab.php:138
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: includes/class-settings-tab.php:157
+msgid "This list does not exist."
+msgstr "Diese Liste gibt es nicht."
+
+#. translators: %s: title of the list.
+#: includes/class-settings-tab.php:168
+#, php-format
+msgid "Every wish on \"%s\" is marked as not bought again."
+msgstr "Alle Wünsche auf „%s“ sind wieder als nicht gekauft markiert."
+
+#. translators: %s: priority such as "High".
+#: templates/item.php:74
+#, php-format
+msgid "Priority: %s"
+msgstr "Priorität: %s"
+
+#: templates/item.php:97
+msgid "To the shop"
+msgstr "Zum Shop"
+
+#: templates/item.php:106
+msgid "I bought this"
+msgstr "Hab ich gekauft"
+
+#: templates/item.php:113
+msgid "Take my report back"
+msgstr "Meine Meldung zurücknehmen"
+
+#: templates/item.php:119
+msgid "Did you buy this? Everybody who opens the list will see it as taken care of. Nobody sees who bought it."
+msgstr "Hast du das gekauft? Alle, die die Liste öffnen, sehen es dann als besorgt. Niemand sieht, wer es gekauft hat."
+
+#: templates/item.php:121
+msgid "Yes, I bought it"
+msgstr "Ja, gekauft"
+
+#: templates/item.php:122
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#. translators: %s: name of the person the list is for.
+#: templates/list.php:41
+#, php-format
+msgid "For %s"
+msgstr "Für %s"
+
+#: templates/list.php:101
+msgid "There are no wishes on this list yet."
+msgstr "Auf dieser Liste stehen noch keine Wünsche."
+
+#: templates/list.php:106
+msgid "Sort"
+msgstr "Sortieren"
+
+#: templates/list.php:117
+msgid "Show"
+msgstr "Anzeigen"
+
+#: templates/list.php:127
+#: templates/list.php:137
+msgid "Any"
+msgstr "Alle"
+
+#. translators: %s: a price such as "25 €".
+#: templates/list.php:142
+#, php-format
+msgid "up to %s"
+msgstr "bis %s"
