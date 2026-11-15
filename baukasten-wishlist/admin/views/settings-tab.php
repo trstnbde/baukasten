@@ -42,6 +42,15 @@ defined( 'ABSPATH' ) || exit;
 						<?php if ( 'publish' !== $baukasten_wl_list['status'] ) : ?>
 							— <span class="post-state"><?php echo esc_html( (string) get_post_status_object( (string) $baukasten_wl_list['status'] )?->label ); ?></span>
 						<?php endif; ?>
+						<?php if ( array() !== $baukasten_wl_list['pages'] ) : ?>
+							<ul class="baukasten-wl-admin-pages">
+								<?php foreach ( $baukasten_wl_list['pages'] as $baukasten_wl_page ) : ?>
+									<?php Meta_Boxes::print_page_link( $baukasten_wl_page ); ?>
+								<?php endforeach; ?>
+							</ul>
+						<?php else : ?>
+							<br /><span class="description"><?php esc_html_e( 'Not shown yet', 'baukasten-wishlist' ); ?></span>
+						<?php endif; ?>
 					</td>
 					<td><?php echo esc_html( '' === $baukasten_wl_list['fields']['date'] ? '—' : (string) mysql2date( (string) get_option( 'date_format' ), $baukasten_wl_list['fields']['date'] ) ); ?></td>
 					<td>

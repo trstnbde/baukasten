@@ -23,3 +23,30 @@
 .baukasten-wl-admin-claims {
 	font-size: 14px;
 }
+
+.baukasten-wl-admin-price {
+	width: 8em;
+}
+
+.baukasten-wl-admin-done {
+	color: #1d7a46;
+}
+
+.baukasten-wl-admin-pages {
+	margin: 0;
+}
+
+.baukasten-wl-admin-pages li {
+	margin: 0 0 0.25em;
+}
+
+.baukasten-wl-quick-edit .inline-edit-group {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.baukasten-wl-quick-edit .title {
+	min-width: 6em;
+}

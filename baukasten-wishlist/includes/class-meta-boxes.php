@@ -73,6 +73,7 @@ final class Meta_Boxes {
 		add_meta_box( 'baukasten-wishlist-occasion', __( 'Occasion', 'baukasten-wishlist' ), array( __CLASS__, 'render_list' ), Post_Types::LIST_TYPE, 'normal', 'high' );
 		add_meta_box( 'baukasten-wishlist-items', __( 'Wishes on this list', 'baukasten-wishlist' ), array( __CLASS__, 'render_list_items' ), Post_Types::LIST_TYPE, 'normal', 'default' );
 		add_meta_box( 'baukasten-wishlist-embed', __( 'Show on a page', 'baukasten-wishlist' ), array( __CLASS__, 'render_embed' ), Post_Types::LIST_TYPE, 'side', 'default' );
+		self::image_box_first( Post_Types::LIST_TYPE, __( 'Header image', 'baukasten-wishlist' ) );
 	}
 
 	/**
@@ -83,6 +84,22 @@ final class Meta_Boxes {
 	public static function add_item_boxes(): void {
 		add_meta_box( 'baukasten-wishlist-item', __( 'Details', 'baukasten-wishlist' ), array( __CLASS__, 'render_item' ), Post_Types::ITEM_TYPE, 'normal', 'high' );
 		add_meta_box( 'baukasten-wishlist-claims', __( 'Bought', 'baukasten-wishlist' ), array( __CLASS__, 'render_claims' ), Post_Types::ITEM_TYPE, 'side', 'high' );
+		self::image_box_first( Post_Types::ITEM_TYPE, __( 'Product image', 'baukasten-wishlist' ) );
+	}
+
+	/**
+	 * Moves the featured image box to the top of the sidebar.
+	 *
+	 * The image is half of what a guest sees of a wish; at the bottom of
+	 * the sidebar it was easy to miss.
+	 *
+	 * @param string $post_type Post type.
+	 * @param string $title     Box title.
+	 * @return void
+	 */
+	private static function image_box_first( string $post_type, string $title ): void {
+		remove_meta_box( 'postimagediv', $post_type, 'side' );
+		add_meta_box( 'postimagediv', $title, 'post_thumbnail_meta_box', $post_type, 'side', 'high' );
 	}
 
 	/**
@@ -166,6 +183,24 @@ final class Meta_Boxes {
 			return;
 		}
 
+		$pages = 'auto-draft' === $post->post_status ? array() : Items::embedded_on( $post->ID );
+
+		if ( array() !== $pages ) {
+			echo '<p><strong>';
+			esc_html_e( 'Shown on', 'baukasten-wishlist' );
+			echo '</strong></p><ul class="baukasten-wl-admin-pages">';
+
+			foreach ( $pages as $page ) {
+				self::print_page_link( $page );
+			}
+
+			echo '</ul>';
+		} elseif ( 'auto-draft' !== $post->post_status ) {
+			echo '<p class="description">';
+			esc_html_e( 'Not shown on any page or post yet.', 'baukasten-wishlist' );
+			echo '</p>';
+		}
+
 		echo '<p>';
 		esc_html_e( 'Add the "Wishlist" block to any page or post and choose this list. Or paste the shortcode:', 'baukasten-wishlist' );
 		echo '</p>';
@@ -187,6 +222,26 @@ final class Meta_Boxes {
 		echo '<p class="description">';
 		esc_html_e( 'Options: sort="priority|open|price-asc|price-desc|title|order", filter="open|all|done" (default "open": bought wishes leave the list), controls="no" to hide sorting and filters.', 'baukasten-wishlist' );
 		echo '</p>';
+	}
+
+	/**
+	 * Prints one page that shows a list: title, status, view and edit links.
+	 *
+	 * @param \WP_Post $page Page or post.
+	 * @return void
+	 */
+	public static function print_page_link( \WP_Post $page ): void {
+		$title  = get_the_title( $page );
+		$status = 'publish' === $page->post_status ? '' : ' — ' . (string) get_post_status_object( $page->post_status )?->label;
+
+		printf(
+			'<li><a href="%1$s">%2$s</a>%3$s · <a href="%4$s">%5$s</a></li>',
+			esc_url( (string) get_permalink( $page ) ),
+			esc_html( '' === $title ? '#' . $page->ID : $title ),
+			esc_html( $status ),
+			esc_url( (string) get_edit_post_link( $page->ID ) ),
+			esc_html__( 'Edit', 'baukasten-wishlist' )
+		);
 	}
 
 	/**
@@ -353,6 +408,10 @@ final class Meta_Boxes {
 		}
 
 		wp_enqueue_style( self::HANDLE, PLUGIN_URL . 'assets/css/admin.css', array(), Assets::version( 'assets/css/admin.css' ) );
+
+		if ( 'edit.php' === $hook_suffix && Post_Types::ITEM_TYPE === $screen->post_type ) {
+			wp_enqueue_script( self::HANDLE . '-quick-edit', PLUGIN_URL . 'assets/js/admin-quick-edit.js', array( 'jquery', 'inline-edit-post' ), Assets::version( 'assets/js/admin-quick-edit.js' ), true );
+		}
 
 		if ( in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) && Post_Types::LIST_TYPE === $screen->post_type ) {
 			wp_enqueue_style( 'wp-color-picker' );

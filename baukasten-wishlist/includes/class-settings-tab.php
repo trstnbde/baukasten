@@ -217,6 +217,7 @@ final class Settings_Tab {
 				'wishes' => count( $items ),
 				'total'  => $total,
 				'bought' => $bought,
+				'pages'  => Items::embedded_on( $id ),
 			);
 		}
 

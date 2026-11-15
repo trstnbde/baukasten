@@ -44,7 +44,7 @@ defined( 'ABSPATH' ) || exit;
 		<tr>
 			<th scope="row"><label for="baukasten-wl-price"><?php esc_html_e( 'Price', 'baukasten-wishlist' ); ?></label></th>
 			<td>
-				<input type="text" inputmode="decimal" class="small-text" id="baukasten-wl-price" name="<?php echo esc_attr( Fields::meta_key( 'price' ) ); ?>" value="<?php echo esc_attr( '' === $baukasten_wl_values['price'] ? '' : number_format_i18n( (float) $baukasten_wl_values['price'], 2 ) ); ?>" placeholder="12,99" />
+				<input type="text" inputmode="decimal" class="baukasten-wl-admin-price" id="baukasten-wl-price" name="<?php echo esc_attr( Fields::meta_key( 'price' ) ); ?>" value="<?php echo esc_attr( '' === $baukasten_wl_values['price'] ? '' : number_format_i18n( (float) $baukasten_wl_values['price'], 2 ) ); ?>" placeholder="12,99" />
 				<span><?php echo esc_html( Settings::currency() ); ?></span>
 				<p class="description"><?php esc_html_e( 'Approximate price of one. Optional.', 'baukasten-wishlist' ); ?></p>
 			</td>
@@ -75,4 +75,4 @@ defined( 'ABSPATH' ) || exit;
 		</tr>
 	</tbody>
 </table>
-<p class="description"><?php esc_html_e( 'The product image is the featured image, in the sidebar.', 'baukasten-wishlist' ); ?></p>
+<p class="description"><?php esc_html_e( 'The product image is the featured image, at the top of the sidebar. The order "As arranged" on the page follows the field "Order" in the sidebar: lower numbers first.', 'baukasten-wishlist' ); ?></p>

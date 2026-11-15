@@ -29,8 +29,47 @@ final class List_Tables {
 		add_action( 'manage_' . Post_Types::LIST_TYPE . '_posts_custom_column', array( __CLASS__, 'list_column' ), 10, 2 );
 		add_filter( 'manage_' . Post_Types::ITEM_TYPE . '_posts_columns', array( __CLASS__, 'item_columns' ) );
 		add_action( 'manage_' . Post_Types::ITEM_TYPE . '_posts_custom_column', array( __CLASS__, 'item_column' ), 10, 2 );
+		add_filter( 'manage_edit-' . Post_Types::ITEM_TYPE . '_sortable_columns', array( __CLASS__, 'sortable_columns' ) );
 		add_action( 'restrict_manage_posts', array( __CLASS__, 'list_filter' ) );
 		add_action( 'pre_get_posts', array( __CLASS__, 'apply_list_filter' ) );
+		add_action( 'quick_edit_custom_box', array( __CLASS__, 'quick_edit_box' ), 10, 2 );
+	}
+
+	/**
+	 * Lets priority and price be sorted.
+	 *
+	 * @param mixed $columns Sortable columns.
+	 * @return array<string, mixed> Sortable columns.
+	 */
+	public static function sortable_columns( $columns ): array {
+		$columns = (array) $columns;
+
+		$columns['baukasten_wl_priority'] = 'baukasten_wl_priority';
+		$columns['baukasten_wl_price']    = 'baukasten_wl_price';
+
+		return $columns;
+	}
+
+	/**
+	 * Prints the wish's fields in Quick Edit.
+	 *
+	 * Printed once, for the list column; the script fills it from the row.
+	 * The fields carry the same names and nonce as the editing screen, so
+	 * Meta_Boxes::save_item() stores them, and only what is posted.
+	 *
+	 * @param mixed $column    Column key.
+	 * @param mixed $post_type Post type of the screen.
+	 * @return void
+	 */
+	public static function quick_edit_box( $column, $post_type ): void {
+		if ( Post_Types::ITEM_TYPE !== $post_type || 'baukasten_wl_list' !== $column ) {
+			return;
+		}
+
+		$baukasten_wl_lists = Items::lists();
+		$baukasten_wl_prios = Fields::priorities();
+
+		require PLUGIN_DIR . 'admin/views/quick-edit.php';
 	}
 
 	/**
@@ -45,6 +84,7 @@ final class List_Tables {
 			array(
 				'baukasten_wl_occasion'  => __( 'Occasion', 'baukasten-wishlist' ),
 				'baukasten_wl_wishes'    => __( 'Wishes', 'baukasten-wishlist' ),
+				'baukasten_wl_pages'     => __( 'Shown on', 'baukasten-wishlist' ),
 				'baukasten_wl_shortcode' => __( 'Shortcode', 'baukasten-wishlist' ),
 			)
 		);
@@ -106,6 +146,23 @@ final class List_Tables {
 						)
 					)
 				);
+				break;
+
+			case 'baukasten_wl_pages':
+				$pages = Items::embedded_on( $post_id );
+
+				if ( array() === $pages ) {
+					echo '<span class="description">' . esc_html__( 'Not shown yet', 'baukasten-wishlist' ) . '</span>';
+					break;
+				}
+
+				echo '<ul class="baukasten-wl-admin-pages">';
+
+				foreach ( $pages as $page ) {
+					Meta_Boxes::print_page_link( $page );
+				}
+
+				echo '</ul>';
 				break;
 
 			case 'baukasten_wl_shortcode':
@@ -175,6 +232,15 @@ final class List_Tables {
 				} else {
 					echo '<span aria-hidden="true">—</span>';
 				}
+
+				// What Quick Edit starts from.
+				printf(
+					'<div class="hidden baukasten-wl-inline" data-list="%1$s" data-quantity="%2$s" data-price="%3$s" data-priority="%4$s"></div>',
+					esc_attr( (string) $list_id ),
+					esc_attr( $fields['quantity'] ),
+					esc_attr( '' === $fields['price'] ? '' : number_format_i18n( (float) $fields['price'], 2 ) ),
+					esc_attr( $fields['priority'] )
+				);
 				break;
 
 			case 'baukasten_wl_priority':
@@ -186,11 +252,18 @@ final class List_Tables {
 				break;
 
 			case 'baukasten_wl_bought':
+				$quantity = (int) $fields['quantity'];
+				$bought   = min( Claims::count( $post_id ), $quantity );
+
+				if ( $bought >= $quantity ) {
+					echo '<strong class="baukasten-wl-admin-done">' . esc_html__( 'Already bought', 'baukasten-wishlist' ) . '</strong><br />';
+				}
+
 				printf(
 					/* translators: 1: number bought. 2: number wished for. */
 					esc_html__( '%1$s of %2$s', 'baukasten-wishlist' ),
-					esc_html( number_format_i18n( min( Claims::count( $post_id ), (int) $fields['quantity'] ) ) ),
-					esc_html( number_format_i18n( (int) $fields['quantity'] ) )
+					esc_html( number_format_i18n( $bought ) ),
+					esc_html( number_format_i18n( $quantity ) )
 				);
 				break;
 		}
@@ -231,20 +304,49 @@ final class List_Tables {
 		}
 
 		$list_id = isset( $_GET[ self::FILTER_ARG ] ) ? absint( wp_unslash( $_GET[ self::FILTER_ARG ] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- a list filter.
+		$orderby = (string) $query->get( 'orderby' );
+		$meta    = array();
 
-		if ( 0 >= $list_id ) {
-			return;
+		if ( 0 < $list_id ) {
+			$meta[] = array(
+				'key'   => Fields::meta_key( 'list' ),
+				'value' => (string) $list_id,
+			);
 		}
 
-		$query->set(
-			'meta_query',
-			array(
-				array(
-					'key'   => Fields::meta_key( 'list' ),
-					'value' => (string) $list_id,
-				),
-			)
+		$sort_keys = array(
+			'baukasten_wl_priority' => 'priority',
+			'baukasten_wl_price'    => 'price',
 		);
+
+		if ( isset( $sort_keys[ $orderby ] ) ) {
+			// A named clause that also matches wishes without the field, so
+			// sorting by price does not hide the wishes that have none.
+			$meta['baukasten_wl_sort'] = array(
+				'relation'               => 'OR',
+				'baukasten_wl_sort_has'  => array(
+					'key'     => Fields::meta_key( $sort_keys[ $orderby ] ),
+					'compare' => 'EXISTS',
+					'type'    => 'DECIMAL(10,2)',
+				),
+				'baukasten_wl_sort_none' => array(
+					'key'     => Fields::meta_key( $sort_keys[ $orderby ] ),
+					'compare' => 'NOT EXISTS',
+				),
+			);
+
+			$query->set(
+				'orderby',
+				array(
+					'baukasten_wl_sort_has' => 'asc' === strtolower( (string) $query->get( 'order' ) ) ? 'ASC' : 'DESC',
+					'title'                 => 'ASC',
+				)
+			);
+		}
+
+		if ( array() !== $meta ) {
+			$query->set( 'meta_query', $meta ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- the admin list, paged.
+		}
 	}
 
 	/**
